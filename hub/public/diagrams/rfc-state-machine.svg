@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">The RFC state machine</title>
+  <desc id="desc">A directed graph showing the RFC progression from Draft through Discussion to Published, with terminal states Committed and Abandoned. Each transition is labelled with the trigger.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; --terminal: #10B981; --terminal-bad: #EF4444; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; }
+      }
+      .bg { fill: var(--bg); }
+      .state { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .state-terminal-good { fill: var(--bg); stroke: var(--terminal); stroke-width: 3; }
+      .state-terminal-bad { fill: var(--bg); stroke: var(--terminal-bad); stroke-width: 3; }
+      .edge { stroke: var(--fg); fill: none; stroke-width: 1.75; }
+      .edge-bad { stroke: var(--terminal-bad); fill: none; stroke-width: 1.5; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .title { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: var(--fg-muted); }
+      .state-name { font-size: 17px; font-weight: 700; }
+      .state-sub { font-size: 12px; fill: var(--fg-muted); }
+      .trigger { font-size: 12px; font-weight: 600; fill: var(--fg-muted); letter-spacing: 0.2px; }
+      .terminal-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+      .terminal-tag-good { fill: #047857; }
+      .terminal-tag-bad { fill: #B91C1C; }
+      @media (prefers-color-scheme: dark) {
+        .terminal-tag-good { fill: #34D399; }
+        .terminal-tag-bad { fill: #FCA5A5; }
+      }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--fg)"/>
+    </marker>
+    <marker id="arrow-bad" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--terminal-bad)"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="620"/>
+
+  <!-- Title -->
+  <text x="600" y="44" text-anchor="middle" class="title">RFC state machine</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">Draft → Discussion → Published → (Committed | Abandoned). Each arrow is a trigger.</text>
+
+  <!-- Layout: 4 states along the spine -->
+  <!-- Draft (left, y=240) -->
+  <g transform="translate(60, 240)">
+    <rect class="state" x="0" y="0" width="180" height="100" rx="10"/>
+    <text x="90" y="38" text-anchor="middle" class="state-name">Draft</text>
+    <text x="90" y="62" text-anchor="middle" class="state-sub">private branch</text>
+    <text x="90" y="80" text-anchor="middle" class="state-sub">no quorum yet</text>
+  </g>
+
+  <!-- Discussion -->
+  <g transform="translate(320, 240)">
+    <rect class="state" x="0" y="0" width="180" height="100" rx="10"/>
+    <text x="90" y="38" text-anchor="middle" class="state-name">Discussion</text>
+    <text x="90" y="62" text-anchor="middle" class="state-sub">comment window open</text>
+    <text x="90" y="80" text-anchor="middle" class="state-sub">stakeholders pulled</text>
+  </g>
+
+  <!-- Published -->
+  <g transform="translate(580, 240)">
+    <rect class="state" x="0" y="0" width="180" height="100" rx="10"/>
+    <text x="90" y="38" text-anchor="middle" class="state-name">Published</text>
+    <text x="90" y="62" text-anchor="middle" class="state-sub">rough consensus</text>
+    <text x="90" y="80" text-anchor="middle" class="state-sub">awaiting decision</text>
+  </g>
+
+  <!-- Committed (terminal, top-right) -->
+  <g transform="translate(900, 130)">
+    <rect class="state-terminal-good" x="0" y="0" width="220" height="110" rx="10"/>
+    <text x="20" y="26" class="terminal-tag terminal-tag-good">TERMINAL · ACCEPTED</text>
+    <text x="110" y="58" text-anchor="middle" class="state-name">Committed</text>
+    <text x="110" y="82" text-anchor="middle" class="state-sub">archived, immutable</text>
+    <text x="110" y="100" text-anchor="middle" class="state-sub">supersedes prior decisions</text>
+  </g>
+
+  <!-- Abandoned (terminal, bottom-right) -->
+  <g transform="translate(900, 350)">
+    <rect class="state-terminal-bad" x="0" y="0" width="220" height="110" rx="10"/>
+    <text x="20" y="26" class="terminal-tag terminal-tag-bad">TERMINAL · WITHDRAWN</text>
+    <text x="110" y="58" text-anchor="middle" class="state-name">Abandoned</text>
+    <text x="110" y="82" text-anchor="middle" class="state-sub">archived, immutable</text>
+    <text x="110" y="100" text-anchor="middle" class="state-sub">recorded for future readers</text>
+  </g>
+
+  <!-- Edges -->
+  <!-- Draft → Discussion -->
+  <line class="edge" x1="240" y1="290" x2="320" y2="290" marker-end="url(#arrow)"/>
+  <text x="280" y="280" text-anchor="middle" class="trigger">author opens for review</text>
+
+  <!-- Discussion → Published -->
+  <line class="edge" x1="500" y1="290" x2="580" y2="290" marker-end="url(#arrow)"/>
+  <text x="540" y="280" text-anchor="middle" class="trigger">comment window closes</text>
+
+  <!-- Published → Committed -->
+  <path class="edge" d="M 760 270 L 830 220 L 900 190" marker-end="url(#arrow)"/>
+  <text x="780" y="210" text-anchor="middle" class="trigger">approver decides ACCEPT</text>
+
+  <!-- Published → Abandoned -->
+  <path class="edge-bad" d="M 760 310 L 830 370 L 900 400" marker-end="url(#arrow-bad)"/>
+  <text x="780" y="395" text-anchor="middle" class="trigger" style="fill: #B91C1C;">approver decides REJECT</text>
+
+  <!-- Author-withdraw transitions (from Draft and Discussion, looping to Abandoned) -->
+  <!-- Discussion → Abandoned (under the spine) -->
+  <path class="edge-bad" d="M 410 340 Q 410 480 700 480 Q 900 480 900 410" marker-end="url(#arrow-bad)"/>
+  <text x="600" y="495" text-anchor="middle" class="trigger" style="fill: #B91C1C;">author withdraws · supersedes by another RFC</text>
+
+  <!-- Self-loop on Discussion: revise based on comments -->
+  <path class="edge" d="M 410 240 Q 410 180 460 200 Q 510 220 500 240" marker-end="url(#arrow)"/>
+  <text x="460" y="172" text-anchor="middle" class="trigger">revise (loop)</text>
+
+  <!-- Footer legend strip -->
+  <g transform="translate(60, 560)">
+    <text x="0" y="14" class="trigger" style="font-weight: 700;">LEGEND</text>
+    <line class="edge" x1="80" y1="10" x2="120" y2="10"/>
+    <text x="128" y="14" class="trigger">forward transition</text>
+    <line class="edge-bad" x1="280" y1="10" x2="320" y2="10"/>
+    <text x="328" y="14" class="trigger">withdrawal · rejection</text>
+    <rect class="state-terminal-good" x="500" y="2" width="20" height="14" rx="3"/>
+    <text x="528" y="14" class="trigger">terminal · accepted</text>
+    <rect class="state-terminal-bad" x="680" y="2" width="20" height="14" rx="3"/>
+    <text x="708" y="14" class="trigger">terminal · withdrawn</text>
+  </g>
+
+  <text x="600" y="600" text-anchor="middle" class="subtitle">Adapted from IETF RFC 7282 (rough consensus) and Oxide's RFD-1 (state-machine for written decisions).</text>
+</svg>

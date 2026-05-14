@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">The nine-layer Enablement Stack</title>
+  <desc id="desc">Nine horizontal layers from Foundation at the bottom to Infrastructure at the top, each with a status indicator and the belt that primarily lives there.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; }
+      }
+      .bg { fill: var(--bg); }
+      .layer { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .hairline { stroke: var(--hairline); fill: none; stroke-width: 1; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .title { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: var(--fg-muted); }
+      .layer-num { font-size: 12px; font-weight: 700; fill: var(--fg-muted); letter-spacing: 1px; }
+      .layer-name { font-size: 16px; font-weight: 700; }
+      .layer-detail { font-size: 12px; fill: var(--fg-muted); }
+      .status-built { fill: #10B981; }
+      .status-progress { fill: #F59E0B; }
+      .status-gap { fill: #EF4444; }
+      .belt-tag { font-size: 12px; font-weight: 600; fill: var(--fg-muted); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="760"/>
+
+  <!-- Title -->
+  <text x="600" y="42" text-anchor="middle" class="title">The 9-layer Enablement Stack</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">The org-level layers Razorpay is building so individual builders can exist at all.</text>
+
+  <!-- Legend -->
+  <g transform="translate(60, 92)">
+    <circle cx="10" cy="10" r="6" class="status-built"/>
+    <text x="24" y="14" class="layer-detail">Built</text>
+    <circle cx="80" cy="10" r="6" class="status-progress"/>
+    <text x="94" y="14" class="layer-detail">In progress</text>
+    <circle cx="200" cy="10" r="6" class="status-gap"/>
+    <text x="214" y="14" class="layer-detail">Gap</text>
+  </g>
+
+  <!-- Layers (top-to-bottom in visual order; layer 8 at top, 0 at bottom) -->
+  <!-- Layer 8: Infrastructure -->
+  <g transform="translate(120, 130)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 8</text>
+    <text x="20" y="42" class="layer-name">Infrastructure · Devstack</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">CI, deploys, build, status page</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">external dependency</text>
+    <circle cx="100" cy="28" r="7" class="status-gap"/>
+  </g>
+
+  <!-- Layer 7: L&D -->
+  <g transform="translate(120, 196)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 7</text>
+    <text x="20" y="42" class="layer-name">L&amp;D · continuous learning</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">Mini L&amp;Ds · Builder Days · this playbook</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">every belt has a touchpoint</text>
+    <circle cx="100" cy="28" r="7" class="status-built"/>
+  </g>
+
+  <!-- Layer 6: Observability -->
+  <g transform="translate(120, 262)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 6</text>
+    <text x="20" y="42" class="layer-name">Observability &amp; adoption</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">skill traces, adoption metrics, signal loops</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">⚫ Black Belt Part C</text>
+    <circle cx="100" cy="28" r="7" class="status-gap"/>
+  </g>
+
+  <!-- Layer 5: Intelligence -->
+  <g transform="translate(120, 328)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 5</text>
+    <text x="20" y="42" class="layer-name">Intelligence &amp; discovery</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">analytics, market research, VoC integrations</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">⚫ Black Belt Part A</text>
+    <circle cx="100" cy="28" r="7" class="status-progress"/>
+  </g>
+
+  <!-- Layer 4: Design System -->
+  <g transform="translate(120, 394)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 4</text>
+    <text x="20" y="42" class="layer-name">Design system · Blade ecosystem</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">component pipeline, compliance, motion presets</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">🟢 Green Part B + ⚫ Black</text>
+    <circle cx="100" cy="28" r="7" class="status-progress"/>
+  </g>
+
+  <!-- Layer 3: KB -->
+  <g transform="translate(120, 460)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 3</text>
+    <text x="20" y="42" class="layer-name">Knowledge base · Razorpay context</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">repo maps, test creds, flags, error patterns</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">🟢 Green Belt + Appendix D</text>
+    <circle cx="100" cy="28" r="7" class="status-progress"/>
+  </g>
+
+  <!-- Layer 2: AI Workflow -->
+  <g transform="translate(120, 526)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 2</text>
+    <text x="20" y="42" class="layer-name">AI workflow · skill infrastructure</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">design-intel → build → pre-ship-check → PR</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">🟡 Yellow + 🟢 Green Part A</text>
+    <circle cx="100" cy="28" r="7" class="status-built"/>
+  </g>
+
+  <!-- Layer 1: Collaboration -->
+  <g transform="translate(120, 592)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 1</text>
+    <text x="20" y="42" class="layer-name">Collaboration · preview rails</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">per-branch URLs, ingress, VPN access</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">🟡 Yellow Belt (design track)</text>
+    <circle cx="100" cy="28" r="7" class="status-progress"/>
+  </g>
+
+  <!-- Layer 0: Foundation -->
+  <g transform="translate(120, 658)">
+    <rect class="layer" x="0" y="0" width="960" height="56" rx="8"/>
+    <text x="20" y="22" class="layer-num">LAYER 0</text>
+    <text x="20" y="42" class="layer-name">Foundation · environment &amp; access</text>
+    <text x="940" y="22" text-anchor="end" class="layer-detail">setup script · cert trust · npm registry · gateway</text>
+    <text x="940" y="42" text-anchor="end" class="belt-tag">⚪ White Belt</text>
+    <circle cx="100" cy="28" r="7" class="status-built"/>
+  </g>
+</svg>

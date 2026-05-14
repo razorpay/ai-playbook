@@ -1,0 +1,38 @@
+Section         Files   Lines   Em-dash/file  Shorthand  Placeholder    POD
+----------------------------------------------------------------------------
+Foundation         24    3644           26.8          1            1      1
+Prologue           13    1907           24.8          0            9      9
+White Belt         17    2851            0.0          0           10      0
+Yellow Belt        19    3390            1.8          0            2      0
+Green Belt         36    6913           19.6          3           20      0
+Black Belt         24    4701           25.4         10           75    149
+Appendices         15    2487           20.6          0            6      0
+
+Top 25 worst-offender files (composite score):
+
+  #  Em-dash   Sh   Pl  POD  Lines  Score  Path
+  1       41    0    0    0    120  102.5  foundation/README.md
+  2       39    0    0    0    134   87.3  belts/03-green/README.md
+  3       36    0    3   76    253   83.7  belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md
+  4       46    0    0    0    169   81.7  prologue/07-operating-principles.md
+  5       41    0    0    0    153   80.4  foundation/tech-101/08-build-deploy.md
+  6       37    0    0    0    147   75.5  appendices/N-methodologies/N5-three-pillars.md
+  7       33    0    0    0    132   75.0  foundation/tech-101/06-code-is-text.md
+  8       53    0    1    4    224   74.0  prologue/04-enablement-stack.md
+  9       43    0    1    0    183   71.5  foundation/ops-101/02-non-coding-ai-surface.md
+ 10       43    0    0    0    188   68.6  appendices/N-methodologies/N4-llm-wiki.md
+ 11       27    0    1    6    126   68.3  belts/04-black/c-org/README.md
+ 12       32    0    0    1    144   67.2  prologue/02-bd1-bd2-origin.md
+ 13       17    0    0    0     77   66.2  belts/03-green/b-practices/README.md
+ 14       20    0    0    0     93   64.5  foundation/ops-101/README.md
+ 15       26    0    1    5    129   64.0  belts/04-black/README.md
+ 16       33    0    0    0    155   63.9  foundation/tech-101/03-server-client-http.md
+ 17       39    0    6    6    217   62.9  belts/04-black/c-org/B12-running-office-hours.md
+ 18       23    0    0    1    111   62.7  foundation/ops-101/01-why-this-track.md
+ 19       35    0    1    0    171   62.4  prologue/05-tool-tour.md
+ 20       26    0    0    0    128   60.9  foundation/tech-101/02-frontend-vs-backend.md
+ 21       28    0    0    0    139   60.4  foundation/tech-101/04-databases.md
+ 22       32    0    0    0    163   58.9  appendices/N-methodologies/N3-gsd.md
+ 23       25    0    7   27    199   58.2  belts/04-black/c-org/B13-embedded-sprints.md
+ 24       48    0    0    0    248   58.1  prologue/03-mental-model.md
+ 25       34    0    0    0    176   58.0  foundation/tech-101/10-shape-of-a-software-org.md

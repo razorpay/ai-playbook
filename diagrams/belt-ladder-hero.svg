@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">The Razorpay AI Playbook belt ladder</title>
+  <desc id="desc">A vertical ladder of six tiers from Foundation through White, Yellow, Green, and Black Belt up to the Staff+ Council, with promises, time budgets, and graded artefacts for each tier.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; }
+      }
+      .bg { fill: var(--bg); }
+      .stroke { stroke: var(--fg); fill: none; stroke-width: 2; }
+      .hairline { stroke: var(--hairline); fill: none; stroke-width: 1; }
+      .tier-box { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .tier-band { stroke: var(--fg); stroke-width: 1.5; opacity: 0.5; fill: none; }
+      .belt-white { fill: #E5E7EB; }
+      .belt-yellow { fill: #F59E0B; }
+      .belt-green { fill: #10B981; }
+      .belt-black { fill: #1F2937; }
+      .belt-council { fill: #6366F1; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .tier-name { font-size: 22px; font-weight: 700; }
+      .promise { font-size: 14px; font-weight: 400; fill: var(--fg-muted); }
+      .time { font-size: 12px; font-weight: 500; fill: var(--fg-muted); }
+      .gate-text { font-size: 11px; font-weight: 600; fill: var(--fg-muted); letter-spacing: 0.5px; }
+      .belt-dot-stroke { stroke: var(--fg); stroke-width: 1.5; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--fg)"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="760"/>
+
+  <!-- Title -->
+  <text x="600" y="48" text-anchor="middle" style="font-size: 24px; font-weight: 700;">The belt ladder</text>
+  <text x="600" y="74" text-anchor="middle" class="promise">From first commit to the senior-IC community above the belts.</text>
+
+  <!-- Tier 6: Council (top) -->
+  <g transform="translate(160, 110)">
+    <rect class="tier-box" x="0" y="0" width="880" height="76" rx="8"/>
+    <circle cx="42" cy="38" r="16" class="belt-council belt-dot-stroke"/>
+    <text x="80" y="34" class="tier-name">Staff+ Council</text>
+    <text x="80" y="56" class="promise">I shape the program over multi-year horizons. Invitation only.</text>
+    <text x="860" y="34" text-anchor="end" class="time">∞ · Senior IC</text>
+    <text x="860" y="56" text-anchor="end" class="time">Council charter · RFCs · mentoring</text>
+  </g>
+
+  <!-- Transition: invitation (arrow points UP — progression direction) -->
+  <g>
+    <line class="stroke" x1="600" y1="220" x2="600" y2="190" marker-end="url(#arrowhead)"/>
+    <text x="612" y="208" class="gate-text">invitation</text>
+  </g>
+
+  <!-- Tier 5: Black Belt -->
+  <g transform="translate(160, 226)">
+    <rect class="tier-box" x="0" y="0" width="880" height="76" rx="8"/>
+    <circle cx="42" cy="38" r="16" class="belt-black belt-dot-stroke"/>
+    <text x="80" y="34" class="tier-name">⚫  Black Belt</text>
+    <text x="80" y="56" class="promise">I am a force multiplier. Skills, MCPs, agents — the leverage others run on.</text>
+    <text x="860" y="34" text-anchor="end" class="time">15–25h · L3</text>
+    <text x="860" y="56" text-anchor="end" class="time">Quests B-1, B-2 · Boss Fight B-B · badge</text>
+  </g>
+
+  <!-- Transition: boss fight B-B (arrow points UP) -->
+  <g>
+    <line class="stroke" x1="600" y1="336" x2="600" y2="306" marker-end="url(#arrowhead)"/>
+    <text x="612" y="324" class="gate-text">Boss Fight B-B</text>
+  </g>
+
+  <!-- Tier 4: Green Belt -->
+  <g transform="translate(160, 342)">
+    <rect class="tier-box" x="0" y="0" width="880" height="76" rx="8"/>
+    <circle cx="42" cy="38" r="16" class="belt-green belt-dot-stroke"/>
+    <text x="80" y="34" class="tier-name">🟢  Green Belt</text>
+    <text x="80" y="56" class="promise">My team moves faster. Skills, subagents, fintech guardrails.</text>
+    <text x="860" y="34" text-anchor="end" class="time">10–14h · L2</text>
+    <text x="860" y="56" text-anchor="end" class="time">Quests G-1, G-2 · Boss Fight G-B · badge</text>
+  </g>
+
+  <!-- Transition: double-ship (arrow points UP) -->
+  <g>
+    <line class="stroke" x1="600" y1="452" x2="600" y2="422" marker-end="url(#arrowhead)"/>
+    <text x="612" y="440" class="gate-text">Boss Fight G-B (double-ship)</text>
+  </g>
+
+  <!-- Tier 3: Yellow Belt -->
+  <g transform="translate(160, 458)">
+    <rect class="tier-box" x="0" y="0" width="880" height="76" rx="8"/>
+    <circle cx="42" cy="38" r="16" class="belt-yellow belt-dot-stroke"/>
+    <text x="80" y="34" class="tier-name">🟡  Yellow Belt</text>
+    <text x="80" y="56" class="promise">I build with AI daily. I find and fix things in surfaces I care about.</text>
+    <text x="860" y="34" text-anchor="end" class="time">6–8h · L1</text>
+    <text x="860" y="56" text-anchor="end" class="time">Quests Y-1, Y-2 · Boss Fight Y-B</text>
+  </g>
+
+  <!-- Transition: bug-fix in your area (arrow points UP) -->
+  <g>
+    <line class="stroke" x1="600" y1="568" x2="600" y2="538" marker-end="url(#arrowhead)"/>
+    <text x="612" y="556" class="gate-text">Boss Fight Y-B (bug in your area)</text>
+  </g>
+
+  <!-- Tier 2: White Belt -->
+  <g transform="translate(160, 574)">
+    <rect class="tier-box" x="0" y="0" width="880" height="76" rx="8"/>
+    <circle cx="42" cy="38" r="16" class="belt-white belt-dot-stroke"/>
+    <text x="80" y="34" class="tier-name">⚪  White Belt</text>
+    <text x="80" y="56" class="promise">I have shipped code. Setup green, first commit, first PR merged.</text>
+    <text x="860" y="34" text-anchor="end" class="time">4–6h · L0 → L1</text>
+    <text x="860" y="56" text-anchor="end" class="time">Quests W-0, W-1 · Boss Fight W-B</text>
+  </g>
+
+  <!-- Transition: setup-verify all-green (arrow points UP) -->
+  <g>
+    <line class="stroke" x1="600" y1="684" x2="600" y2="654" marker-end="url(#arrowhead)"/>
+    <text x="612" y="672" class="gate-text">setup-verify all GREEN</text>
+  </g>
+
+  <!-- Tier 1: Foundation (bottom) -->
+  <g transform="translate(160, 690)">
+    <rect class="tier-box" x="0" y="0" width="880" height="60" rx="8" stroke-dasharray="6 6"/>
+    <text x="42" y="34" class="tier-name" style="font-size: 18px;">Part 0 — Foundation</text>
+    <text x="42" y="52" class="promise">Tech 101 + Ops 101. Pre-tools, pre-AI. The pre-belt orientation.</text>
+    <text x="860" y="34" text-anchor="end" class="time">4–6h · pre-L0</text>
+  </g>
+</svg>

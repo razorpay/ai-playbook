@@ -1,0 +1,3034 @@
+version: "0.22-alpha"
+updated: "2026-05-12"
+source_of_truth: "frontmatter"
+status_values: ["drafted", "in-progress", "planned", "deprecated"]
+
+chapters:
+  - slug: "/"
+    path: "README.md"
+    title: "Razorpay Org-Wide AI Playbook"
+    section: "root"
+    track: null
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Know what this playbook is, what version you are holding, and where to start."
+    prev: null
+    next: "foundation"
+    pillar: null
+    belt: null
+    tags: ["orientation"]
+    updated: "2026-04-27"
+  - slug: "master-index"
+    path: "INDEX.md"
+    title: "Razorpay Org-Wide AI Playbook — Master Index"
+    section: "root"
+    track: null
+    status: "drafted"
+    type: "index"
+    order: 1
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Navigate the complete playbook structure."
+    prev: "/"
+    next: "foundation"
+    pillar: null
+    belt: null
+    tags: ["index"]
+    updated: "2026-04-27"
+  - slug: "foundation"
+    path: "foundation/README.md"
+    title: "Part 0 — Foundation"
+    section: "foundation"
+    track: null
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Know whether to start with Tech 101, Ops 101, or skip straight to the Prologue."
+    prev: null
+    next: "tech-101"
+    pillar: null
+    belt: null
+    tags: ["orientation"]
+    updated: "2026-04-27"
+  - slug: "tech-101"
+    path: "foundation/tech-101/README.md"
+    title: "Tech 101: What is this world I'm in?"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 3
+    audience: "anyone-curious"
+    outcome: "Understand what the Tech 101 track covers and how to read it."
+    prev: "foundation"
+    next: "tech-101/what-is-software"
+    pillar: null
+    belt: null
+    tags: ["tech-101"]
+    updated: "2026-04-27"
+  - slug: "tech-101/what-is-software"
+    path: "foundation/tech-101/01-what-is-software.md"
+    title: "What is software, really?"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 5
+    audience: "anyone-curious"
+    outcome: "A one-sentence answer to what software is and why it matters."
+    prev: "tech-101"
+    next: "tech-101/frontend-vs-backend"
+    pillar: null
+    belt: null
+    tags: ["software-basics"]
+    updated: "2026-04-26"
+  - slug: "tech-101/frontend-vs-backend"
+    path: "foundation/tech-101/02-frontend-vs-backend.md"
+    title: "Frontend vs backend"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 10
+    audience: "anyone-curious"
+    outcome: "Understand which side of a product change lives on the frontend, backend, or between them."
+    prev: "tech-101/what-is-software"
+    next: "tech-101/server-client-http"
+    pillar: null
+    belt: null
+    tags: ["software-basics"]
+    updated: "2026-04-26"
+  - slug: "tech-101/server-client-http"
+    path: "foundation/tech-101/03-server-client-http.md"
+    title: "What is a server? What is a client? What is HTTP?"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 10
+    audience: "anyone-curious"
+    outcome: "Understand the request-and-response conversation behind most software."
+    prev: "tech-101/frontend-vs-backend"
+    next: "tech-101/databases"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "http"]
+    updated: "2026-04-26"
+  - slug: "tech-101/databases"
+    path: "foundation/tech-101/04-databases.md"
+    title: "Databases: the world's most important spreadsheet"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 8
+    audience: "anyone-curious"
+    outcome: "Know why products need durable structured storage and what can go wrong around it."
+    prev: "tech-101/server-client-http"
+    next: "tech-101/api-vs-ui"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "databases"]
+    updated: "2026-04-26"
+  - slug: "tech-101/api-vs-ui"
+    path: "foundation/tech-101/05-api-vs-ui.md"
+    title: "What is an API? What is a UI?"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 8
+    audience: "anyone-curious"
+    outcome: "Tell the difference between a human-facing surface and a machine-facing contract."
+    prev: "tech-101/databases"
+    next: "tech-101/code-is-text"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "apis"]
+    updated: "2026-04-26"
+  - slug: "tech-101/code-is-text"
+    path: "foundation/tech-101/06-code-is-text.md"
+    title: "Code is text: repos, files, the source of truth"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 5
+    audience: "anyone-curious"
+    outcome: "See code as editable text stored in shared repositories, not as magic behind a screen."
+    prev: "tech-101/api-vs-ui"
+    next: "tech-101/git"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "repos"]
+    updated: "2026-04-26"
+  - slug: "tech-101/git"
+    path: "foundation/tech-101/07-git-concepts.md"
+    title: "Git, conceptually: save points for files"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 8
+    audience: "anyone-curious"
+    outcome: "Understand commits, branches, and pull requests as collaboration primitives."
+    prev: "tech-101/code-is-text"
+    next: "tech-101/build-deploy"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "git"]
+    updated: "2026-04-26"
+  - slug: "tech-101/build-deploy"
+    path: "foundation/tech-101/08-build-deploy.md"
+    title: "Build, deploy, staging, production"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 10
+    audience: "anyone-curious"
+    outcome: "Understand the journey from a code change to something users can touch."
+    prev: "tech-101/git"
+    next: "tech-101/tests"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "deploy"]
+    updated: "2026-04-26"
+  - slug: "tech-101/tests"
+    path: "foundation/tech-101/09-tests.md"
+    title: "Tests: what they are, why they exist"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 9
+    time_minutes: 8
+    audience: "anyone-curious"
+    outcome: "Know why a green test suite is evidence, not ceremony."
+    prev: "tech-101/build-deploy"
+    next: "tech-101/shape-of-a-software-org"
+    pillar: null
+    belt: null
+    tags: ["software-basics", "testing"]
+    updated: "2026-04-26"
+  - slug: "tech-101/shape-of-a-software-org"
+    path: "foundation/tech-101/10-shape-of-a-software-org.md"
+    title: "The shape of a software org"
+    section: "foundation"
+    track: "tech-101"
+    status: "drafted"
+    type: "chapter"
+    order: 10
+    time_minutes: 10
+    audience: "anyone-curious"
+    outcome: "Understand the roles around software work and how they collaborate."
+    prev: "tech-101/tests"
+    next: null
+    pillar: null
+    belt: null
+    tags: ["software-basics", "roles"]
+    updated: "2026-04-26"
+  - slug: "ops-101"
+    path: "foundation/ops-101/README.md"
+    title: "Ops 101: Save 4+ hours a week without writing code"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 3
+    audience: "pm-designer-ops"
+    outcome: "Understand the Ops 101 promise and the route through chapters, quests, and boss fight."
+    prev: "foundation"
+    next: "ops-101/why-this-track"
+    pillar: null
+    belt: null
+    tags: ["ops-101"]
+    updated: "2026-04-27"
+  - slug: "ops-101/why-this-track"
+    path: "foundation/ops-101/01-why-this-track.md"
+    title: "Why this track exists"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 5
+    audience: "pm-designer-ops"
+    outcome: "Name the ops tax AI can eat and choose one place to start reclaiming time."
+    prev: "ops-101"
+    next: "ops-101/non-coding-ai-surface"
+    pillar: null
+    belt: null
+    tags: ["ops-101"]
+    updated: "2026-04-26"
+  - slug: "ops-101/non-coding-ai-surface"
+    path: "foundation/ops-101/02-non-coding-ai-surface.md"
+    title: "The non-coding AI surface"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 15
+    audience: "pm-designer-ops"
+    outcome: "Know which non-coding AI surface to reach for and what connectors change."
+    prev: "ops-101/why-this-track"
+    next: "ops-101/triage-automations"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "connectors"]
+    updated: "2026-04-26"
+  - slug: "ops-101/triage-automations"
+    path: "foundation/ops-101/03-triage-automations.md"
+    title: "Triage automations"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 25
+    audience: "pm-designer-ops"
+    outcome: "Turn recurring inbox, Slack, or queue triage into a repeatable AI-assisted workflow."
+    prev: "ops-101/non-coding-ai-surface"
+    next: "ops-101/generation-automations"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "automation"]
+    updated: "2026-04-26"
+  - slug: "ops-101/generation-automations"
+    path: "foundation/ops-101/04-generation-automations.md"
+    title: "Generation automations"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 25
+    audience: "pm-designer-ops"
+    outcome: "Automate recurring outbound writing without losing judgement or accountability."
+    prev: "ops-101/triage-automations"
+    next: "ops-101/ticket-automations"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "automation"]
+    updated: "2026-04-26"
+  - slug: "ops-101/ticket-automations"
+    path: "foundation/ops-101/05-ticket-automations.md"
+    title: "Ticket automations"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 25
+    audience: "pm-designer-ops"
+    outcome: "Draft, route, and digest tickets with AI while keeping ownership human."
+    prev: "ops-101/generation-automations"
+    next: "ops-101/document-workflows"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "automation", "tickets"]
+    updated: "2026-04-26"
+  - slug: "ops-101/document-workflows"
+    path: "foundation/ops-101/06-document-workflows.md"
+    title: "Document workflows"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 30
+    audience: "pm-designer-ops"
+    outcome: "Use AI to research, draft, review, and export documents with less blank-page friction."
+    prev: "ops-101/ticket-automations"
+    next: "ops-101/lightweight-agents"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "documents"]
+    updated: "2026-04-26"
+  - slug: "ops-101/lightweight-agents"
+    path: "foundation/ops-101/07-lightweight-agents.md"
+    title: "Lightweight agents"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 25
+    audience: "pm-designer-ops"
+    outcome: "Recognise when a repeated recipe deserves a configured agent and how to keep it useful."
+    prev: "ops-101/document-workflows"
+    next: "ops-101/minimum-viable-wiki"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "agents"]
+    updated: "2026-04-26"
+  - slug: "ops-101/minimum-viable-wiki"
+    path: "foundation/ops-101/08-minimum-viable-wiki.md"
+    title: "Building your own minimum viable wiki for any project"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 20
+    audience: "pm-designer-ops"
+    outcome: "Set up a small project wiki that lets AI work with memory instead of repeated context."
+    prev: "ops-101/lightweight-agents"
+    next: "ops-101/quest-30-minute-teardown"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "knowledge-base"]
+    updated: "2026-04-26"
+  - slug: "ops-101/quest-30-minute-teardown"
+    path: "foundation/ops-101/quest-0B1.md"
+    title: "Quest 0B-1: The 30-minute teardown"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "quest"
+    order: 9
+    time_minutes: 30
+    audience: "pm-designer-ops"
+    outcome: "Replace one recurring 30-minute ops task with a Claude-assisted workflow and measure the before/after."
+    prev: "ops-101/minimum-viable-wiki"
+    next: "ops-101/quest-agent-diary"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "quest", "automation"]
+    updated: "2026-04-27"
+  - slug: "ops-101/quest-agent-diary"
+    path: "foundation/ops-101/quest-0B2.md"
+    title: "Quest 0B-2: The agent diary"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "quest"
+    order: 10
+    time_minutes: 20
+    audience: "pm-designer-ops"
+    outcome: "Keep a two-week diary of routine work that could become configured-agent territory."
+    prev: "ops-101/quest-30-minute-teardown"
+    next: "ops-101/boss-fight"
+    pillar: null
+    belt: null
+    tags: ["ops-101", "quest", "agents"]
+    updated: "2026-04-27"
+  - slug: "ops-101/boss-fight"
+    path: "foundation/ops-101/boss-fight-0B.md"
+    title: "Boss Fight 0B: Automate one workflow that saves 4+ hours/week"
+    section: "foundation"
+    track: "ops-101"
+    status: "drafted"
+    type: "boss-fight"
+    order: 11
+    time_minutes: 120
+    audience: "pm-designer-ops"
+    outcome: "Run one safe automation for two weeks, prove it saves time, and document the recipe for a teammate."
+    prev: "ops-101/quest-agent-diary"
+    next: null
+    pillar: null
+    belt: null
+    tags: ["ops-101", "boss-fight", "automation"]
+    updated: "2026-04-27"
+  - slug: "prologue"
+    path: "prologue/README.md"
+    title: "Prologue: Before You Begin"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Know what the Prologue covers and why it comes before the belts."
+    prev: "foundation"
+    next: "prologue/welcome"
+    pillar: null
+    belt: null
+    tags: ["orientation"]
+    updated: "2026-04-27"
+  - slug: "prologue/welcome"
+    path: "prologue/01-welcome.md"
+    title: "Welcome, and why this playbook exists"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Understand the program promise and what shipped code means here."
+    prev: "prologue"
+    next: "prologue/origin-story"
+    pillar: null
+    belt: null
+    tags: ["orientation"]
+    updated: "2026-04-26"
+  - slug: "prologue/origin-story"
+    path: "prologue/02-bd1-bd2-origin.md"
+    title: "The origin story"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 8
+    audience: "everyone"
+    outcome: "Understand why setup is Layer 0 and what changed between the first two Builder Days."
+    prev: "prologue/welcome"
+    next: "prologue/self-assessment"
+    pillar: null
+    belt: null
+    tags: ["orientation", "builder-day"]
+    updated: "2026-04-26"
+  - slug: "prologue/mental-model"
+    path: "prologue/03-mental-model.md"
+    title: "The 5-Layer Mental Model of the AI Dev Stack"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Be able to draw the five-layer stack and use it to debug where work is stuck."
+    prev: "prologue/self-assessment"
+    next: "prologue/tool-tour"
+    pillar: null
+    belt: null
+    tags: ["orientation", "mental-model"]
+    updated: "2026-04-26"
+  - slug: "prologue/enablement-stack"
+    path: "prologue/04-enablement-stack.md"
+    title: "The Enablement Stack"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 10
+    time_minutes: 10
+    audience: "leads"
+    outcome: "See the nine org-level layers the belt system climbs."
+    prev: "prologue/how-to-lead"
+    next: "prologue/safety-brief"
+    pillar: null
+    belt: null
+    tags: ["orientation", "enablement", "leadership"]
+    updated: "2026-04-26"
+  - slug: "prologue/tool-tour"
+    path: "prologue/05-tool-tour.md"
+    title: "Meet your tools"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Tell Claude Code, Claude.ai, Cowork, Compass, Slash, Cursor, and Codex apart."
+    prev: "prologue/mental-model"
+    next: "prologue/roles-and-forums"
+    pillar: null
+    belt: null
+    tags: ["orientation", "tools"]
+    updated: "2026-04-26"
+  - slug: "prologue/roles-and-forums"
+    path: "prologue/06-people-and-pocs.md"
+    title: "Meet the people"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Know where to ask for help and which support surface fits which problem."
+    prev: "prologue/tool-tour"
+    next: "prologue/operating-principles"
+    pillar: null
+    belt: null
+    tags: ["orientation", "support", "directory"]
+    updated: "2026-05-13"
+  - slug: "prologue/operating-principles"
+    path: "prologue/07-operating-principles.md"
+    title: "Operating Principles"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Understand knowledge-base-driven development as the operating philosophy of the playbook."
+    prev: "prologue/roles-and-forums"
+    next: "prologue/how-to-read"
+    pillar: null
+    belt: null
+    tags: ["orientation", "knowledge-base"]
+    updated: "2026-04-26"
+  - slug: "prologue/how-to-read"
+    path: "prologue/08-how-to-read.md"
+    title: "How to use this playbook as a reader"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Know the fastest honest route through the playbook for your current starting point."
+    prev: "prologue/operating-principles"
+    next: "prologue/how-to-lead"
+    pillar: null
+    belt: null
+    tags: ["orientation", "navigation"]
+    updated: "2026-04-27"
+  - slug: "prologue/how-to-lead"
+    path: "prologue/09-how-to-lead.md"
+    title: "How to use this playbook as a team lead"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 9
+    time_minutes: 10
+    audience: "leads"
+    outcome: "Turn the playbook into a team adoption rhythm without turning it into homework."
+    prev: "prologue/how-to-read"
+    next: "prologue/enablement-stack"
+    pillar: null
+    belt: null
+    tags: ["orientation", "leadership", "adoption"]
+    updated: "2026-04-27"
+  - slug: "prologue/self-assessment"
+    path: "prologue/10-self-assessment.md"
+    title: "Self-assessment: which belt should you start at?"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Choose the right starting point by evidence, not confidence."
+    prev: "prologue/origin-story"
+    next: "prologue/mental-model"
+    pillar: null
+    belt: null
+    tags: ["orientation", "self-assessment", "belts"]
+    updated: "2026-04-27"
+  - slug: "prologue/safety-brief"
+    path: "prologue/11-safety-brief.md"
+    title: "The safety brief"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 11
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Memorise the redlines for prompts and know the reflex that keeps work safe."
+    prev: "prologue/enablement-stack"
+    next: "prologue/whats-shipping"
+    pillar: null
+    belt: null
+    tags: ["security", "safety"]
+    updated: "2026-04-26"
+  - slug: "prologue/whats-shipping"
+    path: "prologue/12-whats-shipping.md"
+    title: "What's shipping this week"
+    section: "prologue"
+    track: null
+    status: "drafted"
+    type: "chapter"
+    order: 12
+    time_minutes: 3
+    audience: "everyone"
+    outcome: "Understand that the playbook is alive, what v0.6 contains, and what is still coming."
+    prev: "prologue/safety-brief"
+    next: "belts/white"
+    pillar: null
+    belt: null
+    tags: ["orientation", "changelog"]
+    updated: "2026-04-27"
+  - slug: "belts/white"
+    path: "belts/01-white/README.md"
+    title: "White Belt: The Foundation Layer"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "new-builder"
+    outcome: "Understand the White Belt path, evidence chain, and the exact work required to earn the first belt."
+    prev: "prologue/whats-shipping"
+    next: "belts/white/file-system"
+    pillar: null
+    belt: "white"
+    tags: ["white-belt", "orientation", "certification"]
+    updated: "2026-04-27"
+  - slug: "belts/white/file-system"
+    path: "belts/01-white/W01-file-system.md"
+    title: "The File System"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 20
+    audience: "new-builder"
+    outcome: "Navigate folders, read paths, recognize extensions, and know where you are before running a command."
+    prev: "belts/white"
+    next: "belts/white/terminal-fluency"
+    pillar: "context"
+    belt: "white"
+    tags: ["white-belt", "file-system", "paths"]
+    updated: "2026-04-27"
+  - slug: "belts/white/terminal-fluency"
+    path: "belts/01-white/W02-terminal-fluency.md"
+    title: "Terminal fluency"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 30
+    audience: "new-builder"
+    outcome: "Use the small set of Terminal commands and shortcuts needed for setup, git, and Claude Code."
+    prev: "belts/white/file-system"
+    next: "belts/white/git-as-savepoints"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "terminal", "harness"]
+    updated: "2026-04-27"
+  - slug: "belts/white/git-as-savepoints"
+    path: "belts/01-white/W03-git-as-savepoints.md"
+    title: "Git as save-points"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 45
+    audience: "new-builder"
+    outcome: "Use branches, commits, push, pull, status, and diff as the save-point system behind pull requests."
+    prev: "belts/white/terminal-fluency"
+    next: "belts/white/auth-setup"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "git", "pull-requests"]
+    updated: "2026-04-27"
+  - slug: "belts/white/auth-setup"
+    path: "belts/01-white/W04-auth-setup.md"
+    title: "Your auth setup"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 30
+    audience: "new-builder"
+    outcome: "Understand the auth pieces behind Claude Code, Vertex access, Google SSO, gcloud, and corporate certificate trust."
+    prev: "belts/white/git-as-savepoints"
+    next: "belts/white/installing-the-stack"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "auth", "gcloud", "vertex"]
+    updated: "2026-04-27"
+  - slug: "belts/white/installing-the-stack"
+    path: "belts/01-white/W05-installing-the-stack.md"
+    title: "Installing the stack"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 40
+    audience: "new-builder"
+    outcome: "Install and verify the White Belt tool stack without drifting away from the program-pinned setup path."
+    prev: "belts/white/auth-setup"
+    next: "belts/white/llm-gateway"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
+    updated: "2026-04-27"
+  - slug: "belts/white/llm-gateway"
+    path: "belts/01-white/W06-llm-gateway.md"
+    title: "The LLM Gateway"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 15
+    audience: "new-builder"
+    outcome: "Understand what the model gateway does, what Vertex is responsible for, and what a White Belt reader does not need to debug."
+    prev: "belts/white/installing-the-stack"
+    next: "belts/white/compass-plugin"
+    pillar: "context"
+    belt: "white"
+    tags: ["white-belt", "llm-gateway", "vertex"]
+    updated: "2026-04-27"
+  - slug: "belts/white/compass-plugin"
+    path: "belts/01-white/W07-compass-plugin.md"
+    title: "Compass plugin"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 20
+    audience: "new-builder"
+    outcome: "Understand what the program-pinned plugin is for, how to verify it, and how to avoid stale-plugin drift."
+    prev: "belts/white/llm-gateway"
+    next: "belts/white/green-yellow-red"
+    pillar: "context"
+    belt: "white"
+    tags: ["white-belt", "plugin", "compass"]
+    updated: "2026-04-27"
+  - slug: "belts/white/green-yellow-red"
+    path: "belts/01-white/W08-green-yellow-red.md"
+    title: "GREEN / YELLOW / RED"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 20
+    audience: "new-builder"
+    outcome: "Run the 10-point health check, interpret colour honestly, and route setup failures without wasting a cohort day."
+    prev: "belts/white/compass-plugin"
+    next: "belts/white/first-conversation"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "health-check", "setup-verify"]
+    updated: "2026-04-27"
+  - slug: "belts/white/first-conversation"
+    path: "belts/01-white/W09-first-conversation.md"
+    title: "Your first conversation with Claude Code"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 9
+    time_minutes: 30
+    audience: "new-builder"
+    outcome: "Start Claude Code safely, ask a scoped first question, and review the answer before allowing edits."
+    prev: "belts/white/green-yellow-red"
+    next: "belts/white/prompt-quality-101"
+    pillar: "prompt"
+    belt: "white"
+    tags: ["white-belt", "claude-code", "prompting"]
+    updated: "2026-04-27"
+  - slug: "belts/white/prompt-quality-101"
+    path: "belts/01-white/W10-prompt-quality-101.md"
+    title: "Prompt quality 101"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 10
+    time_minutes: 20
+    audience: "new-builder"
+    outcome: "Turn vague asks into scoped prompts with goal, context, constraints, and success criteria."
+    prev: "belts/white/first-conversation"
+    next: "belts/white/permission-system"
+    pillar: "prompt"
+    belt: "white"
+    tags: ["white-belt", "prompt-quality", "claude-code"]
+    updated: "2026-04-27"
+  - slug: "belts/white/permission-system"
+    path: "belts/01-white/W11-permission-system.md"
+    title: "The permission system"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 11
+    time_minutes: 15
+    audience: "new-builder"
+    outcome: "Respond safely to yes, no, and always-style permission prompts without handing control away."
+    prev: "belts/white/prompt-quality-101"
+    next: "belts/white/first-pr"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "permissions", "safety"]
+    updated: "2026-04-27"
+  - slug: "belts/white/first-pr"
+    path: "belts/01-white/W12-first-pr.md"
+    title: "Your first PR"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "chapter"
+    order: 12
+    time_minutes: 30
+    audience: "new-builder"
+    outcome: "Move one reviewed local change from branch to pull request with a clear title, description, and reviewer path."
+    prev: "belts/white/permission-system"
+    next: "belts/white/quest-turn-green"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "pull-request", "review"]
+    updated: "2026-04-27"
+  - slug: "belts/white/quest-turn-green"
+    path: "belts/01-white/quest-W0-turn-green.md"
+    title: "Quest W-0: Turn GREEN"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "quest"
+    order: 90
+    time_minutes: 60
+    audience: "new-builder"
+    outcome: "Run setup verification, reach all-GREEN status, and capture evidence that the local environment is ready."
+    prev: "belts/white/first-pr"
+    next: "belts/white/quest-hello-razorpay"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "quest", "setup-verify", "evidence"]
+    updated: "2026-04-27"
+  - slug: "belts/white/quest-hello-razorpay"
+    path: "belts/01-white/quest-W1-hello-razorpay.md"
+    title: "Quest W-1: The HelloRazorpay commit"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "quest"
+    order: 91
+    time_minutes: 45
+    audience: "new-builder"
+    outcome: "Open and close a tiny sandbox PR that proves branch, commit, push, and PR mechanics."
+    prev: "belts/white/quest-turn-green"
+    next: "belts/white/boss-fight"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "quest", "pull-request", "sandbox"]
+    updated: "2026-04-27"
+  - slug: "belts/white/boss-fight"
+    path: "belts/01-white/boss-fight-WB-one-real-typo.md"
+    title: "Boss Fight W-B: One real typo, merged"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "boss-fight"
+    order: 99
+    time_minutes: 90
+    audience: "new-builder"
+    outcome: "Find one genuine typo or equivalent micro-fix, use AI assistance to triage it, and land the merged PR."
+    prev: "belts/white/quest-hello-razorpay"
+    next: "belts/white/badge"
+    pillar: "harness"
+    belt: "white"
+    tags: ["white-belt", "boss-fight", "merged-pr"]
+    updated: "2026-04-27"
+  - slug: "belts/white/badge"
+    path: "belts/01-white/badge.md"
+    title: "White Belt badge template"
+    section: "belts"
+    track: "white"
+    status: "drafted"
+    type: "badge"
+    order: 100
+    time_minutes: 10
+    audience: "new-builder"
+    outcome: "Provide the builder-facing template for claiming White Belt with evidence links and reviewer attestation."
+    prev: "belts/white/boss-fight"
+    next: "belts/yellow"
+    pillar: null
+    belt: "white"
+    tags: ["white-belt", "badge", "certification", "template"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow"
+    path: "belts/02-yellow/README.md"
+    title: "Yellow Belt: The First Builds"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 12
+    audience: "daily-builder"
+    outcome: "Understand the Yellow Belt path, daily AI-building claim, quests, boss fight, and evidence chain."
+    prev: "belts/white/badge"
+    next: "belts/yellow/tool-atlas"
+    pillar: null
+    belt: "yellow"
+    tags: ["yellow-belt", "orientation", "certification"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/tool-atlas"
+    path: "belts/02-yellow/Y01-tool-atlas.md"
+    title: "Tool Atlas in practice"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 20
+    audience: "daily-builder"
+    outcome: "Pick the right AI surface for the job you're about to do, by working through three real decision examples."
+    prev: "belts/yellow"
+    next: "belts/yellow/tool-decision-tree"
+    pillar: "context"
+    belt: "yellow"
+    tags: ["yellow-belt", "tools", "tool-atlas"]
+    updated: "2026-05-13"
+  - slug: "belts/yellow/tool-decision-tree"
+    path: "belts/02-yellow/Y02-tool-decision-tree.md"
+    title: "When to reach for which tool"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 15
+    audience: "daily-builder"
+    outcome: "Use a simple decision tree to choose the right AI surface for a task before starting."
+    prev: "belts/yellow/tool-atlas"
+    next: "belts/yellow/prompt-quality-deep"
+    pillar: "harness"
+    belt: "yellow"
+    tags: ["yellow-belt", "tools", "decision-tree"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/prompt-quality-deep"
+    path: "belts/02-yellow/Y03-prompt-quality-deep.md"
+    title: "Prompt quality, deep dive"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 40
+    audience: "daily-builder"
+    outcome: "Write prompts that express intent, constraints, context, and success criteria strongly enough for daily repo work."
+    prev: "belts/yellow/tool-decision-tree"
+    next: "belts/yellow/context-101"
+    pillar: "prompt"
+    belt: "yellow"
+    tags: ["yellow-belt", "prompting", "intent", "constraints"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/context-101"
+    path: "belts/02-yellow/Y04-context-101.md"
+    title: "What Claude can see and what it cannot"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 20
+    audience: "daily-builder"
+    outcome: "Understand local files, pasted context, connector context, and the limits of what Claude can see."
+    prev: "belts/yellow/prompt-quality-deep"
+    next: "belts/yellow/claude-md-primer"
+    pillar: "context"
+    belt: "yellow"
+    tags: ["yellow-belt", "context", "claude-code"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/claude-md-primer"
+    path: "belts/02-yellow/Y05-claude-md-primer.md"
+    title: "CLAUDE.md primer"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 25
+    audience: "daily-builder"
+    outcome: "Understand CLAUDE.md as a project rule book and know what belongs in it."
+    prev: "belts/yellow/context-101"
+    next: "belts/yellow/reading-code"
+    pillar: "context"
+    belt: "yellow"
+    tags: ["yellow-belt", "claude-md", "context"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/reading-code"
+    path: "belts/02-yellow/Y06-reading-code.md"
+    title: "Reading unfamiliar code with Claude"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 30
+    audience: "daily-builder"
+    outcome: "Use Claude Code to orient in an unfamiliar repo without immediately editing or over-reading."
+    prev: "belts/yellow/claude-md-primer"
+    next: "belts/yellow/permissions-and-hooks"
+    pillar: "prompt"
+    belt: "yellow"
+    tags: ["yellow-belt", "reading-code", "repo-orientation"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/permissions-and-hooks"
+    path: "belts/02-yellow/Y07-permissions-and-hooks.md"
+    title: "Permissions, hooks, slash commands"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 20
+    audience: "daily-builder"
+    outcome: "Use permissions, hooks, and slash commands as daily safety rails instead of speed hacks."
+    prev: "belts/yellow/reading-code"
+    next: "belts/yellow/litellm-and-enterprise"
+    pillar: "harness"
+    belt: "yellow"
+    tags: ["yellow-belt", "permissions", "hooks", "slash-commands"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/litellm-and-enterprise"
+    path: "belts/02-yellow/Y08-litellm-and-enterprise.md"
+    title: "LiteLLM and Claude Enterprise"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 15
+    audience: "daily-builder"
+    outcome: "Understand the difference between model routing infrastructure and enterprise knowledge surfaces at a daily-builder level."
+    prev: "belts/yellow/permissions-and-hooks"
+    next: "belts/yellow/figma-mcp"
+    pillar: "harness"
+    belt: "yellow"
+    tags: ["yellow-belt", "litellm", "claude-enterprise", "model-routing"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/figma-mcp"
+    path: "belts/02-yellow/Y09-figma-mcp.md"
+    title: "Figma MCP for non-engineers"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 9
+    time_minutes: 30
+    audience: "designer-builder"
+    outcome: "Use design connector context to move from a Figma frame to a small, reviewable code change."
+    prev: "belts/yellow/litellm-and-enterprise"
+    next: "belts/yellow/slack-and-gworkspace-mcps"
+    pillar: "context"
+    belt: "yellow"
+    tags: ["yellow-belt", "figma", "mcp", "design-to-code"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/slack-and-gworkspace-mcps"
+    path: "belts/02-yellow/Y10-slack-and-gworkspace-mcps.md"
+    title: "Slack MCP + Google Workspace MCP"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 10
+    time_minutes: 30
+    audience: "daily-builder"
+    outcome: "Use messaging and workspace connectors to gather task context safely and summarize it for repo work."
+    prev: "belts/yellow/figma-mcp"
+    next: "belts/yellow/bug-hunting"
+    pillar: "context"
+    belt: "yellow"
+    tags: ["yellow-belt", "slack", "google-workspace", "connectors"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/bug-hunting"
+    path: "belts/02-yellow/Y11-bug-hunting.md"
+    title: "Bug hunting with AI"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 11
+    time_minutes: 30
+    audience: "daily-builder"
+    outcome: "Use AI, git history, connectors, and repo reading to find a small real bug worth fixing."
+    prev: "belts/yellow/slack-and-gworkspace-mcps"
+    next: "belts/yellow/debugging-loop"
+    pillar: "prompt"
+    belt: "yellow"
+    tags: ["yellow-belt", "bug-hunting", "triage"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/debugging-loop"
+    path: "belts/02-yellow/Y12-debugging-loop.md"
+    title: "Debugging with Claude"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 12
+    time_minutes: 30
+    audience: "daily-builder"
+    outcome: "Use Claude to run a disciplined reproduce, observe, hypothesize, isolate, fix, verify debugging loop."
+    prev: "belts/yellow/bug-hunting"
+    next: "belts/yellow/pr-craft"
+    pillar: "prompt"
+    belt: "yellow"
+    tags: ["yellow-belt", "debugging", "triage"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/pr-craft"
+    path: "belts/02-yellow/Y13-pr-craft.md"
+    title: "PR craft"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 13
+    time_minutes: 20
+    audience: "daily-builder"
+    outcome: "Write small, reviewable PRs with clear titles, descriptions, staged commits, and reviewer etiquette."
+    prev: "belts/yellow/debugging-loop"
+    next: "belts/yellow/staying-current"
+    pillar: "harness"
+    belt: "yellow"
+    tags: ["yellow-belt", "pull-request", "review"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/staying-current"
+    path: "belts/02-yellow/Y14-staying-current.md"
+    title: "Staying current"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "chapter"
+    order: 14
+    time_minutes: 10
+    audience: "daily-builder"
+    outcome: "Set up a light change-awareness habit without drowning in changelogs or tool updates."
+    prev: "belts/yellow/pr-craft"
+    next: "belts/yellow/quest-standup-bot"
+    pillar: "meta"
+    belt: "yellow"
+    tags: ["yellow-belt", "staying-current", "meta"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/quest-standup-bot"
+    path: "belts/02-yellow/quest-Y1-standup-bot.md"
+    title: "Quest Y-1: Ship the Stand-up Bot"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "quest"
+    order: 90
+    time_minutes: 360
+    audience: "daily-builder"
+    outcome: "Build a small working utility with Claude Code, demo it, and explain the prompt, context, and harness decisions."
+    prev: "belts/yellow/staying-current"
+    next: "belts/yellow/quest-30-day-challenge"
+    pillar: "harness"
+    belt: "yellow"
+    tags: ["yellow-belt", "quest", "utility", "standup-bot"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/quest-30-day-challenge"
+    path: "belts/02-yellow/quest-Y2-30-day-challenge.md"
+    title: "Quest Y-2: The 30-day 2-minute challenge"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "quest"
+    order: 91
+    time_minutes: 60
+    audience: "daily-builder"
+    outcome: "Build a lightweight daily AI practice log that proves habit, reflection, and learning without becoming busywork."
+    prev: "belts/yellow/quest-standup-bot"
+    next: "belts/yellow/boss-fight"
+    pillar: "meta"
+    belt: "yellow"
+    tags: ["yellow-belt", "quest", "habit", "practice"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/boss-fight"
+    path: "belts/02-yellow/boss-fight-YB.md"
+    title: "Yellow Belt boss fight"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "boss-fight"
+    order: 99
+    time_minutes: 45
+    audience: "everyone"
+    outcome: "Find an open bug in your area, fix it with AI assistance, and open the PR that earns Yellow Belt."
+    prev: "belts/yellow/quest-30-day-challenge"
+    next: "belts/yellow/badge"
+    pillar: "harness"
+    belt: "yellow"
+    tags: ["yellow-belt", "boss-fight"]
+    updated: "2026-04-27"
+  - slug: "belts/yellow/badge"
+    path: "belts/02-yellow/badge.md"
+    title: "Yellow Belt badge template"
+    section: "belts"
+    track: "yellow"
+    status: "drafted"
+    type: "badge"
+    order: 100
+    time_minutes: 10
+    audience: "daily-builder"
+    outcome: "Provide the builder-facing template for claiming Yellow Belt with evidence links and prompt/context/harness reflection."
+    prev: "belts/yellow/boss-fight"
+    next: "belts/green"
+    pillar: null
+    belt: "yellow"
+    tags: ["yellow-belt", "badge", "certification", "template"]
+    updated: "2026-04-27"
+  - slug: "belts/green"
+    path: "belts/03-green/README.md"
+    title: "Green Belt"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 14
+    audience: "experienced-builder"
+    outcome: "Understand the Green Belt arc, what is drafted in Part A, and what comes next in Parts B and C."
+    prev: "belts/yellow/badge"
+    next: "belts/green/a-craft"
+    pillar: null
+    belt: "green"
+    tags: ["green-belt", "readme", "team-velocity"]
+    updated: "2026-04-29"
+  - slug: "belts/green/a-craft"
+    path: "belts/03-green/a-craft/README.md"
+    title: "Green Belt Part A — The Craft"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "experienced-builder"
+    outcome: "Understand what Part A teaches, what it expects you to know already, and the order to walk it in."
+    prev: "belts/green"
+    next: "belts/green/three-pillars"
+    pillar: null
+    belt: "green"
+    tags: ["green-belt", "part-a", "the-craft", "readme"]
+    updated: "2026-04-29"
+  - slug: "belts/green/three-pillars"
+    path: "belts/03-green/a-craft/G01-three-pillars.md"
+    title: "The Three Pillars — prompt × context × harness"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 20
+    audience: "experienced-builder"
+    outcome: "Diagnose any AI coding session by naming which pillar is weak — prompt, context, or harness — and improve that pillar specifically."
+    prev: "belts/green/a-craft"
+    next: "belts/green/context-windows"
+    pillar: "all"
+    belt: "green"
+    tags: ["green-belt", "three-pillars", "voice-anchor", "willison"]
+    updated: "2026-04-29"
+  - slug: "belts/green/context-windows"
+    path: "belts/03-green/a-craft/G02-context-windows.md"
+    title: "Why context windows fill — the single constraint everything else follows"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 20
+    audience: "experienced-builder"
+    outcome: "Internalise the context-window constraint and use it to make better decisions about what to load, what to summarise, and what to leave out."
+    prev: "belts/green/three-pillars"
+    next: "belts/green/claude-md-real-service"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "context-windows", "constraint"]
+    updated: "2026-04-29"
+  - slug: "belts/green/claude-md-real-service"
+    path: "belts/03-green/a-craft/G03-claude-md-real-service.md"
+    title: "CLAUDE.md for a real service — WHAT + WHY, under 200 lines"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 45
+    audience: "experienced-builder"
+    outcome: "Write a CLAUDE.md that names what the service is, what matters, and what to avoid — under 200 lines, with WHY beside every rule."
+    prev: "belts/green/context-windows"
+    next: "belts/green/hierarchical-claude-md"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "claude-md", "context-engineering"]
+    updated: "2026-04-29"
+  - slug: "belts/green/hierarchical-claude-md"
+    path: "belts/03-green/a-craft/G04-hierarchical-claude-md.md"
+    title: "Hierarchical CLAUDE.md in a monorepo — root vs package vs local"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Place the right rule at the right level — root, package, or local — so each session reads only the rules that apply to its working directory."
+    prev: "belts/green/claude-md-real-service"
+    next: "belts/green/claude-local-md"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "claude-md", "monorepo", "hierarchy"]
+    updated: "2026-04-29"
+  - slug: "belts/green/claude-local-md"
+    path: "belts/03-green/a-craft/G05-claude-local-md.md"
+    title: "CLAUDE.local.md — personal overrides, and what belongs there"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 10
+    audience: "experienced-builder"
+    outcome: "Use CLAUDE.local.md for personal overrides without polluting the team's shared CLAUDE.md."
+    prev: "belts/green/hierarchical-claude-md"
+    next: "belts/green/skills-overview"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "claude-md", "personal-overrides"]
+    updated: "2026-04-29"
+  - slug: "belts/green/skills-overview"
+    path: "belts/03-green/a-craft/G06-skills-overview.md"
+    title: "Skills — what they are, why they compound"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 25
+    audience: "experienced-builder"
+    outcome: "Recognise when a workflow has earned a place in the skills library and understand why skills are the second compound interest in AI productivity after CLAUDE.md."
+    prev: "belts/green/claude-local-md"
+    next: "belts/green/writing-your-first-skill"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "skills", "compounding"]
+    updated: "2026-04-29"
+  - slug: "belts/green/writing-your-first-skill"
+    path: "belts/03-green/a-craft/G07-writing-your-first-skill.md"
+    title: "Writing your first SKILL.md — the anatomy, naming, discipline"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 45
+    audience: "experienced-builder"
+    outcome: "Write a SKILL.md that triggers reliably, does a bounded job, and earns a place in the team's skill library."
+    prev: "belts/green/skills-overview"
+    next: "belts/green/subagents"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "skill-authorship", "skill-md", "anatomy"]
+    updated: "2026-04-29"
+  - slug: "belts/green/subagents"
+    path: "belts/03-green/a-craft/G08-subagents.md"
+    title: "Subagents — when to delegate, how to pass intent cleanly"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Decide when a task is better delegated to a subagent than handled in the main session, and pass intent to that subagent without losing context."
+    prev: "belts/green/writing-your-first-skill"
+    next: "belts/green/worktrees"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "subagents", "delegation", "harness"]
+    updated: "2026-04-29"
+  - slug: "belts/green/worktrees"
+    path: "belts/03-green/a-craft/G09-worktrees.md"
+    title: "Worktrees — running 3-5 Claude instances in parallel, safely"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 9
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Run multiple Claude Code sessions against the same repo at the same time without conflicting edits, broken builds, or confused state."
+    prev: "belts/green/subagents"
+    next: "belts/green/hooks-and-slash-commands"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "worktrees", "parallelism", "harness"]
+    updated: "2026-04-29"
+  - slug: "belts/green/hooks-and-slash-commands"
+    path: "belts/03-green/a-craft/G10-hooks-and-slash-commands.md"
+    title: "Hooks + slash commands — when to automate the pre-flight"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 10
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Use hooks to enforce pre-flight checks automatically, and slash commands to give yourself reliable shortcuts; know which is the right shape for which job."
+    prev: "belts/green/worktrees"
+    next: "belts/green/advanced-prompting"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "hooks", "slash-commands", "automation", "harness"]
+    updated: "2026-04-29"
+  - slug: "belts/green/advanced-prompting"
+    path: "belts/03-green/a-craft/G11-advanced-prompting.md"
+    title: "Advanced prompting — goals, constraints, worked examples"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 11
+    time_minutes: 40
+    audience: "experienced-builder"
+    outcome: "Write prompts that name the goal, the constraints, and the success criteria precisely enough that the agent's output is consistent across runs and worth shipping."
+    prev: "belts/green/hooks-and-slash-commands"
+    next: "belts/green/quest-author-a-team-skill"
+    pillar: "prompt"
+    belt: "green"
+    tags: ["green-belt", "prompting", "prompt-craft"]
+    updated: "2026-04-29"
+  - slug: "belts/green/quest-author-a-team-skill"
+    path: "belts/03-green/a-craft/quest-G1-author-a-team-skill.md"
+    title: "Quest G-1: Author a team skill"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "quest"
+    order: 90
+    time_minutes: 240
+    audience: "experienced-builder"
+    outcome: "Capture a real team workflow as a SKILL.md, get one teammate to invoke it on a real task, and log the invocation."
+    prev: "belts/green/advanced-prompting"
+    next: "belts/green/b-practices"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "quest", "skill-authoring", "team"]
+    updated: "2026-04-29"
+  - slug: "belts/green/b-practices"
+    path: "belts/03-green/b-practices/README.md"
+    title: "Green Belt Part B — The Practices"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "experienced-builder"
+    outcome: "Understand what Part B teaches, what Part A muscle memory it assumes, and the order to walk it in."
+    prev: "belts/green/quest-author-a-team-skill"
+    next: "belts/green/playwright-and-claude-code"
+    pillar: null
+    belt: "green"
+    tags: ["green-belt", "part-b", "the-practices", "readme"]
+    updated: "2026-04-29"
+  - slug: "belts/green/playwright-and-claude-code"
+    path: "belts/03-green/b-practices/G12-playwright-and-claude-code.md"
+    title: "E2E testing with Playwright + Claude Code"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 12
+    time_minutes: 45
+    audience: "experienced-builder"
+    outcome: "Write a Playwright end-to-end test with Claude Code that survives the codebase, reads cleanly, and catches the regression you actually fear."
+    prev: "belts/green/b-practices"
+    next: "belts/green/playwright-skill-pattern"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "playwright", "e2e-testing", "voice-anchor"]
+    updated: "2026-04-29"
+  - slug: "belts/green/playwright-skill-pattern"
+    path: "belts/03-green/b-practices/G13-playwright-skill-pattern.md"
+    title: "The Playwright Skill pattern — one-shot test quality"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 13
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Package the Playwright spec-then-code loop into a skill that turns a behaviour description into a working test in one invocation."
+    prev: "belts/green/playwright-and-claude-code"
+    next: "belts/green/seed-spec"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "playwright", "skill-pattern", "skill-authoring"]
+    updated: "2026-04-29"
+  - slug: "belts/green/seed-spec"
+    path: "belts/03-green/b-practices/G14-tests-seed-spec.md"
+    title: "tests/seed.spec.ts — saving the agent 10,000 tokens"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 14
+    time_minutes: 15
+    audience: "experienced-builder"
+    outcome: "Use a seed spec — a single small Playwright test that exercises the canonical fixtures, helpers, and conventions — to anchor the agent's understanding of the test directory in one read."
+    prev: "belts/green/playwright-skill-pattern"
+    next: "belts/green/design-to-code"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "seed-spec", "context-budget", "playwright"]
+    updated: "2026-04-29"
+  - slug: "belts/green/design-to-code"
+    path: "belts/03-green/b-practices/G15-design-to-code.md"
+    title: "Design-to-code — Figma + Blade + Code Connect, end to end"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 15
+    time_minutes: 60
+    audience: "experienced-builder"
+    outcome: "Walk a Figma frame through the Figma connector, the Blade design system, and Code Connect into running code that respects design-system conventions and ships cleanly."
+    prev: "belts/green/seed-spec"
+    next: "belts/green/blade-deep-dive"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect"]
+    updated: "2026-04-29"
+  - slug: "belts/green/blade-deep-dive"
+    path: "belts/03-green/b-practices/G16-blade-deep-dive.md"
+    title: "Blade deep dive — tokens, primitives, variants, accessibility"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 16
+    time_minutes: 45
+    audience: "experienced-builder"
+    outcome: "Understand Blade's anatomy — tokens, primitives, variants, accessibility — well enough to pick the right component for any UI need without inventing one."
+    prev: "belts/green/design-to-code"
+    next: "belts/green/production-compiler-skill"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "blade", "design-system", "tokens", "accessibility"]
+    updated: "2026-04-29"
+  - slug: "belts/green/production-compiler-skill"
+    path: "belts/03-green/b-practices/G17-production-compiler-skill.md"
+    title: "The production-compiler skill — AI-Studio / ChatGPT output → Blade"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 17
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Recognise when AI-generated code needs to be repaired against the design system, and use the production-compiler skill to bring the code back to Blade primitives."
+    prev: "belts/green/blade-deep-dive"
+    next: "belts/green/daily-loop"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "production-compiler", "skill-pattern", "blade", "repair"]
+    updated: "2026-04-29"
+  - slug: "belts/green/daily-loop"
+    path: "belts/03-green/b-practices/G18-daily-loop.md"
+    title: "Node + pnpm + localhost + mobile viewport — the daily loop"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 18
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Run a tight, fast local-dev loop for frontend work — install, dev server, viewport switching — that scales across multiple worktrees and surfaces issues before commit."
+    prev: "belts/green/production-compiler-skill"
+    next: "belts/green/design-preview-platform"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "daily-loop", "node", "pnpm", "localhost"]
+    updated: "2026-04-29"
+  - slug: "belts/green/design-preview-platform"
+    path: "belts/03-green/b-practices/G19-design-preview-platform.md"
+    title: "Branch-preview platform — branch → live URL"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 19
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Use branch-preview URLs to share work in progress with design and product reviewers without anyone having to check out your branch."
+    prev: "belts/green/daily-loop"
+    next: "belts/green/observability-with-ai"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "branch-preview", "preview-url", "design-review"]
+    updated: "2026-04-29"
+  - slug: "belts/green/observability-with-ai"
+    path: "belts/03-green/b-practices/G20-observability-with-ai.md"
+    title: "Observability with AI — logs, traces, cost attribution"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 20
+    time_minutes: 25
+    audience: "experienced-builder"
+    outcome: "Use Claude Code with the observability connectors to triage production-shape issues — logs, traces, and cost attribution — without dumping raw output into the chat window."
+    prev: "belts/green/design-preview-platform"
+    next: "belts/green/debugging-hard-kind"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "observability", "logs", "traces", "cost-attribution"]
+    updated: "2026-04-29"
+  - slug: "belts/green/debugging-hard-kind"
+    path: "belts/03-green/b-practices/G21-debugging-hard-kind.md"
+    title: "Debugging the hard kind — when Claude is wrong, and you have to tell"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 21
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Recognise when Claude's analysis is wrong, push back productively, and get to the right answer without falling into either capitulation or argument."
+    prev: "belts/green/observability-with-ai"
+    next: "belts/green/quest-greenfield-crossover"
+    pillar: "prompt"
+    belt: "green"
+    tags: ["green-belt", "debugging", "prompt-craft", "capstone"]
+    updated: "2026-04-29"
+  - slug: "belts/green/quest-greenfield-crossover"
+    path: "belts/03-green/b-practices/quest-G2-greenfield-crossover.md"
+    title: "Quest G-2: The Greenfield cross-over"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "quest"
+    order: 91
+    time_minutes: 480
+    audience: "experienced-builder"
+    outcome: "Ship one meaningful change in a greenfield surface that exercises Part A craft and Part B practices together — and capture the cross-over in the reflection."
+    prev: "belts/green/debugging-hard-kind"
+    next: "belts/green/c-guardrails"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "quest", "greenfield", "crossover"]
+    updated: "2026-04-29"
+  - slug: "belts/green/c-guardrails"
+    path: "belts/03-green/c-guardrails/README.md"
+    title: "Green Belt Part C — Fintech Guardrails"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "experienced-builder"
+    outcome: "Understand what Part C teaches, what Parts A and B muscle memory it assumes, and the order to walk it in."
+    prev: "belts/green/quest-greenfield-crossover"
+    next: "belts/green/redlines"
+    pillar: null
+    belt: "green"
+    tags: ["green-belt", "part-c", "fintech-guardrails", "readme"]
+    updated: "2026-04-29"
+  - slug: "belts/green/redlines"
+    path: "belts/03-green/c-guardrails/G22-redlines.md"
+    title: "What never goes into a prompt — the Razorpay redlines"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 22
+    time_minutes: 20
+    audience: "experienced-builder"
+    outcome: "Internalise the things that must never appear in a prompt — the redlines — and the reflexes that catch them before you hit Enter."
+    prev: "belts/green/c-guardrails"
+    next: "belts/green/llm-proxy"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "redlines", "voice-anchor", "guardrails", "safety"]
+    updated: "2026-04-29"
+  - slug: "belts/green/llm-proxy"
+    path: "belts/03-green/c-guardrails/G23-llm-proxy.md"
+    title: "The LLM proxy — what LiteLLM does, why Vertex routes through it"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 23
+    time_minutes: 25
+    audience: "experienced-builder"
+    outcome: "Understand why every model call routes through a proxy, what LiteLLM gives you that direct calls do not, and how to debug when the proxy is the friction."
+    prev: "belts/green/redlines"
+    next: "belts/green/pii-pci-rbi"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "llm-proxy", "litellm", "vertex", "harness"]
+    updated: "2026-04-29"
+  - slug: "belts/green/pii-pci-rbi"
+    path: "belts/03-green/c-guardrails/G24-pii-pci-rbi.md"
+    title: "PII, PCI, RBI — the regulators, the reasons, the reflexes"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 24
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Recognise data that falls under PII, PCI, or RBI scope; understand why each regulator cares; develop the reflexes that keep regulator-protected data out of AI-assisted work."
+    prev: "belts/green/llm-proxy"
+    next: "belts/green/prompt-injection"
+    pillar: "context"
+    belt: "green"
+    tags: ["green-belt", "compliance", "pii", "pci", "rbi", "regulators"]
+    updated: "2026-04-29"
+  - slug: "belts/green/prompt-injection"
+    path: "belts/03-green/c-guardrails/G25-prompt-injection.md"
+    title: "Prompt injection + output classifiers — the threats, the mitigations"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 25
+    time_minutes: 30
+    audience: "experienced-builder"
+    outcome: "Recognise prompt-injection patterns, understand what output classifiers catch and what they miss, and design AI-assisted features so injection cannot escalate."
+    prev: "belts/green/pii-pci-rbi"
+    next: "belts/green/pre-ship-check-skill"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "prompt-injection", "output-classifiers", "security"]
+    updated: "2026-04-29"
+  - slug: "belts/green/pre-ship-check-skill"
+    path: "belts/03-green/c-guardrails/G26-pre-ship-check-skill.md"
+    title: "The pre-ship-check skill — 6-layer gate before every PR"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 26
+    time_minutes: 20
+    audience: "experienced-builder"
+    outcome: "Run the pre-ship-check skill before every PR, read the six-layer report, and fix what it surfaces — without working around the gate."
+    prev: "belts/green/prompt-injection"
+    next: "belts/green/blade-compliance-skill"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "pre-ship-check", "skill-pattern", "guardrail"]
+    updated: "2026-04-29"
+  - slug: "belts/green/blade-compliance-skill"
+    path: "belts/03-green/c-guardrails/G27-blade-compliance-skill.md"
+    title: "The Blade-compliance reviewer skill — file-granularity checks"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 27
+    time_minutes: 15
+    audience: "experienced-builder"
+    outcome: "Run the Blade-compliance reviewer skill on individual UI files to catch design-system drift the pre-ship-check's PR-level scan might miss."
+    prev: "belts/green/pre-ship-check-skill"
+    next: "belts/green/security-review-subagent"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "blade-compliance", "skill-pattern", "design-system"]
+    updated: "2026-04-29"
+  - slug: "belts/green/security-review-subagent"
+    path: "belts/03-green/c-guardrails/G28-security-review-subagent.md"
+    title: "Using a subagent for security review"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "chapter"
+    order: 28
+    time_minutes: 20
+    audience: "experienced-builder"
+    outcome: "Spawn a subagent for security review with a clean brief, consume the structured findings, and act on what is real without wasting context on noise."
+    prev: "belts/green/blade-compliance-skill"
+    next: "belts/green/boss-fight"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "security-review", "subagent", "skill-pattern"]
+    updated: "2026-04-29"
+  - slug: "belts/green/boss-fight"
+    path: "belts/03-green/c-guardrails/boss-fight-GB-double-ship.md"
+    title: "Boss Fight G-B: The double-ship"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "boss-fight"
+    order: 99
+    time_minutes: 360
+    audience: "experienced-builder"
+    outcome: "Ship two merged PRs — one on a product repo with five named sub-requirements, plus your Quest G-2 greenfield PR — and earn Green Belt."
+    prev: "belts/green/security-review-subagent"
+    next: "belts/green/badge"
+    pillar: "harness"
+    belt: "green"
+    tags: ["green-belt", "boss-fight", "double-ship", "capstone"]
+    updated: "2026-04-29"
+  - slug: "belts/green/badge"
+    path: "belts/03-green/c-guardrails/badge.md"
+    title: "Green Belt badge template"
+    section: "belts"
+    track: "green"
+    status: "drafted"
+    type: "badge"
+    order: 100
+    time_minutes: 12
+    audience: "experienced-builder"
+    outcome: "Provide the builder-facing template for claiming Green Belt with cross-belt synthesis evidence and reviewer attestation."
+    prev: "belts/green/boss-fight"
+    next: "belts/black"
+    pillar: null
+    belt: "green"
+    tags: ["green-belt", "badge", "certification", "template"]
+    updated: "2026-04-29"
+  - slug: "belts/black"
+    path: "belts/04-black/README.md"
+    title: "Black Belt"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 15
+    audience: "platform-builder"
+    outcome: "Understand the Black Belt arc, what is drafted in Part A, and what comes next in Parts B and C."
+    prev: "belts/green/badge"
+    next: "belts/black/a-platform"
+    pillar: null
+    belt: "black"
+    tags: ["black-belt", "readme", "platform"]
+    updated: "2026-04-29"
+  - slug: "belts/black/a-platform"
+    path: "belts/04-black/a-platform/README.md"
+    title: "Black Belt Part A — Build the Platform"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "platform-builder"
+    outcome: "Understand what Part A teaches, what Green-Belt muscle memory it assumes, and the order to walk it in."
+    prev: "belts/black"
+    next: "belts/black/internal-mcp-server"
+    pillar: null
+    belt: "black"
+    tags: ["black-belt", "part-a", "build-the-platform", "readme"]
+    updated: "2026-04-29"
+  - slug: "belts/black/internal-mcp-server"
+    path: "belts/04-black/a-platform/B01-internal-mcp-server.md"
+    title: "Authoring an internal MCP server — architecture, auth, packaging"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 60
+    audience: "platform-builder"
+    outcome: "Author an internal MCP server with sound architecture, real auth, and a packaging story other PODs can install."
+    prev: "belts/black/a-platform"
+    next: "belts/black/skill-pack-publishing"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "mcp", "voice-anchor", "platform"]
+    updated: "2026-04-29"
+  - slug: "belts/black/skill-pack-publishing"
+    path: "belts/04-black/a-platform/B02-skill-pack-publishing.md"
+    title: "Publishing a skill pack — naming, versioning, governance"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Bundle one or more SKILL.md artefacts into a pack and publish it so other PODs can install, pin, and adopt it."
+    prev: "belts/black/internal-mcp-server"
+    next: "belts/black/cowork-plugin-marketplace"
+    pillar: "context"
+    belt: "black"
+    tags: ["black-belt", "skill-pack", "publishing", "governance"]
+    updated: "2026-04-29"
+  - slug: "belts/black/cowork-plugin-marketplace"
+    path: "belts/04-black/a-platform/B03-cowork-plugin-marketplace.md"
+    title: "Building a plugin marketplace entry for Razorpay Cowork"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install your skill pack with one click."
+    prev: "belts/black/skill-pack-publishing"
+    next: "belts/black/agent-sdk"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "cowork", "plugin-marketplace", "publishing"]
+    updated: "2026-04-29"
+  - slug: "belts/black/agent-sdk"
+    path: "belts/04-black/a-platform/B04-agent-sdk.md"
+    title: "The Claude Agent SDK — when to write your own agent"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Decide cleanly between extending the program-pinned plugin and writing a custom agent with the Claude Agent SDK."
+    prev: "belts/black/cowork-plugin-marketplace"
+    next: "belts/black/multi-agent-orchestration"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "agent-sdk", "build-vs-install", "harness"]
+    updated: "2026-04-29"
+  - slug: "belts/black/multi-agent-orchestration"
+    path: "belts/04-black/a-platform/B05-multi-agent-orchestration.md"
+    title: "Multi-agent orchestration — patterns that work, patterns that don't"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Choose the right multi-agent orchestration pattern for the job and refuse the patterns that consistently fail."
+    prev: "belts/black/agent-sdk"
+    next: "belts/black/tool-design"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "multi-agent", "orchestration", "patterns"]
+    updated: "2026-04-29"
+  - slug: "belts/black/tool-design"
+    path: "belts/04-black/a-platform/B06-tool-design.md"
+    title: "Tool design — JSON schemas, output shapes, error contracts"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Design tool contracts — input schemas, output shapes, error shapes — that compose, scale, and survive version changes."
+    prev: "belts/black/multi-agent-orchestration"
+    next: "belts/black/quest-publish-an-internal-plugin"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "tool-design", "json-schema", "contracts"]
+    updated: "2026-04-29"
+  - slug: "belts/black/quest-publish-an-internal-plugin"
+    path: "belts/04-black/a-platform/quest-B1-publish-an-internal-plugin.md"
+    title: "Quest B-1: Publish an internal plugin"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "quest"
+    order: 90
+    time_minutes: 480
+    audience: "platform-builder"
+    outcome: "Author and publish a skill pack so at least two PODs outside your team install it within a month."
+    prev: "belts/black/tool-design"
+    next: "belts/black/b-craft"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "quest", "plugin-publishing", "platform"]
+    updated: "2026-04-29"
+  - slug: "belts/black/b-craft"
+    path: "belts/04-black/b-craft/README.md"
+    title: "Black Belt Part B — Push the Craft"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "platform-builder"
+    outcome: "Understand what Part B teaches, what Part A muscle memory it assumes, and the order to walk it in."
+    prev: "belts/black/quest-publish-an-internal-plugin"
+    next: "belts/black/progressive-disclosure"
+    pillar: null
+    belt: "black"
+    tags: ["black-belt", "part-b", "push-the-craft", "readme"]
+    updated: "2026-04-29"
+  - slug: "belts/black/progressive-disclosure"
+    path: "belts/04-black/b-craft/B07-progressive-disclosure.md"
+    title: "Progressive disclosure — skills that stay small"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 25
+    audience: "platform-builder"
+    outcome: "Design skills that stay small by progressively disclosing their depth — short by default, deeper when invoked, deepest when needed."
+    prev: "belts/black/b-craft"
+    next: "belts/black/memory-systems"
+    pillar: "context"
+    belt: "black"
+    tags: ["black-belt", "progressive-disclosure", "skill-design", "voice-anchor"]
+    updated: "2026-04-29"
+  - slug: "belts/black/memory-systems"
+    path: "belts/04-black/b-craft/B08-memory-systems.md"
+    title: "Memory systems — auto-memory, session state, long-running agents"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Choose the right memory shape for an agent's job — auto-memory, session state, or external storage."
+    prev: "belts/black/progressive-disclosure"
+    next: "belts/black/prompt-evals"
+    pillar: "context"
+    belt: "black"
+    tags: ["black-belt", "memory-systems", "session-state", "long-running-agents"]
+    updated: "2026-04-29"
+  - slug: "belts/black/prompt-evals"
+    path: "belts/04-black/b-craft/B09-prompt-evals.md"
+    title: "Prompt evals — A/B, regression, golden sets"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 9
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Run prompt evaluations against your shipped skills with the right shape — golden sets for regression, A/B for improvements, named pass criteria."
+    prev: "belts/black/memory-systems"
+    next: "belts/black/cost-and-observability"
+    pillar: "prompt"
+    belt: "black"
+    tags: ["black-belt", "prompt-evals", "golden-sets", "a-b-testing"]
+    updated: "2026-04-29"
+  - slug: "belts/black/cost-and-observability"
+    path: "belts/04-black/b-craft/B10-cost-and-observability.md"
+    title: "Cost attribution + observability at team + org scale"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 10
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Instrument cost and observability at team and org scale, not just per-session — and identify the patterns that run quietly expensive."
+    prev: "belts/black/prompt-evals"
+    next: "belts/black/effort-and-routing"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "cost-attribution", "observability", "scale"]
+    updated: "2026-04-29"
+  - slug: "belts/black/effort-and-routing"
+    path: "belts/04-black/b-craft/B11-effort-and-routing.md"
+    title: "Effort settings, model routing, fall-backs"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 11
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Tune per-call settings — effort level, model choice, fall-back path — to match the work's stakes."
+    prev: "belts/black/cost-and-observability"
+    next: "belts/black/quest-contribution-or-full-stack"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "effort-settings", "model-routing", "fall-backs"]
+    updated: "2026-04-29"
+  - slug: "belts/black/quest-contribution-or-full-stack"
+    path: "belts/04-black/b-craft/quest-B2-contribution-or-full-stack.md"
+    title: "Quest B-2: Component contribution or full-stack feature"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "quest"
+    order: 91
+    time_minutes: 480
+    audience: "platform-builder"
+    outcome: "Prove cross-layer ownership by either contributing a Blade component via the contribution pipeline or shipping a full-stack feature you own end-to-end."
+    prev: "belts/black/effort-and-routing"
+    next: "belts/black/c-org"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "quest", "blade-contribution", "full-stack"]
+    updated: "2026-05-07"
+  - slug: "belts/black/c-org"
+    path: "belts/04-black/c-org/README.md"
+    title: "Black Belt — Part C: Shape the Org"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "platform-builder"
+    outcome: "Understand the Part C arc and walk it from office hours through governance to the boss fight and the badge."
+    prev: "belts/black/quest-contribution-or-full-stack"
+    next: "belts/black/running-office-hours"
+    pillar: null
+    belt: "black"
+    tags: ["black-belt", "readme", "org", "culture", "governance"]
+    updated: "2026-05-07"
+  - slug: "belts/black/running-office-hours"
+    path: "belts/04-black/c-org/B12-running-office-hours.md"
+    title: "Running office hours — the Whoop / Ramp pattern"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 12
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Run a weekly office hour that surfaces blockers across a POD set and produces a redacted decision log."
+    prev: "belts/black/c-org"
+    next: "belts/black/embedded-sprints"
+    pillar: "culture"
+    belt: "black"
+    tags: ["black-belt", "office-hours", "culture"]
+    updated: "2026-05-07"
+  - slug: "belts/black/embedded-sprints"
+    path: "belts/04-black/c-org/B13-embedded-sprints.md"
+    title: "Embedded sprints — the CTO-with-a-team week"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 13
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Embed for a week with a POD outside your own and ship with the team rather than for it; produce a written debrief."
+    prev: "belts/black/running-office-hours"
+    next: "belts/black/writing-an-ai-rfc"
+    pillar: "culture"
+    belt: "black"
+    tags: ["black-belt", "embedded-sprints", "culture"]
+    updated: "2026-05-07"
+  - slug: "belts/black/writing-an-ai-rfc"
+    path: "belts/04-black/c-org/B14-writing-an-ai-rfc.md"
+    title: "Writing an AI RFC — what good looks like at Razorpay"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 14
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Write an AI RFC that earns a merge by naming what would change and how to measure whether it worked."
+    prev: "belts/black/embedded-sprints"
+    next: "belts/black/api-council-contributions"
+    pillar: "governance"
+    belt: "black"
+    tags: ["black-belt", "rfc", "governance"]
+    updated: "2026-05-07"
+  - slug: "belts/black/api-council-contributions"
+    path: "belts/04-black/c-org/B15-api-council-contributions.md"
+    title: "Contributing to the API Council (AI-specific reviews)"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 15
+    time_minutes: 30
+    audience: "platform-builder"
+    outcome: "Contribute to API Council reviews on AI-specific submissions and apply API design discipline to MCP and agent surfaces."
+    prev: "belts/black/writing-an-ai-rfc"
+    next: "belts/black/plugin-and-skill-governance"
+    pillar: "governance"
+    belt: "black"
+    tags: ["black-belt", "api-council", "governance"]
+    updated: "2026-05-07"
+  - slug: "belts/black/plugin-and-skill-governance"
+    path: "belts/04-black/c-org/B16-plugin-and-skill-governance.md"
+    title: "Plugin + skill governance — approval, deprecation, security review"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "chapter"
+    order: 16
+    time_minutes: 45
+    audience: "platform-builder"
+    outcome: "Govern plugin and skill lifecycles cleanly across approval, deprecation, and security review."
+    prev: "belts/black/api-council-contributions"
+    next: "belts/black/boss-fight-pod-ai-uplift"
+    pillar: "governance"
+    belt: "black"
+    tags: ["black-belt", "governance", "plugin-lifecycle"]
+    updated: "2026-05-07"
+  - slug: "belts/black/boss-fight-pod-ai-uplift"
+    path: "belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md"
+    title: "Boss Fight B-B: Own a POD's AI uplift for a month"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "boss-fight"
+    order: 99
+    time_minutes: 1800
+    audience: "platform-builder"
+    outcome: "Embed with a POD outside your own for a month, intervene with the full Black Belt toolkit, ship a signed-off metric lift and a one-pager case study."
+    prev: "belts/black/plugin-and-skill-governance"
+    next: "belts/black/badge"
+    pillar: "harness"
+    belt: "black"
+    tags: ["black-belt", "boss-fight", "capstone"]
+    updated: "2026-05-07"
+  - slug: "belts/black/badge"
+    path: "belts/04-black/c-org/badge.md"
+    title: "Black Belt badge"
+    section: "belts"
+    track: "black"
+    status: "drafted"
+    type: "badge"
+    order: 100
+    time_minutes: 5
+    audience: "platform-builder"
+    outcome: "Claim the Black Belt, the platform-builder community's admission ticket."
+    prev: "belts/black/boss-fight-pod-ai-uplift"
+    next: "council"
+    pillar: null
+    belt: "black"
+    tags: ["black-belt", "badge"]
+    updated: "2026-05-08"
+  - slug: "council"
+    path: "belts/05-council/README.md"
+    title: "Staff+ Council"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 12
+    audience: "staff-plus"
+    outcome: "Understand what the Staff+ Council is, what it does, how a builder joins it, and what the chapters cover."
+    prev: "belts/black/badge"
+    next: "council/what-this-is"
+    pillar: null
+    belt: null
+    tags: ["council", "readme", "staff-plus"]
+    updated: "2026-05-08"
+  - slug: "council/what-this-is"
+    path: "belts/05-council/C01-what-this-is.md"
+    title: "What this is and is not"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 25
+    audience: "staff-plus"
+    outcome: "Understand what the Council is and is not, why senior-IC communities exist, and what membership represents."
+    prev: "council"
+    next: "council/structure"
+    pillar: null
+    belt: null
+    tags: ["council", "framing"]
+    updated: "2026-05-08"
+  - slug: "council/structure"
+    path: "belts/05-council/C02-structure.md"
+    title: "Structure: charter, cadence, membership"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 35
+    audience: "staff-plus"
+    outcome: "Understand how the Council is composed, how it meets, how it interfaces with engineering leadership, and how membership is reviewed."
+    prev: "council/what-this-is"
+    next: "council/rfc-pipeline"
+    pillar: null
+    belt: null
+    tags: ["council", "charter", "membership"]
+    updated: "2026-05-08"
+  - slug: "council/rfc-pipeline"
+    path: "belts/05-council/C03-rfc-pipeline.md"
+    title: "The RFC pipeline and the decision archive"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 40
+    audience: "staff-plus"
+    outcome: "Submit an RFC, navigate the state machine, understand consensus, and treat the archive as a teaching corpus."
+    prev: "council/structure"
+    next: "council/mentoring-and-sponsorship"
+    pillar: null
+    belt: null
+    tags: ["council", "rfc", "governance"]
+    updated: "2026-05-08"
+  - slug: "council/mentoring-and-sponsorship"
+    path: "belts/05-council/C04-mentoring-and-sponsorship.md"
+    title: "Mentoring and sponsorship at the senior level"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 35
+    audience: "staff-plus"
+    outcome: "Distinguish mentoring from sponsorship, time-box relationships, recognise mentoring as performance work, and avoid the named failure modes."
+    prev: "council/rfc-pipeline"
+    next: "council/external-voice"
+    pillar: null
+    belt: null
+    tags: ["council", "mentoring", "sponsorship"]
+    updated: "2026-05-08"
+  - slug: "council/external-voice"
+    path: "belts/05-council/C05-external-voice.md"
+    title: "External voice: writing, speaking, OSS, brand"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 35
+    audience: "staff-plus"
+    outcome: "Manage the personal-versus-company voice tension across writing, speaking, and OSS contributions."
+    prev: "council/mentoring-and-sponsorship"
+    next: "council/multi-year-horizon"
+    pillar: null
+    belt: null
+    tags: ["council", "external-voice", "writing"]
+    updated: "2026-05-08"
+  - slug: "council/multi-year-horizon"
+    path: "belts/05-council/C06-multi-year-horizon.md"
+    title: "The multi-year horizon"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 25
+    audience: "staff-plus"
+    outcome: "Understand what the Council shapes that no quarterly artefact captures: the multi-year direction of the AI program."
+    prev: "council/external-voice"
+    next: null
+    pillar: null
+    belt: null
+    tags: ["council", "long-arc", "strategy"]
+    updated: "2026-05-08"
+  - slug: "council/charter"
+    path: "belts/05-council/charter.md"
+    title: "Council charter (template)"
+    section: "council"
+    track: "council"
+    status: "drafted"
+    type: "artefact"
+    order: 99
+    time_minutes: 15
+    audience: "staff-plus"
+    outcome: "A referenceable charter template the Council ratifies and revises annually. Sits outside the linear reading order."
+    prev: null
+    next: null
+    pillar: null
+    belt: null
+    tags: ["council", "charter", "artefact"]
+    updated: "2026-05-08"
+  - slug: "appendices/tool-atlas"
+    path: "appendices/A-tool-atlas/README.md"
+    title: "Appendix A: Tool Atlas"
+    section: "appendices"
+    track: "tool-atlas"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Choose the right AI tool surface for the job instead of treating every tool as interchangeable."
+    prev: "prologue/tool-tour"
+    next: "appendices/environment-setup"
+    pillar: "harness"
+    belt: null
+    tags: ["appendix", "tools", "harness"]
+    updated: "2026-04-27"
+  - slug: "appendices/environment-setup"
+    path: "appendices/B-environment-setup/README.md"
+    title: "Appendix B: Environment Setup"
+    section: "appendices"
+    track: "environment-setup"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 12
+    audience: "everyone"
+    outcome: "Know what the setup layer is responsible for and how to triage environment failures without guessing."
+    prev: "appendices/tool-atlas"
+    next: "appendices/skills-library"
+    pillar: "harness"
+    belt: "white"
+    tags: ["appendix", "setup", "environment", "mcp"]
+    updated: "2026-04-27"
+  - slug: "appendices/skills-library"
+    path: "appendices/C-skills-library/README.md"
+    title: "Appendix C: Skills Library"
+    section: "appendices"
+    track: "skills-library"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Understand what belongs in a reusable skill and how the shared skills library should be read."
+    prev: "appendices/environment-setup"
+    next: "appendices/certification"
+    pillar: "context"
+    belt: "green"
+    tags: ["appendix", "skills", "agents", "workflow"]
+    updated: "2026-04-27"
+  - slug: "appendices/certification"
+    path: "appendices/L-certification/README.md"
+    title: "Appendix L: Certification"
+    section: "appendices"
+    track: "certification"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "leads"
+    outcome: "Understand the evidence required to award belts without turning the program into self-reported training."
+    prev: "appendices/skills-library"
+    next: "appendices/reference-cards"
+    pillar: null
+    belt: null
+    tags: ["appendix", "certification", "belts", "program"]
+    updated: "2026-04-27"
+  - slug: "appendices/reference-cards"
+    path: "appendices/H-reference-cards/README.md"
+    title: "Appendix H: Quick-reference cards"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 2
+    audience: "everyone"
+    outcome: "Find printable reference cards that support the safety and workflow chapters."
+    prev: "appendices/certification"
+    next: "appendices/reference-cards/never-put-this-in-a-prompt"
+    pillar: null
+    belt: null
+    tags: ["appendix", "reference-card", "safety"]
+    updated: "2026-04-27"
+  - slug: "appendices/reference-cards/never-put-this-in-a-prompt"
+    path: "appendices/H-reference-cards/H1-never-put-this-in-a-prompt.md"
+    title: "Never put this in a prompt"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 1
+    time_minutes: 3
+    audience: "everyone"
+    outcome: "Use a one-page safety card to decide what must be redacted before prompting."
+    prev: "appendices/reference-cards"
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "reference-card", "safety", "security"]
+    updated: "2026-04-27"
+  - slug: "appendices/methodologies"
+    path: "appendices/N-methodologies/README.md"
+    title: "Appendix N: Methodologies & Frameworks"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 5
+    audience: "engineer"
+    outcome: "Know which methodology reference to read for deeper context on KB-driven development."
+    prev: null
+    next: "appendices/methodologies/kb-driven-development"
+    pillar: null
+    belt: null
+    tags: ["appendix", "knowledge-base"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/kb-driven-development"
+    path: "appendices/N-methodologies/N1-kb-driven-development.md"
+    title: "Knowledge-base-driven development as a discipline"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 1
+    time_minutes: 15
+    audience: "engineer"
+    outcome: "Understand the discipline behind accumulating context instead of re-deriving it."
+    prev: "appendices/methodologies"
+    next: "appendices/methodologies/gstack"
+    pillar: null
+    belt: null
+    tags: ["appendix", "knowledge-base"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/gstack"
+    path: "appendices/N-methodologies/N2-gstack.md"
+    title: "gstack"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 2
+    time_minutes: 10
+    audience: "engineer"
+    outcome: "Understand what to lift from gstack and what to leave behind."
+    prev: "appendices/methodologies/kb-driven-development"
+    next: "appendices/methodologies/gsd"
+    pillar: null
+    belt: null
+    tags: ["appendix", "frameworks", "gstack"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/gsd"
+    path: "appendices/N-methodologies/N3-gsd.md"
+    title: "Get Shit Done"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 3
+    time_minutes: 12
+    audience: "engineer"
+    outcome: "Understand GSD as a spec-first, context-engineering workflow pattern."
+    prev: "appendices/methodologies/gstack"
+    next: "appendices/methodologies/llm-wiki"
+    pillar: null
+    belt: null
+    tags: ["appendix", "frameworks", "gsd"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/llm-wiki"
+    path: "appendices/N-methodologies/N4-llm-wiki.md"
+    title: "The LLM Wiki pattern"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 4
+    time_minutes: 12
+    audience: "engineer"
+    outcome: "Understand the wiki-as-context pattern and why it differs from RAG-first thinking."
+    prev: "appendices/methodologies/gsd"
+    next: "appendices/methodologies/three-pillars"
+    pillar: null
+    belt: null
+    tags: ["appendix", "frameworks", "knowledge-base"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/three-pillars"
+    path: "appendices/N-methodologies/N5-three-pillars.md"
+    title: "Simon Willison's three pillars"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 5
+    time_minutes: 10
+    audience: "engineer"
+    outcome: "Use prompt, context, and harness as separate axes for diagnosing AI workflows."
+    prev: "appendices/methodologies/llm-wiki"
+    next: "appendices/methodologies/spec-first"
+    pillar: null
+    belt: null
+    tags: ["appendix", "frameworks", "three-pillars"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/spec-first"
+    path: "appendices/N-methodologies/N6-spec-first.md"
+    title: "Spec-first / agentic-loop design"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 6
+    time_minutes: 15
+    audience: "engineer"
+    outcome: "Understand why spec-first loops make AI work reviewable and reliable."
+    prev: "appendices/methodologies/three-pillars"
+    next: "appendices/methodologies/minimum-viable-wiki"
+    pillar: null
+    belt: null
+    tags: ["appendix", "frameworks", "spec-first"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/minimum-viable-wiki"
+    path: "appendices/N-methodologies/N7-minimum-viable-wiki.md"
+    title: "The minimum viable wiki"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 7
+    time_minutes: 20
+    audience: "engineer"
+    outcome: "Stand up a small working wiki with schema, catalog, journal, and pages."
+    prev: "appendices/methodologies/spec-first"
+    next: "appendices/methodologies/evaluating-frameworks"
+    pillar: null
+    belt: null
+    tags: ["appendix", "knowledge-base"]
+    updated: "2026-04-26"
+  - slug: "appendices/methodologies/evaluating-frameworks"
+    path: "appendices/N-methodologies/N8-evaluating-frameworks.md"
+    title: "Evaluating new frameworks"
+    section: "appendices"
+    track: "methodologies"
+    status: "drafted"
+    type: "chapter"
+    order: 8
+    time_minutes: 12
+    audience: "engineer"
+    outcome: "Evaluate the next AI workflow framework with a reusable rubric."
+    prev: "appendices/methodologies/minimum-viable-wiki"
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "frameworks", "rubric"]
+    updated: "2026-04-26"
+  - slug: "appendices/glossary"
+    path: "appendices/G-glossary/README.md"
+    title: "Appendix G: Glossary"
+    section: "appendices"
+    track: "glossary"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Look up any acronym, tool, role, or concept used in the curriculum and find a short definition with chapter pointers."
+    prev: null
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "glossary", "reference"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates"
+    path: "appendices/I-templates/README.md"
+    title: "Appendix I: Templates"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "everyone"
+    outcome: "Find the right template for the artefact you are about to create."
+    prev: null
+    next: "appendices/templates/claude-md-service"
+    pillar: null
+    belt: null
+    tags: ["appendix", "templates"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/claude-md-service"
+    path: "appendices/I-templates/CLAUDE-md-service.md"
+    title: "Template: CLAUDE.md (service-level)"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 1
+    time_minutes: 5
+    audience: "engineer"
+    outcome: "Add a working CLAUDE.md to a single service or repository."
+    prev: "appendices/templates"
+    next: "appendices/templates/claude-md-monorepo"
+    pillar: "context"
+    belt: null
+    tags: ["template", "claude-md", "service"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/claude-md-monorepo"
+    path: "appendices/I-templates/CLAUDE-md-monorepo.md"
+    title: "Template: CLAUDE.md (monorepo root)"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 2
+    time_minutes: 5
+    audience: "engineer"
+    outcome: "Add a working root-level CLAUDE.md to a monorepo."
+    prev: "appendices/templates/claude-md-service"
+    next: "appendices/templates/claude-local-md"
+    pillar: "context"
+    belt: null
+    tags: ["template", "claude-md", "monorepo"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/claude-local-md"
+    path: "appendices/I-templates/CLAUDE-local-md.md"
+    title: "Template: CLAUDE.local.md"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 3
+    time_minutes: 3
+    audience: "engineer"
+    outcome: "Add a personal, gitignored CLAUDE.local.md with overrides and machine-specific paths."
+    prev: "appendices/templates/claude-md-monorepo"
+    next: "appendices/templates/skill-md-minimum"
+    pillar: "context"
+    belt: null
+    tags: ["template", "claude-md", "local"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/skill-md-minimum"
+    path: "appendices/I-templates/SKILL-md-minimum.md"
+    title: "Template: SKILL.md (minimum viable)"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 4
+    time_minutes: 5
+    audience: "engineer"
+    outcome: "Author your first SKILL.md with clear triggers, body, and output shape."
+    prev: "appendices/templates/claude-local-md"
+    next: "appendices/templates/skill-md-full"
+    pillar: "context"
+    belt: null
+    tags: ["template", "skill-md", "minimum"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/skill-md-full"
+    path: "appendices/I-templates/SKILL-md-full.md"
+    title: "Template: SKILL.md (full, with progressive disclosure)"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 5
+    time_minutes: 6
+    audience: "engineer"
+    outcome: "Author a SKILL.md that stays small in its default body but reveals depth on demand."
+    prev: "appendices/templates/skill-md-minimum"
+    next: "appendices/templates/rfc"
+    pillar: "context"
+    belt: null
+    tags: ["template", "skill-md", "progressive-disclosure"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/rfc"
+    path: "appendices/I-templates/RFC-template.md"
+    title: "Template: AI RFC"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 6
+    time_minutes: 8
+    audience: "platform-builder"
+    outcome: "Write an AI RFC that names what would change, why, what alternatives exist, and how to roll it back."
+    prev: "appendices/templates/skill-md-full"
+    next: "appendices/templates/retro"
+    pillar: "governance"
+    belt: null
+    tags: ["template", "rfc", "governance"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/retro"
+    path: "appendices/I-templates/retro-template.md"
+    title: "Template: Retro (Quest, Boss Fight, Embedded Sprint)"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 7
+    time_minutes: 5
+    audience: "everyone"
+    outcome: "Write a retro that captures what worked, what did not, what surprised, and what the next person should know."
+    prev: "appendices/templates/rfc"
+    next: "appendices/templates/mv-wiki-seed"
+    pillar: "meta"
+    belt: null
+    tags: ["template", "retro"]
+    updated: "2026-05-08"
+  - slug: "appendices/templates/mv-wiki-seed"
+    path: "appendices/I-templates/minimum-viable-wiki-seed.md"
+    title: "Template: Minimum viable wiki seed"
+    section: "appendices"
+    track: "templates"
+    status: "drafted"
+    type: "template"
+    order: 8
+    time_minutes: 6
+    audience: "everyone"
+    outcome: "Stand up a working knowledge-base shape for a project."
+    prev: "appendices/templates/retro"
+    next: null
+    pillar: "context"
+    belt: null
+    tags: ["template", "wiki", "knowledge-base"]
+    updated: "2026-05-08"
+  - slug: "appendices/known-issues"
+    path: "appendices/D-known-issues/README.md"
+    title: "Appendix D: Known Issues + FAQ"
+    section: "appendices"
+    track: "known-issues"
+    status: "drafted skeleton"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "everyone"
+    outcome: "Find the known fix for a problem you have hit, or contribute a fix you have just developed."
+    prev: null
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "known-issues", "faq", "skeleton"]
+    updated: "2026-05-08"
+  - slug: "appendices/roles-and-forums"
+    path: "appendices/E-roles-and-forums/README.md"
+    title: "Appendix E: Roles & Forums"
+    section: "appendices"
+    track: "roles-and-forums"
+    status: "drafted skeleton"
+    type: "readme"
+    order: 0
+    time_minutes: 8
+    audience: "everyone"
+    outcome: "Find the role that owns a given topic and the forum where the role's work happens."
+    prev: null
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "roles", "forums", "skeleton"]
+    updated: "2026-05-08"
+  - slug: "appendices/slack-channels"
+    path: "appendices/F-slack-channels/README.md"
+    title: "Appendix F: Slack Channels & Rules of Engagement"
+    section: "appendices"
+    track: "slack-channels"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 6
+    audience: "everyone"
+    outcome: "Find the right channel for a question; follow the etiquette so the program's primary channels stay useful."
+    prev: null
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "slack", "channels", "etiquette", "directory"]
+    updated: "2026-05-13"
+  - slug: "appendices/reading-list"
+    path: "appendices/J-reading-list/README.md"
+    title: "Appendix J: Reading List"
+    section: "appendices"
+    track: "reading-list"
+    status: "drafted"
+    type: "readme"
+    order: 0
+    time_minutes: 10
+    audience: "everyone"
+    outcome: "Find the public source the curriculum cites for a topic with a one-line annotation."
+    prev: null
+    next: null
+    pillar: null
+    belt: null
+    tags: ["appendix", "reading-list", "external"]
+    updated: "2026-05-08"
+  - slug: "appendices/reference-cards/terminal-essentials"
+    path: "appendices/H-reference-cards/H2-terminal-essentials.md"
+    title: "H.2 — Terminal essentials"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 2
+    time_minutes: 3
+    audience: "everyone"
+    outcome: "The twelve commands and four shortcuts that get a new user through White Belt."
+    prev: "appendices/reference-cards/never-put-this-in-a-prompt"
+    next: "appendices/reference-cards/git-essentials"
+    pillar: "harness"
+    belt: null
+    tags: ["appendix", "reference-card", "terminal"]
+    updated: "2026-05-08"
+  - slug: "appendices/reference-cards/git-essentials"
+    path: "appendices/H-reference-cards/H3-git-essentials.md"
+    title: "H.3 — Git essentials"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 3
+    time_minutes: 3
+    audience: "everyone"
+    outcome: "Everyday Git commands plus the four recovery moves that handle most situations."
+    prev: "appendices/reference-cards/terminal-essentials"
+    next: "appendices/reference-cards/claude-code-essentials"
+    pillar: "harness"
+    belt: null
+    tags: ["appendix", "reference-card", "git"]
+    updated: "2026-05-08"
+  - slug: "appendices/reference-cards/claude-code-essentials"
+    path: "appendices/H-reference-cards/H4-claude-code-essentials.md"
+    title: "H.4 — Claude Code essentials"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 4
+    time_minutes: 3
+    audience: "everyone"
+    outcome: "The permission system, slash commands, and daily rhythm of working with Claude Code."
+    prev: "appendices/reference-cards/git-essentials"
+    next: "appendices/reference-cards/playwright-essentials"
+    pillar: "harness"
+    belt: null
+    tags: ["appendix", "reference-card", "claude-code"]
+    updated: "2026-05-08"
+  - slug: "appendices/reference-cards/playwright-essentials"
+    path: "appendices/H-reference-cards/H5-playwright-essentials.md"
+    title: "H.5 — Playwright essentials"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 5
+    time_minutes: 3
+    audience: "engineer"
+    outcome: "Everyday Playwright commands plus four debugging moves."
+    prev: "appendices/reference-cards/claude-code-essentials"
+    next: "appendices/reference-cards/mv-wiki-one-pager"
+    pillar: "harness"
+    belt: null
+    tags: ["appendix", "reference-card", "playwright", "testing"]
+    updated: "2026-05-08"
+  - slug: "appendices/reference-cards/mv-wiki-one-pager"
+    path: "appendices/H-reference-cards/H6-mv-wiki-one-pager.md"
+    title: "H.6 — Minimum viable wiki one-pager"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 6
+    time_minutes: 3
+    audience: "everyone"
+    outcome: "The four-file wiki shape and the discipline that keeps a project's context compounding."
+    prev: "appendices/reference-cards/playwright-essentials"
+    next: "appendices/reference-cards/day-1-quick-reference"
+    pillar: "context"
+    belt: null
+    tags: ["appendix", "reference-card", "knowledge-base", "wiki"]
+    updated: "2026-05-08"
+  - slug: "appendices/reference-cards/day-1-quick-reference"
+    path: "appendices/H-reference-cards/H7-day-1-quick-reference.md"
+    title: "H.7 — Day-1 quick reference"
+    section: "appendices"
+    track: "reference-cards"
+    status: "drafted"
+    type: "reference-card"
+    order: 7
+    time_minutes: 2
+    audience: "everyone"
+    outcome: "Have one printable page with every command, channel, and contact a new builder needs in their first week."
+    prev: "appendices/reference-cards/mv-wiki-one-pager"
+    next: null
+    pillar: "harness"
+    belt: "white"
+    tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
+    updated: "2026-05-13"
+
+planned_sections: []

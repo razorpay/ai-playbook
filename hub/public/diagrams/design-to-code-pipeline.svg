@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">The design-to-code pipeline</title>
+  <desc id="desc">A horizontal pipeline from a Figma frame through the design-intel skill, an intermediate document, the production-compiler skill, Blade JSX output, and the blade-compliance-reviewer gate.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; --accent: #6366F1; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; --accent: #A5B4FC; }
+      }
+      .bg { fill: var(--bg); }
+      .stage { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .stage-skill { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .stage-artefact { fill: var(--bg); stroke: var(--fg); stroke-width: 2; stroke-dasharray: 6 4; }
+      .flow { stroke: var(--fg); fill: none; stroke-width: 2; }
+      .gate { fill: #10B981; opacity: 0.18; stroke: #10B981; stroke-width: 2; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .title { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: var(--fg-muted); }
+      .stage-name { font-size: 15px; font-weight: 700; }
+      .stage-type { font-size: 11px; font-weight: 700; fill: var(--accent); letter-spacing: 1px; }
+      .stage-sub { font-size: 12px; fill: var(--fg-muted); }
+      .contract { font-size: 11px; font-weight: 600; fill: var(--fg-muted); letter-spacing: 0.3px; }
+      .gate-label { font-size: 12px; font-weight: 700; fill: #047857; }
+      @media (prefers-color-scheme: dark) {
+        .gate-label { fill: #34D399; }
+      }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--fg)"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="560"/>
+
+  <!-- Title -->
+  <text x="600" y="42" text-anchor="middle" class="title">Design-to-code pipeline</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">Figma → design-intel → spec → production-compiler → Blade JSX → compliance gate.</text>
+
+  <!-- Pipeline lane -->
+  <line x1="60" y1="290" x2="1140" y2="290" stroke="var(--hairline)" stroke-width="1"/>
+
+  <!-- Stage 1: Figma frame -->
+  <g transform="translate(40, 220)">
+    <rect class="stage" x="0" y="0" width="160" height="140" rx="8"/>
+    <text x="80" y="30" text-anchor="middle" class="stage-type">INPUT</text>
+    <text x="80" y="58" text-anchor="middle" class="stage-name">Figma frame</text>
+    <text x="80" y="84" text-anchor="middle" class="stage-sub">selected layer</text>
+    <text x="80" y="102" text-anchor="middle" class="stage-sub">variables · tokens</text>
+    <text x="80" y="120" text-anchor="middle" class="stage-sub">component refs</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <line class="flow" x1="200" y1="290" x2="260" y2="290" marker-end="url(#arrow)"/>
+  <text x="230" y="278" text-anchor="middle" class="contract">selection</text>
+
+  <!-- Stage 2: design-intel skill -->
+  <g transform="translate(260, 220)">
+    <rect class="stage-skill" x="0" y="0" width="160" height="140" rx="8"/>
+    <text x="80" y="30" text-anchor="middle" class="stage-type">SKILL</text>
+    <text x="80" y="58" text-anchor="middle" class="stage-name">design-intel</text>
+    <text x="80" y="84" text-anchor="middle" class="stage-sub">Figma MCP read</text>
+    <text x="80" y="102" text-anchor="middle" class="stage-sub">tokens · variants</text>
+    <text x="80" y="120" text-anchor="middle" class="stage-sub">layout intent</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <line class="flow" x1="420" y1="290" x2="480" y2="290" marker-end="url(#arrow)"/>
+  <text x="450" y="278" text-anchor="middle" class="contract">writes</text>
+
+  <!-- Stage 3: intel document (artefact) -->
+  <g transform="translate(480, 220)">
+    <rect class="stage-artefact" x="0" y="0" width="160" height="140" rx="8"/>
+    <text x="80" y="30" text-anchor="middle" class="stage-type">ARTEFACT</text>
+    <text x="80" y="58" text-anchor="middle" class="stage-name">intel document</text>
+    <text x="80" y="84" text-anchor="middle" class="stage-sub">/design-intel/foo.md</text>
+    <text x="80" y="102" text-anchor="middle" class="stage-sub">component map</text>
+    <text x="80" y="120" text-anchor="middle" class="stage-sub">props · states</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <line class="flow" x1="640" y1="290" x2="700" y2="290" marker-end="url(#arrow)"/>
+  <text x="670" y="278" text-anchor="middle" class="contract">reads</text>
+
+  <!-- Stage 4: production-compiler skill -->
+  <g transform="translate(700, 220)">
+    <rect class="stage-skill" x="0" y="0" width="160" height="140" rx="8"/>
+    <text x="80" y="30" text-anchor="middle" class="stage-type">SKILL</text>
+    <text x="80" y="58" text-anchor="middle" class="stage-name">production-compiler</text>
+    <text x="80" y="84" text-anchor="middle" class="stage-sub">Blade-aware codegen</text>
+    <text x="80" y="102" text-anchor="middle" class="stage-sub">primitives first</text>
+    <text x="80" y="120" text-anchor="middle" class="stage-sub">a11y baked in</text>
+  </g>
+
+  <!-- Arrow 4 -->
+  <line class="flow" x1="860" y1="290" x2="920" y2="290" marker-end="url(#arrow)"/>
+  <text x="890" y="278" text-anchor="middle" class="contract">emits</text>
+
+  <!-- Stage 5: Blade JSX (output) -->
+  <g transform="translate(920, 220)">
+    <rect class="stage" x="0" y="0" width="160" height="140" rx="8"/>
+    <text x="80" y="30" text-anchor="middle" class="stage-type">OUTPUT</text>
+    <text x="80" y="58" text-anchor="middle" class="stage-name">Blade JSX</text>
+    <text x="80" y="84" text-anchor="middle" class="stage-sub">tsx file in branch</text>
+    <text x="80" y="102" text-anchor="middle" class="stage-sub">Blade primitives</text>
+    <text x="80" y="120" text-anchor="middle" class="stage-sub">no raw HTML</text>
+  </g>
+
+  <!-- Compliance gate banner -->
+  <g transform="translate(100, 410)">
+    <rect class="gate" x="0" y="0" width="1000" height="70" rx="8"/>
+    <text x="20" y="28" class="gate-label">GATE</text>
+    <text x="20" y="52" class="stage-name">blade-compliance-reviewer</text>
+    <text x="980" y="28" text-anchor="end" class="stage-sub">redlines · token mismatch · primitive misuse</text>
+    <text x="980" y="52" text-anchor="end" class="stage-sub">runs on every produced file before PR review</text>
+  </g>
+
+  <!-- Connector from output to gate -->
+  <line class="flow" x1="1000" y1="360" x2="1000" y2="410" marker-end="url(#arrow)"/>
+  <text x="1014" y="390" class="contract">verifies</text>
+
+  <!-- Footer caption: the contract -->
+  <text x="600" y="528" text-anchor="middle" class="subtitle">Every stage has a written contract. A break at any boundary fails fast — the next stage refuses to run.</text>
+</svg>
