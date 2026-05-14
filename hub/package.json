@@ -1,0 +1,27 @@
+{
+  "name": "razorpay-ai-playbook-hub",
+  "version": "0.7.0-alpha",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-docs.mjs",
+    "predev": "npm run generate",
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
+    "prebuild": "npm run generate",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.36.3",
+    "astro": "5.7.5",
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "@astrojs/sitemap": "3.3.0",
+    "zod": "3.25.76"
+  }
+}

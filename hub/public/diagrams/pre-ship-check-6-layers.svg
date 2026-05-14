@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">The pre-ship-check six-layer gate</title>
+  <desc id="desc">Six stacked horizontal layers — Redlines, Design System, Tests, PR Craft, Prompt-Craft Trace, Behaviour Preservation — each carrying a GREEN, YELLOW, or RED outcome indicator. All six must be GREEN for a clean pass.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; }
+      }
+      .bg { fill: var(--bg); }
+      .layer { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .layer-num-cell { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .status-green { fill: #10B981; }
+      .status-yellow { fill: #F59E0B; }
+      .status-red { fill: #EF4444; }
+      .gate-stripe { stroke: #10B981; stroke-width: 3; fill: none; opacity: 0.4; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .title { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: var(--fg-muted); }
+      .layer-num { font-size: 14px; font-weight: 700; fill: var(--fg-muted); }
+      .layer-name { font-size: 17px; font-weight: 700; }
+      .layer-check { font-size: 12px; fill: var(--fg-muted); }
+      .status-label { font-size: 11px; font-weight: 700; letter-spacing: 0.6px; }
+      .status-label-green { fill: #047857; }
+      .status-label-yellow { fill: #B45309; }
+      .status-label-red { fill: #B91C1C; }
+      @media (prefers-color-scheme: dark) {
+        .status-label-green { fill: #34D399; }
+        .status-label-yellow { fill: #FCD34D; }
+        .status-label-red { fill: #FCA5A5; }
+      }
+      .gate-callout { font-size: 13px; font-weight: 700; fill: #047857; }
+      @media (prefers-color-scheme: dark) {
+        .gate-callout { fill: #34D399; }
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+
+  <!-- Title -->
+  <text x="600" y="44" text-anchor="middle" class="title">Pre-ship-check · six-layer gate</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">All six GREEN = clean pass. Any RED = block. Any YELLOW = author judgement, reviewer attention.</text>
+
+  <!-- Column headers -->
+  <text x="80" y="110" class="layer-num">#</text>
+  <text x="170" y="110" class="layer-num">LAYER</text>
+  <text x="540" y="110" class="layer-num">WHAT IT CHECKS</text>
+  <text x="980" y="110" class="layer-num" text-anchor="middle">OUTCOME</text>
+
+  <!-- Hairline under header -->
+  <line x1="60" y1="118" x2="1140" y2="118" stroke="var(--hairline)" stroke-width="1"/>
+
+  <!-- Layer 1: Redlines -->
+  <g transform="translate(60, 138)">
+    <rect class="layer" x="0" y="0" width="1080" height="68" rx="8"/>
+    <text x="20" y="40" class="layer-num">1</text>
+    <text x="110" y="32" class="layer-name">Redlines</text>
+    <text x="110" y="54" class="layer-check">no PII · no money paths bypassed · no auth bypass · no prod-config edits</text>
+    <circle cx="920" cy="34" r="14" class="status-green"/>
+    <text x="940" y="38" class="status-label status-label-green">GREEN</text>
+  </g>
+
+  <!-- Layer 2: Design System -->
+  <g transform="translate(60, 218)">
+    <rect class="layer" x="0" y="0" width="1080" height="68" rx="8"/>
+    <text x="20" y="40" class="layer-num">2</text>
+    <text x="110" y="32" class="layer-name">Design system</text>
+    <text x="110" y="54" class="layer-check">Blade primitives only · tokens not hex · no raw HTML · component variants correct</text>
+    <circle cx="920" cy="34" r="14" class="status-green"/>
+    <text x="940" y="38" class="status-label status-label-green">GREEN</text>
+  </g>
+
+  <!-- Layer 3: Tests -->
+  <g transform="translate(60, 298)">
+    <rect class="layer" x="0" y="0" width="1080" height="68" rx="8"/>
+    <text x="20" y="40" class="layer-num">3</text>
+    <text x="110" y="32" class="layer-name">Tests</text>
+    <text x="110" y="54" class="layer-check">unit · integration · visual diff · changed-files coverage · CI green</text>
+    <circle cx="920" cy="34" r="14" class="status-yellow"/>
+    <text x="940" y="38" class="status-label status-label-yellow">YELLOW</text>
+    <text x="110" y="68" class="layer-check" style="font-style: italic;">illustrative: visual diff has one accepted delta — reviewer must confirm</text>
+  </g>
+
+  <!-- Layer 4: PR Craft -->
+  <g transform="translate(60, 388)">
+    <rect class="layer" x="0" y="0" width="1080" height="68" rx="8"/>
+    <text x="20" y="40" class="layer-num">4</text>
+    <text x="110" y="32" class="layer-name">PR craft</text>
+    <text x="110" y="54" class="layer-check">title says intent · description has before/after · risk section present · self-review done</text>
+    <circle cx="920" cy="34" r="14" class="status-green"/>
+    <text x="940" y="38" class="status-label status-label-green">GREEN</text>
+  </g>
+
+  <!-- Layer 5: Prompt-Craft Trace -->
+  <g transform="translate(60, 468)">
+    <rect class="layer" x="0" y="0" width="1080" height="68" rx="8"/>
+    <text x="20" y="40" class="layer-num">5</text>
+    <text x="110" y="32" class="layer-name">Prompt-craft trace</text>
+    <text x="110" y="54" class="layer-check">SKILL invocations logged · context choices justified · model · token cost recorded</text>
+    <circle cx="920" cy="34" r="14" class="status-green"/>
+    <text x="940" y="38" class="status-label status-label-green">GREEN</text>
+  </g>
+
+  <!-- Layer 6: Behaviour Preservation -->
+  <g transform="translate(60, 548)">
+    <rect class="layer" x="0" y="0" width="1080" height="68" rx="8"/>
+    <text x="20" y="40" class="layer-num">6</text>
+    <text x="110" y="32" class="layer-name">Behaviour preservation</text>
+    <text x="110" y="54" class="layer-check">refactor diffs prove same outputs · golden tests untouched · API responses unchanged</text>
+    <circle cx="920" cy="34" r="14" class="status-green"/>
+    <text x="940" y="38" class="status-label status-label-green">GREEN</text>
+  </g>
+
+  <!-- Right-side gate stripe (the "all-green column") — the rotated callout was removed in v0.22 because it overlapped status labels; the subtitle at the top + the footer KEY now carry the same meaning. -->
+  <rect class="gate-stripe" x="900" y="138" width="80" height="478" rx="12"/>
+
+  <!-- Footer key -->
+  <g transform="translate(60, 656)">
+    <text x="0" y="14" class="layer-num">KEY</text>
+    <circle cx="60" cy="10" r="9" class="status-green"/>
+    <text x="76" y="14" class="layer-check"><tspan style="font-weight:700">GREEN</tspan> · ship</text>
+    <circle cx="220" cy="10" r="9" class="status-yellow"/>
+    <text x="236" y="14" class="layer-check"><tspan style="font-weight:700">YELLOW</tspan> · author judgement, reviewer attention</text>
+    <circle cx="640" cy="10" r="9" class="status-red"/>
+    <text x="656" y="14" class="layer-check"><tspan style="font-weight:700">RED</tspan> · block · fix before re-running</text>
+  </g>
+
+  <text x="600" y="700" text-anchor="middle" class="subtitle">The pre-ship-check skill walks all six gates and reports outcomes. Re-runnable. Recorded in PR.</text>
+</svg>

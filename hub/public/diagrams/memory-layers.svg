@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">The three memory layers</title>
+  <desc id="desc">Three stacked layers labelled Session State, Auto-memory, and External Storage. Each carries its lifetime, cost, and use-case, showing how a long-running agent composes all three.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; }
+      }
+      .bg { fill: var(--bg); }
+      .layer { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .layer-l1 { fill: #F59E0B; fill-opacity: 0.08; }
+      .layer-l2 { fill: #10B981; fill-opacity: 0.08; }
+      .layer-l3 { fill: #6366F1; fill-opacity: 0.08; }
+      .hairline { stroke: var(--hairline); fill: none; stroke-width: 1; }
+      .axis { stroke: var(--fg-muted); stroke-width: 1; fill: none; }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .title { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: var(--fg-muted); }
+      .layer-num { font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+      .layer-num-1 { fill: #B45309; }
+      .layer-num-2 { fill: #047857; }
+      .layer-num-3 { fill: #4338CA; }
+      @media (prefers-color-scheme: dark) {
+        .layer-num-1 { fill: #FCD34D; }
+        .layer-num-2 { fill: #34D399; }
+        .layer-num-3 { fill: #A5B4FC; }
+      }
+      .layer-name { font-size: 18px; font-weight: 700; }
+      .meta-label { font-size: 11px; font-weight: 700; fill: var(--fg-muted); letter-spacing: 0.5px; }
+      .meta-value { font-size: 13px; font-weight: 400; }
+      .example { font-size: 12px; fill: var(--fg-muted); }
+      .axis-label { font-size: 11px; font-weight: 600; fill: var(--fg-muted); letter-spacing: 0.5px; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="560"/>
+
+  <!-- Title -->
+  <text x="600" y="44" text-anchor="middle" class="title">The three memory layers</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">Session · Auto · External. A long-running agent composes all three.</text>
+
+  <!-- Axis labels (left): lifetime grows -->
+  <text x="60" y="118" class="axis-label">SHORTER LIFETIME</text>
+  <text x="60" y="478" class="axis-label">LONGER LIFETIME</text>
+  <line class="axis" x1="100" y1="125" x2="100" y2="470"/>
+  <line class="axis" x1="96" y1="125" x2="104" y2="125"/>
+  <line class="axis" x1="96" y1="470" x2="104" y2="470"/>
+
+  <!-- Layer 1: Session state (top) -->
+  <g transform="translate(160, 130)">
+    <rect class="layer layer-l1" x="0" y="0" width="960" height="100" rx="8"/>
+    <text x="20" y="26" class="layer-num layer-num-1">LAYER 1</text>
+    <text x="20" y="50" class="layer-name">Session state</text>
+    <text x="20" y="72" class="example">conversation transcript · cwd · in-flight tool results · todo list · plan mode</text>
+
+    <!-- Metadata column -->
+    <g transform="translate(640, 0)">
+      <text x="0" y="26" class="meta-label">LIFETIME</text>
+      <text x="0" y="44" class="meta-value">until /clear or exit</text>
+      <text x="0" y="68" class="meta-label">COST</text>
+      <text x="0" y="86" class="meta-value">tokens · context window</text>
+    </g>
+
+    <g transform="translate(820, 0)">
+      <text x="0" y="26" class="meta-label">USE FOR</text>
+      <text x="0" y="44" class="meta-value">this run only</text>
+      <text x="0" y="68" class="meta-label">TIP</text>
+      <text x="0" y="86" class="meta-value">/compact before drift</text>
+    </g>
+  </g>
+
+  <!-- Composition arrow indicator (between L1 and L2) -->
+  <text x="640" y="246" text-anchor="middle" class="example" style="font-weight: 700;">composes with ↓</text>
+
+  <!-- Layer 2: Auto-memory (middle) -->
+  <g transform="translate(160, 260)">
+    <rect class="layer layer-l2" x="0" y="0" width="960" height="100" rx="8"/>
+    <text x="20" y="26" class="layer-num layer-num-2">LAYER 2</text>
+    <text x="20" y="50" class="layer-name">Auto-memory</text>
+    <text x="20" y="72" class="example">.auto-memory/ files · user prefs · feedback · project facts · references</text>
+
+    <g transform="translate(640, 0)">
+      <text x="0" y="26" class="meta-label">LIFETIME</text>
+      <text x="0" y="44" class="meta-value">across sessions, per repo</text>
+      <text x="0" y="68" class="meta-label">COST</text>
+      <text x="0" y="86" class="meta-value">small disk · index in prompt</text>
+    </g>
+
+    <g transform="translate(820, 0)">
+      <text x="0" y="26" class="meta-label">USE FOR</text>
+      <text x="0" y="44" class="meta-value">"remember this about me"</text>
+      <text x="0" y="68" class="meta-label">TIP</text>
+      <text x="0" y="86" class="meta-value">prune index quarterly</text>
+    </g>
+  </g>
+
+  <text x="640" y="376" text-anchor="middle" class="example" style="font-weight: 700;">composes with ↓</text>
+
+  <!-- Layer 3: External storage (bottom) -->
+  <g transform="translate(160, 390)">
+    <rect class="layer layer-l3" x="0" y="0" width="960" height="100" rx="8"/>
+    <text x="20" y="26" class="layer-num layer-num-3">LAYER 3</text>
+    <text x="20" y="50" class="layer-name">External storage</text>
+    <text x="20" y="72" class="example">RAG indexes · Postgres · S3 buckets · vector stores · ticket systems · wikis</text>
+
+    <g transform="translate(640, 0)">
+      <text x="0" y="26" class="meta-label">LIFETIME</text>
+      <text x="0" y="44" class="meta-value">indefinite</text>
+      <text x="0" y="68" class="meta-label">COST</text>
+      <text x="0" y="86" class="meta-value">infra · retrieval latency</text>
+    </g>
+
+    <g transform="translate(820, 0)">
+      <text x="0" y="26" class="meta-label">USE FOR</text>
+      <text x="0" y="44" class="meta-value">org knowledge · audit</text>
+      <text x="0" y="68" class="meta-label">TIP</text>
+      <text x="0" y="86" class="meta-value">retrieve, don't dump</text>
+    </g>
+  </g>
+
+  <!-- Footer note -->
+  <text x="600" y="528" text-anchor="middle" class="subtitle">An agent that uses only L1 forgets. One that dumps L3 burns tokens. The skill is composing all three correctly.</text>
+</svg>

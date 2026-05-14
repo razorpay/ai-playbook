@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">The certification flow</title>
+  <desc id="desc">A flowchart showing quests, boss fight, reviewer protocol, revision loop, and badge claim. A branch shows the stricter Black Belt two-reviewer rule.</desc>
+  <defs>
+    <style>
+      :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --hairline: #E5E7EB; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #E5E7EB; --bg: #0F172A; --fg-muted: #9CA3AF; --hairline: #1F2937; }
+      }
+      .bg { fill: var(--bg); }
+      .node { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+      .node-terminal { fill: var(--bg); stroke: var(--fg); stroke-width: 2.5; }
+      .flow { stroke: var(--fg); fill: none; stroke-width: 1.75; }
+      .flow-muted { stroke: var(--fg-muted); fill: none; stroke-width: 1.5; stroke-dasharray: 6 5; }
+      .branch { stroke: #1F2937; fill: none; stroke-width: 1.75; }
+      @media (prefers-color-scheme: dark) {
+        .branch { stroke: #E5E7EB; }
+      }
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--fg); }
+      .title { font-size: 24px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: var(--fg-muted); }
+      .node-title { font-size: 15px; font-weight: 700; }
+      .node-sub { font-size: 12px; fill: var(--fg-muted); }
+      .edge-label { font-size: 11px; font-weight: 600; fill: var(--fg-muted); letter-spacing: 0.3px; }
+      .section { font-size: 11px; font-weight: 700; fill: var(--fg-muted); letter-spacing: 1.5px; }
+      .belt-badge { font-size: 13px; font-weight: 600; }
+      .badge-fill { fill: #10B981; }
+    </style>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="var(--fg)"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="var(--fg-muted)"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+
+  <!-- Title -->
+  <text x="600" y="44" text-anchor="middle" class="title">The certification flow</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">Quests → Boss Fight → reviewer protocol → badge. Black Belt adds a second reviewer.</text>
+
+  <!-- Stage labels -->
+  <text x="120" y="118" class="section">PREPARE</text>
+  <text x="380" y="118" class="section">ATTEMPT</text>
+  <text x="640" y="118" class="section">REVIEW</text>
+  <text x="930" y="118" class="section">CLAIM</text>
+
+  <!-- Node 1: Quests -->
+  <g transform="translate(60, 200)">
+    <rect class="node" x="0" y="0" width="200" height="80" rx="8"/>
+    <text x="100" y="32" text-anchor="middle" class="node-title">Quests</text>
+    <text x="100" y="52" text-anchor="middle" class="node-sub">Q-1 · Q-2 (per belt)</text>
+    <text x="100" y="68" text-anchor="middle" class="node-sub">graded artefacts</text>
+  </g>
+
+  <!-- Arrow 1 → 2 -->
+  <line class="flow" x1="260" y1="240" x2="320" y2="240" marker-end="url(#arrow)"/>
+
+  <!-- Node 2: Boss Fight -->
+  <g transform="translate(320, 200)">
+    <rect class="node" x="0" y="0" width="200" height="80" rx="8"/>
+    <text x="100" y="32" text-anchor="middle" class="node-title">Boss Fight</text>
+    <text x="100" y="52" text-anchor="middle" class="node-sub">single end-to-end task</text>
+    <text x="100" y="68" text-anchor="middle" class="node-sub">scoped to the belt</text>
+  </g>
+
+  <!-- Arrow 2 → 3 -->
+  <line class="flow" x1="520" y1="240" x2="580" y2="240" marker-end="url(#arrow)"/>
+
+  <!-- Node 3: Reviewer (diamond-ish: rounded rect with thicker stroke) -->
+  <g transform="translate(580, 200)">
+    <rect class="node-terminal" x="0" y="0" width="200" height="80" rx="8"/>
+    <text x="100" y="32" text-anchor="middle" class="node-title">Reviewer approves?</text>
+    <text x="100" y="52" text-anchor="middle" class="node-sub">protocol in Appendix L</text>
+    <text x="100" y="68" text-anchor="middle" class="node-sub">trace · artefacts · runbook</text>
+  </g>
+
+  <!-- Yes path: 3 → 4 -->
+  <line class="flow" x1="780" y1="240" x2="850" y2="240" marker-end="url(#arrow)"/>
+  <text x="815" y="232" text-anchor="middle" class="edge-label">YES</text>
+
+  <!-- Node 4: Badge claim -->
+  <g transform="translate(850, 200)">
+    <rect class="node-terminal" x="0" y="0" width="200" height="80" rx="8"/>
+    <circle cx="28" cy="40" r="11" class="badge-fill"/>
+    <text x="100" y="36" text-anchor="middle" class="node-title">Badge claim</text>
+    <text x="100" y="56" text-anchor="middle" class="node-sub">profile · directory · belt strip</text>
+  </g>
+
+  <!-- Revision loop: 3 → back to 2 -->
+  <!-- Goes DOWN from reviewer, LEFT, UP into boss fight -->
+  <path class="flow-muted" d="M 680 280 L 680 360 L 420 360 L 420 280" marker-end="url(#arrow-muted)"/>
+  <text x="550" y="380" text-anchor="middle" class="edge-label">NO · revise · re-submit</text>
+
+  <!-- Section divider -->
+  <line class="flow-muted" x1="60" y1="450" x2="1140" y2="450" stroke-dasharray="2 6"/>
+
+  <!-- Black Belt branch label -->
+  <text x="60" y="490" class="section">BLACK BELT VARIANT</text>
+  <text x="60" y="512" class="subtitle">Boss Fight B-B requires two independent reviewers. The flow forks at REVIEW.</text>
+
+  <!-- Black belt branch diagram -->
+  <!-- Source node: Boss Fight B-B -->
+  <g transform="translate(60, 560)">
+    <rect class="node" x="0" y="0" width="200" height="64" rx="8"/>
+    <text x="100" y="28" text-anchor="middle" class="node-title">Boss Fight B-B</text>
+    <text x="100" y="48" text-anchor="middle" class="node-sub">force-multiplier evidence</text>
+  </g>
+
+  <!-- Arrow to fork -->
+  <line class="flow" x1="260" y1="592" x2="320" y2="592" marker-end="url(#arrow)"/>
+
+  <!-- Fork node -->
+  <g transform="translate(320, 560)">
+    <rect class="node-terminal" x="0" y="0" width="160" height="64" rx="8"/>
+    <text x="80" y="28" text-anchor="middle" class="node-title">Two reviewers</text>
+    <text x="80" y="48" text-anchor="middle" class="node-sub">parallel · independent</text>
+  </g>
+
+  <!-- Branch to Reviewer A -->
+  <path class="branch" d="M 480 580 L 540 580 L 540 540 L 600 540" marker-end="url(#arrow)"/>
+  <g transform="translate(600, 510)">
+    <rect class="node" x="0" y="0" width="200" height="60" rx="8"/>
+    <text x="100" y="26" text-anchor="middle" class="node-title">Reviewer A</text>
+    <text x="100" y="46" text-anchor="middle" class="node-sub">approves?</text>
+  </g>
+
+  <!-- Branch to Reviewer B -->
+  <path class="branch" d="M 480 604 L 540 604 L 540 644 L 600 644" marker-end="url(#arrow)"/>
+  <g transform="translate(600, 614)">
+    <rect class="node" x="0" y="0" width="200" height="60" rx="8"/>
+    <text x="100" y="26" text-anchor="middle" class="node-title">Reviewer B</text>
+    <text x="100" y="46" text-anchor="middle" class="node-sub">approves?</text>
+  </g>
+
+  <!-- Merge to badge -->
+  <path class="flow" d="M 800 540 L 860 540 L 860 592 L 920 592" marker-end="url(#arrow)"/>
+  <path class="flow" d="M 800 644 L 860 644 L 860 592" />
+  <text x="855" y="588" text-anchor="middle" class="edge-label">BOTH</text>
+
+  <!-- Black belt badge -->
+  <g transform="translate(920, 560)">
+    <rect class="node-terminal" x="0" y="0" width="200" height="64" rx="8"/>
+    <circle cx="28" cy="32" r="11" style="fill: #1F2937; stroke: var(--fg); stroke-width: 1.5;"/>
+    <text x="110" y="28" text-anchor="middle" class="node-title">⚫  Black Belt</text>
+    <text x="110" y="48" text-anchor="middle" class="node-sub">badge issued</text>
+  </g>
+
+  <!-- Footer note -->
+  <text x="600" y="700" text-anchor="middle" class="subtitle">Single-reviewer path applies to White, Yellow, Green. Council induction is invitation; not pictured.</text>
+</svg>

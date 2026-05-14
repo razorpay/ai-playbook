@@ -1,0 +1,9 @@
+Section         Files   Lines   Em-dash/file  Shorthand  Placeholder    POD
+----------------------------------------------------------------------------
+Foundation         24    3644           16.4          1            0      1
+Prologue           13    1907           19.4          0            3      9
+White Belt         17    2851            0.0          0           10      0
+Yellow Belt        19    3390            1.5          0            0      0
+Green Belt         36    6913           15.6          3           17      0
+Black Belt         24    4701           19.8         10           52    149
+Appendices         15    2487           13.1          0            6      0

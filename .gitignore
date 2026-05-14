@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Node
+node_modules/
+
+# Hub build output (regenerated from root Markdown)
+hub/node_modules/
+hub/dist/
+hub/.astro/
+hub/.generated/
+hub/src/content/docs/
+hub/src/generated/
+
+# Python
+__pycache__/
+*.pyc
+
+# Local logs and temp
+*.log
+.cache/
+tmp/
