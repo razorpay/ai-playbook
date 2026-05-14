@@ -1,40 +1,114 @@
----
-title: "Razorpay Org-Wide AI Playbook"
-slug: "/"
-section: "root"
-status: "drafted"
-type: "readme"
-track: null
-order: 0
-time_minutes: 5
-audience: "everyone"
-outcome: "Know what this playbook is, what version you are holding, and where to start."
-prev: null
-next: "foundation"
-pillar: null
-belt: null
-tags: ["orientation"]
-updated: "2026-05-12"
----
-
 # Razorpay Org-Wide AI Playbook
 
-> **You are here.** This is the entry point for the v0.21b alpha: a Markdown-first, belt-progression playbook with a Starlight hub, the `playbook-course` Claude Code skill, six runnable program skills, the full belt curriculum, the Staff+ Council section, fourteen appendices, six quick-reference cards, **nine signature SVG diagrams, and seven hand-drawn companion illustrations**. The drafting is complete, the polish pass has run, and both tiers of the visual language have shipped.
+> The operating manual for Razorpay's AI builder program. A belt-progression curriculum, seven runnable Claude Code skills, and a Starlight hub — all built on one Markdown source of truth.
 
-This playbook is the operating manual for Razorpay's AI builder program. It starts before tools, before Terminal, before anyone assumes you know what an API is. Then it climbs through Prologue, belts, quests, and boss fights until a reader can ship code with AI, lead a team adoption sprint, or contribute back to the internal skills and knowledge-base layer. Above the belts sits the Staff+ Council, the standing community of senior contributors who shape the program over multi-year horizons. The appendices catalogue the references, the templates, and the printable cards builders use beside live workflows.
+<p align="center">
+  <img src="diagrams/belt-ladder-hero.svg" alt="Foundation → White → Yellow → Green → Black → Council" width="720">
+</p>
 
-**Version.** v0.21b alpha, updated 2026-05-12. This version layers the second visual tier on top of v0.21's signature SVGs: seven hand-drawn-style companion illustrations land in `excalidraw/` and into seven chapters where narrative work lands better than polished reference — the Origin Story before/after, the Boss Fight B-B month timeline, office hours, the embedded sprint week, inbox triage, the White Belt first-day map, and the RFC anti-patterns grid. The two tiers (polished SVG for identity, hand-drawn for narrative) are documented in `excalidraw/README.md` and `diagrams/README.md`. The initial cut was script-generated (`scripts/generate-handdrawn-svg.py`); each file can be replaced with a real Excalidraw sketch later without changing any chapter reference.
-
-**Start here.** If you are new to software, begin with [Part 0 — Foundation](foundation/README.md). If you already know what an API, database, and deploy are, start with the [Prologue](prologue/README.md). If you are reviewing the whole playbook as a sponsor or maintainer, open the [Master Index](INDEX.md) first. If you want a guided walk, run Claude Code in this directory and say "start the playbook."
-
-**What is drafted.** Foundation, Prologue, all four belts, the Staff+ Council section, fourteen appendices, six runnable program skills, six quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Three appendices ship as drafted skeletons (D Known Issues, E Roles & Forums, F Slack Channels) whose entries seed over time. The `playbook-course` skill walks the full curriculum. The reading order is coherent end-to-end from first commit to Council membership.
-
-**How this is served.** The source of truth is Markdown. `slugs.yml` defines stable URL and skill IDs. `manifest.yml` defines the navigable course structure. The HTML hub in `hub/` reads those files and generates Starlight pages without a second editable source tree. The `playbook-course` skill at `skills/playbook-course/` reads a generated `curriculum.json` (also derived from `manifest.yml`) plus the chapter Markdown directly. Three doors, one source.
-
-**Run the hub locally.** From `hub/`, run `npm install` once, then `npm run dev`. The local site opens at `http://127.0.0.1:4321/`. For a production build, run `npm run build`; static output lands in `hub/dist/`.
-
-**Run the course skill.** From any working directory with Claude Code and the program-pinned plugin loaded, type "start the playbook" or "continue my belt." The skill creates a `LEARNER.md` and walks the next module. Maintainer notes are at [`skills/playbook-course/README.md`](skills/playbook-course/README.md).
+<p align="center">
+  <strong>v0.21b alpha</strong> · updated 2026-05-12 · source of truth: Markdown<br>
+  <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
+</p>
 
 ---
 
-**Next:** [→ Part 0 — Foundation](foundation/README.md) · [→ Master Index](INDEX.md)
+## What this is
+
+A playbook for AI-native engineering at Razorpay. It starts before tools — before Terminal, before "what's an API" — and climbs through Foundation, four belts (White, Yellow, Green, Black), and a Staff+ Council layer for senior contributors. A reader who finishes can ship code with AI, lead a team adoption sprint, or contribute back to the org's internal skills and knowledge-base layer.
+
+The content is Markdown-first, written to be **outside-readable** at the lower belts and **fintech-real** at the upper ones. Belts are earned by shipping, not by reading — every belt has required modules, hands-on quests, and a boss-fight capstone.
+
+## Three doors, one source
+
+The same Markdown layer powers three consumption surfaces. Pick the one that fits how you want to read.
+
+| Door | Best for | How to use it |
+|---|---|---|
+| **Read on GitHub** | Skimming, linking, and reading in the same place you work. | Start at [INDEX.md](INDEX.md). Every chapter is a flat Markdown file. |
+| **Browse the hub** | The polished web experience with search, sidebar, and progress markers. | The Astro Starlight site under [`hub/`](hub). See *Run the hub* below. |
+| **Walk it with Claude Code** | A paced, conversational track with quest and boss-fight gating. | The [`playbook-course`](skills/playbook-course) skill. Say *"start the playbook"* in Claude Code. |
+
+## Pick your starting point
+
+- **New to software.** → [Part 0 — Foundation](foundation/README.md). Tech 101 + Ops 101. Pre-tools, pre-AI, fully outside-readable.
+- **Already know what an API, database, and deploy are.** → [Prologue](prologue/README.md). A twelve-chapter mental-model warmup.
+- **Reviewing the whole playbook as a sponsor or maintainer.** → [Master Index](INDEX.md).
+- **Looking for templates, cards, glossary, or certification policy.** → [Appendices](appendices/).
+- **Senior IC interested in the Council layer.** → [Staff+ Council](belts/05-council/README.md).
+
+If you want a guided walk, open Claude Code in this directory and say *"start the playbook."* The course skill creates a `LEARNER.md` in your working directory and walks the next module.
+
+## Repository layout
+
+```
+.
+├── README.md                 # you are here
+├── INDEX.md                  # reader-facing master TOC
+├── CHANGELOG.md              # what shipped, when
+├── CONTRIBUTING.md           # design principles, content rules, voice
+├── ROADMAP.md                # open questions and the v1.0 path
+├── manifest.yml              # machine-readable course manifest
+├── slugs.yml                 # stable URL + skill ID map
+│
+├── foundation/               # Part 0 — Tech 101 + Ops 101
+├── prologue/                 # 12-chapter mental-model warmup
+├── belts/                    # 01-white → 02-yellow → 03-green → 04-black → 05-council
+├── appendices/               # A tool atlas · B setup · C skills · D issues · E roles
+│                             # F slack · G glossary · H cards · I templates
+│                             # J reading · L certification · N methodologies
+├── case-studies/             # Boss Fight B-B case studies seed here
+│
+├── skills/                   # 7 Claude Code skills (incl. playbook-course)
+├── diagrams/                 # 12 signature SVG diagrams (theme-aware)
+├── excalidraw/               # 7 hand-drawn companion illustrations
+├── hub/                      # Astro Starlight source — regenerated from above
+└── scripts/                  # build + polish tooling
+```
+
+## Run the hub locally
+
+```sh
+cd hub
+npm install
+npm run dev
+# open http://127.0.0.1:4321/
+```
+
+Production build:
+
+```sh
+cd hub
+npm run build       # static output → hub/dist/
+npm run preview     # serve hub/dist/ locally
+```
+
+The hub regenerates `hub/src/content/docs/` from the root Markdown on every build. Edit the root Markdown — never the generated files, which are overwritten.
+
+## Run the course skill
+
+In any working directory with Claude Code and the Razorpay Compass plugin loaded:
+
+```
+> start the playbook
+> continue my belt
+> show my progress
+```
+
+The skill reads `curriculum.json` (generated from `manifest.yml`) and the chapter Markdown directly, paces the walk, and tracks progress in a local `LEARNER.md`. It records claims at quests and boss fights; it does **not** award belts — that is [Appendix L's reviewer protocol](appendices/L-certification/README.md). Maintainer notes live at [`skills/playbook-course/README.md`](skills/playbook-course/README.md).
+
+## What's drafted
+
+Foundation, Prologue, all four belts, the Staff+ Council section, twelve appendices, seven Claude Code skills, six quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Three appendices ship as drafted skeletons (D Known Issues, E Roles & Forums, F Slack Channels) whose entries seed over time. The reading order is coherent end-to-end from first commit to Council membership.
+
+Version history is in [CHANGELOG.md](CHANGELOG.md). What's coming next is in [ROADMAP.md](ROADMAP.md).
+
+## Contribute
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR. It covers the six design principles, the content rules (Razorpay-term tiering, no PII, no personal names), the voice commitments, and the link-and-lint sweep that gates merges.
+
+For substantial changes (a belt restructure, a new track, a voice change), write an AI RFC using the [template in Appendix I](appendices/I-templates/RFC-template.md). The RFC is reviewed by the Staff+ Council per [C.3](belts/05-council/C03-rfc-pipeline.md).
+
+---
+
+**Next:** [→ Master Index](INDEX.md) · [→ Part 0 — Foundation](foundation/README.md) · [→ Prologue](prologue/README.md)
