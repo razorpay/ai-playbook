@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: [non-api, linux-amd64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: hub/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: hub
+
+      - name: Build site
+        run: npm run build
+        working-directory: hub
+        env:
+          ASTRO_SITE: "https://razorpay.github.io"
+          ASTRO_BASE: "/ai-playbook"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: hub/dist
+
+  deploy:
+    needs: build
+    runs-on: [non-api, linux-amd64]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
