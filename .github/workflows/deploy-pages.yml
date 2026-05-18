@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: [cache-3, frontend-apps]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
