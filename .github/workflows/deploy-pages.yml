@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: [non-api, linux-amd64]
+    runs-on: [cache-3, frontend-apps]
     steps:
       - uses: actions/checkout@v4
 
