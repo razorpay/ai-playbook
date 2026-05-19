@@ -55,11 +55,11 @@ If you want a guided walk, open Claude Code in this directory and say *"start th
 ├── prologue/                 # 12-chapter mental-model warmup
 ├── belts/                    # 01-white → 02-yellow → 03-green → 04-black → 05-council
 ├── appendices/               # A tool atlas · B setup · C skills · D issues · E roles
-│                             # F slack · G glossary · H cards · I templates
+│                              # F slack · G glossary · H cards · I templates
 │                             # J reading · L certification · N methodologies
 ├── case-studies/             # Boss Fight B-B case studies seed here
 │
-├── skills/                   # 7 Claude Code skills (incl. playbook-course)
+├── skills/                  # 7 Claude Code skills (incl. playbook-course)
 ├── diagrams/                 # 12 signature SVG diagrams (theme-aware)
 ├── excalidraw/               # 7 hand-drawn companion illustrations
 ├── hub/                      # Astro Starlight source — regenerated from above
@@ -84,6 +84,27 @@ npm run preview     # serve hub/dist/ locally
 ```
 
 The hub regenerates `hub/src/content/docs/` from the root Markdown on every build. Edit the root Markdown — never the generated files, which are overwritten.
+
+
+## Deployed hub
+
+The hub is published to GitHub Pages on every merge to master and is accessible at:
+
+> **https://razorpay.github.io/ai-playbook/**
+
+### How deployments work
+
+| Trigger | What happens | URL |
+|---------|-------------|-----|
+| Push to `master` | Site builds and deploys automatically (~2 min) | https://razorpay.github.io/ai-playbook/ |
+| PR opened / updated | Preview build deploys automatically | `https://razorpay.github.io/ai-playbook/pr-preview/pr-{N}/` |
+| PR closed / merged | Preview is automatically removed | — |
+
+The bot posts a comment on every PR with the preview URL so you can verify the rendered output before merging.
+
+### Trigger a manual redeploy
+
+Go to [Actions → Deploy to GitHub Pages](https://github.com/razorpay/ai-playbook/actions/workflows/deploy-pages.yml) → **Run workflow** → master.
 
 ## Run the course skill
 
