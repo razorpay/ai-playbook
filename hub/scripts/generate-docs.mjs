@@ -11,6 +11,7 @@ const docsDir = path.join(hubRoot, 'src/content/docs');
 const generatedDir = path.join(hubRoot, '.generated/docs');
 const publicDir = path.join(hubRoot, 'public');
 const sidebarPath = path.join(hubRoot, 'src/generated/sidebar.mjs');
+const base = process.env.ASTRO_BASE || '/ai-playbook';
 
 const sectionLabels = {
   root: 'Start Here',
@@ -450,7 +451,7 @@ async function buildPlannedPage(entry) {
     '',
     '## Where to go next',
     '',
-    '- Return to the [Master Index](/master-index/).',
+    '- Return to the [Master Index](${base}/master-index/).',
     '- Read the drafted Foundation, Prologue, and appendix pages first.'
   ].join('\n');
   const output = `---\n${YAML.stringify(frontmatter).trim()}\n---\n\n${body}\n`;
@@ -768,11 +769,11 @@ hero:
   tagline: The operating manual for AI-native builders. Foundation through Council, all in one source.
   actions:
     - text: Start the journey
-      link: /prologue/welcome/
+      link: ${base}/prologue/welcome/
       icon: right-arrow
       variant: primary
     - text: Just want the TOC
-      link: /master-index/
+      link: ${base}/master-index/
       icon: external
       variant: minimal
 ---
@@ -781,24 +782,24 @@ hero:
 
 If today is your first day with the playbook, do these three things before anything else. The whole rest of the curriculum compounds off of them.
 
-1. **[Take the self-assessment](/prologue/self-assessment/)** (2 minutes). Tells you which belt to actually start at.
-2. **[Read Tech 101 chapter 1](/tech-101/what-is-software/)** (5 minutes) — or skip if you already know what a server is.
-3. **[Run W.5 → Quest W-0](/belts/white/installing-the-stack/)** (~60 minutes). The two-step install + the five GREEN checks. By the end of this you've shipped your first "I have working Claude Code" claim.
+1. **[Take the self-assessment](${base}/prologue/self-assessment/)** (2 minutes). Tells you which belt to actually start at.
+2. **[Read Tech 101 chapter 1](${base}/tech-101/what-is-software/)** (5 minutes) — or skip if you already know what a server is.
+3. **[Run W.5 → Quest W-0](${base}/belts/white/installing-the-stack/)** (~60 minutes). The two-step install + the five GREEN checks. By the end of this you've shipped your first "I have working Claude Code" claim.
 
 Stuck at any step? Post in [\`#claude-onboarding-support\`](https://razorpay.slack.com/archives/C0ANCMTCJA2) within ten minutes — that's the support channel for everything Day 1.
 
 ---
 
-![The belt ladder — from Foundation through Council](/diagrams/belt-ladder-hero.svg)
+![The belt ladder — from Foundation through Council](${base}/diagrams/belt-ladder-hero.svg)
 
 ## Find your starting point
 
 Pick the door that matches where you are today.
 
-- [**Never opened Terminal?**](/foundation/) — start with Part 0 (Tech 101 + Ops 101).
-- [**Ship code regularly?**](/prologue/self-assessment/) — take the two-minute self-assessment.
-- [**Senior IC reading the Council?**](/council/) — invitation-only senior community.
-- [**Just browsing?**](/master-index/) — the full table of contents.
+- [**Never opened Terminal?**](${base}/foundation/) — start with Part 0 (Tech 101 + Ops 101).
+- [**Ship code regularly?**](${base}/prologue/self-assessment/) — take the two-minute self-assessment.
+- [**Senior IC reading the Council?**](${base}/council/) — invitation-only senior community.
+- [**Just browsing?**](${base}/master-index/) — the full table of contents.
 
 ## The full curriculum
 
@@ -812,7 +813,7 @@ ${appendixGrid}
 
 ---
 
-The full playbook is reachable from the [Master Index](/master-index/). The hub is regenerated from Markdown on every build; the canonical source is the repository.
+The full playbook is reachable from the [Master Index](${base}/master-index/). The hub is regenerated from Markdown on every build; the canonical source is the repository.
 `;
 
   await writeGeneratedDoc('index.md', content);
@@ -830,20 +831,20 @@ hero:
   tagline: This page moved or never existed. Three doors cover most arrivals.
   actions:
     - text: Back to the playbook home
-      link: /
+      link: ${base}/
       icon: right-arrow
       variant: primary
     - text: Open the Master Index
-      link: /master-index/
+      link: ${base}/master-index/
       icon: external
       variant: minimal
 ---
 
 ## Where you probably wanted to go
 
-- [**Tech 101 — What is software, really?**](/tech-101/what-is-software/) — chapter one of the universal handbook, if you're new and looking for a place to start.
-- [**Part 0 — Foundation**](/foundation/) — pre-tools, pre-AI orientation for Tech 101 and Ops 101.
-- [**Master Index**](/master-index/) — the full table of contents.
+- [**Tech 101 — What is software, really?**](${base}/tech-101/what-is-software/) — chapter one of the universal handbook, if you're new and looking for a place to start.
+- [**Part 0 — Foundation**](${base}/foundation/) — pre-tools, pre-AI orientation for Tech 101 and Ops 101.
+- [**Master Index**](${base}/master-index/) — the full table of contents.
 
 If you searched and the page you wanted has moved, the search bar in the header above will find it. If a stale link sent you here, ping [\`#claude-onboarding-support\`](https://razorpay.slack.com/archives/C0ANCMTCJA2) so the link gets fixed.
 `;
