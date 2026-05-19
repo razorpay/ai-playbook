@@ -104,8 +104,8 @@ function normalizeRel(filePath) {
 }
 
 function routeFor(slug) {
-  if (!slug || slug === '/') return '/';
-  return `/${slug.replace(/^\/+|\/+$/g, '')}/`;
+  if (!slug || slug === '/') return '';
+  return `${slug.replace(/^\/+|\/+$/g, '')}/`;
 }
 
 function outputPathFor(slug) {
@@ -481,8 +481,8 @@ function buildSidebar(chapters, plannedPages) {
     {
       label: 'Start Here',
       items: [
-        { label: 'Playbook Home', link: '/' },
-        { label: 'Master Index', link: '/master-index/' }
+        { label: 'Playbook Home', link: '' },
+        { label: 'Master Index', link: 'master-index/' }
       ]
     }
   ];
