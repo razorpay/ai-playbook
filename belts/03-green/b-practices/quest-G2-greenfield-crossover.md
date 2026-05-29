@@ -208,7 +208,7 @@ The reviewer attests that:
 
 ---
 
-**Previous:** [← G.21 Debugging the hard kind](G21-debugging-hard-kind.md) · **Next:** Part C lands in v0.11
+**Previous:** [← G.21 Debugging the hard kind](G21-debugging-hard-kind.md) · **Next:** [→ Part C — Fintech Guardrails](../c-guardrails/README.md)
 
 **Further reading**
 

@@ -116,7 +116,7 @@ A splitter divides the work into independent slices; N parallel subagents proces
 
 A main agent owns the conversation. When it needs deep work in a specialist domain, it spawns a subagent with a tight brief (per G.8). Specialists return structured findings; the main agent integrates and decides.
 
-**When this works:** complex tasks where a generalist cannot hold the depth in context. The boss-fight review pattern (pre-ship-check, blade-compliance, security-review-subagent in v0.12) is a real-world supervisor-plus-specialists shape.
+**When this works:** complex tasks where a generalist cannot hold the depth in context. The boss-fight review pattern (`pre-ship-check`, `blade-compliance-reviewer`, `security-review-subagent` shipped together) is a real-world supervisor-plus-specialists shape.
 
 **Why it works:** the main agent has the conversation; the specialists have the deep context; each pays only the budget it needs. The main agent's context never bloats with the specialists' working notes.
 
@@ -198,7 +198,7 @@ Walk the questions:
 
 Conclusion: a hybrid. A thin supervisor + four parallel specialists + a reducer. The supervisor reads the PR once; spawns four parallel specialists with tight briefs; receives four structured artefacts; assembles the report.
 
-This is essentially what `pre-ship-check` (v0.12) plus `security-review-subagent` together implement. The pattern composes; the chapters that drafted them got the pattern right.
+This is essentially what the `pre-ship-check` and `security-review-subagent` skills together implement. The pattern composes; the chapters that drafted them got the pattern right.
 
 ---
 

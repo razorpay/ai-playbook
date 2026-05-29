@@ -29,7 +29,7 @@ updated: "2026-05-07"
 
 ## Status: fully drafted
 
-Black Belt is a three-part belt that shipped in three drops — Part A (v0.13), Part B (v0.14), and Part C plus the boss fight plus the badge (v0.15). **All three parts are drafted.** A nominated builder can now read the belt end-to-end, claim Quests B-1 and B-2, ship Boss Fight B-B, and claim the badge.
+Black Belt is a three-part belt. **All three parts are drafted.** A nominated builder can read the belt end-to-end, claim Quests B-1 and B-2, ship Boss Fight B-B, and claim the badge.
 
 The next horizon for builders who have closed the belt is the [**Staff+ Council**](../05-council/README.md), the standing community of senior contributors who shape the program's AI direction over multi-year horizons. Council membership is invitation-only.
 
@@ -49,7 +49,7 @@ Black Belt entry requires nomination by a manager or a Green Belt teammate. Nomi
 
 ## The full belt arc
 
-### Part A — Build the Platform (drafted in v0.13)
+### Part A — Build the Platform
 
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
@@ -60,7 +60,7 @@ Black Belt entry requires nomination by a manager or a Green Belt teammate. Nomi
 | B.5  | [Multi-agent orchestration — patterns that work, patterns that don't](a-platform/B05-multi-agent-orchestration.md) | Harness | 45 min |
 | B.6  | [Tool design — JSON schemas, output shapes, error contracts](a-platform/B06-tool-design.md) | Harness | 30 min |
 
-### Part B — Push the Craft [drafted in v0.14]
+### Part B — Push the Craft
 
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
@@ -70,7 +70,7 @@ Black Belt entry requires nomination by a manager or a Green Belt teammate. Nomi
 | B.10 | [Cost attribution + observability at team + org scale](b-craft/B10-cost-and-observability.md) | Harness | 30 min |
 | B.11 | [Effort settings, model routing, fall-backs](b-craft/B11-effort-and-routing.md) | Harness | 30 min |
 
-### Part C — Shape the Org [drafted in v0.15]
+### Part C — Shape the Org
 
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
@@ -84,15 +84,15 @@ Black Belt entry requires nomination by a manager or a Green Belt teammate. Nomi
 
 ## Quests and boss fight
 
-### Quest B-1 — Publish an internal plugin (drafted in v0.13)
+### Quest B-1 — Publish an internal plugin
 
 [Quest B-1](a-platform/quest-B1-publish-an-internal-plugin.md). Publish a skill pack (and optionally an MCP integration) so another POD can install it with one command. At least two installs from PODs outside your team within a month.
 
-### Quest B-2 — Component contribution or full-stack feature (drafted in v0.14)
+### Quest B-2 — Component contribution or full-stack feature
 
 [Quest B-2](b-craft/quest-B2-contribution-or-full-stack.md). Either submit a Blade component via the contribution pipeline, or ship a feature involving a backend change you own end-to-end.
 
-### Boss Fight B-B — Own a POD's AI uplift for a month (drafted in v0.15)
+### Boss Fight B-B — Own a POD's AI uplift for a month
 
 [Boss Fight B-B](c-org/boss-fight-BB-pod-ai-uplift.md). Embed with a POD outside your own for one month. Pick a shared metric *with the POD lead* before the embed begins. Intervene through the full Black Belt toolkit. Measure the lift. Write a one-pager case study. Present in an all-hands or the program's main forum.
 
@@ -123,6 +123,6 @@ The [Black Belt badge](c-org/badge.md) closes the belt and mirrors the White, Ye
 
 ---
 
-**Files:** `belts/04-black/` — organised into subfolders `a-platform/` [drafted in v0.13], `b-craft/` [drafted in v0.14], and `c-org/` [drafted in v0.15]. All three parts drafted; both quests claimable; Boss Fight B-B and the badge land the closer.
+**Files:** `belts/04-black/` — organised into subfolders `a-platform/`, `b-craft/`, and `c-org/`, all drafted. Both quests claimable; Boss Fight B-B and the badge close the belt.
 
 **Previous:** [← Green Belt badge](../03-green/c-guardrails/badge.md) · **Next:** [→ Part A README](a-platform/README.md)

@@ -70,7 +70,7 @@ The quest is the practical test of G.6 and G.7. Do it after both modules are rea
 
 ## What comes next
 
-Part B (E2E testing, design-to-code, observability, hard debugging) builds the *practices* on top of the *craft* you'll learn here. Part C (Razorpay redlines, the LLM proxy, security review) builds the *guardrails*. Both are planned for v0.10 and v0.11.
+[Part B](../b-practices/README.md) (E2E testing, design-to-code, observability, hard debugging) builds the *practices* on top of the *craft* you'll learn here. [Part C](../c-guardrails/README.md) (Razorpay redlines, the LLM proxy, security review) builds the *guardrails*. Both are drafted; walk Part A first.
 
 ---
 

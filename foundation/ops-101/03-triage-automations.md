@@ -72,7 +72,7 @@ Each morning, before you open your inbox yourself, ask Claude (in Cowork or Clau
 
 The output is your morning briefing. You spend two minutes on it, instead of twenty minutes scrolling.
 
-**The first week** will produce some misclassifications — a thing it called "FYI" that actually needed action, or vice versa. When that happens, *correct it explicitly*: "this one was actually ACTS_ON_ME because [reason]." Within a few days the agent stabilises. Save the final prompt as a recipe. Appendix I — Templates [coming] will hold the reusable recipe format.
+**The first week** will produce some misclassifications — a thing it called "FYI" that actually needed action, or vice versa. When that happens, *correct it explicitly*: "this one was actually ACTS_ON_ME because [reason]." Within a few days the agent stabilises. Save the final prompt as a recipe. [Appendix I — Templates](../../appendices/I-templates/README.md) holds the reusable recipe format.
 
 **Reliability tip.** Don't let the agent *act* on the inbox the first week — no auto-archives, no auto-routing. It's a *briefing* tool until you trust the buckets. After two weeks of stable behaviour, you can let it auto-archive the AUTO_ARCHIVE pile, but keep ACTS_ON_ME and ROUTES under your eye.
 

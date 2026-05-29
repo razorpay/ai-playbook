@@ -89,4 +89,4 @@ You can think of Ops 101 as a parallel non-coding belt path. White Belt for non-
 **Further reading**
 - [Lenny's Newsletter — 25 proven AI-adoption tactics](https://www.lennysnewsletter.com/p/25-proven-tactics-to-accelerate-ai) — the cohort-based and time-saved arguments that led us to make this track heavy
 - [Anthropic's introduction to Cowork](https://www.anthropic.com/) — the desktop tool that fits this track best
-- Appendix I (Templates [coming]) recipe template for boss-fight contributions
+- [Appendix I — Templates](../../appendices/I-templates/README.md) recipe template for boss-fight contributions

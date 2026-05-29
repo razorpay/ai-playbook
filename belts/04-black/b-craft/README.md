@@ -62,7 +62,7 @@ Walk them in order on a first read. B.7 anchors the Part B voice; B.8 and B.9 ar
 
 ## What comes next
 
-Part C — [*Shape the Org*](../c-org/README.md): covers running office hours, embedded sprints, AI RFCs, API Council contributions, and skill / plugin governance. Drafted in v0.15 with [Boss Fight B-B](../c-org/boss-fight-BB-pod-ai-uplift.md) (POD-uplift embed) and the [Black Belt badge](../c-org/badge.md).
+Part C — [*Shape the Org*](../c-org/README.md): covers running office hours, embedded sprints, AI RFCs, API Council contributions, and skill / plugin governance. Closes the belt with [Boss Fight B-B](../c-org/boss-fight-BB-pod-ai-uplift.md) (POD-uplift embed) and the [Black Belt badge](../c-org/badge.md).
 
 ---
 

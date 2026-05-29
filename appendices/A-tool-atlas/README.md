@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-04-27"
+updated: "2026-05-29"
 ---
 
 # Appendix A — Tool Atlas
@@ -194,4 +194,4 @@ The atlas exists because these patterns keep happening and keep costing time.
 - For the philosophy behind context and harness choices, read [Appendix N.5 — Three pillars](../N-methodologies/N5-three-pillars.md).
 - For the redlines that apply across surfaces, read [Appendix H — Reference Cards](../H-reference-cards/README.md).
 
-This appendix will grow into one page per major tool over v0.6. For v0.5, the cards above are the canonical first-pass.
+The cards above are the canonical first-pass. Per-tool deep-dives expand here as the program collects enough usage signal to justify them.

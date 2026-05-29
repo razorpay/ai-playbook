@@ -30,7 +30,7 @@ updated: "2026-04-29"
 
 Part A taught the craft — three pillars, hierarchical CLAUDE.md, skills, subagents, worktrees, advanced prompting. Part B is where that craft meets the daily reality of a Green Belt builder: end-to-end tests written *with* the agent, design-to-code flows that respect the design system, branch-preview workflows, observability with AI in the loop, and the hard-kind debugging where you have to tell Claude it is wrong.
 
-Ten modules, one quest. The boss fight (Part C, v0.11) requires Quests G-1 and G-2 both claimed.
+Ten modules, one quest. The boss fight (Part C) requires Quests G-1 and G-2 both claimed.
 
 ---
 

@@ -201,7 +201,7 @@ The reviewer attests that:
 
 ---
 
-**Previous:** [← B.6 Tool design](B06-tool-design.md) · **Next:** Part B (Push the Craft) lands in v0.14
+**Previous:** [← B.6 Tool design](B06-tool-design.md) · **Next:** [→ Part B — Push the Craft](../b-craft/README.md)
 
 **Further reading**
 

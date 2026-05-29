@@ -226,7 +226,7 @@ The AI-RFC-specific notes:
 
 ## A note on templates
 
-Appendix I (Templates) is `[planned]`; the canonical RFC template will land there. In the meantime, the seven sections above are sufficient: copy them into your draft, fill in the blanks, walk away, come back, edit. The shape is more important than the formatting.
+The canonical RFC template lives at [Appendix I — RFC template](../../../appendices/I-templates/RFC-template.md); the seven sections above are the body. Copy the template, fill in the blanks, walk away, come back, edit. The shape is more important than the formatting.
 
 ---
 

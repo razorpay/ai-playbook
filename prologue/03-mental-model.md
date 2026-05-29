@@ -115,7 +115,7 @@ Every PR you'll ever open is, at the end, a diff to files. Claude's suggestions 
 
 The reflex you want: **when confused, open the file.** Not the rendered page. Not the prompt. The file. Most debugging sessions are actually "did the edit actually save?" or "is Claude editing the file I think it is?" The answer lives in Layer 1.
 
-Files live in your **working directory**, which at Razorpay will usually be a product repo cloned from GitHub. White Belt will walk you through the first clone [coming]. For now: *files are the only thing that's real.*
+Files live in your **working directory**, which at Razorpay will usually be a product repo cloned from GitHub. [W.3 — Git as save-points](../belts/01-white/W03-git-as-savepoints.md) walks you through your first clone. For now: *files are the only thing that's real.*
 
 ### Layer 2 — Terminal + Git
 

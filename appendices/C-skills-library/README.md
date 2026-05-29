@@ -69,7 +69,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 ### Skill: setup-verify
 
-**Where it lives.** [`skills/setup-verify/`](../../skills/setup-verify/). Drafted as a runnable skill in v0.18. Quest W-0 depends on it.
+**Where it lives.** [`skills/setup-verify/`](../../skills/setup-verify/). Quest W-0 depends on it.
 
 **Trigger.** Run before starting any belt work after a fresh install, a plugin upgrade, or a network change. Also activate proactively when the user has just finished running the setup script or reports environmental symptoms.
 
@@ -87,7 +87,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 ### Skill: pre-ship-check
 
-**Where it lives.** [`skills/pre-ship-check/`](../../skills/pre-ship-check/). Drafted as a runnable skill in v0.12.
+**Where it lives.** [`skills/pre-ship-check/`](../../skills/pre-ship-check/). 
 
 **Trigger.** Run before opening a pull request from any belt-graded work; the Green Belt boss fight requires a clean pass as sub-requirement (c).
 
@@ -105,7 +105,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 ### Skill: design-intel
 
-**Where it lives.** [`skills/design-intel/`](../../skills/design-intel/). Drafted as a runnable skill in v0.18. The first stage of the design-to-code pipeline.
+**Where it lives.** [`skills/design-intel/`](../../skills/design-intel/). The first stage of the design-to-code pipeline.
 
 **Trigger.** Run before turning a Figma frame or design spec into code. The output feeds the `production-compiler` skill.
 
@@ -123,7 +123,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 ### Skill: production-compiler
 
-**Where it lives.** [`skills/production-compiler/`](../../skills/production-compiler/). Drafted as a runnable skill in v0.18. The second stage of the design-to-code pipeline.
+**Where it lives.** [`skills/production-compiler/`](../../skills/production-compiler/). The second stage of the design-to-code pipeline.
 
 **Trigger.** Run when the user has raw AI-generated UI code (typically from AI Studio or ChatGPT), a design-intel document, or both, and wants Blade-compliant JSX.
 

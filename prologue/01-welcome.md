@@ -14,7 +14,7 @@ next: "prologue/origin-story"
 pillar: null
 belt: null
 tags: ["orientation"]
-updated: "2026-04-26"
+updated: "2026-05-29"
 ---
 
 # 0.1 — Welcome, and why this playbook exists
@@ -54,7 +54,7 @@ Four audiences, one document. Read the row that fits you today.
 | **A designer or PM who has never opened Terminal**    | White Belt. The path from zero to your first merged PR, step by step.           |
 | **A designer or PM who's used Claude Code once or twice** | Yellow Belt. Daily habit, first real features, your first org-repo PR.      |
 | **An engineer who wants to level up AI usage**        | Green + Black Belts. Three Pillars, skills, subagents, worktrees, plugin authoring. |
-| **A manager or team lead**                            | §0.9 (how to lead) + Appendix M [coming] + [Appendix L](../appendices/L-certification/README.md). |
+| **A manager or team lead**                            | [§0.9 — How to lead](09-how-to-lead.md) and [Appendix L — Certification](../appendices/L-certification/README.md). |
 
 There is no audience this playbook locks out. A staff engineer and a first-year designer can both earn Yellow Belt from the same modules — the boss fight just looks different depending on who you are.
 
@@ -82,7 +82,7 @@ If you find yourself reading a module and thinking *"this is too much,"* that's 
 
 - **Not a tool manual.** Anthropic publishes excellent Claude Code documentation. We link to it liberally. We don't duplicate it. ([code.claude.com/docs](https://code.claude.com/docs/en/best-practices))
 - **Not a security policy.** Razorpay's security team owns the actual redlines. We translate them into reflexes you can internalise — the "never put this in a prompt" card (§0.10 and Appendix H) — but the policy itself lives with security.
-- **Not static.** Every chapter will change as Claude Code changes, as our skills library grows, as the devstack improves. See [§0.12 What's shipping this week](12-whats-shipping.md). The **Playbook Council** [coming] meets quarterly and after every major event.
+- **Not static.** Every chapter will change as Claude Code changes, as our skills library grows, as the devstack improves. See [§0.12 What's shipping this week](12-whats-shipping.md). The [**Staff+ Council**](../belts/05-council/README.md) meets on a published cadence and revises the charter annually.
 - **Not optional if you're in a structured cohort.** If you're enrolled in the Ship-to-Learn track, the playbook is your spine. If you're an occasional tinkerer, read what you need and leave the rest.
 
 ---

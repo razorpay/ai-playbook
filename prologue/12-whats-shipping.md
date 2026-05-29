@@ -8,7 +8,7 @@ track: null
 order: 12
 time_minutes: 3
 audience: "everyone"
-outcome: "Understand that the playbook is alive, what v0.23 contains, and what is still coming."
+outcome: "Understand that the playbook is alive, what the current version contains, and what is still coming."
 prev: "prologue/safety-brief"
 next: "belts/white"
 pillar: null
@@ -19,7 +19,7 @@ updated: "2026-05-29"
 
 # 0.12 — What's shipping this week
 
-> **⏱ 3 minutes · 👥 Everyone · 🎯 Leaves with:** a clear picture of what is real in v0.23, what is coming next, and why the playbook changes over time.
+> **⏱ 3 minutes · 👥 Everyone · 🎯 Leaves with:** a clear picture of what is real in the current version, what is coming next, and why the playbook changes over time.
 
 ---
 
@@ -33,9 +33,9 @@ So every version of the playbook should answer one question clearly: *what can I
 
 ---
 
-## What v0.23 gives you
+## What the current version gives you
 
-v0.23 is the first end-to-end-readable cut of the full playbook, hosted as a live site.
+The playbook is drafted end-to-end and hosted as a live site at **[razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/)**.
 
 **Drafted and readable now:**
 
@@ -76,7 +76,7 @@ Everything else is supporting structure.
 
 ## What you should carry forward
 
-- v0.23 is drafted end-to-end and live on a hosted hub; it is not the final playbook.
+- The playbook is drafted end-to-end and live on a hosted hub; it is not the final playbook. Versions iterate; see [`CHANGELOG.md`](../CHANGELOG.md) for the running log.
 - The Markdown in this repo is the source of truth. The hub at [razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/) and the `playbook-course` skill both render from it.
 - Safety changes (Prologue §0.11, Green Belt Part C) matter more than ordinary wording changes.
 - If you spot something stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) or DM `@Dhir` — staleness is a bug, not a fact of life.

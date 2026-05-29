@@ -14,7 +14,7 @@ next: "prologue/how-to-lead"
 pillar: null
 belt: null
 tags: ["orientation", "navigation"]
-updated: "2026-04-27"
+updated: "2026-05-29"
 ---
 
 # 0.8 — How to use this playbook (as a reader)
@@ -45,7 +45,7 @@ The playbook is arranged as a climb, but you do not have to read every page line
 
 **If you are an engineer:** skim Foundation for the vocabulary your non-engineer teammates will now use. Read the Prologue, then jump to the first belt that stretches you. Green and Black are where the deeper craft will live.
 
-**If you are a manager or team lead:** read the Prologue, [§0.9](09-how-to-lead.md), Ops 101, and the certification appendix when it lands. Your job is not to read on behalf of the team; your job is to create the conditions where the team can earn evidence.
+**If you are a manager or team lead:** read the Prologue, [§0.9](09-how-to-lead.md), Ops 101, and [Appendix L — Certification](../appendices/L-certification/README.md). Your job is not to read on behalf of the team; your job is to create the conditions where the team can earn evidence.
 
 ---
 
@@ -65,11 +65,11 @@ The best readers switch modes deliberately. They do not mistake reading for prog
 
 ## How to treat links marked [coming]
 
-A `[coming]` marker means the playbook knows the section belongs here, but the chapter is not drafted in v0.4. Do not wait for it unless your current goal depends on it.
+A `[coming]` marker means the playbook knows the section belongs here but the chapter is not yet drafted. As of v0.24, the marker is rare: most belts, all appendices except K and M, and the Council layer are drafted. When you do see it, do not wait unless your current goal depends on it.
 
 If the missing page is part of a future belt, treat it as a signal about the shape of the curriculum, not a blocker. If the missing page is an appendix, use the current chapter's summary until the full reference lands.
 
-The v0.4 alpha is meant to be readable, not complete.
+Treat `[coming]` as a visible scaffold, not a broken promise — the playbook prefers naming the gap to hiding it.
 
 ---
 

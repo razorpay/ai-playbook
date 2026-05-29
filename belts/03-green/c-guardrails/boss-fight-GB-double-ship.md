@@ -32,7 +32,7 @@ Two merged PRs. They count together; one without the other is not a passing run.
 
 **PR 1 — The product-repo PR.** A real feature on a product repo that the cohort lead matches you to (the product surface should be one your team or an adjacent team owns; not a one-off sandbox). The product-repo PR is the centre of the boss fight; it must satisfy five named sub-requirements (below).
 
-**PR 2 — The Quest G-2 greenfield PR.** Already claimed in v0.10. References here as the second half of the evidence chain.
+**PR 2 — The Quest G-2 greenfield PR.** Already claimed earlier in Green Belt. References here as the second half of the evidence chain.
 
 The two together demonstrate that you can ship in product (where the guardrails matter most) and in greenfield (where the cross-over of craft and practice is most visible). Green Belt is awarded on the pair.
 

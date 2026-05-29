@@ -6,6 +6,25 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.25 — Status-marker accuracy and version-stamp purge (2026-05-29)
+
+A broader correctness sweep after v0.24. Many chapters carried inline version stamps ("drafted in v0.9", "Part B lands in v0.10", "the v0.5 page") and several appendix headers in `INDEX.md` were still tagged `[drafted skeleton]` or `[planned]` long after those appendices had been fully written. A reader landing on the Green Belt index today would see "Part B drafted in v0.10" and reasonably wonder which version they were on; a reader scanning the appendix TOC would see "Appendix K [planned]" while the changelog file it points at is actively maintained. Status markers must mean something.
+
+**What changed.**
+
+- **`INDEX.md` status markers corrected.** Appendices A, B, C, D, K, and L re-tagged `[drafted]` to match reality. F re-tagged `[drafted]` (it's a live directory, not a skeleton). E remains `[drafted skeleton]` because its frontmatter and body both still acknowledge that role-to-person assignments live in the program tracker. The status-marker definition itself was rewritten from "readable in v0.22" to a generic definition.
+- **Green Belt overview chapters** (`belts/03-green/README.md`, `a-craft/README.md`, `b-practices/README.md`, `c-guardrails/badge.md`, `b-practices/quest-G2-greenfield-crossover.md`, `c-guardrails/boss-fight-GB-double-ship.md`) — every "drafted in v0.9 / v0.10 / v0.11" and "lands in v0.11" stamp removed; outdated "Parts B and C have not landed yet" guidance removed.
+- **Black Belt overview chapters** (`belts/04-black/README.md`, `a-platform/README.md`, `b-craft/README.md`, `a-platform/quest-B1-publish-an-internal-plugin.md`, `a-platform/B05-multi-agent-orchestration.md`) — every "drafted in v0.13/14/15" stamp removed; "Next: Part B lands in v0.14" navigation footer fixed to point at the actual Part B README.
+- **Appendices A, B, C** — "v0.5 page", "v0.5 skeleton", and per-skill "Drafted as a runnable skill in v0.18 / v0.12" stamps removed.
+- **Prologue 0.1, 0.3, 0.4, 0.8, 0.10, 0.12** — `[coming]` references that now point at drafted content (Council, Appendix M strategy, Green/Black Belt, Appendix L, W.3) replaced with real links. `0.8` rewritten to acknowledge that the marker is rare now. `0.12` un-pinned from v0.23 to read as the current-version chapter.
+- **`foundation/ops-101/README.md` and `03-triage-automations.md`** — Appendix I templates `[coming]` references replaced with real links.
+- **`belts/04-black/c-org/B14-writing-an-ai-rfc.md`** — Appendix I `[planned]` reference replaced with a real link to the RFC template that has shipped.
+- **`appendices/E-roles-and-forums/README.md` and `INDEX.md`** — "Vertex billing owner" row updated to "LiteLLM gateway owner" to match the post-March-2026 model path.
+- **`case-studies/README.md`** — "empty at v0.19" stamp removed.
+- **`README.md` and `INDEX.md`** — version bumped to v0.25; README's "drafted skeletons" footer corrected to reflect that only E and F are now skeletons.
+
+No new chapters. No structural changes. The polish baseline holds.
+
 ## v0.24 — Post-Vertex correctness sweep (2026-05-29)
 
 A targeted correctness pass after a fresh-eyes review surfaced load-bearing chapters that still described the pre-March-2026 Vertex routing path. The W.5/H.7 v0.23 rewrite committed to the LiteLLM gateway as the canonical model path, but several chapters that frame the mental model still pointed at Vertex/gcloud. Readers were forming a wrong model of Layer 3 on day one — and `403 PERMISSION_DENIED` from stale Vertex env vars is the single most common setup error in `#claude-onboarding-support` right now.

@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.24 · last reviewed 2026-05-29 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.25 · last reviewed 2026-05-29 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -138,7 +138,7 @@ Two background concepts that the playbook depends on; each has its own chapter, 
 
 # Table of Contents
 
-**Status markers.** `[drafted]` = readable in v0.22. `[drafted skeleton]` = categorisation and contribution flow committed; entries seed over time. `[planned]` = intentionally visible scaffold, not drafted yet. `[coming]` = referenced future companion material. `[example]` = one worked artefact exists before the full section. The hub hides these markers from rendered titles; they remain in the Markdown source for maintainer use.
+**Status markers.** `[drafted]` = chapter is end-to-end readable. `[drafted skeleton]` = categorisation and contribution flow are committed; specific entries seed over time. `[planned]` = intentionally visible scaffold, not drafted yet. `[coming]` = referenced future companion material. `[example]` = one worked artefact exists before the full section. The hub hides these markers from rendered titles; they remain in the Markdown source for maintainer use.
 
 ## Part 0 — Foundation [drafted]
 
@@ -454,7 +454,7 @@ Embed with a POD (not your own) for one month. Measure their before/after on a s
 
 > "I am a force multiplier for Razorpay."
 
-**Files:** `belts/04-black/` [drafted] — organised into `a-platform/` (v0.13), `b-craft/` (v0.14), and `c-org/` (v0.15). All three parts drafted; both quests claimable; [Boss Fight B-B](belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md) and the [Black Belt badge](belts/04-black/c-org/badge.md) close the belt.
+**Files:** `belts/04-black/` [drafted] — organised into `a-platform/`, `b-craft/`, and `c-org/`. All three parts drafted; both quests claimable; [Boss Fight B-B](belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md) and the [Black Belt badge](belts/04-black/c-org/badge.md) close the belt.
 
 ---
 
@@ -483,9 +483,9 @@ Plus a [Council charter template](belts/05-council/charter.md) that the Council 
 
 These are the *reference* sections — not belt-gated. Everyone can dip in at any time.
 
-## Appendix A — The Tool Atlas [drafted skeleton]
+## Appendix A — The Tool Atlas [drafted]
 
-The fast decision map for choosing the right AI surface. The v0.5 page is intentionally a table, not the final one-page-per-tool atlas.
+The fast decision map for choosing the right AI surface. Includes one-line guidance per tool and the anti-patterns to avoid.
 
 | Tool             | One-liner                                             |
 |------------------|-------------------------------------------------------|
@@ -500,23 +500,23 @@ The fast decision map for choosing the right AI surface. The v0.5 page is intent
 
 **File:** [`appendices/A-tool-atlas/README.md`](appendices/A-tool-atlas/README.md).
 
-## Appendix B — Environment Setup + MCP Directory [drafted skeleton]
+## Appendix B — Environment Setup + MCP Directory [drafted]
 
-The Layer 0 setup reference: what must be true before the tools work, what the GREEN/YELLOW/RED support packet should contain, and how to think about MCP connectors safely.
+The Layer 0 setup reference: what must be true before the tools work, what the GREEN/YELLOW/RED support packet should contain, the six-row verification sequence, and how to think about MCP connectors safely.
 
-The v0.5 MCP directory is type-based rather than a full approved-server catalog. It names connector classes, use cases, and guardrails without publishing internal endpoint details.
+The MCP directory is type-based: it names connector classes, use cases, and guardrails without publishing internal endpoint details.
 
 **File:** [`appendices/B-environment-setup/README.md`](appendices/B-environment-setup/README.md).
 
-## Appendix C — Skills Library [drafted skeleton]
+## Appendix C — Skills Library [drafted]
 
 The first reusable-workflow reference: what counts as a skill, current skill categories, and the contribution pattern for turning a repeated recipe into a maintained workflow.
 
 **File:** [`appendices/C-skills-library/README.md`](appendices/C-skills-library/README.md).
 
-## Appendix D — Known Issues + FAQ [drafted skeleton]
+## Appendix D — Known Issues + FAQ [drafted]
 
-A living document. Categorisation and contribution pattern committed; specific entries seed from real operational signal. Categorised by stack layer (Foundation, Compass plugin, design / dashboard, skills / agents, infrastructure). Builders contribute when they hit and solve a gap.
+A living document. Categorised by stack layer (Foundation, Compass plugin, design / dashboard, skills / agents, infrastructure). v0.24 seeded Layer 0 with nine entries promoted from the W.5 failure modes; other layers densify as builders contribute when they hit and solve a gap.
 
 **File:** [`appendices/D-known-issues/README.md`](appendices/D-known-issues/README.md).
 
@@ -534,7 +534,7 @@ Roles and forums — not named individuals (names rotate; rules don't). Updated 
 | Cross-POD signal forum                         | Forum facilitators        |
 | Builder Day operations                         | Program lead              |
 | Claude Enterprise access                       | TBD                       |
-| LiteLLM proxy / Vertex billing                 | Vertex billing owner      |
+| LiteLLM gateway / model billing | LiteLLM gateway owner    |
 | Slash engineering                              | Slash engineering lead    |
 | Blade connector                                | Blade team                |
 | Figma connector                                | Figma connector team      |
@@ -543,11 +543,11 @@ Roles and forums — not named individuals (names rotate; rules don't). Updated 
 
 **File:** [`appendices/E-roles-and-forums/README.md`](appendices/E-roles-and-forums/README.md).
 
-## Appendix F — Slack Channels + Rules of Engagement [drafted skeleton]
+## Appendix F — Slack Channels + Rules of Engagement [drafted]
 
-Channel directory pattern, etiquette, escalation paths. Specific channel handles live in the program's onboarding doc; this appendix names the role-language used throughout the playbook.
+A live directory of 20+ named channels organised by purpose (setup, AI community, design, platform/devex, wider product context, exploration), with handles, owners, first-response expectations, and the six rules of engagement.
 
-Six rules of engagement: ask publicly not in DM, post the full output not "it's broken", celebrate merged PRs with the link, never paste regulator-protected data, when you solve a problem contribute to Appendix D, tag the right channel and do not cross-post.
+Six rules: ask publicly not in DM, post the full output not "it's broken", celebrate merged PRs with the link, never paste regulator-protected data, when you solve a problem contribute to Appendix D, tag the right channel and do not cross-post.
 
 **File:** [`appendices/F-slack-channels/README.md`](appendices/F-slack-channels/README.md).
 
@@ -589,13 +589,13 @@ The public sources the curriculum cites, organised by curriculum location. Each 
 
 **File:** [`appendices/J-reading-list/README.md`](appendices/J-reading-list/README.md).
 
-## Appendix K — Changelog [planned]
+## Appendix K — Changelog [drafted]
 
-Versioning discipline. Every non-trivial change logged with date, author, rationale.
+Versioning discipline. Every non-trivial change logged with date, author, rationale. Lives at [`CHANGELOG.md`](./CHANGELOG.md) at the repository root rather than under `appendices/K-changelog/` so release tooling and `git log` agree on the artefact.
 
-**File:** `CHANGELOG.md`.
+**File:** [`CHANGELOG.md`](./CHANGELOG.md).
 
-## Appendix L — Certification [drafted skeleton]
+## Appendix L — Certification [drafted]
 
 The *contract* between the playbook and the program's certification track. The playbook is the on-ramp; the tracker is the scoreboard.
 
@@ -623,7 +623,7 @@ The *contract* between the playbook and the program's certification track. The p
 | Name | Role (PM / PD) | POD | Belt | # of PRs merged | Date certified | Mentor |
 |------|----------------|-----|------|-----------------|----------------|--------|
 
-The v0.5 page keeps the quality bar simple: evidence over self-report, small reviewable artefacts, and tracker fields that force proof.
+The page keeps the quality bar simple: evidence over self-report, small reviewable artefacts, and tracker fields that force proof.
 
 **File:** [`appendices/L-certification/README.md`](appendices/L-certification/README.md).
 
@@ -669,4 +669,4 @@ Contributing to the playbook (design principles, production plan, content rules,
 
 ---
 
-*Designed to be a living document. Pull requests welcome. Last reviewed 2026-05-13.*
+*Designed to be a living document. Pull requests welcome. Last reviewed 2026-05-29.*

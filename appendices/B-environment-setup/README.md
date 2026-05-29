@@ -14,7 +14,7 @@ next: "appendices/skills-library"
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "setup", "environment", "mcp"]
-updated: "2026-04-27"
+updated: "2026-05-29"
 ---
 
 # Appendix B — Environment Setup
@@ -78,7 +78,7 @@ If the list at step 7 matches and steps 1–6 are GREEN, you are GREEN. Move int
 
 ---
 
-## MCP directory, v0.5 skeleton
+## MCP connector directory
 
 MCPs are connectors that let an assistant use an approved external capability as a tool. Treat them like power tools: useful, auditable, and only safe when scoped.
 

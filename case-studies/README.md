@@ -21,7 +21,7 @@ updated: "2026-05-08"
 
 > **What this is.** The archive of Boss Fight B-B case studies. Each case study is a one-page artefact a Black Belt contributes after shipping their POD-AI-uplift boss fight (see [Boss Fight B-B](../belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md)). The archive doubles as a teaching corpus for future Black Belt candidates considering their own embed.
 
-The archive is scaffolded but empty at v0.19. The first case study lands when the first Black Belt candidate claims Boss Fight B-B in production.
+The archive is scaffolded but empty. The first case study lands when the first Black Belt candidate claims Boss Fight B-B in production.
 
 ## How a case study lands here
 
@@ -59,7 +59,7 @@ Examples:
 | Date claimed | Title | Builder | POD identifier | Metric lift |
 |---|---|---|---|---|
 
-(The archive is empty at v0.19. First entry lands with the first Boss Fight B-B claim.)
+(The archive is empty. First entry lands with the first Boss Fight B-B claim.)
 
 ## Why the archive exists
 

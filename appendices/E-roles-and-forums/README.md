@@ -47,7 +47,7 @@ The current set of named roles, the area each owns, and the forums where the rol
 | Cross-POD signal forum facilitators | Cross-team patterns, embed coordination, office hours rotation | Cross-POD signal forum | Monthly rotation |
 | Builder Day operations | Builder Day scheduling, logistics, validation gates | Program flagship channel; Builder Day prep channel | Per-event |
 | Claude Enterprise access owner | Provisioning Claude Enterprise seats, audit, admin controls | Access management channel | Continuous async |
-| Vertex billing owner | LiteLLM proxy / Vertex AI cost monitoring and billing | Infrastructure channel | Continuous async; monthly cost review |
+| LiteLLM gateway / model billing | LiteLLM gateway owner | Infrastructure channel | Continuous async; monthly cost review |
 | Slash engineering lead | Slash internal AI copilot evolution | Slash engineering channel | Continuous async |
 | Blade connector team | Blade MCP connector maintenance | Design-system channel | Continuous async |
 | Figma connector team | Figma MCP connector maintenance | Design-system channel | Continuous async |

@@ -65,7 +65,7 @@ The quest is the practical test of B.2 and B.3. Do it after both modules are rea
 
 ## What comes next
 
-Part B (Push the Craft) covers progressive disclosure, memory systems, prompt evals, team-and-org-scale observability, effort settings and model routing — drafted in v0.14. Part C (Shape the Org) covers running office hours, embedded sprints, AI RFCs, API Council contributions, and skill / plugin governance — drafted in v0.15.
+[Part B (Push the Craft)](../b-craft/README.md) covers progressive disclosure, memory systems, prompt evals, team-and-org-scale observability, effort settings and model routing. [Part C (Shape the Org)](../c-org/README.md) covers running office hours, embedded sprints, AI RFCs, API Council contributions, and skill / plugin governance. Both are drafted; walk Part A first.
 
 ---
 

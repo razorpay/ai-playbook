@@ -184,7 +184,7 @@ The playbook's credibility depends on not pretending we've shipped what we haven
 - **Component-contribution pipeline** (Layer 4) — unblocking the Black Belt boss fight at scale.
 - **Cloud IDE** (Layer 0) — the north-star unlock. Removes the Mac requirement for new builders entirely.
 
-If you are a lead reading this playbook wondering where you can plug in — those are the five places where a committed manager plus two committed builders can move the whole program forward. Appendix M — Ship-to-Learn Cohort [coming] will hold the structured way to sponsor a cohort that tackles one of these gaps.
+If you are a lead reading this playbook wondering where you can plug in — those are the five places where a committed manager plus two committed builders can move the whole program forward. The Ship-to-Learn cohort structure (referenced through Green Belt) is the standing way to sponsor a cohort that tackles one of these gaps; Appendix M will hold the operational template when it ships.
 
 ---
 
@@ -220,4 +220,4 @@ That's the ascent. Nine layers. Four belts. One common destination: the north-st
 - [Lenny's Newsletter — 25 proven AI-adoption tactics](https://www.lennysnewsletter.com/p/25-proven-tactics-to-accelerate-ai)
 - [Appendix C — Skills Library](../appendices/C-skills-library/README.md)
 - [Appendix L — Certification](../appendices/L-certification/README.md)
-- Appendix M — Ship-to-Learn Cohort [coming]
+- Appendix M — Ship-to-Learn Cohort (referenced; operational template still to land)

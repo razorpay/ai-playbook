@@ -133,7 +133,7 @@ Recommended Black Belt start:
 Why:
 ```
 
-Black Belt Part A is drafted in v0.13. Most Green Belt graduates should start Black Belt with [B.1 — Authoring an internal MCP server](../../04-black/a-platform/B01-internal-mcp-server.md) (the platform-builder voice anchor) and walk Part A through to Quest B-1 (publish an internal plugin). Parts B and C land in v0.14 / v0.15; the badge that closes Black Belt ships with Part C.
+Black Belt is drafted end-to-end. Most Green Belt graduates should start with [B.1 — Authoring an internal MCP server](../../04-black/a-platform/B01-internal-mcp-server.md) (the platform-builder voice anchor) and walk Part A through to Quest B-1 (publish an internal plugin), then continue through Parts B and C to Boss Fight B-B and the [Black Belt badge](../../04-black/c-org/badge.md).
 
 ---
 

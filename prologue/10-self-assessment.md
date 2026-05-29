@@ -14,7 +14,7 @@ next: "prologue/safety-brief"
 pillar: null
 belt: null
 tags: ["orientation", "self-assessment", "belts"]
-updated: "2026-04-27"
+updated: "2026-05-29"
 ---
 
 # 0.10 — Self-assessment: which belt should you start at?
@@ -40,8 +40,8 @@ This keeps the playbook honest. A curious PM may belong at White Belt for coding
 | You are not sure what frontend, backend, API, database, Git, or deploy mean. | [Part 0 — Foundation](../foundation/README.md) |
 | You know the words, but you have never shipped a real PR. | [White Belt](../belts/01-white/README.md) |
 | You can make small local changes, but have not opened a real Razorpay org PR with AI assistance. | [Yellow Belt](../belts/02-yellow/README.md) |
-| You use AI daily for individual work, but your team does not yet have shared skills, context files, or repeatable workflows. | Green Belt [coming] |
-| You already ship with agents, write reusable skills, and can improve the harness for others. | Black Belt [coming] |
+| You use AI daily for individual work, but your team does not yet have shared skills, context files, or repeatable workflows. | [Green Belt](../belts/03-green/README.md) |
+| You already ship with agents, write reusable skills, and can improve the harness for others. | [Black Belt](../belts/04-black/README.md) |
 | You are shaping standards, mentoring others, and contributing to the playbook itself. | [Staff+ Council](../belts/05-council/README.md) |
 
 If two rows feel true, pick the lower one. Skipping ahead is cheap; discovering a missing foundation in the middle of a boss fight is expensive.

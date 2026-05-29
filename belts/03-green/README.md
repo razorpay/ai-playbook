@@ -14,7 +14,7 @@ next: "belts/green/a-craft"
 pillar: null
 belt: "green"
 tags: ["green-belt", "readme", "team-velocity"]
-updated: "2026-04-29"
+updated: "2026-05-29"
 ---
 
 # 🟢 Green Belt — Team Velocity
@@ -43,7 +43,7 @@ Cohort leads, see [Appendix L — Certification](../../appendices/L-certificatio
 
 ## The full belt arc
 
-### Part A — The Craft (drafted in v0.9)
+### Part A — The Craft
 
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
@@ -59,7 +59,7 @@ Cohort leads, see [Appendix L — Certification](../../appendices/L-certificatio
 | G.10 | [Hooks + slash commands — when to automate the pre-flight](a-craft/G10-hooks-and-slash-commands.md) | Harness | 30 min |
 | G.11 | [Advanced prompting — goals, constraints, worked examples](a-craft/G11-advanced-prompting.md) | Prompt | 40 min |
 
-### Part B — The Practices [drafted in v0.10]
+### Part B — The Practices
 
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
@@ -74,7 +74,7 @@ Cohort leads, see [Appendix L — Certification](../../appendices/L-certificatio
 | G.20 | [Observability with AI — logs, traces, cost attribution](b-practices/G20-observability-with-ai.md) | Harness | 25 min |
 | G.21 | [Debugging the hard kind — when Claude is wrong, and you have to tell](b-practices/G21-debugging-hard-kind.md) | Prompt | 30 min |
 
-### Part C — Fintech Guardrails [drafted in v0.11]
+### Part C — Fintech Guardrails
 
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
@@ -90,17 +90,17 @@ Cohort leads, see [Appendix L — Certification](../../appendices/L-certificatio
 
 ## Quests and boss fight
 
-### Quest G-1 — Author a team skill (drafted in v0.9)
+### Quest G-1 — Author a team skill
 
 [Quest G-1](a-craft/quest-G1-author-a-team-skill.md). Write, commit, and share a SKILL.md that captures one of your team's repeated workflows. At least one teammate must successfully invoke it.
 
 *Success criteria:* merged skill file, invocation log from at least one teammate, one-paragraph reflection.
 
-### Quest G-2 — The Greenfield cross-over (drafted in v0.10)
+### Quest G-2 — The Greenfield cross-over
 
 [Quest G-2](b-practices/quest-G2-greenfield-crossover.md). Pick a greenfield target (an internal tool, a new agent skill pack, a self-serve analytics surface, a plugin) and ship one meaningful change that exercises Part A and Part B together.
 
-### Boss Fight G-B — The double-ship (drafted in v0.11)
+### Boss Fight G-B — The double-ship
 
 [Boss Fight G-B](c-guardrails/boss-fight-GB-double-ship.md). A real feature on a product repo plus the Quest G-2 greenfield PR. The product-repo PR must include a scoped CLAUDE.md, at least one Playwright test, a pre-ship-check pass, the PR-guardrail used to construct the PR, and a teammate's sign-off on the craft of the prompts. Two merged PRs + retro + teammate sign-off.
 
@@ -116,7 +116,7 @@ Awarding Green Belt requires evidence per [Appendix L](../../appendices/L-certif
 - Boss Fight G-B evidence: two merged PRs (one product, one greenfield), Playwright test link, pre-ship-check output, teammate prompt-craft sign-off;
 - a one-paragraph "what changed for my team" reflection from the builder.
 
-The badge artefact lands in v0.11 and mirrors the White and Yellow templates.
+The badge artefact mirrors the White and Yellow templates.
 
 ---
 
@@ -124,10 +124,10 @@ The badge artefact lands in v0.11 and mirrors the White and Yellow templates.
 
 - **If you have just earned Yellow Belt:** open [Part A README](a-craft/README.md) and start with G.1.
 - **If you are a cohort lead:** read the [Appendix L](../../appendices/L-certification/README.md) reviewer protocol; Green Belt's reviewer requirements are stricter than Yellow's (one out-of-team reviewer required).
-- **If Parts B and C have not landed yet:** finish Part A, claim Quest G-1, then come back for B and C.
+
 
 ---
 
-**Files:** `belts/03-green/` — organised into subfolders `a-craft/` (v0.9), `b-practices/` (v0.10), and `c-guardrails/` (v0.11), all drafted, plus the Green Belt [badge](c-guardrails/badge.md).
+**Files:** `belts/03-green/` — organised into subfolders `a-craft/`, `b-practices/`, and `c-guardrails/`, all drafted, plus the Green Belt [badge](c-guardrails/badge.md).
 
 **Previous:** [← Yellow Belt badge](../02-yellow/badge.md) · **Next:** [→ Part A README](a-craft/README.md)
