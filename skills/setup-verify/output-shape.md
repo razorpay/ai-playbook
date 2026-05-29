@@ -26,8 +26,8 @@ A markdown table with one row per check.
 | 2 | Claude Code auth | GREEN / YELLOW / RED |
 | 3 | Internal npm registry | GREEN / YELLOW / RED |
 | 4 | Corporate-proxy cert | GREEN / YELLOW / RED |
-| 5 | gcloud + Vertex auth | GREEN / YELLOW / RED |
-| 6 | LiteLLM proxy reachable | GREEN / YELLOW / RED |
+| 5 | No stale Vertex env vars | GREEN / YELLOW / RED |
+| 6 | LiteLLM gateway reachable | GREEN / YELLOW / RED |
 | 7 | Compass plugin | GREEN / YELLOW / RED |
 | 8 | Git + corp SSO | GREEN / YELLOW / RED |
 | 9 | Environment variables | GREEN / YELLOW / RED |
@@ -92,8 +92,8 @@ Overall: GREEN — All 10 checks passed. Quest W-0 is claimable.
 | 2 | Claude Code auth              | GREEN  |
 | 3 | Internal npm registry         | GREEN  |
 | 4 | Corporate-proxy cert          | GREEN  |
-| 5 | gcloud + Vertex auth          | GREEN  |
-| 6 | LiteLLM proxy reachable       | GREEN  |
+| 5 | No stale Vertex env vars      | GREEN  |
+| 6 | LiteLLM gateway reachable     | GREEN  |
 | 7 | Compass plugin                | GREEN  |
 | 8 | Git + corp SSO                | GREEN  |
 | 9 | Environment variables         | GREEN  |
@@ -117,8 +117,8 @@ Overall: YELLOW — Quest W-0 is claimable, but 2 warnings worth fixing.
 | 2 | Claude Code auth              | GREEN  |
 | 3 | Internal npm registry         | YELLOW |
 | 4 | Corporate-proxy cert          | GREEN  |
-| 5 | gcloud + Vertex auth          | GREEN  |
-| 6 | LiteLLM proxy reachable       | GREEN  |
+| 5 | No stale Vertex env vars      | GREEN  |
+| 6 | LiteLLM gateway reachable     | GREEN  |
 | 7 | Compass plugin                | GREEN  |
 | 8 | Git + corp SSO                | YELLOW |
 | 9 | Environment variables         | GREEN  |
@@ -143,8 +143,8 @@ Overall: RED — Quest W-0 is not yet claimable. 1 blocker to resolve.
 | 2 | Claude Code auth              | RED    |
 | 3 | Internal npm registry         | GREEN  |
 | 4 | Corporate-proxy cert          | GREEN  |
-| 5 | gcloud + Vertex auth          | GREEN  |
-| 6 | LiteLLM proxy reachable       | GREEN  |
+| 5 | No stale Vertex env vars      | GREEN  |
+| 6 | LiteLLM gateway reachable     | GREEN  |
 | 7 | Compass plugin                | YELLOW |
 | 8 | Git + corp SSO                | GREEN  |
 | 9 | Environment variables         | GREEN  |

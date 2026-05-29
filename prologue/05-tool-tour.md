@@ -49,7 +49,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 **The feel:** Imagine pairing with a senior engineer who can read any file in the repo, run the tests, and show you a diff — but who only works through a terminal. That's Claude Code.
 
-**Where it lives:** `https://code.claude.com`. Official docs: [code.claude.com/docs](https://code.claude.com/docs/en/best-practices). You install it with the setup script; [Appendix B](../appendices/B-environment-setup/README.md) is the durable environment guide. The auth backs onto Vertex AI (Layer 3).
+**Where it lives:** `https://code.claude.com`. Official docs: [code.claude.com/docs](https://code.claude.com/docs/en/best-practices). You install it with the setup script; [Appendix B](../appendices/B-environment-setup/README.md) is the durable environment guide. The auth backs onto Razorpay's LiteLLM gateway (Layer 3).
 
 **When to reach for it:** Any time you want to change code, create a component, debug a UI issue, write a test, open a PR, or teach a skill. Default answer.
 
@@ -57,7 +57,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Claude.ai
 
-**What it is:** The chat at `claude.ai`. A web browser window with a text box. Same underlying models (via Anthropic directly, not Vertex), no file access, no repo context, no Razorpay skills.
+**What it is:** The chat at `claude.ai`. A web browser window with a text box. Same underlying models (reached through Anthropic directly via your SSO seat, not through the LiteLLM gateway), no file access, no repo context, no Razorpay skills.
 
 **Why you'll use it:** For thinking, writing, PM-style work: draft a Slack post, explain a technical concept in plain English, brainstorm an RFC, summarise a long doc. It's *excellent* for those.
 
@@ -129,7 +129,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Codex / other non-Claude AI coding tools
 
-**Briefly, for completeness.** There are other AI coding tools: OpenAI's Codex CLI, GitHub Copilot, Amazon Q, various self-hosted agents. This playbook is Claude-shaped because Razorpay standardised on Claude (via Vertex) for three reasons: the Compass plugin is Claude-native; the Blade connector integrates cleanly with Claude Code's MCP layer; and our skills library is written as Claude Code skills.
+**Briefly, for completeness.** There are other AI coding tools: OpenAI's Codex CLI, GitHub Copilot, Amazon Q, various self-hosted agents. This playbook is Claude-shaped because Razorpay standardised on Claude (routed through the LiteLLM gateway) for three reasons: the Compass plugin is Claude-native; the Blade connector integrates cleanly with Claude Code's MCP layer; and our skills library is written as Claude Code skills.
 
 **You don't need to use other tools to earn any belt.** If you're curious about them for comparison, Appendix K will (eventually) cover the landscape. For now, the playbook's stance is: *one harness, one skill library, one workflow.* Pick Claude Code. Go deep.
 

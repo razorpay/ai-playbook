@@ -58,29 +58,29 @@ The checks are pinned. Adding, removing, or modifying a check requires a charter
 
 ---
 
-## Check 5: gcloud and Vertex AI authentication
+## Check 5: No stale Vertex environment variables
 
-**Reads.** `gcloud auth list` and a probe against the Vertex AI endpoint the program uses.
+**Reads.** The user's `~/.bashrc`, `~/.zshrc`, and current shell environment for `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION`, and any other Vertex-era variables.
 
 **Criteria.**
-- **GREEN.** gcloud is authenticated against the program's project; Vertex AI probe returns a valid response.
-- **YELLOW.** gcloud is authenticated but the active account is not the program's; switching is one command.
-- **RED.** gcloud is not installed, not authenticated, or the Vertex probe fails (401, 403, network).
+- **GREEN.** None of the Vertex variables are present in shell rc files or in the current environment.
+- **YELLOW.** Vertex variables are absent from rc files but still loaded in the current shell. A new terminal will be clean.
+- **RED.** One or more Vertex variables are present in `~/.bashrc` or `~/.zshrc`. The user is on the pre-March-2026 Vertex setup and Claude Code will fail with `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`.
 
-**What it means.** Some calls route through Vertex AI. Without authentication, those calls fail and the LLM gateway diagnostic message is unhelpful.
+**What it means.** Razorpay retired the Vertex routing path in March 2026 in favour of the LiteLLM gateway. Stale Vertex env vars are the single most common cause of `403 PERMISSION_DENIED` errors today. The setup script auto-purges these from new shells but cannot clean rc files that pre-date the new script — this check surfaces that.
 
 ---
 
-## Check 6: LiteLLM proxy reachable
+## Check 6: LiteLLM gateway reachable
 
-**Reads.** A probe against the LiteLLM proxy's health endpoint.
+**Reads.** A probe against the LiteLLM gateway's health endpoint at `https://llm-gateway.razorpay.com`.
 
 **Criteria.**
 - **GREEN.** Health endpoint returns 200 within the timeout.
 - **YELLOW.** Health endpoint returns 200 but with elevated latency (>2s).
 - **RED.** Health endpoint times out, returns a non-200, or is unreachable.
 
-**What it means.** The LiteLLM proxy is the routing layer for the program's LLM calls. If it is unreachable, nothing using the proxy works. Elevated latency is signal that something upstream is degraded.
+**What it means.** The LiteLLM gateway is the routing layer for every Claude Code call. If it is unreachable, nothing using the gateway works. Elevated latency is signal that something upstream is degraded.
 
 ---
 
@@ -127,7 +127,7 @@ This check never logs the values. Names only.
 
 ## Check 10: Health endpoints responding
 
-**Reads.** A small set of program-internal health endpoints that the curriculum depends on (the Compass plugin's, the LiteLLM proxy's, the Vertex routing layer's).
+**Reads.** A small set of program-internal health endpoints that the curriculum depends on (the Compass plugin's, the LiteLLM gateway's).
 
 **Criteria.**
 - **GREEN.** All endpoints return 200 within the timeout.
@@ -150,4 +150,4 @@ Quest W-0 requires GREEN overall. A YELLOW overall is acceptable for everyday wo
 
 ---
 
-*Last updated: 2026-05-08. The ten checks are pinned; modifications require a charter revision.*
+*Last updated: 2026-05-29. The ten checks are pinned; modifications require a charter revision. Check 5 was rewritten in v0.24 to cover the post-Vertex setup; the slot stays the same.*

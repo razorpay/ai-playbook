@@ -6,6 +6,25 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.24 — Post-Vertex correctness sweep (2026-05-29)
+
+A targeted correctness pass after a fresh-eyes review surfaced load-bearing chapters that still described the pre-March-2026 Vertex routing path. The W.5/H.7 v0.23 rewrite committed to the LiteLLM gateway as the canonical model path, but several chapters that frame the mental model still pointed at Vertex/gcloud. Readers were forming a wrong model of Layer 3 on day one — and `403 PERMISSION_DENIED` from stale Vertex env vars is the single most common setup error in `#claude-onboarding-support` right now.
+
+**What changed.**
+
+- **Prologue §0.3 — The 5-Layer Mental Model** rewritten so Layer 3 is the LiteLLM gateway, with an explicit migration callout at the top. ASCII diagram, layer-by-layer description, debug examples, and closing summary all updated. Replaces the `gcloud auth application-default login` reflex with the setup-script re-run.
+- **Prologue §0.5 — Tool tour** updated where Claude Code, Claude.ai, and the "why Claude" framing referenced Vertex.
+- **Prologue §0.11 — Safety brief** updated the WIP-code-sharing line to reflect the gateway path.
+- **Prologue §0.12 — What's shipping** rewritten from a v0.7 status report (Green/Black "not drafted yet", "private hosted deployment not done") to a v0.23 status report that matches reality: all belts drafted, hub live at razorpay.github.io/ai-playbook, the version history in CHANGELOG.md, the roadmap in ROADMAP.md.
+- **W.4 — Your auth setup** rewritten to name the five real auth layers (Google SSO, MyAccess, Claude.ai SSO, LiteLLM key, Zscaler) instead of the abstract "program-pinned" framing, with the explicit "what to remove from `~/.bashrc`" guidance for Vertex leftovers.
+- **W.6 — The LLM Gateway** rewritten to name LiteLLM, the gateway URL, and the three concrete jobs the gateway does. Failure modes link to the canonical W.5 list rather than restating them.
+- **G.23 — The LLM proxy** title, intro, diagram, and closing references updated to reflect that the upstream is Anthropic API (post-migration); the substantive education (four jobs, debugging the proxy, what to share when it's the friction) is unchanged.
+- **Appendix D — Known Issues + FAQ** promoted from a drafted skeleton to nine real entries seeded from the seven W.5 failure modes plus two recurring shapes (`command not found: claude`, Zscaler cert errors). Each entry follows the documented format with symptom, diagnosis, copy-pasteable fix, references.
+- **Appendix G — Glossary** updated the Vertex entry to flag the migration and point to W.4/W.6.
+- **`setup-verify` skill** Check 5 rewritten from "gcloud + Vertex auth" to "No stale Vertex environment variables" (the right thing to verify on the new path); Check 6 renamed from "LiteLLM proxy" to "LiteLLM gateway"; the three example output tables in `output-shape.md` and the README example all updated; `one-line-fixes.md` Check 5 rewritten with the actual rc-file cleanup commands.
+
+No structural changes. No new chapters. No content moved. The v0.20 polish baseline holds.
+
 ## v0.23 — Readability & first-read experience (2026-05-13)
 
 A targeted UX pass after a brutal fresh-eyes review surfaced three load-bearing problems: the front door was the wrong shape (Master Index opened with changelog noise), the action pages didn't contain their actions (W.5 and Quest W-0 told readers to "use the program-pinned setup path" without ever showing it), and the directory pages didn't contain the directory (Appendix F and Meet The People described purposes without naming channels or people).

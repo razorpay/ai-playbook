@@ -41,8 +41,8 @@ Overall: YELLOW — Quest W-0 claimable but worth fixing two warnings.
 | 2 | Claude Code auth              | GREEN  |
 | 3 | Internal npm registry         | YELLOW |
 | 4 | Corporate-proxy cert          | GREEN  |
-| 5 | gcloud + Vertex auth          | GREEN  |
-| 6 | LiteLLM proxy reachable       | GREEN  |
+| 5 | No stale Vertex env vars      | GREEN  |
+| 6 | LiteLLM gateway reachable     | GREEN  |
 | 7 | Compass plugin                | GREEN  |
 | 8 | Git + corp SSO                | YELLOW |
 | 9 | Environment variables         | GREEN  |

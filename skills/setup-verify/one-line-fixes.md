@@ -83,16 +83,25 @@ Deeper fix: W.4. If the cert symptom looks like an MITM failure, post the full e
 
 ---
 
-## Check 5: gcloud and Vertex AI authentication
+## Check 5: No stale Vertex environment variables
 
-**YELLOW (gcloud authenticated against wrong account).** Switch.
+**YELLOW (Vertex env vars loaded in current shell but absent from rc files).** Close the terminal window and open a new one. The clean shell will pass.
+
+**RED (Vertex env vars present in `~/.bashrc` or `~/.zshrc`).** Edit those files and remove these lines if present:
 
 ```
-gcloud config set account <razorpay-email>
-gcloud auth login
+export ANTHROPIC_VERTEX_PROJECT_ID='pod-velocity-claude-code'
+export CLAUDE_CODE_USE_VERTEX=1
+export CLOUD_ML_REGION='global'
 ```
 
-**RED (gcloud not installed or Vertex probe fails).** Install gcloud per W.5 if missing. Authenticate per W.4 / W.6. If authentication succeeds but the Vertex probe still fails, the issue is project-level access, which requires the platform team to provision.
+Then re-run the setup script and open a new terminal:
+
+```
+curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
+```
+
+If `403 PERMISSION_DENIED` errors persist after a fresh terminal, route to `#claude-onboarding-support` with the redacted error and the contents of `grep VERTEX ~/.bashrc ~/.zshrc`.
 
 Deeper fix: [W.6 — The LLM Gateway](../../belts/01-white/W06-llm-gateway.md).
 

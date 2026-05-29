@@ -8,18 +8,18 @@ track: null
 order: 12
 time_minutes: 3
 audience: "everyone"
-outcome: "Understand that the playbook is alive, what v0.7 contains, and what is still coming."
+outcome: "Understand that the playbook is alive, what v0.23 contains, and what is still coming."
 prev: "prologue/safety-brief"
 next: "belts/white"
 pillar: null
 belt: null
 tags: ["orientation", "changelog"]
-updated: "2026-04-27"
+updated: "2026-05-29"
 ---
 
 # 0.12 — What's shipping this week
 
-> **⏱ 3 minutes · 👥 Everyone · 🎯 Leaves with:** a clear picture of what is real in v0.7, what is coming next, and why the playbook changes over time.
+> **⏱ 3 minutes · 👥 Everyone · 🎯 Leaves with:** a clear picture of what is real in v0.23, what is coming next, and why the playbook changes over time.
 
 ---
 
@@ -33,30 +33,32 @@ So every version of the playbook should answer one question clearly: *what can I
 
 ---
 
-## What v0.7 gives you
+## What v0.23 gives you
 
-v0.7 is the first White-and-Yellow-complete alpha of the front half.
+v0.23 is the first end-to-end-readable cut of the full playbook, hosted as a live site.
 
 **Drafted and readable now:**
 
-- Part 0 — Foundation, including Tech 101 and Ops 101.
-- Prologue, including reading guidance, team-lead guidance, self-assessment, and safety.
-- Appendix N — Methodologies & Frameworks.
-- Appendix H — the printable "never put this in a prompt" card.
-- Appendices A, B, C, and L as first-pass references.
-- The HTML hub in `hub/`, generated from `manifest.yml`, `slugs.yml`, and root Markdown.
-- Rendered diagrams for the 5-layer personal stack and 9-layer Enablement Stack.
-- White Belt, including twelve modules, Quest W-0, Quest W-1, Boss Fight W-B, and the badge template.
-- Yellow Belt, including fourteen modules, Quest Y-1, Quest Y-2, Boss Fight Y-B, and the badge template.
+- Part 0 — Foundation: Tech 101 and Ops 101 end-to-end.
+- Prologue: twelve chapters including the 5-layer mental model, the 9-layer Enablement Stack, the people directory, operating principles, the safety brief, and this page.
+- White Belt: twelve modules, Quest W-0, Quest W-1, Boss Fight W-B, and the badge.
+- Yellow Belt: fourteen modules, Quest Y-1, Quest Y-2, Boss Fight Y-B, and the badge.
+- Green Belt: twenty-eight modules across Craft, Practices, and Guardrails, both quests, Boss Fight G-B, and the badge.
+- Black Belt: sixteen modules across Platform, Craft, and Org, both quests, Boss Fight B-B, and the badge.
+- Staff+ Council: six chapters and the charter template.
+- Appendices A through N (skipping K and M), including the live Slack channel directory (F), the named role-holder roster (in §0.6), and the Day-1 quick reference card (H.7).
+- Seven Claude Code skills: `playbook-course`, `setup-verify`, `pre-ship-check`, `blade-compliance-reviewer`, `production-compiler`, `design-intel`, `security-review-subagent`.
+- The Astro Starlight hub at **[razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/)**, auto-deployed on every merge to `master` with PR-preview builds.
+- Twelve theme-aware SVG diagrams and seven hand-drawn Excalidraw companion illustrations.
 
-**Visible but not drafted yet:**
+**Still in motion:**
 
-- Green Belt and Black Belt.
-- The remaining appendices.
-- Private hosted deployment of the HTML site.
-- The course-serving skill.
+- Audio summaries (~11 podcast-style chapter walkthroughs) — slated for a future release, see [`ROADMAP.md`](../ROADMAP.md).
+- Validation sweep with security, engineering, and design reviewers — runs as calendar work, not authoring.
+- Appendix K and Appendix M placeholders — visible scaffolds, not drafted yet.
+- The eight open program questions in [`ROADMAP.md`](../ROADMAP.md) — each gets an explicit answer before v1.0.
 
-That split is intentional. v0.7 is not pretending to be finished. It makes the unfinished parts legible and gives the drafted parts a real reading surface.
+The version history lives in [`CHANGELOG.md`](../CHANGELOG.md). What is coming next is in [`ROADMAP.md`](../ROADMAP.md).
 
 ---
 
@@ -64,9 +66,9 @@ That split is intentional. v0.7 is not pretending to be finished. It makes the u
 
 When a future version lands, look for three things:
 
-1. **New drafted chapters.** These are safe to read end-to-end.
+1. **New drafted chapters or new skills.** These are safe to read end-to-end.
 2. **Changed safety guidance.** Treat this as required reading.
-3. **New quests or boss fights.** These change what counts as evidence.
+3. **New quests, boss fights, or scoring criteria.** These change what counts as evidence.
 
 Everything else is supporting structure.
 
@@ -74,11 +76,10 @@ Everything else is supporting structure.
 
 ## What you should carry forward
 
-- v0.7 is a site-backed alpha, not the final playbook.
-- The front half is readable now in Markdown and in the local HTML hub, with White and Yellow Belt drafted end-to-end.
-- Green Belt, Black Belt, and the Staff+ Council are still planned.
-- Safety changes matter more than ordinary wording changes.
-- The source of truth remains the Markdown; the hub and future course-serving skill should serve the same content.
+- v0.23 is drafted end-to-end and live on a hosted hub; it is not the final playbook.
+- The Markdown in this repo is the source of truth. The hub at [razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/) and the `playbook-course` skill both render from it.
+- Safety changes (Prologue §0.11, Green Belt Part C) matter more than ordinary wording changes.
+- If you spot something stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) or DM `@Dhir` — staleness is a bug, not a fact of life.
 
 ---
 

@@ -114,7 +114,7 @@ A few things that *feel* sensitive but actually aren't:
 
 - **Code from public repos.** Razorpay maintains some open-source code (the Blade design system being the prime example). That code is public; you can paste it into any AI surface freely.
 - **Documentation that's already on the public web.** Razorpay's developer docs, blog posts, public API references. Public is public. Use freely.
-- **Your own work-in-progress code.** Your branch's code, before it's merged. This is fine to share with AI surfaces inside the approved harness (Claude Code via Vertex). It's *not* fine to paste into a public AI surface like Claude.ai or ChatGPT: see the redlines on credentials and internal data, plus the convention this playbook has been pushing throughout: ship via Claude Code, talk-about-code on Claude.ai.
+- **Your own work-in-progress code.** Your branch's code, before it's merged. This is fine to share with AI surfaces inside the approved harness (Claude Code through the LiteLLM gateway). It's *not* fine to paste into a public AI surface like Claude.ai or ChatGPT: see the redlines on credentials and internal data, plus the convention this playbook has been pushing throughout: ship via Claude Code, talk-about-code on Claude.ai.
 - **Non-customer test data.** Synthetic data, test accounts, fake transactions. Fine to share. Real data anonymised to look-like-test-data is *not* fine — anonymisation often fails to actually remove identifiability.
 
 The point of listing these is to keep the safety brief from becoming a general fear-of-AI brief. Most of what you do is fine. The redlines are narrow.

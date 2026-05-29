@@ -259,7 +259,7 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 ## V
 
-**Vertex AI.** Google Cloud's AI platform. The program routes some calls through Vertex via LiteLLM. See [W.6](../../belts/01-white/W06-llm-gateway.md).
+**Vertex AI.** Google Cloud's AI platform. Razorpay routed Claude through Vertex until the March-2026 migration to the LiteLLM gateway; it is no longer in the active model path. If you see Vertex env vars in a teammate's setup, they are stale. See [W.4](../../belts/01-white/W04-auth-setup.md) and [W.6](../../belts/01-white/W06-llm-gateway.md).
 
 ## W
 

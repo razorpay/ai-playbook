@@ -1,5 +1,5 @@
 ---
-title: "The LLM proxy — what LiteLLM does, why Vertex routes through it"
+title: "The LLM proxy — what LiteLLM does and why every call routes through it"
 slug: "belts/green/llm-proxy"
 section: "belts"
 status: "drafted"
@@ -13,13 +13,15 @@ prev: "belts/green/redlines"
 next: "belts/green/pii-pci-rbi"
 pillar: "harness"
 belt: "green"
-tags: ["green-belt", "llm-proxy", "litellm", "vertex", "harness"]
-updated: "2026-04-29"
+tags: ["green-belt", "llm-proxy", "litellm", "harness"]
+updated: "2026-05-29"
 ---
 
 # G.23 — The LLM proxy
 
-Every approved model call from a Razorpay program-pinned environment routes through an LLM proxy. The proxy is not a performance overhead; it is a safety, observability, and policy layer that makes the program defensible to security, compliance, and finance teams. This chapter is what every Green Belt builder should know about that layer: what LiteLLM does, why Vertex routes through it, and how to debug when the proxy itself is the friction.
+Every approved model call from a Razorpay program-pinned environment routes through an LLM proxy. The proxy is not a performance overhead; it is a safety, observability, and policy layer that makes the program defensible to security, compliance, and finance teams. This chapter is what every Green Belt builder should know about that layer: what LiteLLM does, what the proxy lets the program do that direct API calls cannot, and how to debug when the proxy itself is the friction.
+
+> **Migration note.** Until March 2026, the proxy's upstream was Google Vertex AI. Today it is Anthropic's API directly. The chapter's frame — scan, log, gate, attribute — is unchanged; only the egress hop changed.
 
 ---
 
@@ -52,7 +54,7 @@ Every approved model call from a Razorpay program-pinned environment routes thro
    │                       │                           │
    │                       ▼                           │
    │              ┌──────────────────┐               │
-   │              │   VERTEX AI      │               │
+   │              │   ANTHROPIC API  │               │
    │              │   (model host)   │               │
    │              └──────────────────┘               │
    │                                                  │
@@ -63,10 +65,10 @@ Every link in the chain has a job:
 
 - **Client → Proxy:** the place where the redline reflex from G.22 should have caught anything dangerous.
 - **Proxy:** the program's safety net. Scans for redline shapes the reflex missed; logs the call for audit; enforces policy (rate, model, cost); attributes the call to the right team for billing.
-- **Proxy → Vertex:** the egress to the actual model. The model itself does not see the calling team's identity; the proxy holds that mapping.
+- **Proxy → model host:** the egress to the actual provider. The model itself does not see the calling team's identity; the proxy holds that mapping.
 - **Response back through the chain:** the response can be classified (G.25's output classifiers) before it reaches the client.
 
-LiteLLM is the open-source proxy that Razorpay's program-pinned setup uses. Vertex AI is the Google Cloud model-hosting service that fronts Claude (and other models) for enterprise deployments.
+LiteLLM is the open-source proxy that Razorpay's program-pinned setup uses. The upstream is Anthropic's API (post the March-2026 migration off Google Vertex AI); LiteLLM holds the provider credentials so individual builders never see them.
 
 ---
 
@@ -121,7 +123,7 @@ Most of the time, invisible. You install Claude Code, the program-pinned plugin 
 Three signs the proxy is the friction:
 
 - a clean prompt is being refused (you suspect the scan has a false positive);
-- latency is high (the proxy itself or the proxy-to-Vertex hop has a problem);
+- latency is high (the proxy itself or the proxy-to-provider hop has a problem);
 - the model output looks weird (an output classifier may have rewritten or filtered).
 
 The next section is what to do when the proxy is the friction.
@@ -144,7 +146,7 @@ A response that used to take two seconds now takes thirty. Two layers to check.
 
 **Layer 1.** The proxy itself. The proxy is generally fast (single-digit ms overhead); a sustained slowness usually means the proxy is rate-limiting or queuing.
 
-**Layer 2.** The Vertex hop. Vertex regional latency varies. A slowdown is usually transient; if it persists, the program lead has the dashboards.
+**Layer 2.** The model-host hop. Regional latency at Anthropic varies. A slowdown is usually transient; if it persists, the program lead has the dashboards.
 
 The right move on a transient slowdown: wait, retry. The right move on a sustained slowdown: report via [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2); do not switch off the proxy.
 
@@ -206,5 +208,5 @@ G.24 (*PII / PCI / RBI*) names the regulators behind the redlines. The proxy enf
 **Further reading**
 
 - [LiteLLM docs](https://docs.litellm.ai/) — the open-source proxy
-- [Vertex AI docs](https://cloud.google.com/vertex-ai/docs) — the model-hosting layer
+- [Anthropic API docs](https://platform.claude.com/docs) — the current upstream
 - [G.20 — Observability with AI](../b-practices/G20-observability-with-ai.md) — the cost dashboard reads proxy data

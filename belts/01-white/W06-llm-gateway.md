@@ -8,28 +8,29 @@ track: "white"
 order: 6
 time_minutes: 15
 audience: "new-builder"
-outcome: "Understand what the model gateway does, what Vertex is responsible for, and what a White Belt reader does not need to debug."
+outcome: "Understand what the LiteLLM gateway does, what Claude Code does, and which failures are yours to debug vs. the gateway's."
 prev: "belts/white/installing-the-stack"
 next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
-tags: ["white-belt", "llm-gateway", "vertex"]
-updated: "2026-04-27"
+tags: ["white-belt", "llm-gateway", "litellm"]
+updated: "2026-05-29"
 ---
 
 # W.6 - The LLM Gateway
 
-You do not need to understand model infrastructure to use Claude Code well. You do need to know that your prompt does not travel straight from your laptop to a mystery model. It moves through an approved path with auth, routing, logging, and policy around it.
+You do not need to understand model infrastructure to use Claude Code well. You do need to know that your prompt does not travel straight from your laptop to a mystery model. It moves through Razorpay's LLM gateway — with auth, routing, logging, and policy around it.
 
-This module is intentionally short. The goal is vocabulary, not infrastructure ownership.
+This module is intentionally short. The goal is vocabulary and a quick way to triage, not infrastructure ownership.
 
 ---
 
 ## If you're short on time
 
-- The gateway is the approved route between your local tool and the model.
-- Vertex is part of the managed model path; you do not debug it like a local package.
-- If the gateway path fails, capture the short error and route it. Do not try to bypass it.
+- The gateway is `https://llm-gateway.razorpay.com`. It runs **LiteLLM**, an open-source model proxy.
+- Every Claude Code request from your laptop goes through it. The gateway authenticates your personal key, picks a model (Sonnet, Opus, or Haiku), forwards to Anthropic, and records the usage.
+- The setup script in [W.5](W05-installing-the-stack.md) writes everything you need into `~/.claude/settings.json`. You should not hand-edit it.
+- If a gateway call fails, capture the short error and route it. Do not try to bypass it.
 
 ---
 
@@ -38,23 +39,34 @@ This module is intentionally short. The goal is vocabulary, not infrastructure o
 ```text
 You
   -> Claude Code
-  -> local config and plugin
-  -> approved model gateway
-  -> managed model provider path
+  -> ~/.claude/settings.json (LiteLLM key + model defaults)
+  -> Compass plugin (skills, hooks, MCPs)
+  -> https://llm-gateway.razorpay.com  ← Razorpay's LiteLLM gateway
+  -> Anthropic API (Claude Sonnet / Opus / Haiku)
   -> response back to Claude Code
 ```
 
-The gateway exists so the organization can control access, routing, observability, and safety. That is good. Without it, every builder would invent their own model path, and the program would become impossible to support.
+The gateway exists so the organisation can control access, routing, observability, and safety. Three concrete things it does:
 
-White Belt readers need to distinguish three failures:
+1. **Auth.** Every request carries your personal LiteLLM key as a Bearer token. The key is minted by the setup script and rotated on demand.
+2. **Routing.** You ask for `claude-sonnet-4-6`; the gateway picks the right provider region and forwards. If a provider has issues, the gateway can fall back without you noticing.
+3. **Observability.** Every request lands in the LiteLLM dashboard with cost, latency, and token count. That is how the program understands what's being built and how to scale quotas.
 
-| Failure | What it feels like |
-|---|---|
-| Local tool failure | Claude Code does not open or cannot read the folder. |
-| Config/plugin failure | Claude Code opens but does not use the expected program path. |
-| Gateway/model-path failure | Claude Code starts a request but receives auth, routing, quota, or policy errors. |
+Without it, every builder would invent their own model path, and the program would become impossible to support.
 
-Only the first one is mostly local.
+---
+
+## What you control vs. what the gateway controls
+
+White Belt readers need to distinguish three failure shapes:
+
+| Failure | What it feels like | Owned by |
+|---|---|---|
+| Local tool failure | Claude Code does not open, or cannot read the folder. | You (Layers 1–2) |
+| Config / plugin failure | Claude Code opens but uses the wrong model or no skills. | You (Layers 4–5) |
+| Gateway / model-path failure | A prompt errors with `401`, `403`, `429`, or a network timeout. | The gateway, sometimes your shell environment |
+
+Only the first one is fully local. The third one is usually a setup mismatch you can fix in two minutes (see W.5 failure modes) — but if you've followed the W.5 flow cleanly and still hit them, route it to [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2).
 
 ---
 
@@ -72,11 +84,9 @@ Then ask a small reasoning question that does not require private context:
 In one paragraph, explain what a pull request is to a first-time builder.
 ```
 
-If the first works and the second fails, the local tool may be alive while the model path is not. That is useful evidence.
-
-If both fail, the issue may be local setup.
-
-If both work, run the verification command and trust the result rather than continuing to poke at infrastructure.
+- **Both work** → harness and gateway are alive. Trust the verification skill and move on.
+- **First works, second fails** → the harness is alive but the gateway request failed. Read the short error: it will be `401` (key issue), `403` (stale Vertex env vars from the old setup), `429` (quota), or a timeout. See [W.5 common failure modes](W05-installing-the-stack.md#common-failure-modes).
+- **Both fail** → likely local setup. Re-verify W.5.
 
 ---
 
@@ -84,25 +94,28 @@ If both work, run the verification command and trust the result rather than cont
 
 At White Belt, you do not need to know:
 
-- how model routing is implemented;
-- how quotas are assigned;
-- how provider-specific auth works under the hood;
-- how observability traces are stored;
-- how fallback models are selected.
+- How LiteLLM is deployed inside Razorpay.
+- How quotas are calculated per builder.
+- How model fallback rules are configured.
+- How observability traces are stored or who reads them.
 
-You will learn more of this later if your work requires it. For now, the gateway is part of the harness: use the approved path, verify it, and route failures cleanly.
+You will learn more of this later if your work requires it (see [G.23 — The LLM proxy](../03-green/c-guardrails/G23-llm-proxy.md) in Green Belt). For now, the gateway is part of the harness: use the approved path, verify it, and route failures cleanly.
 
 ---
 
 ## Common failure modes
 
-**"Claude Code opens, but every prompt fails."** Likely gateway or model-path configuration. Capture the shortest error.
+The detailed seven are in [W.5](W05-installing-the-stack.md#common-failure-modes). The short version of the gateway-related ones:
 
-**"A teammate says a different model path is faster."** White Belt uses the program path. Do not optimize routing before you can ship the first PR.
+**`401 authentication_error`.** Your LiteLLM key rotated or expired. Re-run the setup script; it re-mints the key into `~/.claude/settings.json`.
 
-**"The response says it cannot access something."** That may be correct. Models do not see every internal surface automatically. Give scoped, non-sensitive context.
+**`403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`.** Stale Vertex env vars in your shell rc from the pre-March-2026 setup. Remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, and `CLOUD_ML_REGION` from `~/.bashrc` / `~/.zshrc`, restart your terminal.
 
-**"I pasted too much context trying to help."** Stop and read the safety brief. More context is not automatically better context.
+**`429 RESOURCE_EXHAUSTED` on `claude-opus-4-6`.** Opus has tighter rate limits. Switch to Sonnet for the moment (`--model sonnet` on CLI, or change `"model": "sonnet[1m]"` in `~/.claude/settings.json`).
+
+**"My usage isn't showing in the dashboard."** Shell env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. `unset` them, then remove from your shell rc.
+
+**"A teammate says a different model path is faster."** White Belt uses the program path. Do not optimise routing before you can ship the first PR.
 
 ---
 
@@ -110,29 +123,28 @@ You will learn more of this later if your work requires it. For now, the gateway
 
 You are **GREEN** if:
 
-- Claude Code can answer a small prompt;
+- Claude Code answers a small prompt;
 - you can explain the difference between local tool failure and gateway failure;
-- verification does not show model-path issues.
+- your usage shows up in the LiteLLM dashboard.
 
 You are **YELLOW** if:
 
-- local checks work but model calls fail;
-- Claude Code appears to use the wrong configured path;
+- local checks work but model calls fail with a specific status code;
+- Claude Code appears to use the wrong model;
 - you cannot tell whether the failure is local or remote.
 
 You are **RED** if:
 
 - you are considering an unapproved model route;
-- auth errors persist after the official repair path;
+- auth errors persist after re-running the setup script;
 - policy errors appear and you do not understand why.
 
 ---
 
 ## What you can say after this module
 
-> "I know the model path is managed infrastructure, not something I should bypass locally."
+> "The model path is managed infrastructure. I can read a gateway error and tell whether it's mine to fix or the program's."
 
 ---
 
 **Previous:** [W.5 Installing the stack](W05-installing-the-stack.md) - **Next:** [W.7 Compass plugin](W07-compass-plugin.md)
-
