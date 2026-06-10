@@ -119,8 +119,17 @@ Legacy filenames (`03-mental-model.svg`, `04-enablement-stack.svg`) are kept as 
 ## Embedding pattern
 
 ```markdown
-![Belt ladder](../../../diagrams/belt-ladder-hero.svg)
+![Belt ladder](<relative-path-to-repo-root>/diagrams/belt-ladder-hero.svg)
 ```
+
+The `../` prefix is relative to the **chapter's** location, not this README's, so count the directory depth from the file doing the embedding:
+
+| Chapter depth | Example file | Prefix | Full path |
+|---|---|---|---|
+| Root | `INDEX.md` | `./` | `./diagrams/belt-ladder-hero.svg` |
+| 1 level | `prologue/03-mental-model.md` | `../` | `../diagrams/03-mental-model.svg` |
+| 2 levels | `belts/05-council/C03-rfc-pipeline.md` | `../../` | `../../diagrams/rfc-state-machine.svg` |
+| 3 levels | `belts/03-green/a-craft/G01-three-pillars.md` | `../../../` | `../../../diagrams/three-pillars.svg` |
 
 The hub generator's `copyAsset` pipeline copies `diagrams/*.svg` to `hub/public/diagrams/` automatically. No extra step needed.
 

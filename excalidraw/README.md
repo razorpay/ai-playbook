@@ -36,8 +36,16 @@ The script lives in `scripts/generate-handdrawn-svg.py`. It produces SVGs with r
 ## Embedding pattern
 
 ```markdown
-![Boss Fight B-B month timeline](../../../excalidraw/boss-fight-bb-month-timeline.svg)
+![Boss Fight B-B month timeline](<relative-path-to-repo-root>/excalidraw/boss-fight-bb-month-timeline.svg)
 ```
+
+The `../` prefix is relative to the **chapter's** location, not this README's, so count the directory depth from the file doing the embedding:
+
+| Chapter depth | Example file | Prefix | Full path |
+|---|---|---|---|
+| 1 level | `prologue/02-bd1-bd2-origin.md` | `../` | `../excalidraw/origin-story-bd1-vs-bd2.svg` |
+| 2 levels | `belts/01-white/quest-W0-turn-green.md` | `../../` | `../../excalidraw/white-belt-turn-green-journey.svg` |
+| 3 levels | `belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md` | `../../../` | `../../../excalidraw/boss-fight-bb-month-timeline.svg` |
 
 The hub generator's `copyAsset` pipeline copies `excalidraw/*.svg` to `hub/public/excalidraw/` automatically (the same path it uses for `diagrams/`).
 
