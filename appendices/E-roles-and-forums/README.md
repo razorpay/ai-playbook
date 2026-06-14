@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "roles", "forums", "skeleton"]
-updated: "2026-05-08"
+updated: "2026-06-14"
 ---
 
 # Appendix E: Roles & Forums
@@ -145,7 +145,7 @@ When something is broken, where does the escalation go.
 | Skill failing in production | The skill's owner team channel | Plugin maintenance channel |
 | MCP connector failing | The connector's owner team | Plugin maintenance channel |
 | Security concern (regulator-protected data) | Security review escalation channel directly | Security review owner |
-| LLM gateway failing | Infrastructure channel | Vertex billing owner |
+| LLM gateway failing | Infrastructure channel | LiteLLM gateway owner |
 | Cohort scheduling or evidence question | Cohort lead | Program lead |
 | Cross-team disagreement | Embedded sprint or office hours | Council working forum |
 | Architectural question that affects multiple teams | RFC pipeline | Council monthly session |
