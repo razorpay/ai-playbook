@@ -14,7 +14,7 @@ next: "prologue/tool-tour"
 pillar: null
 belt: null
 tags: ["orientation", "enablement"]
-updated: "2026-04-26"
+updated: "2026-06-15"
 ---
 
 # 0.4 — The Enablement Stack (the 9-layer map)
@@ -62,7 +62,7 @@ Today we're not there. A new builder still needs a Mac and a morning. But every 
 
 | Layer | Name | What it is | Playbook belts that live here |
 |-------|------|------------|-------------------------------|
-| **0** | Foundation (Environment & Access) | The floor. Setup scripts, corporate-proxy cert trust, GCloud auth, Node/pnpm/nvm, Compass plugin, IDE config. | White Belt W-0 → W-4 |
+| **0** | Foundation (Environment & Access) | The floor. Setup scripts, corporate-proxy cert trust, LiteLLM keying, Node/pnpm/nvm, Compass plugin, IDE config. | White Belt W-0 → W-4 |
 | **1** | Collaboration & Sharing (Preview Rails) | How builders share live work — the design-preview platform, per-branch preview URLs, ingress middleware. | Yellow Belt Y-4 (first shared preview) |
 | **2** | AI Workflow (Skill Infrastructure) | The skills that chain into a pipeline: design-intel → build → pre-ship-check → PR guardrail. | Yellow + Green Belt Part A |
 | **3** | Knowledge Base (Razorpay Context) | Structured markdown that skills read — repo map, test creds, flags, error patterns, staging guide. | Green Belt Part B (contributing to KB) |
@@ -82,7 +82,7 @@ Status at a glance (current point in the cycle): **Layers 0, 2, and 7 are the mo
 
 **Why it matters:** The previous chapter ([§0.2](02-bd1-bd2-origin.md)) is a cautionary tale about this layer. Every other layer in this stack is worthless if a builder can't get past Layer 0.
 
-**What's shipped:** A one-command setup script that installs Claude Code (via Vertex), GCloud CLI, Node/pnpm/nvm, and trusts the corporate proxy certificate. A design-environment setup flow that configures the Blade connector, the Figma connector, and access to the internal npm registry. A verification skill that runs a ten-point green/red health check and prints a one-line fix suggestion for any red.
+**What's shipped:** A one-command setup script that installs Claude Code, writes the LiteLLM gateway config and personal key, installs Node/pnpm/nvm, trusts the Zscaler certificate chain, and removes stale Vertex-era environment variables. A design-environment setup flow that configures the Blade connector, the Figma connector, and access to the internal npm registry. A verification skill that runs a ten-point green/red health check and prints a one-line fix suggestion for any red.
 
 **What's still a gap:** A documented IDE setup (VS Code / Cursor extensions, workspace config), and the holy grail: a **cloud-hosted dev environment** (Codespaces, Gitpod, or an internal equivalent) that removes the Mac requirement entirely. This is blocked on org-level billing approval. The north star depends on this layer going cloud-first.
 
