@@ -14,7 +14,7 @@ next: "belts/green/pii-pci-rbi"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "llm-proxy", "litellm", "harness"]
-updated: "2026-05-29"
+updated: "2026-06-16"
 ---
 
 # G.23 — The LLM proxy
@@ -138,7 +138,7 @@ A prompt you believe is clean comes back with a "policy refused" or "redline fla
 
 **Habit 1.** Read the proxy's error message before assuming the proxy is wrong. The error usually names the rule. "Looks like a token-shaped string in line 12" is a real signal even if the string is harmless; rephrase or redact the harmless-but-suspicious part.
 
-**Habit 2.** If the rule is a known false-positive, route the question via [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2). The proxy's policy is tunable; legitimate false positives get fixed centrally. Do not work around them by reshaping the prompt to evade the scan; that defeats the purpose.
+**Habit 2.** If the rule is a known false-positive, route the question via [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). The proxy's policy is tunable; legitimate false positives get fixed centrally. Do not work around them by reshaping the prompt to evade the scan; that defeats the purpose.
 
 ### Symptom: latency
 
@@ -148,7 +148,7 @@ A response that used to take two seconds now takes thirty. Two layers to check.
 
 **Layer 2.** The model-host hop. Regional latency at Anthropic varies. A slowdown is usually transient; if it persists, the program lead has the dashboards.
 
-The right move on a transient slowdown: wait, retry. The right move on a sustained slowdown: report via [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2); do not switch off the proxy.
+The right move on a transient slowdown: wait, retry. The right move on a sustained slowdown: report via [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); do not switch off the proxy.
 
 ### Symptom: weird output
 
@@ -156,7 +156,7 @@ The response includes "[redacted]" or has fields missing or refuses to discuss s
 
 **Path 1.** If the redaction is obviously correct (the prompt asked for something the response should not have included), the classifier did its job. Reword the prompt.
 
-**Path 2.** If the redaction is a false positive, escalate via [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2). Same as the prompt-side false positives: tunable, fixable, do not work around.
+**Path 2.** If the redaction is a false positive, escalate via [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Same as the prompt-side false positives: tunable, fixable, do not work around.
 
 ---
 

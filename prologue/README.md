@@ -14,7 +14,7 @@ next: "prologue/welcome"
 pillar: null
 belt: null
 tags: ["orientation"]
-updated: "2026-04-27"
+updated: "2026-06-16"
 ---
 
 # Prologue — Before You Begin
@@ -32,7 +32,7 @@ By the time you finish the 12 chapters below you will:
 3. Have a working **mental model** of the 5-layer AI dev stack — the picture you can draw on a whiteboard.
 4. Know the **9-layer Enablement Stack** — the map of what you're climbing across the belts.
 5. Be able to tell Claude Code apart from Slash, Cowork, Compass, and Claude.ai in one sentence each.
-6. Know **which roles and forums** can unblock you, and **where to ask** (hint: start in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2)).
+6. Know **which roles and forums** can unblock you, and **where to ask** (hint: start in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD)).
 7. Know how to **read this playbook as a reader**, and (if you lead a team) how to **use it as a manager**.
 8. Know **which belt to start at**.
 9. Know **what never goes into a prompt** (the safety brief).

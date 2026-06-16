@@ -6,6 +6,14 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.26 — Active support channel rollover (2026-06-16)
+
+`#claude-onboarding-support` was archived on 2026-05-16 with instructions to log further support in `#ai-help`. The playbook still routed Day-1 setup, access, quota, gateway, and stale-row reports to the archived channel. This pass updates active reader-facing escalation paths to `#ai-help` while leaving historical changelog references intact.
+
+- **Support-channel references updated.** White Belt setup/auth/gateway chapters, the Day-1 quick reference, Appendix D/F, Prologue support references, setup-verify fixes, and generated hub fallback copy now point to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
+- **Appendix F directory corrected.** The setup/access row now names `#ai-help` as the active successor to archived `#claude-onboarding-support`, removes the duplicate general `#ai-help` row, and records the archive handoff evidence.
+- **Version markers bumped.** README and INDEX now report v0.26 / 2026-06-16 for this channel-rollover pass.
+
 ## v0.25 — Status-marker accuracy and version-stamp purge (2026-05-29)
 
 A broader correctness sweep after v0.24. Many chapters carried inline version stamps ("drafted in v0.9", "Part B lands in v0.10", "the v0.5 page") and several appendix headers in `INDEX.md` were still tagged `[drafted skeleton]` or `[planned]` long after those appendices had been fully written. A reader landing on the Green Belt index today would see "Part B drafted in v0.10" and reasonably wonder which version they were on; a reader scanning the appendix TOC would see "Appendix K [planned]" while the changelog file it points at is actively maintained. Status markers must mean something.

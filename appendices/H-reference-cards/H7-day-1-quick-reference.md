@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-05-13"
+updated: "2026-06-16"
 ---
 
 # H.7 — Day-1 quick reference
@@ -67,7 +67,7 @@ If any check fails → see Common failures below.
 }
 ```
 
-The setup script writes this for you. Don't hand-edit unless [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) walks you through it.
+The setup script writes this for you. Don't hand-edit unless [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) walks you through it.
 
 ---
 
@@ -75,7 +75,7 @@ The setup script writes this for you. Don't hand-edit unless [`#claude-onboardin
 
 | If you need… | Channel |
 |---|---|
-| Setup, access, troubleshooting | [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) |
+| Setup, access, troubleshooting | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) |
 | Razorpay devstack / local env | [`#devstack-onboarding-support`](https://razorpay.slack.com/archives/C08T27QH5L4) |
 | Cowork desktop app | [`#cowork-help`](https://razorpay.slack.com/archives/C0B0G3NGLP6) |
 | Show what you built / read AI wins | [`#ai-bulletin`](https://razorpay.slack.com/archives/C08NRSW1BUZ) |
@@ -89,7 +89,7 @@ The setup script writes this for you. Don't hand-edit unless [`#claude-onboardin
 | Devex platform (codegen, tests) | [`#developer-experience`](https://razorpay.slack.com/archives/C08DS8AE7T8) |
 | API design / council | [`#api_council`](https://razorpay.slack.com/archives/C0168DC4DCZ) |
 
-Full directory in [Appendix F](../F-slack-channels/README.md). When in doubt about which channel to ask in, ask in `#claude-onboarding-support` and let it route.
+Full directory in [Appendix F](../F-slack-channels/README.md). When in doubt about which channel to ask in, ask in `#ai-help` and let it route.
 
 ---
 
@@ -114,14 +114,14 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 | Symptom | Fix |
 |---|---|
-| Manager OOO blocks MyAccess approval | post in `#claude-onboarding-support` with `@techit` tagged; admins bulk-approve |
-| "Free Plan" showing on claude.ai after approval | wait 30–40 minutes for Azure AD sync; if past 60 min, re-route in `#claude-onboarding-support` |
+| Manager OOO blocks MyAccess approval | post in `#ai-help` with `@techit` tagged; admins bulk-approve |
+| "Free Plan" showing on claude.ai after approval | wait 30–40 minutes for Azure AD sync; if past 60 min, re-route in `#ai-help` |
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` | remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION` from `~/.bashrc`/`~/.zshrc`; re-run setup; restart terminal |
 | `401 authentication_error` after laptop restart | re-run the setup script (re-mints the LiteLLM key) |
 | `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6` | switch to Sonnet — edit `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` |
-| Hit the monthly $100 usage cap | DM `@RKV` or post in `#claude-onboarding-support` with manager approval visible |
+| Hit the monthly $100 usage cap | DM `@RKV` or post in `#ai-help` with manager approval visible |
 | Usage missing from LiteLLM dashboard | `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in current shell; remove persisted overrides from `~/.bashrc`/`~/.zshrc`; restart terminal |
-| Anything else | post in `#claude-onboarding-support` with: command run, redacted output, machine class, what you tried |
+| Anything else | post in `#ai-help` with: command run, redacted output, machine class, what you tried |
 
 ---
 
@@ -138,7 +138,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-05-13. If anything on this card is stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and it gets patched in the next revision.*
+*Last reviewed: 2026-06-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 

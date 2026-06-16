@@ -14,12 +14,12 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-05-29"
+updated: "2026-06-16"
 ---
 
 # Appendix D: Known Issues + FAQ
 
-> **What this is.** A living ledger of problems builders have hit and the fixes that worked. Organised by stack layer so a reader who knows roughly where their problem lives can find the relevant entries quickly. Entries are promoted here from [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) threads and from per-belt chapter failure-mode sections; the chapters remain the canonical reference for each pattern.
+> **What this is.** A living ledger of problems builders have hit and the fixes that worked. Organised by stack layer so a reader who knows roughly where their problem lives can find the relevant entries quickly. Entries are promoted here from [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) threads and from per-belt chapter failure-mode sections; the chapters remain the canonical reference for each pattern.
 
 ## How to use this appendix
 
@@ -43,7 +43,7 @@ If you solved a problem and want to contribute:
 
 Problems with laptop setup, the setup script, the Zscaler cert, the LiteLLM gateway, or your shell environment.
 
-**Escalation path:** [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2).
+**Escalation path:** [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 ### D.1 — Manager OOO blocks MyAccess approval (status: fixed)
 
@@ -51,7 +51,7 @@ Problems with laptop setup, the setup script, the Zscaler cert, the LiteLLM gate
 
 **Diagnosis.** MyAccess routes to your reporting manager by default. With them out, nothing moves.
 
-**Fix.** Post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with `@techit` tagged and a one-line "manager OOO, requesting bypass." Admins bulk-approve in batches; expect about an hour business-time. After approval there is still a ~30–40 minute Azure AD sync window before Claude.ai shows your seat.
+**Fix.** Post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with `@techit` tagged and a one-line "manager OOO, requesting bypass." Admins bulk-approve in batches; expect about an hour business-time. After approval there is still a ~30–40 minute Azure AD sync window before Claude.ai shows your seat.
 
 **References.** [W.5 failure mode #1](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
@@ -61,7 +61,7 @@ Problems with laptop setup, the setup script, the Zscaler cert, the LiteLLM gate
 
 **Diagnosis.** Azure AD sync between MyAccess approval and Anthropic's SSO IdP runs on a cadence; you are inside the sync window.
 
-**Fix.** Wait 30–40 minutes after approval and retry. If you are still on Free Plan past 60 minutes, post in `#claude-onboarding-support`.
+**Fix.** Wait 30–40 minutes after approval and retry. If you are still on Free Plan past 60 minutes, post in `#ai-help`.
 
 **References.** [W.5 failure mode #2](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
@@ -109,7 +109,7 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **Diagnosis.** The default cap was set conservatively; heavy daily users hit it. Caps are re-tuned periodically based on real usage.
 
-**Fix.** Request a higher limit by DM'ing `@RKV` or posting in `#claude-onboarding-support` with manager approval visible (cc your manager on the post). Include a one-line on what you're using it for; "Boss Fight G-B in progress" gets quotas raised quickly.
+**Fix.** Request a higher limit by DM'ing `@RKV` or posting in `#ai-help` with manager approval visible (cc your manager on the post). Include a one-line on what you're using it for; "Boss Fight G-B in progress" gets quotas raised quickly.
 
 **References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
@@ -145,7 +145,7 @@ Then `grep` your `~/.bashrc` and `~/.zshrc` for those same variables and remove 
 
 **Diagnosis.** Zscaler corporate proxy injects a certificate that your package manager doesn't trust yet.
 
-**Fix.** Do not bypass certificate checks. Re-run the setup script; it installs the Zscaler trust chain. If installs still fail, post in `#claude-onboarding-support` with the exact failing command and redacted output.
+**Fix.** Do not bypass certificate checks. Re-run the setup script; it installs the Zscaler trust chain. If installs still fail, post in `#ai-help` with the exact failing command and redacted output.
 
 **References.** [W.5](../../belts/01-white/W05-installing-the-stack.md).
 
@@ -155,7 +155,7 @@ Then `grep` your `~/.bashrc` and `~/.zshrc` for those same variables and remove 
 
 Problems with installing, verifying, or running the program-pinned plugin bundle: hook failures, version drift, skill discovery issues.
 
-**Escalation path:** [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2). For plugin-development questions specifically, [`#testing-slash`](https://razorpay.slack.com/archives/C09CG60KLMU) or the Compass plugin co-owners (Aravinth P K, Vaibhav Dhir).
+**Escalation path:** [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). For plugin-development questions specifically, [`#testing-slash`](https://razorpay.slack.com/archives/C09CG60KLMU) or the Compass plugin co-owners (Aravinth P K, Vaibhav Dhir).
 
 *Entries seed from cohort experience. If you have hit and solved one, contribute it using the format below.*
 

@@ -14,7 +14,7 @@ next: "prologue/enablement-stack"
 pillar: null
 belt: null
 tags: ["orientation", "mental-model"]
-updated: "2026-05-29"
+updated: "2026-06-16"
 ---
 
 # 0.3 — The 5-Layer Mental Model of the AI Dev Stack
@@ -139,7 +139,7 @@ When you type a question to Claude, Claude Code does not have a tiny model on yo
 
 Why a centralised gateway and not the Anthropic API directly? Three reasons, all practical:
 
-1. **Centralised billing and quota.** Razorpay buys model capacity once and shares it across builders. Your prompts are billed against a single org-level budget, not your personal credit card. You never paste an Anthropic API key. You hit a per-builder soft cap (~$100/month at the start of v0.23, scaling with usage patterns) which `@RKV` or [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) can raise.
+1. **Centralised billing and quota.** Razorpay buys model capacity once and shares it across builders. Your prompts are billed against a single org-level budget, not your personal credit card. You never paste an Anthropic API key. You hit a per-builder soft cap (~$100/month at the start of v0.23, scaling with usage patterns) which `@RKV` or [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) can raise.
 2. **Observability.** Every request lands in the LiteLLM dashboard with cost, model, latency, and tokens. That is how the program understands what is being built, what is expensive, and where to invest.
 3. **Routing and policy.** The gateway can swap models, add fallbacks, and enforce policy without every builder editing their config.
 
@@ -208,7 +208,7 @@ The setup-verify skill (your first boss fight at White Belt) checks each of thes
 Three worked examples, increasingly nasty, each resolved using the layer vocabulary:
 
 **"Claude isn't responding, it just hangs."**
-*Likely Layer 3.* The LiteLLM key may have rotated, or network egress is being filtered. Re-run the setup script to re-mint the key. If that fails, you're in Layer 2 / network territory — post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with your traceroute.
+*Likely Layer 3.* The LiteLLM key may have rotated, or network egress is being filtered. Re-run the setup script to re-mint the key. If that fails, you're in Layer 2 / network territory — post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with your traceroute.
 
 **"I typed a slash-command and Claude said the skill doesn't exist."**
 *Layer 4.* Either the Compass plugin isn't installed, or it's installed but the skills didn't sync. Run the version-verification script (Appendix B) to compare your local plugin version against the expected one.

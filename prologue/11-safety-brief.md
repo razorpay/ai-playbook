@@ -14,7 +14,7 @@ next: "prologue/whats-shipping"
 pillar: null
 belt: null
 tags: ["security", "safety"]
-updated: "2026-04-26"
+updated: "2026-06-16"
 ---
 
 # 0.11 — The safety brief (what never goes into a prompt)
@@ -101,7 +101,7 @@ The cost of being too cautious is a few minutes of "should I have done that" hes
 Specifically, when you're not sure:
 
 - Strip the sensitive bits before pasting and try the prompt with placeholders. If it works, great. If it doesn't, you've narrowed the question to *does this AI surface need the real data, and if so why?* — which is exactly the question worth asking.
-- Ask in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) (see [§0.6](06-people-and-pocs.md) for who reads it). Phrase it abstractly — *"can I share documents marked X with this AI surface?"* not *"here's the document."* You'll get an answer in minutes from someone who's hit the same question.
+- Ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) (see [§0.6](06-people-and-pocs.md) for who reads it). Phrase it abstractly — *"can I share documents marked X with this AI surface?"* not *"here's the document."* You'll get an answer in minutes from someone who's hit the same question.
 - If the question has any compliance flavour, escalate to the security or compliance team. They'd much rather answer one question now than handle one incident later.
 
 The reflex you want is small but durable: when something feels off about pasting, *pause*. The pause is the entire safety system.

@@ -14,7 +14,7 @@ next: "belts/white/installing-the-stack"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "auth", "litellm", "sso"]
-updated: "2026-05-29"
+updated: "2026-06-16"
 ---
 
 # W.4 - Your auth setup
@@ -117,7 +117,7 @@ If any of those land wrong, see [W.5 common failure modes](W05-installing-the-st
 
 ## What to share when asking for help
 
-When you post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2), share:
+When you post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD), share:
 
 - the command you ran;
 - the non-sensitive error text (status code + short message);
@@ -147,9 +147,9 @@ The full seven are in [W.5](W05-installing-the-stack.md#common-failure-modes). T
 
 **"Certificate errors appear during installs."** Zscaler trust layer. Do not bypass certificate checks. Re-run the setup script — it installs the trust chain.
 
-**"A teammate gave me a command that worked for them."** It may be from the old Vertex era. Prefer the W.5 flow unless `#claude-onboarding-support` explicitly tells you otherwise.
+**"A teammate gave me a command that worked for them."** It may be from the old Vertex era. Prefer the W.5 flow unless `#ai-help` explicitly tells you otherwise.
 
-**"I'm being asked to sign in somewhere I don't recognise."** Stop. Don't enter credentials. Screenshot the page (with no profile info visible) and ask in `#claude-onboarding-support`.
+**"I'm being asked to sign in somewhere I don't recognise."** Stop. Don't enter credentials. Screenshot the page (with no profile info visible) and ask in `#ai-help`.
 
 ---
 

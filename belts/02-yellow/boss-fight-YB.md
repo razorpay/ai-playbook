@@ -14,7 +14,7 @@ next: "belts/yellow/badge"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "boss-fight"]
-updated: "2026-04-26"
+updated: "2026-06-16"
 ---
 
 # 🏁 Yellow Belt Boss Fight — Find a bug in your area and fix it
@@ -69,7 +69,7 @@ If you can't think of one, spend ten minutes inside your most-used surface and w
 
 ### Step 2 — Open the relevant repo in Claude Code (5 minutes)
 
-Use the repo orientation skill to get oriented quickly. The skill will skim the file tree, identify the major folders, and point at where the dashboard / tool / settings page actually lives. If you're not sure which repo to open, ask in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) — the answer is usually one DM away.
+Use the repo orientation skill to get oriented quickly. The skill will skim the file tree, identify the major folders, and point at where the dashboard / tool / settings page actually lives. If you're not sure which repo to open, ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — the answer is usually one DM away.
 
 Once oriented, in Claude Code, ask something like:
 
@@ -174,7 +174,7 @@ So that nobody talks themselves out of the gate:
 
 **"I can't reproduce the bug locally."** Two possibilities. Either your local environment isn't quite the same as production (run setup-verify again to be sure), or the bug is environmental (a race condition, a data-shape thing) and you're now in much harder territory. Either escalate to the surface owner before going further, or pick a different, more reproducible bug.
 
-**"The PR sat unreviewed for three days."** Tag a specific reviewer in the team's Slack channel with a one-line context. The repo's owners are busy; a polite poke is normal. If still no movement, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) — someone there will know how to escalate.
+**"The PR sat unreviewed for three days."** Tag a specific reviewer in the team's Slack channel with a one-line context. The repo's owners are busy; a polite poke is normal. If still no movement, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — someone there will know how to escalate.
 
 **"I shipped the fix but the retro felt like overhead."** Write it anyway. The retro is for the next learner, not for you. It's also the bit that makes this *Yellow Belt* and not *just-shipped-a-PR*.
 

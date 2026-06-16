@@ -14,7 +14,7 @@ next: "belts/white"
 pillar: null
 belt: null
 tags: ["orientation", "changelog"]
-updated: "2026-05-29"
+updated: "2026-06-16"
 ---
 
 # 0.12 — What's shipping this week
@@ -79,7 +79,7 @@ Everything else is supporting structure.
 - The playbook is drafted end-to-end and live on a hosted hub; it is not the final playbook. Versions iterate; see [`CHANGELOG.md`](../CHANGELOG.md) for the running log.
 - The Markdown in this repo is the source of truth. The hub at [razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/) and the `playbook-course` skill both render from it.
 - Safety changes (Prologue §0.11, Green Belt Part C) matter more than ordinary wording changes.
-- If you spot something stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) or DM `@Dhir` — staleness is a bug, not a fact of life.
+- If you spot something stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) or DM `@Dhir` — staleness is a bug, not a fact of life.
 
 ---
 

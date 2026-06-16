@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-04-26"
+updated: "2026-06-16"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -160,7 +160,7 @@ The chapters from 0B.3 onwards assume you've made two cheap moves:
 1. **Logged into your daily-driver AI surface** (whichever you picked above).
 2. **Turned on connectors for at least Slack and Google Workspace.** Your ticketing connector matters too; turn it on if you have access. The exact installation steps vary by tool — there's a setup-checklist appendix you can use as a reference.
 
-If your laptop policy or your IT setup gets in the way of either step, post a question in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) — chances are someone else hit the same wall last week and the workaround is already known. Don't try to brute-force a permission issue alone; that's exactly the time-tax this track is supposed to be reducing, not creating.
+If your laptop policy or your IT setup gets in the way of either step, post a question in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — chances are someone else hit the same wall last week and the workaround is already known. Don't try to brute-force a permission issue alone; that's exactly the time-tax this track is supposed to be reducing, not creating.
 
 ---
 

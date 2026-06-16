@@ -14,7 +14,7 @@ next: "belts/white/quest-hello-razorpay"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "quest", "setup-verify", "evidence"]
-updated: "2026-04-27"
+updated: "2026-06-16"
 ---
 
 # Quest W-0 - Turn GREEN
@@ -44,7 +44,7 @@ No separate verification tool — the verification is running through the five-s
 
 ## The task
 
-Run the five verification steps in order and capture the output. If any step fails, run the one-line fix and re-run. If a fix does not unblock you, route to [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with what you tried.
+Run the five verification steps in order and capture the output. If any step fails, run the one-line fix and re-run. If a fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with what you tried.
 
 ### Step 1 — Setup script completed
 

@@ -14,7 +14,7 @@ next: "prologue/origin-story"
 pillar: null
 belt: null
 tags: ["orientation"]
-updated: "2026-05-29"
+updated: "2026-06-16"
 ---
 
 # 0.1 — Welcome, and why this playbook exists
@@ -111,7 +111,7 @@ Pick one:
 - Jump to self-assessment → [§0.10 Which belt should you start at?](10-self-assessment.md)
 - Jump to safety → [§0.11 The safety brief](11-safety-brief.md)
 
-If you want to say hello to the program itself, post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with *"just started the playbook — any tips for a first-time reader?"* You'll get answers within the hour.
+If you want to say hello to the program itself, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with *"just started the playbook — any tips for a first-time reader?"* You'll get answers within the hour.
 
 ---
 

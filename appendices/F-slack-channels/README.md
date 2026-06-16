@@ -14,12 +14,12 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-05-13"
+updated: "2026-06-16"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
 
-> **This is the live directory.** Channel handles, purposes, and owners as of the date in the frontmatter. The directory is reviewed quarterly and on-demand when channels split or merge. If a row looks stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and it gets fixed in the next revision.
+> **This is the live directory.** Channel handles, purposes, and owners as of the date in the frontmatter. The directory is reviewed quarterly and on-demand when channels split or merge. If a row looks stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets fixed in the next revision.
 
 ## What this appendix is
 
@@ -31,10 +31,12 @@ The directory of Slack channels the playbook references, paired with the etiquet
 
 The first channels every builder needs.
 
+The former [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1778934850982109) channel was archived on 2026-05-16 with instructions to log further support in `#ai-help`; the rows below use the active handle.
+
 | Handle | Purpose | Owner / first responders | First-response expectation |
 |---|---|---|---|
-| [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) | MyAccess access requests, install/setup help, LiteLLM gateway issues, manager-OOO approval bypass, troubleshooting `claude` errors. **The single most important channel for White Belt builders.** | Bhanu Prakash, RKV, Prafulla; escalations to `@techit` subteam | < 1 hour business |
-| [`#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF) | Org-wide engineering announcements. Home of the [canonical Claude rollout thread](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129). Don't post setup questions here — route to `#claude-onboarding-support` instead. | Engineering leadership | Announcements, not Q&A |
+| [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) | MyAccess access requests, install/setup help, LiteLLM gateway issues, manager-OOO approval bypass, troubleshooting `claude` errors, and general AI help. **The active successor to archived `#claude-onboarding-support` for White Belt builders.** | AI help responders; access escalations to `@techit` subteam | < 1 day business |
+| [`#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF) | Org-wide engineering announcements. Home of the [canonical Claude rollout thread](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129). Don't post setup questions here — route to `#ai-help` instead. | Engineering leadership | Announcements, not Q&A |
 | [`#devstack-onboarding-support`](https://razorpay.slack.com/archives/C08T27QH5L4) | Razorpay devstack onboarding — local environment, repo bootstrap, devstack shrc. Adjacent to Claude setup; sometimes the right place when the error is environment-level rather than Claude-level. | Devstack team | < 4 hours business |
 
 ### AI community, show-and-tell, skills
@@ -46,7 +48,6 @@ Where builders gather to swap patterns, share wins, and showcase what they've bu
 | [`#ai-bulletin`](https://razorpay.slack.com/archives/C08NRSW1BUZ) | Magical AI stories — share what you're doing with AI; learn from each other. The org-wide signal channel for AI wins. Use threads for follow-up questions. | Khilan Haria | Async |
 | [`#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ) | Hacks, ideas, and best practices for getting the most out of AI coding tools. The peer-to-peer craft room for builders shipping with AI daily. | Yash Doshi | Async |
 | [`#ai-coding-experiments`](https://razorpay.slack.com/archives/C0AK3F680GL) | AI coding experiments — try-this-and-see channel for new tools, new prompts, new workflows before they're patterns. | Kaushik Bhat | Async |
-| [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) | General AI help — broader than Claude Code setup, narrower than `#engineering-all`. Use when your question is about *using* AI to do work rather than installing the tool. | Hemlata Saraf | < 1 day business |
 | [`#ai-pmm`](https://razorpay.slack.com/archives/C09L2VBR2UD) | AI for PMM and marketing — campaign workflows, content generation, audience analysis. The PM-Marketing-adjacent home. | Vaidehee Prayaag Joshi | Async |
 | [`#product-ai-labs`](https://razorpay.slack.com/archives/C0A7B848RS7) | Product AI Labs pilot — Claude Code + Compass first cohort. Show-and-tell and knowledge sharing for the product team. | Product Spec Reviewer; Aravinth P K for PM-side coordination | Async |
 | [`#pod-velocity-and-ai-working-group`](https://razorpay.slack.com/archives/C084MV74HFS) | The cross-pod working group on velocity + AI. Coordination, decisions, working-group artefacts (tracker in pinned). | Nirvisha Mankad | Per-cadence |
@@ -106,7 +107,7 @@ A new channel is justified when:
 
 The flow:
 
-1. Post in `#claude-onboarding-support` describing the proposed channel and its purpose.
+1. Post in `#ai-help` describing the proposed channel and its purpose.
 2. The program lead (or delegate) approves and creates the channel.
 3. Send a one-line PR adding the channel to this appendix; the directory updates on the next merge.
 
@@ -124,7 +125,7 @@ The program's primary channels stay useful when the etiquette is followed. Six r
 
 **5. When you solve a problem, contribute to Appendix D.** The fix that worked for you helps the next person only if it lands in [Appendix D — Known Issues + FAQ](../D-known-issues/README.md). The contribution flow is documented there. A fix that lives only in a Slack thread evaporates within months.
 
-**6. Tag the right channel; do not cross-post.** A question that fits [`#design-system`](https://razorpay.slack.com/archives/CMQ3RBHEU) goes in `#design-system`. Cross-posting (posting the same question in three channels) signals urgency to no one in particular and dilutes attention. If you genuinely do not know which channel is right, ask in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and let it route.
+**6. Tag the right channel; do not cross-post.** A question that fits [`#design-system`](https://razorpay.slack.com/archives/CMQ3RBHEU) goes in `#design-system`. Cross-posting (posting the same question in three channels) signals urgency to no one in particular and dilutes attention. If you genuinely do not know which channel is right, ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and let it route.
 
 ## Escalation paths
 
@@ -132,10 +133,10 @@ Quick reference for "where does this question go?". Full role-and-forum mapping 
 
 | Symptom | First contact |
 |---|---|
-| Can't install Claude Code; `claude --version` not found; setup script erroring | [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) |
-| Can't see Claude AI in MyAccess; manager OOO blocking approval | [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with `@techit` tagged |
-| `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`; stale Vertex env vars | [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) — see [W.5 failure mode #3](../../belts/01-white/W05-installing-the-stack.md) |
-| Opus 429 / quota exhausted; monthly usage cap hit | [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with manager approval visible |
+| Can't install Claude Code; `claude --version` not found; setup script erroring | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) |
+| Can't see Claude AI in MyAccess; manager OOO blocking approval | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with `@techit` tagged |
+| `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`; stale Vertex env vars | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — see [W.5 failure mode #3](../../belts/01-white/W05-installing-the-stack.md) |
+| Opus 429 / quota exhausted; monthly usage cap hit | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with manager approval visible |
 | Razorpay devstack / local environment broken | [`#devstack-onboarding-support`](https://razorpay.slack.com/archives/C08T27QH5L4) |
 | Cowork desktop app issue | [`#cowork-help`](https://razorpay.slack.com/archives/C0B0G3NGLP6) |
 | Blade component question; design-system compliance | [`#design-system`](https://razorpay.slack.com/archives/CMQ3RBHEU) or [`#experience_fe_core`](https://razorpay.slack.com/archives/C01H13RTF8V) ticket |
@@ -160,7 +161,7 @@ The actual prefix conventions are owned by the program's communication team and 
 Channels change. Handles rename, ownership rotates, new initiatives spawn new rooms. The discipline that keeps this page useful:
 
 - **Quarterly review.** The full directory is re-walked once per quarter. Each row is checked: is the channel still active, is the owner still the owner, is the purpose still accurate. The frontmatter `updated` date is refreshed.
-- **On-demand patches.** When a channel splits, merges, archives, or rotates owner, anyone can open a one-line PR against this appendix. Ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) for the lazy path.
+- **On-demand patches.** When a channel splits, merges, archives, or rotates owner, anyone can open a one-line PR against this appendix. Ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the lazy path.
 - **No silent staleness.** If a row is wrong, it is the appendix's problem, not the reader's. Staleness is a bug; report it like any other.
 
 The durable pieces of this page — the etiquette, the escalation pattern, the request-a-channel flow — change once a year at most. The volatile pieces — handles, owners, first-response expectations — are the ones the discipline above is built to keep honest.
@@ -169,7 +170,7 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 - [H.7 — Day-1 quick reference](../H-reference-cards/H7-day-1-quick-reference.md), the printable one-page card that pulls the top channels from this directory together with install commands and role-holder contacts.
 - [W.5 — Installing the stack](../../belts/01-white/W05-installing-the-stack.md), where every Day-1 builder learns which channels they need to be in.
-- [Quest W-0 — Turn GREEN](../../belts/01-white/quest-W0-turn-green.md), which routes verification-failure questions back to `#claude-onboarding-support`.
+- [Quest W-0 — Turn GREEN](../../belts/01-white/quest-W0-turn-green.md), which routes verification-failure questions back to `#ai-help`.
 - [§0.6 — Meet the people](../../prologue/06-people-and-pocs.md), where the role-holders behind each channel's owner row are named.
 - [Appendix E — Roles & Forums](../E-roles-and-forums/README.md), the deeper role-level reference.
 - [Appendix D — Known Issues + FAQ](../D-known-issues/README.md), where channel-thread fixes get promoted into durable references.
@@ -178,4 +179,4 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 ---
 
-*Last reviewed: 2026-05-13. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and this page gets patched.*
+*Last reviewed: 2026-06-16. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*

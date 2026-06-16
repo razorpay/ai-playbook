@@ -14,7 +14,7 @@ next: "belts/black/embedded-sprints"
 pillar: "culture"
 belt: "black"
 tags: ["black-belt", "office-hours", "culture"]
-updated: "2026-05-07"
+updated: "2026-06-16"
 ---
 
 # B.12 — Running office hours: the Whoop / Ramp pattern
@@ -91,7 +91,7 @@ The order matters. The published slot is the entry point. The public queue is th
 
 A typical office hour walked end-to-end.
 
-**Pre-hour (the queue).** Three days before the slot, a thread is open in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2): "Office hours Thursday 4pm — drop your blocker here." By Thursday morning the queue has six entries:
+**Pre-hour (the queue).** Three days before the slot, a thread is open in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD): "Office hours Thursday 4pm — drop your blocker here." By Thursday morning the queue has six entries:
 
 - "skill pack `foo` v1.2 install fails on the corp-proxy laptop";
 - "MCP server timing out under load — is the rate-limit policy something we set?";
@@ -144,7 +144,7 @@ The log entry takes ~3 minutes to write. The next team that hits the same issue 
 
 A pattern that builders can copy.
 
-**Week 0 (pre-launch).** Announce in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2): "Starting weekly AI office hours, Thursday 4pm, public queue, log pinned. First session is in two weeks." Lead time matters — readers need to see two announcements before they remember.
+**Week 0 (pre-launch).** Announce in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD): "Starting weekly AI office hours, Thursday 4pm, public queue, log pinned. First session is in two weeks." Lead time matters — readers need to see two announcements before they remember.
 
 **Week 1 (queue test-fire).** Open the queue thread for the first session. If only one item comes in, that is the session — walk it deliberately. The first session establishes the *shape* of the artefact, not the *volume*.
 
@@ -172,7 +172,7 @@ The log is the durable artefact. Without it, the office hour is a one-time event
 
 ## Common failure modes
 
-**Letting the queue go private.** A queue in DMs is not a queue; it is a private support channel that does not propagate. Fix: the queue thread is in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2); private requests get redirected ("post in the queue, the same answer will help others").
+**Letting the queue go private.** A queue in DMs is not a queue; it is a private support channel that does not propagate. Fix: the queue thread is in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); private requests get redirected ("post in the queue, the same answer will help others").
 
 **Not rotating the host.** When the same builder hosts every week, the office hour becomes the host's surface area, not the platform's. Burnout follows. Fix: rotate from month four; involve cross-POD voices.
 

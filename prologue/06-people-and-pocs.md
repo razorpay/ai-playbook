@@ -14,7 +14,7 @@ next: "prologue/operating-principles"
 pillar: null
 belt: null
 tags: ["orientation", "support", "directory"]
-updated: "2026-05-13"
+updated: "2026-06-16"
 ---
 
 # 0.6 — Meet the people (roles, forums, the support surface)
@@ -27,7 +27,7 @@ updated: "2026-05-13"
 
 When you hit a wall — a tool won't install, a skill won't trigger, a reviewer hasn't responded, a prompt keeps failing — the answer is almost always *"ask the right place, fast."* The right place is rarely a private DM. It's almost always one of a handful of public channels and forums maintained for exactly this purpose. The five minutes you spend learning where to ask is worth several hours of unblocked work over the coming weeks.
 
-The single most useful habit: when you're stuck, ask in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) within ten minutes of getting stuck. Don't wait. Don't try harder alone first. The cost of asking is low; the cost of staying stuck is enormous.
+The single most useful habit: when you're stuck, ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) within ten minutes of getting stuck. Don't wait. Don't try harder alone first. The cost of asking is low; the cost of staying stuck is enormous.
 
 ---
 
@@ -37,7 +37,7 @@ You'll notice this chapter is structured around *roles* and *forums*, with curre
 
 Roles are durable. *"The program lead"* is the right person to ask whether the role-holder rotates twice in a year. *"The Compass plugin owner"* is the right person to ping whether the team behind it has restructured. The role descriptions in this chapter are written to outlast specific tenures.
 
-But role names alone are not actionable on Day 1. A new joiner needs to know who to ping right now — and asking around to find out *"who is the program lead this quarter?"* is friction the playbook is supposed to remove. So each role below lists the current holder with their Slack handle, dated by the `updated` field at the top of the page. If a holder has rotated since that date, the playbook is stale, not the structure — ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and this page gets refreshed in the next quarterly review.
+But role names alone are not actionable on Day 1. A new joiner needs to know who to ping right now — and asking around to find out *"who is the program lead this quarter?"* is friction the playbook is supposed to remove. So each role below lists the current holder with their Slack handle, dated by the `updated` field at the top of the page. If a holder has rotated since that date, the playbook is stale, not the structure — ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets refreshed in the next quarterly review.
 
 This dual-naming also makes the playbook *shareable*. A reader outside Razorpay can follow the role structure without needing to know our hiring history; a reader inside Razorpay can act on the names today.
 
@@ -53,13 +53,13 @@ The person ultimately accountable for the org-wide AI rollout, the LiteLLM gatew
 
 > **Current as of 2026-05-13:** Bhanu Prakash Rayapati (`@Bhanu Prakash Rayapati`) leads the program; Kaushik Bhat (`@kb`) is the engineering co-lead. The setup-script tooling specifically is owned by Prafulla Anurag (`@prafulla`), and `@RKV` is the standard escalation for usage-cap and Vertex-migration questions.
 
-When to engage: when you're not sure whether something counts as belt-progress, when a recipe in this playbook seems wrong-shaped for your team, when you have feedback that should change the playbook itself. For setup/install/access friction, the first hop is the support channel ([`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2)) rather than the program lead directly — the channel routes faster.
+When to engage: when you're not sure whether something counts as belt-progress, when a recipe in this playbook seems wrong-shaped for your team, when you have feedback that should change the playbook itself. For setup/install/access friction, the first hop is the support channel ([`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD)) rather than the program lead directly — the channel routes faster.
 
 ### The program sponsor
 
 The senior leader who owns the *strategic* level of the program — the executive who said yes to the investment, the person whose roadmap this lives on. Usually one or two levels up from the program lead.
 
-> **Current as of 2026-05-13:** TBD — the sponsor row is being confirmed in the next revision. Ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) for the current name if you need to escalate before that.
+> **Current as of 2026-05-13:** TBD — the sponsor row is being confirmed in the next revision. Ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the current name if you need to escalate before that.
 
 When to engage: rarely directly. The program sponsor's main role from your perspective is that the program *has weight* because they back it. If you find a structural blocker (*"my manager doesn't think I should be spending time on this"*) the escalation path runs through the program lead first; the sponsor is the second layer.
 
@@ -107,7 +107,7 @@ When to engage: before starting a belt, before booking a multi-week cohort, befo
 
 If you're enrolled in the structured Ship-to-Learn track, your cohort has dedicated facilitators: the people running your weekly check-ins, the office hours, the project-pairing. They're often previous cohort graduates or senior builders.
 
-> **Current as of 2026-05-13:** For the PM cohort, Aravinth P K (`@Aravinth P K`) and Vaibhav Dhir (`@Dhir`) lead facilitation. Engineering cohorts are facilitated by the program lead's team — ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) for the current facilitator on your specific cohort.
+> **Current as of 2026-05-13:** For the PM cohort, Aravinth P K (`@Aravinth P K`) and Vaibhav Dhir (`@Dhir`) lead facilitation. Engineering cohorts are facilitated by the program lead's team — ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the current facilitator on your specific cohort.
 
 When to engage: weekly, in your scheduled times. Plus any time you're stuck on cohort-specific questions.
 
@@ -115,7 +115,7 @@ When to engage: weekly, in your scheduled times. Plus any time you're stuck on c
 
 For Builder Days, structured cohorts, and the more elaborate boss fights, named mentors are assigned — typically senior engineers or experienced builders willing to spend a few hours with each candidate. The 1:3 mentor-to-builder ratio is one of the things that makes the program work.
 
-> **Current as of 2026-05-13:** Mentor pairings are assigned per-cohort and per-Builder-Day; the active roster lives in the relevant cohort channel pinned-message. If you're between assignments and need a mentor referral, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2).
+> **Current as of 2026-05-13:** Mentor pairings are assigned per-cohort and per-Builder-Day; the active roster lives in the relevant cohort channel pinned-message. If you're between assignments and need a mentor referral, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 When to engage: in your scheduled mentor sessions; for short async questions outside those sessions, but not for long debugging support — that's what the public channels are for.
 
@@ -155,7 +155,7 @@ When to post: the moment you have a merged PR, an earned belt, a completed boss 
 
 Where infrastructure-level problems get triaged. Devstack is downstream of this program (chapter [§0.4](04-enablement-stack.md), Layer 8) (owned by a separate team) but builders depend on it constantly. When devstack is slow or down, this channel is where you check first.
 
-When to post: only after confirming the issue isn't your local setup. If `setup-verify` is green and your environment was healthy yesterday, devstack is a reasonable suspect. Otherwise, post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) first.
+When to post: only after confirming the issue isn't your local setup. If `setup-verify` is green and your environment was healthy yesterday, devstack is a reasonable suspect. Otherwise, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) first.
 
 ### The design-system internal channel
 
@@ -211,8 +211,8 @@ This is also why the playbook has contribution flows at every belt. Yellow Belt'
 
 ## What you should carry into the next chapter
 
-- **Roles and the people in them.** The role descriptions in this chapter are durable; the named holders are dated. If a name is stale, the playbook is wrong — ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and it gets patched.
-- **The setup-and-access channel is the highest-leverage place to post.** Public. Within ten minutes of getting stuck. With full diagnostic output. The handle is [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2); the full channel directory is in [Appendix F](../appendices/F-slack-channels/README.md).
+- **Roles and the people in them.** The role descriptions in this chapter are durable; the named holders are dated. If a name is stale, the playbook is wrong — ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched.
+- **The setup-and-access channel is the highest-leverage place to post.** Public. Within ten minutes of getting stuck. With full diagnostic output. The handle is [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); the full channel directory is in [Appendix F](../appendices/F-slack-channels/README.md).
 - **Several specialised channels exist**: celebrations, devstack support, design-system, AI community channels, per-Builder-Day channels. Appendix F has them, organised by purpose.
 - **The rules of engagement** are: post publicly, post the full output, search before asking, celebrate publicly, don't paste PII, contribute back when you solve.
 - **The program is a community, not a help desk.** Treat it that way and it works for you.
@@ -220,7 +220,7 @@ This is also why the playbook has contribution flows at every belt. Yellow Belt'
 
 ---
 
-*Last reviewed: 2026-05-13. Named-holder rows are refreshed quarterly and on-demand. If a row is stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and this page gets patched.*
+*Last reviewed: 2026-06-16. Named-holder rows are refreshed quarterly and on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
 
 ---
 

@@ -786,7 +786,7 @@ If today is your first day with the playbook, do these three things before anyth
 2. **[Read Tech 101 chapter 1](${base}/tech-101/what-is-software/)** (5 minutes) — or skip if you already know what a server is.
 3. **[Run W.5 → Quest W-0](${base}/belts/white/installing-the-stack/)** (~60 minutes). The two-step install + the five GREEN checks. By the end of this you've shipped your first "I have working Claude Code" claim.
 
-Stuck at any step? Post in [\`#claude-onboarding-support\`](https://razorpay.slack.com/archives/C0ANCMTCJA2) within ten minutes — that's the support channel for everything Day 1.
+Stuck at any step? Post in [\`#ai-help\`](https://razorpay.slack.com/archives/C08C35GKJKD) within ten minutes — that's the support channel for everything Day 1.
 
 ---
 
@@ -846,7 +846,7 @@ hero:
 - [**Part 0 — Foundation**](${base}/foundation/) — pre-tools, pre-AI orientation for Tech 101 and Ops 101.
 - [**Master Index**](${base}/master-index/) — the full table of contents.
 
-If you searched and the page you wanted has moved, the search bar in the header above will find it. If a stale link sent you here, ping [\`#claude-onboarding-support\`](https://razorpay.slack.com/archives/C0ANCMTCJA2) so the link gets fixed.
+If you searched and the page you wanted has moved, the search bar in the header above will find it. If a stale link sent you here, ping [\`#ai-help\`](https://razorpay.slack.com/archives/C08C35GKJKD) so the link gets fixed.
 `;
 
   await writeGeneratedDoc('404.md', content);

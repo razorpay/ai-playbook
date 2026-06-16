@@ -101,7 +101,7 @@ Then re-run the setup script and open a new terminal:
 curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
 ```
 
-If `403 PERMISSION_DENIED` errors persist after a fresh terminal, route to `#claude-onboarding-support` with the redacted error and the contents of `grep VERTEX ~/.bashrc ~/.zshrc`.
+If `403 PERMISSION_DENIED` errors persist after a fresh terminal, route to `#ai-help` with the redacted error and the contents of `grep VERTEX ~/.bashrc ~/.zshrc`.
 
 Deeper fix: [W.6 — The LLM Gateway](../../belts/01-white/W06-llm-gateway.md).
 
@@ -109,9 +109,9 @@ Deeper fix: [W.6 — The LLM Gateway](../../belts/01-white/W06-llm-gateway.md).
 
 ## Check 6: LiteLLM proxy
 
-**YELLOW (elevated latency).** No user-side fix; the platform team is the right escalation. Continue working; the latency may resolve. If it persists for more than thirty minutes, post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with your probe output.
+**YELLOW (elevated latency).** No user-side fix; the platform team is the right escalation. Continue working; the latency may resolve. If it persists for more than thirty minutes, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with your probe output.
 
-**RED (proxy unreachable).** First, confirm VPN is connected. Second, check the program's status page if one exists. If both look fine and the proxy is still unreachable, post in [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) with the full probe output and your setup-verify report.
+**RED (proxy unreachable).** First, confirm VPN is connected. Second, check the program's status page if one exists. If both look fine and the proxy is still unreachable, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the full probe output and your setup-verify report.
 
 Deeper fix: [G.23 — The LLM proxy](../../belts/03-green/c-guardrails/G23-llm-proxy.md).
 

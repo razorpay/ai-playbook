@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-04-26"
+updated: "2026-06-16"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -97,7 +97,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 **The feel:** You won't *see* Compass — you'll see its effects. When you type `/` and a long list of Razorpay-specific commands appears, that's Compass. When Claude randomly knows that the Blade `Button` component is called that and has these variants, that's Compass.
 
-**When to reach for it:** You don't reach for it. You install it once (as part of White Belt W-3) and it's always there. Questions go to [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2).
+**When to reach for it:** You don't reach for it. You install it once (as part of White Belt W-3) and it's always there. Questions go to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 ---
 
