@@ -743,15 +743,15 @@ chapters:
     status: "drafted"
     type: "chapter"
     order: 4
-    time_minutes: 30
+    time_minutes: 20
     audience: "new-builder"
-    outcome: "Understand the auth pieces behind Claude Code, Vertex access, Google SSO, gcloud, and corporate certificate trust."
+    outcome: "Name the auth layers behind Claude Code, recognise which one is failing, and know which fixes are yours vs. the program's."
     prev: "belts/white/git-as-savepoints"
     next: "belts/white/installing-the-stack"
     pillar: "harness"
     belt: "white"
-    tags: ["white-belt", "auth", "gcloud", "vertex"]
-    updated: "2026-04-27"
+    tags: ["white-belt", "auth", "litellm", "sso"]
+    updated: "2026-06-16"
   - slug: "belts/white/installing-the-stack"
     path: "belts/01-white/W05-installing-the-stack.md"
     title: "Installing the stack"
@@ -779,13 +779,13 @@ chapters:
     order: 6
     time_minutes: 15
     audience: "new-builder"
-    outcome: "Understand what the model gateway does, what Vertex is responsible for, and what a White Belt reader does not need to debug."
+    outcome: "Understand what the LiteLLM gateway does, what Claude Code does, and which failures are yours to debug vs. the gateway's."
     prev: "belts/white/installing-the-stack"
     next: "belts/white/compass-plugin"
     pillar: "context"
     belt: "white"
-    tags: ["white-belt", "llm-gateway", "vertex"]
-    updated: "2026-04-27"
+    tags: ["white-belt", "llm-gateway", "litellm"]
+    updated: "2026-06-16"
   - slug: "belts/white/compass-plugin"
     path: "belts/01-white/W07-compass-plugin.md"
     title: "Compass plugin"
@@ -1757,7 +1757,7 @@ chapters:
     updated: "2026-04-29"
   - slug: "belts/green/llm-proxy"
     path: "belts/03-green/c-guardrails/G23-llm-proxy.md"
-    title: "The LLM proxy — what LiteLLM does, why Vertex routes through it"
+    title: "The LLM proxy — what LiteLLM does and why every call routes through it"
     section: "belts"
     track: "green"
     status: "drafted"
@@ -1770,8 +1770,8 @@ chapters:
     next: "belts/green/pii-pci-rbi"
     pillar: "harness"
     belt: "green"
-    tags: ["green-belt", "llm-proxy", "litellm", "vertex", "harness"]
-    updated: "2026-04-29"
+    tags: ["green-belt", "llm-proxy", "litellm", "harness"]
+    updated: "2026-06-16"
   - slug: "belts/green/pii-pci-rbi"
     path: "belts/03-green/c-guardrails/G24-pii-pci-rbi.md"
     title: "PII, PCI, RBI — the regulators, the reasons, the reflexes"

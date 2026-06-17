@@ -14,7 +14,7 @@ next: "belts/green/a-craft"
 pillar: null
 belt: "green"
 tags: ["green-belt", "readme", "team-velocity"]
-updated: "2026-05-29"
+updated: "2026-06-17"
 ---
 
 # 🟢 Green Belt — Team Velocity
@@ -79,7 +79,7 @@ Cohort leads, see [Appendix L — Certification](../../appendices/L-certificatio
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](c-guardrails/G22-redlines.md) | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does, why Vertex routes through it](c-guardrails/G23-llm-proxy.md) | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](c-guardrails/G23-llm-proxy.md) | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](c-guardrails/G24-pii-pci-rbi.md) | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — threats and mitigations](c-guardrails/G25-prompt-injection.md) | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](c-guardrails/G26-pre-ship-check-skill.md) | Harness | 20 min |

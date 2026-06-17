@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.27 — Index and curriculum label alignment (2026-06-17)
+
+Reader-facing TOC rows and generated course metadata still carried older labels after the underlying chapters had moved on. The load-bearing stale pieces were the retired Vertex/gcloud setup labels; regenerating the course curriculum also brought an older Y.1 Tool Atlas metadata row back into sync with its chapter frontmatter.
+
+- **White Belt index and course metadata corrected.** W.4 now names MyAccess, the LiteLLM key, SSO, and proxy trust; W.6 now describes the LiteLLM gateway instead of "what Vertex does." W.4's time budget now matches the chapter frontmatter.
+- **Quest W-0 summary aligned.** The Master Index now mirrors the actual five-step Quest W-0 verification flow and routes stuck builders to `#ai-help`.
+- **G.23 TOC labels corrected.** The Master Index, Green Belt overview, Part C guardrails overview, manifest, and course curriculum now match the current G.23 title: every model call routes through LiteLLM; Vertex is only a historical migration note inside the chapter.
+- **Quest W-0 detour label corrected.** The first-day map caption now names stale Vertex env vars as the failure shape instead of suggesting `gcloud` auth is still required.
+- **Course curriculum regenerated.** `skills/playbook-course/curriculum.json` was regenerated from `manifest.yml`, including the existing Y.1 Tool Atlas title, time budget, and outcome from the chapter frontmatter.
+
 ## v0.26 — Active support channel rollover (2026-06-16)
 
 `#claude-onboarding-support` was archived on 2026-05-16 with instructions to log further support in `#ai-help`. The playbook still routed Day-1 setup, access, quota, gateway, and stale-row reports to the archived channel. This pass updates active reader-facing escalation paths to `#ai-help` while leaving historical changelog references intact.

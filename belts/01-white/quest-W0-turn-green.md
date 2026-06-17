@@ -14,7 +14,7 @@ next: "belts/white/quest-hello-razorpay"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "quest", "setup-verify", "evidence"]
-updated: "2026-06-16"
+updated: "2026-06-17"
 ---
 
 # Quest W-0 - Turn GREEN
@@ -25,7 +25,7 @@ Quest W-0 is the gate. It happens before the sandbox PR because a broken environ
 
 ![The first-day map — fresh laptop, setup, verify, fix, GREEN](../../excalidraw/white-belt-turn-green-journey.svg)
 
-The detours on the map (cert not trusted, plugin checksum mismatch, gcloud unauthenticated) are the *common* shapes — landing on one is normal, not a failure. The one-line fix is named beside each.
+The detours on the map (cert not trusted, plugin checksum mismatch, stale Vertex env vars) are the *common* shapes — landing on one is normal, not a failure. The one-line fix is named beside each.
 
 ---
 

@@ -14,7 +14,7 @@ next: "belts/green/redlines"
 pillar: null
 belt: "green"
 tags: ["green-belt", "part-c", "fintech-guardrails", "readme"]
-updated: "2026-04-29"
+updated: "2026-06-17"
 ---
 
 # Part C — Fintech Guardrails
@@ -39,7 +39,7 @@ Seven modules, one Boss Fight, one badge. The Boss Fight closes the belt; the ba
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](G22-redlines.md) | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does, why Vertex routes through it](G23-llm-proxy.md) | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](G23-llm-proxy.md) | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](G24-pii-pci-rbi.md) | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — threats and mitigations](G25-prompt-injection.md) | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](G26-pre-ship-check-skill.md) | Harness | 20 min |

@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.26 · last reviewed 2026-06-16 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.27 · last reviewed 2026-06-17 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -227,9 +227,9 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 | W.1  | [The File System — paths, extensions, "where am I"](belts/01-white/W01-file-system.md) [drafted] | Context        | 20 min |
 | W.2  | [Terminal fluency — 12 commands, 4 shortcuts, 1 mental model](belts/01-white/W02-terminal-fluency.md) [drafted] | Harness        | 30 min |
 | W.3  | [Git as save-points — branches, commits, push/pull](belts/01-white/W03-git-as-savepoints.md) [drafted] | Harness        | 45 min |
-| W.4  | [Your auth setup — gcloud, Vertex, corp SSO, corporate-proxy cert](belts/01-white/W04-auth-setup.md) [drafted] | Harness        | 30 min |
+| W.4  | [Your auth setup — MyAccess, LiteLLM key, SSO, proxy trust](belts/01-white/W04-auth-setup.md) [drafted] | Harness        | 20 min |
 | W.5  | [Installing the stack — Node, pnpm, Claude Code, internal npm registry](belts/01-white/W05-installing-the-stack.md) [drafted] | Harness       | 40 min |
-| W.6  | [The LLM Gateway — what Vertex does, what you don't need to know](belts/01-white/W06-llm-gateway.md) [drafted] | Context        | 15 min |
+| W.6  | [The LLM Gateway — what LiteLLM does, what you need to know](belts/01-white/W06-llm-gateway.md) [drafted] | Context        | 15 min |
 | W.7  | [Compass plugin — install, verify, what's inside](belts/01-white/W07-compass-plugin.md) [drafted] | Context        | 20 min |
 | W.8  | [GREEN / YELLOW / RED — the 10-point health check and one-line fixes](belts/01-white/W08-green-yellow-red.md) [drafted] | Harness        | 20 min |
 | W.9  | [Your first conversation with Claude Code](belts/01-white/W09-first-conversation.md) [drafted] | Prompt         | 30 min |
@@ -242,7 +242,7 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 ### Quests (both required)
 
 **🎮 [Quest W-0 — Turn GREEN](belts/01-white/quest-W0-turn-green.md) [drafted].**
-Run the setup script (laptop) or the design-track add-on. Then run setup-verify. All 10 checks green. If any RED, follow the one-line fix. If you end YELLOW/RED after one hour, post in the program's primary Slack channel with your setup-verify output.
+Run the W.5 setup flow (laptop or design-track add-on), then the five Quest W-0 verification steps. If any RED, follow the one-line fix. If you end YELLOW/RED after one hour, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with your setup output.
 *Success criteria:* setup-verify output screenshot, all checks ✅.
 
 **🎮 [Quest W-1 — The HelloRazorpay commit](belts/01-white/quest-W1-hello-razorpay.md) [drafted].**
@@ -362,7 +362,7 @@ The point of this boss fight is *not* the size of the change — it's the *full 
 | §    | Chapter                                                              | Pillar  | Time   |
 |------|----------------------------------------------------------------------|---------|--------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](belts/03-green/c-guardrails/G22-redlines.md) [drafted] | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does, why Vertex routes through it](belts/03-green/c-guardrails/G23-llm-proxy.md) [drafted] | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](belts/03-green/c-guardrails/G23-llm-proxy.md) [drafted] | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](belts/03-green/c-guardrails/G24-pii-pci-rbi.md) [drafted] | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — the threats, the mitigations](belts/03-green/c-guardrails/G25-prompt-injection.md) [drafted] | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](belts/03-green/c-guardrails/G26-pre-ship-check-skill.md) [drafted] | Harness | 20 min |
