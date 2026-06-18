@@ -8,13 +8,13 @@ track: "skills-library"
 order: 0
 time_minutes: 16
 audience: "everyone"
-outcome: "Understand what belongs in a reusable skill, see three concrete examples, and know how to contribute back without making the library worse."
+outcome: "Understand what belongs in a reusable skill, see the current shipped skill entries, and know how to contribute back without making the library worse."
 prev: "appendices/environment-setup"
 next: "appendices/certification"
 pillar: "context"
 belt: "green"
 tags: ["appendix", "skills", "agents", "workflow"]
-updated: "2026-04-27"
+updated: "2026-06-18"
 ---
 
 # Appendix C — Skills Library
@@ -63,9 +63,9 @@ Ops 101 recipes live near this appendix conceptually, even when their first vers
 
 ---
 
-## Three first-pass skill entries
+## Current skill entries
 
-These are the three skills every belt rests on. Each is described by the same template the library uses going forward.
+These are the seven reusable skills currently shipped with the playbook. Each is described by the same template the library uses going forward.
 
 ### Skill: setup-verify
 
@@ -73,7 +73,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 **Trigger.** Run before starting any belt work after a fresh install, a plugin upgrade, or a network change. Also activate proactively when the user has just finished running the setup script or reports environmental symptoms.
 
-**Bounded job.** Walks the ten setup checks (Node + pnpm versions, Claude Code auth, internal npm registry, corp-proxy cert, gcloud + Vertex, LiteLLM proxy, Compass plugin checksum, Git + corp SSO, env vars, health endpoints) and prints a GREEN / YELLOW / RED summary with named failures and one-line fixes.
+**Bounded job.** Walks the ten setup checks (Node + pnpm versions, Claude Code auth, internal npm registry, corp-proxy cert, stale Vertex environment variables, LiteLLM gateway reachability, Compass plugin checksum, Git + corp SSO, env vars, health endpoints) and prints a GREEN / YELLOW / RED summary with named failures and one-line fixes.
 
 **Context requirements.** Local working directory, the repo intended for work, the program-pinned plugin, and approved connectors.
 
@@ -141,7 +141,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 ### Skill: blade-compliance-reviewer
 
-**Where it lives.** [`skills/blade-compliance-reviewer/`](../../skills/blade-compliance-reviewer/). Drafted as a runnable skill in v0.12.
+**Where it lives.** [`skills/blade-compliance-reviewer/`](../../skills/blade-compliance-reviewer/).
 
 **Trigger.** Run on a single UI file when you want a precise per-line drift report: usually for inherited code, files the production-compiler does not fully repair, or self-review before a PR.
 
@@ -159,7 +159,7 @@ These are the three skills every belt rests on. Each is described by the same te
 
 ### Skill: security-review-subagent
 
-**Where it lives.** [`skills/security-review-subagent/`](../../skills/security-review-subagent/). Drafted as a runnable skill in v0.12.
+**Where it lives.** [`skills/security-review-subagent/`](../../skills/security-review-subagent/).
 
 **Trigger.** Run on PRs that touch agent invocations, MCP connector grants, untrusted-input ingestion, or new external surfaces. The Green Belt boss fight assumes this skill has run on the product-repo PR before review.
 
