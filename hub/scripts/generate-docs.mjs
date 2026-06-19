@@ -238,7 +238,7 @@ async function rewriteLinks(body, sourceRel, slugByPath) {
     const matched = candidates.find((candidate) => slugByPath.has(candidate));
     if (!matched) return full;
     const slug = slugByPath.get(matched);
-    return `${prefix}${routeFor(slug)}${hash}${suffix}`;
+    return `${prefix}${base}/${routeFor(slug)}${hash}${suffix}`;
   });
 
   let output = rewritten;
@@ -451,7 +451,7 @@ async function buildPlannedPage(entry) {
     '',
     '## Where to go next',
     '',
-    '- Return to the [Master Index](${base}/master-index/).',
+    `- Return to the [Master Index](${base}/master-index/).`,
     '- Read the drafted Foundation, Prologue, and appendix pages first.'
   ].join('\n');
   const output = `---\n${YAML.stringify(frontmatter).trim()}\n---\n\n${body}\n`;
