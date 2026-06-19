@@ -14,7 +14,7 @@ next: "belts/green/b-practices"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "quest", "skill-authoring", "team"]
-updated: "2026-04-29"
+updated: "2026-06-19"
 ---
 
 # 🎮 Quest G-1 — Author a team skill
@@ -194,7 +194,7 @@ The reviewer attests that:
 
 ---
 
-**Previous:** [← G.11 Advanced prompting](G11-advanced-prompting.md) · **Next:** [→ Part B README (planned, v0.10)](../README.md#part-b)
+**Previous:** [← G.11 Advanced prompting](G11-advanced-prompting.md) · **Next:** [→ Part B README](../b-practices/README.md)
 
 **Further reading**
 
