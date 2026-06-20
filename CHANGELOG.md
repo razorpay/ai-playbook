@@ -6,6 +6,14 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.28 — LiteLLM usage-cap guidance refresh (2026-06-20)
+
+Recent support threads show the LiteLLM per-builder cap is now $750 and the LiteLLM gateway is the source of truth for Claude Code usage, not the separate claude.ai usage page. The playbook still described the v0.23-era ~$100 cap and implied that quota bumps were routine.
+
+- **Usage-cap amount corrected.** W.5, Appendix D, H.7, and Prologue §0.3 now name the current $750 LiteLLM cap instead of the old $100/month figure.
+- **Source-of-truth clarified.** The cap guidance now tells readers to trust LiteLLM `ExceededBudget` errors over claude.ai usage-page numbers, and to route exceptions through `#ai-help` with manager approval rather than assuming a bump is automatic.
+- **Version markers bumped.** README and INDEX now report v0.28 / 2026-06-20 for this quota-guidance pass.
+
 ## v0.27 — Index and curriculum label alignment (2026-06-17)
 
 Reader-facing TOC rows and generated course metadata still carried older labels after the underlying chapters had moved on. The load-bearing stale pieces were the retired Vertex/gcloud setup labels; regenerating the course curriculum also brought an older Y.1 Tool Atlas metadata row back into sync with its chapter frontmatter.

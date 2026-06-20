@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-06-16"
+updated: "2026-06-20"
 ---
 
 # H.7 — Day-1 quick reference
@@ -100,7 +100,7 @@ Full directory in [Appendix F](../F-slack-channels/README.md). When in doubt abo
 | Program lead | Bhanu Prakash (`@Bhanu Prakash Rayapati`) | escalating something the channel hasn't resolved |
 | Engineering co-lead | Kaushik Bhat (`@kb`) | tooling, infrastructure, devex platform |
 | Setup script owner | Prafulla Anurag (`@prafulla`) | rerunning setup doesn't fix it |
-| Usage cap / quota | `@RKV` | hit the cap, Vertex-migration weirdness |
+| Usage cap / quota | `@RKV` | only if `#ai-help` routes you there |
 | Design transformation | Saurabh Soni (`@Saurabh Soni`) | design-track-specific friction |
 | Compass plugin (co-owned) | Aravinth P K (`@Aravinth P K`) + Vaibhav Dhir (`@Dhir`) | plugin updates, skill load failures, contribution intent |
 | Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | Blade compliance edge cases |
@@ -119,7 +119,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` | remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION` from `~/.bashrc`/`~/.zshrc`; re-run setup; restart terminal |
 | `401 authentication_error` after laptop restart | re-run the setup script (re-mints the LiteLLM key) |
 | `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6` | switch to Sonnet — edit `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` |
-| Hit the monthly $100 usage cap | DM `@RKV` or post in `#ai-help` with manager approval visible |
+| Hit the LiteLLM $750 usage cap | trust LiteLLM over claude.ai usage; use Sonnet/pause heavy runs, or post in `#ai-help` with manager approval for approved exceptions |
 | Usage missing from LiteLLM dashboard | `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in current shell; remove persisted overrides from `~/.bashrc`/`~/.zshrc`; restart terminal |
 | Anything else | post in `#ai-help` with: command run, redacted output, machine class, what you tried |
 
@@ -138,7 +138,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-06-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-06-20. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 

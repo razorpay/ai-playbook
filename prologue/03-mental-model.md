@@ -14,7 +14,7 @@ next: "prologue/enablement-stack"
 pillar: null
 belt: null
 tags: ["orientation", "mental-model"]
-updated: "2026-06-16"
+updated: "2026-06-20"
 ---
 
 # 0.3 — The 5-Layer Mental Model of the AI Dev Stack
@@ -139,7 +139,7 @@ When you type a question to Claude, Claude Code does not have a tiny model on yo
 
 Why a centralised gateway and not the Anthropic API directly? Three reasons, all practical:
 
-1. **Centralised billing and quota.** Razorpay buys model capacity once and shares it across builders. Your prompts are billed against a single org-level budget, not your personal credit card. You never paste an Anthropic API key. You hit a per-builder soft cap (~$100/month at the start of v0.23, scaling with usage patterns) which `@RKV` or [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) can raise.
+1. **Centralised billing and quota.** Razorpay buys model capacity once and shares it across builders. Your prompts are billed against a single org-level budget, not your personal credit card. You never paste an Anthropic API key. The current LiteLLM cap is $750 per builder; LiteLLM is the source of truth even when the claude.ai usage page shows a different number. If an exception is approved for your work, route it through [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with manager approval visible.
 2. **Observability.** Every request lands in the LiteLLM dashboard with cost, model, latency, and tokens. That is how the program understands what is being built, what is expensive, and where to invest.
 3. **Routing and policy.** The gateway can swap models, add fallbacks, and enforce policy without every builder editing their config.
 

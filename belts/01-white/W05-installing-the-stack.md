@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-06-16"
+updated: "2026-06-20"
 ---
 
 # W.5 - Installing the stack
@@ -228,7 +228,7 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **5. `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6`.** Cause: Opus has tighter rate limits, especially when many engineers hit it concurrently. Fix: switch to Sonnet for the moment — change `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` on the CLI. Opus is for deep reasoning; Sonnet is the recommended default for everyday work.
 
-**6. Hit the monthly usage cap.** Symptom: you used up your $100/month quota in days. Fix: request a higher limit by DM'ing `@RKV` or posting in `#ai-help` with manager approval visible (cc your manager on the post). The default cap will scale up with usage patterns; April 1st onwards, team-level quotas were re-tuned based on real usage.
+**6. Hit the LiteLLM usage cap.** Symptom: Claude Code errors with `ExceededBudget` and shows `Budget=750.0`, even if the claude.ai usage page shows a different number. Fix: treat LiteLLM as the source of truth. Move routine work back to Sonnet, pause heavy runs, or post in `#ai-help` with manager approval visible if your work has an approved exception. Do not assume a bump is automatic; the current per-builder cap is $750.
 
 **7. Usage not visible in the LiteLLM dashboard.** Cause: shell-level env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. Fix: `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in your current shell, then check `~/.bashrc` / `~/.zshrc` and remove any persisted overrides. Restart terminal.
 

@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-06-16"
+updated: "2026-06-20"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -103,13 +103,13 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
-### D.6 — Hit the monthly $100 usage cap (status: workaround)
+### D.6 — Hit the LiteLLM $750 usage cap (status: workaround)
 
-**Symptom.** Claude Code starts refusing prompts citing quota; the LiteLLM dashboard shows you against the per-builder cap.
+**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; the error shows `Budget=750.0` or the LiteLLM dashboard shows you against the per-builder cap, even when claude.ai shows a different remaining balance.
 
-**Diagnosis.** The default cap was set conservatively; heavy daily users hit it. Caps are re-tuned periodically based on real usage.
+**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway budget, not the separate claude.ai usage page. The current per-builder LiteLLM cap is $750.
 
-**Fix.** Request a higher limit by DM'ing `@RKV` or posting in `#ai-help` with manager approval visible (cc your manager on the post). Include a one-line on what you're using it for; "Boss Fight G-B in progress" gets quotas raised quickly.
+**Fix.** Treat the LiteLLM error as authoritative. Move routine work back to Sonnet, pause heavy parallel runs, or post in `#ai-help` with manager approval visible if the work has an approved exception. Do not assume a bump is automatic.
 
 **References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
