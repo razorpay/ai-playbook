@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+
+## v0.29 — SVG Vertex-label cleanup (2026-06-21)
+
+The v0.24 post-Vertex sweep updated the Prologue 0.3 prose and W.5/H.7 failure-mode text, but two committed diagram surfaces still showed the retired path: the 5-layer SVG labelled the LLM gateway as "Vertex AI", and the White Belt journey illustration still told readers to run `gcloud auth application-default login`.
+
+**What changed.**
+
+- **5-layer mental-model SVGs corrected.** The source diagrams and committed hub copies now label Layer 2 as `LiteLLM gateway · Anthropic API · policy`, matching Prologue 0.3 and G.23.
+- **White Belt journey illustration corrected.** The hand-drawn source, generated hub copy, and generator script now show the real detour: stale Vertex env vars → remove Vertex env vars.
+- **Version markers bumped.** README and INDEX now report v0.29 / 2026-06-21 for this diagram-staleness pass.
+
 ## v0.28 — LiteLLM usage-cap guidance refresh (2026-06-20)
 
 Recent support threads show the LiteLLM per-builder cap is now $750 and the LiteLLM gateway is the source of truth for Claude Code usage, not the separate claude.ai usage page. The playbook still described the v0.23-era ~$100 cap and implied that quota bumps were routine.

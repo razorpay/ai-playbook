@@ -64,7 +64,7 @@
     <rect class="layer" x="0" y="0" width="640" height="64" rx="8"/>
     <text x="20" y="28" class="layer-num">LAYER 2</text>
     <text x="20" y="50" class="layer-name">LLM Gateway</text>
-    <text x="620" y="40" text-anchor="end" class="layer-detail">LiteLLM proxy · Vertex AI · routing</text>
+    <text x="620" y="40" text-anchor="end" class="layer-detail">LiteLLM gateway · Anthropic API · policy</text>
   </g>
   <line class="arrow" x1="600" y1="474" x2="600" y2="506" marker-end="url(#arrow-up)" transform="rotate(180 600 490)"/>
 

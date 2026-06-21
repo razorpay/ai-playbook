@@ -580,7 +580,7 @@ def diagram_white_belt_journey() -> str:
     detours = [
         (640, "cert not trusted", "trust the cert\nin Keychain"),
         (640, "checksum mismatch", "re-download the\nplugin from registry"),
-        (640, "gcloud unauth'd", "gcloud auth\napplication-default login"),
+        (640, "stale Vertex env", "remove Vertex\nenv vars"),
     ]
     for i, (anchor_x, problem, fix) in enumerate(detours):
         bx = anchor_x - 280 + i * 200
