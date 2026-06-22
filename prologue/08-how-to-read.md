@@ -14,7 +14,7 @@ next: "prologue/how-to-lead"
 pillar: null
 belt: null
 tags: ["orientation", "navigation"]
-updated: "2026-05-29"
+updated: "2026-06-22"
 ---
 
 # 0.8 — How to use this playbook (as a reader)
@@ -65,7 +65,7 @@ The best readers switch modes deliberately. They do not mistake reading for prog
 
 ## How to treat links marked [coming]
 
-A `[coming]` marker means the playbook knows the section belongs here but the chapter is not yet drafted. As of v0.24, the marker is rare: most belts, all appendices except K and M, and the Council layer are drafted. When you do see it, do not wait unless your current goal depends on it.
+A `[coming]` marker means the playbook knows the section belongs here but the chapter is not yet drafted. The marker is rare: the belts and Council layer are drafted, Appendix E is an intentional skeleton, and Appendix M is the only planned appendix still waiting on the full operational template. When you do see `[coming]`, do not wait unless your current goal depends on it.
 
 If the missing page is part of a future belt, treat it as a signal about the shape of the curriculum, not a blocker. If the missing page is an appendix, use the current chapter's summary until the full reference lands.
 

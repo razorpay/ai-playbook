@@ -7,6 +7,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 ---
 
 
+## v0.30 — Appendix K status alignment (2026-06-22)
+
+The v0.25 status-marker pass reclassified Appendix K as the drafted root changelog, but three Prologue orientation chapters still treated K as missing or as a future tool-landscape appendix. That made the first-read path contradict the Master Index and sent tool-curious readers away from the actual Tool Atlas.
+
+**What changed.**
+
+- **Tool Tour cross-reference corrected.** Prologue §0.5 now points comparison-curious readers to Appendix A, the drafted Tool Atlas, instead of future-tense Appendix K.
+- **Reader guidance corrected.** Prologue §0.8 now names Appendix M as the planned appendix and calls Appendix E a deliberate skeleton, matching the Master Index.
+- **What's Shipping corrected.** Prologue §0.12 now lists Appendix K as the drafted changelog and leaves only Appendix M in the still-planned bucket.
+- **Version markers bumped.** README, INDEX, and affected manifest rows now report v0.30 / 2026-06-22 for this status-alignment pass.
+
 ## v0.29 — SVG Vertex-label cleanup (2026-06-21)
 
 The v0.24 post-Vertex sweep updated the Prologue 0.3 prose and W.5/H.7 failure-mode text, but two committed diagram surfaces still showed the retired path: the 5-layer SVG labelled the LLM gateway as "Vertex AI", and the White Belt journey illustration still told readers to run `gcloud auth application-default login`.

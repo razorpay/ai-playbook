@@ -14,7 +14,7 @@ next: "belts/white"
 pillar: null
 belt: null
 tags: ["orientation", "changelog"]
-updated: "2026-06-16"
+updated: "2026-06-22"
 ---
 
 # 0.12 — What's shipping this week
@@ -46,7 +46,7 @@ The playbook is drafted end-to-end and hosted as a live site at **[razorpay.gith
 - Green Belt: twenty-eight modules across Craft, Practices, and Guardrails, both quests, Boss Fight G-B, and the badge.
 - Black Belt: sixteen modules across Platform, Craft, and Org, both quests, Boss Fight B-B, and the badge.
 - Staff+ Council: six chapters and the charter template.
-- Appendices A through N (skipping K and M), including the live Slack channel directory (F), the named role-holder roster (in §0.6), and the Day-1 quick reference card (H.7).
+- Appendices A through N, with Appendix E kept as a drafted skeleton and Appendix M still planned. The drafted set includes the live Slack channel directory (F), the named role-holder roster (in §0.6), the Day-1 quick reference card (H.7), and the root changelog as Appendix K.
 - Seven Claude Code skills: `playbook-course`, `setup-verify`, `pre-ship-check`, `blade-compliance-reviewer`, `production-compiler`, `design-intel`, `security-review-subagent`.
 - The Astro Starlight hub at **[razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/)**, auto-deployed on every merge to `master` with PR-preview builds.
 - Twelve theme-aware SVG diagrams and seven hand-drawn Excalidraw companion illustrations.
@@ -55,7 +55,7 @@ The playbook is drafted end-to-end and hosted as a live site at **[razorpay.gith
 
 - Audio summaries (~11 podcast-style chapter walkthroughs) — slated for a future release, see [`ROADMAP.md`](../ROADMAP.md).
 - Validation sweep with security, engineering, and design reviewers — runs as calendar work, not authoring.
-- Appendix K and Appendix M placeholders — visible scaffolds, not drafted yet.
+- Appendix M — visible scaffold for the Ship-to-Learn operational template, not drafted yet.
 - The eight open program questions in [`ROADMAP.md`](../ROADMAP.md) — each gets an explicit answer before v1.0.
 
 The version history lives in [`CHANGELOG.md`](../CHANGELOG.md). What is coming next is in [`ROADMAP.md`](../ROADMAP.md).

@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-06-16"
+updated: "2026-06-22"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -131,7 +131,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 **Briefly, for completeness.** There are other AI coding tools: OpenAI's Codex CLI, GitHub Copilot, Amazon Q, various self-hosted agents. This playbook is Claude-shaped because Razorpay standardised on Claude (routed through the LiteLLM gateway) for three reasons: the Compass plugin is Claude-native; the Blade connector integrates cleanly with Claude Code's MCP layer; and our skills library is written as Claude Code skills.
 
-**You don't need to use other tools to earn any belt.** If you're curious about them for comparison, Appendix K will (eventually) cover the landscape. For now, the playbook's stance is: *one harness, one skill library, one workflow.* Pick Claude Code. Go deep.
+**You don't need to use other tools to earn any belt.** If you're curious about them for comparison, [Appendix A — Tool Atlas](../appendices/A-tool-atlas/README.md) is the durable map of which surface fits which job. For now, the playbook's stance is: *one harness, one skill library, one workflow.* Pick Claude Code. Go deep.
 
 ---
 

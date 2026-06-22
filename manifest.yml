@@ -547,7 +547,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "tools"]
-    updated: "2026-04-26"
+    updated: "2026-06-22"
   - slug: "prologue/roles-and-forums"
     path: "prologue/06-people-and-pocs.md"
     title: "Meet the people"
@@ -598,7 +598,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "navigation"]
-    updated: "2026-04-27"
+    updated: "2026-06-22"
   - slug: "prologue/how-to-lead"
     path: "prologue/09-how-to-lead.md"
     title: "How to use this playbook as a team lead"
@@ -660,13 +660,13 @@ chapters:
     order: 12
     time_minutes: 3
     audience: "everyone"
-    outcome: "Understand that the playbook is alive, what v0.6 contains, and what is still coming."
+    outcome: "Understand that the playbook is alive, what the current version contains, and what is still coming."
     prev: "prologue/safety-brief"
     next: "belts/white"
     pillar: null
     belt: null
     tags: ["orientation", "changelog"]
-    updated: "2026-04-27"
+    updated: "2026-06-22"
   - slug: "belts/white"
     path: "belts/01-white/README.md"
     title: "White Belt: The Foundation Layer"
