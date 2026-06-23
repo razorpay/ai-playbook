@@ -7,6 +7,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 ---
 
 
+## v0.31 — Archival plan-link cleanup (2026-06-23)
+
+The changelog and Excalidraw companion README still pointed at root-level `V0.*` planning files that are not present in the repository. Those stale references made old release notes and illustration re-authoring guidance look clickable when the targets had already been removed.
+
+**What changed.**
+
+- **Broken archival links removed.** The v0.23 changelog entry now names the planning artefact as historical context without linking to a missing file.
+- **Pre-v0.20 footer corrected.** The changelog no longer sends readers to absent root-level plan files.
+- **Excalidraw re-authoring guidance corrected.** The companion README now tells maintainers to use the committed SVGs as the source shape instead of a missing `V0.21B-EXCALIDRAW-PLAN.md`.
+- **Version markers bumped.** README and INDEX now report v0.31 / 2026-06-23 for this broken-link cleanup.
+
 ## v0.30 — Appendix K status alignment (2026-06-22)
 
 The v0.25 status-marker pass reclassified Appendix K as the drafted root changelog, but three Prologue orientation chapters still treated K as missing or as a future tool-landscape appendix. That made the first-read path contradict the Master Index and sent tool-curious readers away from the actual Tool Atlas.
@@ -109,7 +120,7 @@ A targeted UX pass after a brutal fresh-eyes review surfaced three load-bearing 
 - **`{#slug}` rendering bug** on the homepage fixed by removing the explicit heading-id syntax (Starlight's auto-slugger handles it).
 - **Site-wide placeholder substitution sweep** — 18 references to "the program's flagship channel" / "the design-system channel" / "the infrastructure channel" / "the celebrations channel" replaced with real handles across Prologue, Foundation, Yellow Belt, Green Belt, Black Belt, and the setup-verify skill.
 
-The Tier 1 plan that defined this pass is [V0.23-READABILITY-PASS-PLAN.md](./V0.23-READABILITY-PASS-PLAN.md).
+The Tier 1 plan that defined this pass was `V0.23-READABILITY-PASS-PLAN.md`; that archival planning file is not carried in the current repository.
 
 ## v0.22 — UX-tightening pass (2026-05-12)
 
@@ -129,7 +140,7 @@ A targeted polish pass across pre-v0.16 chapters applied the v0.16 Council voice
 
 ---
 
-For pre-v0.20 history, see the version-prefixed plan files at the repository root (`V0.4-CLEANUP-PLAN.md` through `V0.19-HUB-IA-PLAN.md`). Each one captures the scope, the rationale, and the deliverables of its version.
+Pre-v0.20 history is summarised in the entries above. The version-prefixed planning files that originally captured those scopes are not carried in the current repository.
 
 ---
 

@@ -31,7 +31,7 @@ Two paths existed in the v0.21b plan: (a) hand-drawn in Excalidraw by the user, 
 
 The script lives in `scripts/generate-handdrawn-svg.py`. It produces SVGs with rough.js-inspired perturbations: wobbly lines, sketchy rectangles, slight stroke variation, hand-lettered captions. The aesthetic approximates an Excalidraw sketch without being one.
 
-**To replace with real Excalidraw drawings later.** Open [excalidraw.com](https://excalidraw.com), draw the illustration following the spec in `V0.21B-EXCALIDRAW-PLAN.md`, export as SVG and save the `.excalidraw` JSON source. Commit both to this directory with the same base filename. The chapter markdown references the `.svg` path; switching to a real Excalidraw sketch is a single file replacement.
+**To replace with real Excalidraw drawings later.** Open [excalidraw.com](https://excalidraw.com), redraw the illustration using the committed SVG as the source shape, export as SVG, and save the `.excalidraw` JSON source. Commit both to this directory with the same base filename. The chapter markdown references the `.svg` path; switching to a real Excalidraw sketch is a single file replacement.
 
 ## Embedding pattern
 
@@ -63,4 +63,4 @@ If you re-author any of these in real Excalidraw, follow these notes so the seve
 ## Related
 
 - [`../diagrams/README.md`](../diagrams/README.md) — the Tier-1 design language.
-- [`../V0.21B-EXCALIDRAW-PLAN.md`](../V0.21B-EXCALIDRAW-PLAN.md) — the full plan and per-diagram specs.
+- [`../scripts/generate-handdrawn-svg.py`](../scripts/generate-handdrawn-svg.py) — the generator used for the current Path-B SVGs.
