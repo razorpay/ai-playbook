@@ -63,7 +63,7 @@ Re-run after any of these:
 
 - a new chapter is added to a belt;
 - a chapter's slug or path changes;
-- a new belt is drafted (Green, Black, Grandmaster);
+- a future belt or section is drafted;
 - the front-matter schema changes in a way the script's parser cares about.
 
 The generator is intentionally a small file (a few hundred lines, no dependencies) so a maintainer can read and audit it in one sitting.
@@ -75,7 +75,7 @@ The generator is intentionally a small file (a few hundred lines, no dependencie
 | Change | Files to update |
 |---|---|
 | New module in an existing drafted belt | `manifest.yml`, then re-run the generator. The skill picks up the new module via `curriculum.json`. No edits to skill code needed. |
-| New belt drafted (e.g. Green Belt) | `manifest.yml`, the generator. The skill says "not yet drafted" until `status: drafted` propagates into `curriculum.json`. |
+| New belt or section drafted | `manifest.yml`, then re-run the generator. The skill walks it once `status: drafted` propagates into `curriculum.json`; no hardcoded belt allow-list should live in `SKILL.md`. |
 | Eight-section template changes | `teaching-patterns.md`, possibly `SKILL.md` workflow step 4. |
 | Appendix L policy changes | `quest-and-boss-fight-handling.md` (NOT `appendices/L-certification/README.md` — the dependency direction is policy → skill). |
 | State file shape changes | `state-schema.md`, plus a migration plan in `SKILL.md`. Bump `schema_version`. |
@@ -121,7 +121,7 @@ Until vendoring lands, the skill is loadable directly from the repo if the learn
 
 ## Testing
 
-The acceptance criteria for any release of this skill live in `test-cases.md`. They run against the current White Belt and Yellow Belt content and exercise: cold-start, mid-belt resume, quest gating, boss-fight handoff, hand-edit respect, planned-belt deferral, lint compliance, and the curriculum-generator path-integrity check.
+The acceptance criteria for any release of this skill live in `test-cases.md`. They run against the current drafted belt content and exercise: cold-start, mid-belt resume, quest gating, boss-fight handoff, drafted-belt progression, hand-edit respect, lint compliance, and the curriculum-generator path-integrity check.
 
 A passing run does not mean the skill is great. It means it does not regress against known good behaviour. A first real-learner walk-through is the real test, and that is captured separately in v0.8's retro.
 

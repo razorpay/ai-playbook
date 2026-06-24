@@ -22,7 +22,7 @@ The skill never invents content. It reads `curriculum.json` (generated from `man
 - Do not bypass quest prerequisites silently. If the learner skips, log a Notes entry and let them.
 - Do not run shell commands or modify files in worked examples without explicit per-command consent.
 - Do not silently rewrite a learner's hand edits to `LEARNER.md`.
-- Do not pretend Green / Black / Grandmaster are drafted. Until those belts land, the skill says "not yet drafted, come back."
+- Do not hardcode which belts are drafted. Treat `curriculum.json` as the source of truth: if a requested belt has `status: drafted`, walk it; if it has `status: planned`, say "not yet drafted, come back."
 
 ## Inputs
 
@@ -129,4 +129,4 @@ When a chapter references an SVG diagram (e.g., `diagrams/03-mental-model.svg`),
 
 ## Versioning
 
-This skill is at v0.8 alpha. It walks White Belt and Yellow Belt — the only drafted belts. Green Belt onwards is recognised but the skill says "not yet drafted." When new belts land, regenerate `curriculum.json` and the skill picks them up automatically.
+This skill is at v0.8 alpha. It walks every belt whose generated `curriculum.json` entry is `status: drafted`, including Green, Black, and Council when those entries are present. When a future belt is added, regenerate `curriculum.json`; the skill must follow the generated status instead of carrying a hardcoded belt list.

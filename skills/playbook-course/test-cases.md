@@ -1,6 +1,6 @@
 # Test cases
 
-> **What this is.** The acceptance scenarios the playbook-course skill must pass before any release. Eight tests, each grounded in the current White Belt and Yellow Belt content. Pass means "no regression"; it does not mean "great." A first real-learner walk-through is the real test and is captured in the v0.8 retro.
+> **What this is.** The acceptance scenarios the playbook-course skill must pass before any release. Eight tests, each grounded in the current drafted belt content. Pass means "no regression"; it does not mean "great." A first real-learner walk-through is the real test and is captured in the v0.8 retro.
 
 ---
 
@@ -104,7 +104,7 @@ The maintainer keeps a markdown log of each run in `test-runs/<date>.md` — not
 
 ---
 
-## Test 6 — Planned-belt deferral
+## Test 6 — Drafted-belt progression after Yellow
 
 **Setup.** Yellow Belt fully claimed and submitted.
 
@@ -112,10 +112,10 @@ The maintainer keeps a markdown log of each run in `test-runs/<date>.md` — not
 
 **Expected behaviour.**
 
-- Skill says: "Green Belt is not yet drafted. Here is what is currently drafted: White (claimed), Yellow (claimed). Master index status: …"
-- Does not invent Green Belt content. Does not switch `current_belt: green`.
+- Skill reads `curriculum.json`, sees Green Belt has `status: drafted`, and offers or starts Green Belt instead of deferring it.
+- On consent or direct `start green belt`: flips `current_belt: green`, appends a Green Belt section to `LEARNER.md` if one does not exist, walks the Green Belt README, then walks G01.
 
-**Acceptance.** The skill is honest about what is drafted. It points to the master index and stops.
+**Acceptance.** The transition is explicit, not silent. The Green Belt section is freshly populated from `curriculum.json`; the skill does not use a hardcoded White/Yellow-only allow-list.
 
 ---
 

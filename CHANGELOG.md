@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.32 — Playbook-course drafted-belt routing (2026-06-24)
+
+The playbook-course skill still carried its original v0.8 White/Yellow-only guardrail even though generated `curriculum.json` now marks Green, Black, and Council as drafted. That stale guardrail would tell a learner to come back instead of walking drafted belt content that the curriculum already contains.
+
+**What changed.**
+
+- **Runtime rule corrected.** `skills/playbook-course/SKILL.md` now treats `curriculum.json` status as the source of truth for whether a belt can be walked.
+- **Maintainer notes and acceptance tests corrected.** The skill README and test cases now cover drafted-belt progression after Yellow instead of expecting Green Belt deferral.
+- **Version markers bumped.** README and INDEX now report v0.32 / 2026-06-24 for this skill-routing pass.
 
 ## v0.31 — Archival plan-link cleanup (2026-06-23)
 
