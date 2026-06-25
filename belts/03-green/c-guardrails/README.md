@@ -14,7 +14,7 @@ next: "belts/green/redlines"
 pillar: null
 belt: "green"
 tags: ["green-belt", "part-c", "fintech-guardrails", "readme"]
-updated: "2026-06-17"
+updated: "2026-06-25"
 ---
 
 # Part C — Fintech Guardrails
@@ -66,7 +66,7 @@ Walk them in order on a first read. The redlines and proxy chapters (G.22–G.23
 
 ## What comes next
 
-Black Belt (planned) — building the leverage other teams run on. Authoring program-pinned skills, mentoring structured cohorts, contributing to the design system at the platform level.
+[Black Belt](../../04-black/README.md) — building the leverage other teams run on. Authoring program-pinned skills, mentoring structured cohorts, contributing to the design system at the platform level.
 
 ---
 

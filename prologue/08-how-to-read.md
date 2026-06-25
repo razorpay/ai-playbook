@@ -14,7 +14,7 @@ next: "prologue/how-to-lead"
 pillar: null
 belt: null
 tags: ["orientation", "navigation"]
-updated: "2026-06-22"
+updated: "2026-06-25"
 ---
 
 # 0.8 — How to use this playbook (as a reader)
@@ -57,7 +57,7 @@ Use the playbook in one of three modes.
 
 **Ship mode.** You are trying to complete a quest or boss fight. Read only the pages that unblock the next action. The evidence matters more than completionism.
 
-**Reference mode.** You know what you need and are coming back for a specific pattern. Use the Master Index, Appendix N, and the future HTML search surface. Do not reread the whole track.
+**Reference mode.** You know what you need and are coming back for a specific pattern. Use the Master Index, Appendix N, and the live HTML hub search surface. Do not reread the whole track.
 
 The best readers switch modes deliberately. They do not mistake reading for progress.
 
