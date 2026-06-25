@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.33 — Shipped-surface future-tense cleanup (2026-06-25)
+
+Two reader-facing orientation lines still described shipped surfaces as future or planned: Prologue §0.8 called the HTML hub search surface future-tense, and the Green Belt Part C overview labelled Black Belt as planned even though the Master Index and generated curriculum mark it drafted.
+
+**What changed.**
+
+- **Reference-mode guidance corrected.** Prologue §0.8 now points readers at the live HTML hub search surface.
+- **Green-to-Black handoff corrected.** The Part C guardrails overview now links to drafted Black Belt instead of calling it planned.
+- **Version markers bumped.** README and INDEX now report v0.33 / 2026-06-25 for this shipped-surface cleanup.
+
 ## v0.32 — Playbook-course drafted-belt routing (2026-06-24)
 
 The playbook-course skill still carried its original v0.8 White/Yellow-only guardrail even though generated `curriculum.json` now marks Green, Black, and Council as drafted. That stale guardrail would tell a learner to come back instead of walking drafted belt content that the curriculum already contains.

@@ -598,7 +598,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "navigation"]
-    updated: "2026-06-22"
+    updated: "2026-06-25"
   - slug: "prologue/how-to-lead"
     path: "prologue/09-how-to-lead.md"
     title: "How to use this playbook as a team lead"
@@ -1737,7 +1737,7 @@ chapters:
     pillar: null
     belt: "green"
     tags: ["green-belt", "part-c", "fintech-guardrails", "readme"]
-    updated: "2026-04-29"
+    updated: "2026-06-25"
   - slug: "belts/green/redlines"
     path: "belts/03-green/c-guardrails/G22-redlines.md"
     title: "What never goes into a prompt — the Razorpay redlines"
