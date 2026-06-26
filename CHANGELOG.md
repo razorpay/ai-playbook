@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.34 — Day-1 reference-card index alignment (2026-06-26)
+
+Appendix H.7 shipped in v0.23 and is listed in Appendix H itself, but the root README still counted six quick-reference cards and the Master Index Appendix H summary only listed H.1 through H.6. A Day-1 reader scanning the index could miss the printable setup card even though the card is the fastest path to install commands, channels, contacts, and common failures.
+
+**What changed.**
+
+- **README inventory corrected.** The drafted-content summary now counts seven quick-reference cards.
+- **Master Index Appendix H completed.** The cross-cutting references section now links H.7 alongside H.1–H.6.
+- **Version markers bumped.** README and INDEX now report v0.34 / 2026-06-26 for this reference-card alignment pass.
+
+Stacks on #22 (`docs/cron-2026-06-25-shipped-surface-tense`) because that in-flight PR already bumped the root version markers to v0.33.
+
 ## v0.33 — Shipped-surface future-tense cleanup (2026-06-25)
 
 Two reader-facing orientation lines still described shipped surfaces as future or planned: Prologue §0.8 called the HTML hub search surface future-tense, and the Green Belt Part C overview labelled Black Belt as planned even though the Master Index and generated curriculum mark it drafted.

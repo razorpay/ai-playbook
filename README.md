@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>v0.33 alpha</strong> · updated 2026-06-25 · source of truth: Markdown<br>
+  <strong>v0.34 alpha</strong> · updated 2026-06-26 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -120,7 +120,7 @@ The skill reads `curriculum.json` (generated from `manifest.yml`) and the chapte
 
 ## What's drafted
 
-Foundation, Prologue, all four belts, the Staff+ Council section, twelve appendices, seven Claude Code skills, six quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Appendices E (Roles & Forums) and F (Slack Channels) ship as living directories where the structure is fixed and named holders refresh quarterly; everything else is drafted end-to-end. The reading order is coherent end-to-end from first commit to Council membership.
+Foundation, Prologue, all four belts, the Staff+ Council section, twelve appendices, seven Claude Code skills, seven quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Appendices E (Roles & Forums) and F (Slack Channels) ship as living directories where the structure is fixed and named holders refresh quarterly; everything else is drafted end-to-end. The reading order is coherent end-to-end from first commit to Council membership.
 
 Version history is in [CHANGELOG.md](CHANGELOG.md). What's coming next is in [ROADMAP.md](ROADMAP.md).
 

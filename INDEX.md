@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.33 · last reviewed 2026-06-25 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.34 · last reviewed 2026-06-26 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -565,6 +565,7 @@ Every acronym, Razorpay-specific term, tool name, role, and concept used in the 
 - [H.4 — Claude Code essentials](appendices/H-reference-cards/H4-claude-code-essentials.md) — permission system, slash commands, daily rhythm.
 - [H.5 — Playwright essentials](appendices/H-reference-cards/H5-playwright-essentials.md) — everyday commands plus four debugging moves.
 - [H.6 — Minimum-viable-wiki one-pager](appendices/H-reference-cards/H6-mv-wiki-one-pager.md) — the four-file shape plus the discipline.
+- [H.7 — Day-1 quick reference](appendices/H-reference-cards/H7-day-1-quick-reference.md) — install commands, top channels, contacts, common failures, and pinned URLs for new builders.
 
 **Files:** [`appendices/H-reference-cards/`](appendices/H-reference-cards/README.md) — one `.md` per card.
 
