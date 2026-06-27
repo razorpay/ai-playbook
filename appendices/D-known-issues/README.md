@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-06-20"
+updated: "2026-06-27"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -105,11 +105,11 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 ### D.6 — Hit the LiteLLM $750 usage cap (status: workaround)
 
-**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; the error shows `Budget=750.0` or the LiteLLM dashboard shows you against the per-builder cap, even when claude.ai shows a different remaining balance.
+**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; the error shows `Budget=750.0` or the LiteLLM dashboard shows you against the per-builder cap, even when claude.ai shows a different remaining balance. Switching the same LiteLLM key to Kimi, DeepSeek, GPT, or another gateway model still errors.
 
-**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway budget, not the separate claude.ai usage page. The current per-builder LiteLLM cap is $750.
+**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway budget, not the separate claude.ai usage page. The current per-builder LiteLLM cap is $750, and that budget is account-wide across models served by the gateway.
 
-**Fix.** Treat the LiteLLM error as authoritative. Move routine work back to Sonnet, pause heavy parallel runs, or post in `#ai-help` with manager approval visible if the work has an approved exception. Do not assume a bump is automatic.
+**Fix.** Treat the LiteLLM error as authoritative. Do not expect a model switch inside LiteLLM to bypass an exhausted budget; all gateway-backed models draw from the same pool. For non-blocking work, wait for the reset or move to tooling outside the exhausted LiteLLM key. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
 
 **References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
