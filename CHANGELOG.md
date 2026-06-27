@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.35 — LiteLLM shared-budget FAQ clarification (2026-06-27)
+
+Recent `#ai-help` threads show a repeated Day-1 confusion: builders who hit `ExceededBudget` expect Kimi, DeepSeek, GPT, or other LiteLLM gateway models to keep working because those are not Claude models. Support answers consistently that the $750 cap is enforced on the LiteLLM key across gateway-backed models; switching models inside the exhausted key does not bypass the cap.
+
+**What changed.**
+
+- **Appendix D FAQ clarified.** D.6 now states that Kimi, DeepSeek, GPT, and other gateway models share the same LiteLLM budget and that exceptions require visible business context plus manager approval.
+- **W.5 and H.7 kept aligned.** The canonical setup chapter and Day-1 card now carry the same shared-budget warning in their common-failure rows.
+- **Version markers bumped.** README and INDEX now report v0.35 / 2026-06-27 for this support-FAQ pass.
+
+Stacks on #23 (`docs/cron-2026-06-26-h7-index-card`) because the in-flight stack already bumped the root version markers to v0.34.
+
 ## v0.34 — Day-1 reference-card index alignment (2026-06-26)
 
 Appendix H.7 shipped in v0.23 and is listed in Appendix H itself, but the root README still counted six quick-reference cards and the Master Index Appendix H summary only listed H.1 through H.6. A Day-1 reader scanning the index could miss the printable setup card even though the card is the fastest path to install commands, channels, contacts, and common failures.
