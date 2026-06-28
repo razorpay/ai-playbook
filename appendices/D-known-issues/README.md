@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-06-27"
+updated: "2026-06-28"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -148,6 +148,23 @@ Then `grep` your `~/.bashrc` and `~/.zshrc` for those same variables and remove 
 **Fix.** Do not bypass certificate checks. Re-run the setup script; it installs the Zscaler trust chain. If installs still fail, post in `#ai-help` with the exact failing command and redacted output.
 
 **References.** [W.5](../../belts/01-white/W05-installing-the-stack.md).
+
+### D.10 — `claude native binary not installed` after install (status: fixed)
+
+**Symptom.** Running `claude` or `claude /login` prints `Error: claude native binary not installed`, followed by wording about `postinstall`, `--ignore-scripts`, or `--omit=optional`.
+
+**Diagnosis.** The JavaScript wrapper is on PATH, but the platform-native Claude Code binary was not downloaded or its postinstall step did not run. This is different from `command not found: claude`: your shell can find the wrapper, but the wrapper cannot find the native binary it needs to start.
+
+**Fix.** Re-run the Razorpay setup script from a fresh terminal, then close every old terminal window and open a new one:
+
+```bash
+curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
+claude --version
+```
+
+If the same error persists after the fresh terminal, post in `#ai-help` with the exact error output. Do not copy the `node node_modules/@anthropic-ai/claude-code/install.cjs` path from the error unless support confirms the install location; global and local installs use different paths.
+
+**References.** [W.5](../../belts/01-white/W05-installing-the-stack.md), [`#ai-help` thread 2026-06-26](https://razorpay.slack.com/archives/C08C35GKJKD/p1782383765447739?thread_ts=1782383765.447739), [`#ai-help` thread 2026-06-27](https://razorpay.slack.com/archives/C08C35GKJKD/p1782470258476069?thread_ts=1782469955.318459), [Tech IT routed thread](https://razorpay.slack.com/archives/CBZD5BMUZ/p1782283102410239?thread_ts=1782283102.410239).
 
 ---
 
