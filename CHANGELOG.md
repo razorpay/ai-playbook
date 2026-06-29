@@ -6,6 +6,19 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.36 — Shell login-command FAQ (2026-06-29)
+
+Recent onboarding-support threads show a repeated Day-1 confusion: builders see `/login` in Claude Code output and run `claude /login` from the terminal, which produces `Unknown skill: login`. Support fixes converged on the same distinction: start Claude Code with `claude` and follow the in-session/browser login flow; use `claude auth logout` / `claude auth login` only when an editor session remains stuck.
+
+**What changed.**
+
+- **Appendix D FAQ added.** D.11 now documents the `Unknown skill: login` symptom, diagnosis, standard setup-script fix, and VS Code auth-refresh fallback.
+- **W.5 canonical setup clarified.** The install chapter now says not to run `claude /login`, adds failure mode #8, and keeps the verification snippet aligned.
+- **Quest W-0 clarified.** The agent-mode step now distinguishes an in-session `/login` prompt from the wrong shell command.
+- **Version markers and index summary bumped.** README and INDEX now report v0.36 / 2026-06-29, and Appendix D's index summary counts the two promoted setup FAQs.
+
+Stacks on #25 (`docs/cron-2026-06-28-native-binary-faq`) because the in-flight FAQ stack already touches Appendix D.
+
 ## v0.35 — LiteLLM shared-budget FAQ clarification (2026-06-27)
 
 Recent `#ai-help` threads show a repeated Day-1 confusion: builders who hit `ExceededBudget` expect Kimi, DeepSeek, GPT, or other LiteLLM gateway models to keep working because those are not Claude models. Support answers consistently that the $750 cap is enforced on the LiteLLM key across gateway-backed models; switching models inside the exhausted key does not bypass the cap.

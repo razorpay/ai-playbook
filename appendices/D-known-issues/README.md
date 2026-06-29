@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-06-28"
+updated: "2026-06-29"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -165,6 +165,28 @@ claude --version
 If the same error persists after the fresh terminal, post in `#ai-help` with the exact error output. Do not copy the `node node_modules/@anthropic-ai/claude-code/install.cjs` path from the error unless support confirms the install location; global and local installs use different paths.
 
 **References.** [W.5](../../belts/01-white/W05-installing-the-stack.md), [`#ai-help` thread 2026-06-26](https://razorpay.slack.com/archives/C08C35GKJKD/p1782383765447739?thread_ts=1782383765.447739), [`#ai-help` thread 2026-06-27](https://razorpay.slack.com/archives/C08C35GKJKD/p1782470258476069?thread_ts=1782469955.318459), [Tech IT routed thread](https://razorpay.slack.com/archives/CBZD5BMUZ/p1782283102410239?thread_ts=1782283102.410239).
+
+### D.11 — `Unknown skill: login` after running `claude /login` (status: fixed)
+
+**Symptom.** You run `claude /login` from the shell and Claude Code prints `Unknown skill: login`, or you see `Please run /login` after another auth error and try to paste `/login` into the terminal command line.
+
+**Diagnosis.** `/login` is an in-session slash command, not a shell subcommand. Running `claude /login` starts Claude Code with `/login` as the prompt text, so the harness tries to interpret it as a skill name. This is separate from the stale-Vertex `403` fix; if the same output also mentions `aiplatform.googleapis.com`, follow D.3 first.
+
+**Fix.** For the standard Razorpay setup, do not run `claude /login`. Run the setup script, close old terminals, open a fresh terminal, then start Claude Code with `claude` and follow the browser SSO flow if prompted:
+
+```bash
+curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
+claude
+```
+
+If a VS Code or extension session remains stuck after that, refresh Claude Code's browser auth explicitly, then restart the editor:
+
+```bash
+claude auth logout
+claude auth login
+```
+
+**References.** [W.5 failure mode #8](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031813947089), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031973755329), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775025117236129).
 
 ---
 
