@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.35 · last reviewed 2026-06-27 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.36 · last reviewed 2026-06-29 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -516,7 +516,7 @@ The first reusable-workflow reference: what counts as a skill, current skill cat
 
 ## Appendix D — Known Issues + FAQ [drafted]
 
-A living document. Categorised by stack layer (Foundation, Compass plugin, design / dashboard, skills / agents, infrastructure). v0.24 seeded Layer 0 with nine entries promoted from the W.5 failure modes; other layers densify as builders contribute when they hit and solve a gap.
+A living document. Categorised by stack layer (Foundation, Compass plugin, design / dashboard, skills / agents, infrastructure). Layer 0 now carries eleven entries: the original W.5 failure modes plus recurring setup FAQs promoted from support threads. Other layers densify as builders contribute when they hit and solve a gap.
 
 **File:** [`appendices/D-known-issues/README.md`](appendices/D-known-issues/README.md).
 

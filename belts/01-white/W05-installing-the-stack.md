@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-06-27"
+updated: "2026-06-29"
 ---
 
 # W.5 - Installing the stack
@@ -82,7 +82,7 @@ The script:
 - installs the Zscaler certificate trust chain,
 - removes any stale Vertex environment variables left over from the March migration.
 
-After the script finishes, **restart your terminal** (important — environment changes only apply to new shells). Then run `claude` and follow the SSO login prompt. You are ready when a fresh prompt returns a response.
+After the script finishes, **restart your terminal** (important — environment changes only apply to new shells). Then run `claude` and follow the browser SSO login prompt if it appears. Do **not** run `claude /login` from the shell; `/login` is an in-session slash command, not a terminal subcommand. You are ready when a fresh prompt returns a response.
 
 Do not paste commands from a teammate's terminal unless `#ai-help` confirms they apply to your machine. Two laptops can have different existing state — especially if one of you was on the Vertex-era setup.
 
@@ -193,7 +193,7 @@ claude --version
 # 4. Claude Code opens in agent mode
 claude
 #    Expected: the agent prompt opens. If SSO login is needed,
-#    follow the browser flow.
+#    follow the browser flow. Do not run `claude /login`.
 
 # 5. A small prompt round-trips through the LiteLLM gateway
 #    Inside the claude prompt, type:
@@ -207,7 +207,7 @@ If any of those five fails, you are YELLOW or RED — see the next section and r
 
 ## Common failure modes
 
-These are the seven shapes the support channel sees most often. Each has a known fix — try the fix before re-routing.
+These are the eight shapes the support channel sees most often. Each has a known fix — try the fix before re-routing.
 
 **1. Manager OOO blocks your MyAccess approval.** Symptom: you submitted the access request, manager is on leave, nothing moves. Fix: post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with `@techit` tagged and a one-line "manager OOO, requesting bypass." Admins bulk-approve in batches; expect ~1 hour business-time, then a fresh ~40-minute Azure AD sync window.
 
@@ -232,7 +232,9 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **7. Usage not visible in the LiteLLM dashboard.** Cause: shell-level env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. Fix: `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in your current shell, then check `~/.bashrc` / `~/.zshrc` and remove any persisted overrides. Restart terminal.
 
-If you hit a shape that isn't one of these seven, route it to `#ai-help` with: the command you ran, the redacted output, your machine class, and what you have already tried.
+**8. `Unknown skill: login` after running `claude /login`.** Cause: `/login` is an in-session slash command, not a shell command. Running `claude /login` passes `/login` as prompt text and Claude tries to resolve it as a skill. Fix: run `claude` by itself and follow the browser SSO flow if prompted. If an editor extension session is stuck after setup, run `claude auth logout`, then `claude auth login`, restart the editor, and retry.
+
+If you hit a shape that isn't one of these eight, route it to `#ai-help` with: the command you ran, the redacted output, your machine class, and what you have already tried.
 
 ---
 
@@ -282,9 +284,9 @@ For the print-this-and-stick-it-on-your-monitor version:
 | Canonical rollout thread | [Step-by-step in `#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) |
 | Pricing reference | [Anthropic pricing docs](https://platform.claude.com/docs/en/about-claude/pricing) |
 
-*Last reviewed: 2026-06-27. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
+*Last reviewed: 2026-06-29. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
 
-> **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the seven common failure modes onto a single printable card.
+> **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the common failure modes onto a single printable card.
 
 ---
 

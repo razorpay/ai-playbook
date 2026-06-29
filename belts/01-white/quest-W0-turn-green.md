@@ -14,7 +14,7 @@ next: "belts/white/quest-hello-razorpay"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "quest", "setup-verify", "evidence"]
-updated: "2026-06-17"
+updated: "2026-06-29"
 ---
 
 # Quest W-0 - Turn GREEN
@@ -78,7 +78,7 @@ GREEN if it prints a version string (e.g. `claude 1.2.3`). RED if you see `comma
 claude
 ```
 
-GREEN if the agent prompt opens cleanly. YELLOW if it asks you to `/login` — follow the SSO flow in the browser, then you should be in. RED if it errors with `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` — that is stale Vertex env vars from before the LiteLLM migration (see W.5 Common failure modes #3).
+GREEN if the agent prompt opens cleanly. YELLOW if it asks you to `/login` inside the Claude Code session — follow the SSO flow from that prompt, then you should be in. Do not run `claude /login` from the shell; if you already did and saw `Unknown skill: login`, see W.5 Common failure modes #8. RED if it errors with `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` — that is stale Vertex env vars from before the LiteLLM migration (see W.5 Common failure modes #3).
 
 ### Step 5 — A prompt round-trips
 
