@@ -200,6 +200,49 @@ header.header::after {
 :root[data-theme='dark'] .sl-markdown-content > blockquote:first-child strong { color: var(--sl-color-white); }
 
 /* ---- 6. Cards + asides --------------------------------------------------- */
+/* Bold-lead "card" runs (Tool Atlas tool cards, etc.) wrapped by the generator
+   into .pb-card. Each becomes a real bordered card with a belt-colored spine;
+   the bold lead-in of every field is promoted to a label. */
+.sl-markdown-content .pb-card {
+  border: 1px solid var(--pb-hairline);
+  border-inline-start: 3px solid var(--belt-vivid);
+  border-radius: var(--pb-radius);
+  background: var(--sl-color-bg);
+  box-shadow: var(--pb-shadow-sm);
+  padding: 1.1rem 1.4rem 1.25rem;
+  margin-block: 1.4rem;
+}
+.sl-markdown-content .pb-card > :first-child { margin-top: 0; }
+.sl-markdown-content .pb-card > :last-child { margin-bottom: 0; }
+/* The card title (the pulled-in ### heading). */
+.sl-markdown-content .pb-card > h3,
+.sl-markdown-content .pb-card > h4 {
+  margin-top: 0;
+  font-size: 1.16rem;
+  color: var(--belt-ink);
+}
+:root[data-theme='dark'] .sl-markdown-content .pb-card > h3,
+:root[data-theme='dark'] .sl-markdown-content .pb-card > h4 { color: var(--sl-color-white); }
+/* Promote each "**Label.** body" paragraph to a labelled field row. */
+.sl-markdown-content .pb-card p { margin-block: 0.55rem 0; font-size: 0.97rem; }
+.sl-markdown-content .pb-card p > strong:first-child {
+  color: var(--belt-accent);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+/* Belt-page leading blockquote stack (Promise / Prerequisite) → quiet panel,
+   distinct from the first status blockquote (which is the meta bar). */
+.sl-markdown-content > blockquote:first-child + blockquote,
+.sl-markdown-content > blockquote:first-child + blockquote + blockquote {
+  border-inline-start: 3px solid var(--belt-vivid);
+  background: color-mix(in srgb, var(--belt-soft) 35%, var(--sl-color-bg));
+  border-radius: var(--pb-radius-sm);
+  padding: 0.5rem 1rem;
+}
+.sl-markdown-content > blockquote:first-child + blockquote strong { color: var(--belt-ink); }
+:root[data-theme='dark'] .sl-markdown-content > blockquote:first-child + blockquote strong { color: var(--sl-color-white); }
+
 /* SVG framing (kept from the original, refined). */
 .sl-markdown-content img[src$='.svg'] {
   background: #f8fafc;
