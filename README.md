@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>v0.37 alpha</strong> · updated 2026-06-30 · source of truth: Markdown<br>
+  <strong>v0.38 alpha</strong> · updated 2026-06-30 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -126,7 +126,7 @@ Version history is in [CHANGELOG.md](CHANGELOG.md). What's coming next is in [RO
 
 ## Contribute
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR. It covers the six design principles, the content rules (Razorpay-term tiering, no PII, no personal names), the voice commitments, and the link-and-lint sweep that gates merges.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR. It covers the seven review principles, the content rules (Razorpay-term tiering, no PII, no personal names), the voice commitments, and the link-and-lint sweep that gates merges.
 
 For substantial changes (a belt restructure, a new track, a voice change), write an AI RFC using the [template in Appendix I](appendices/I-templates/RFC-template.md). The RFC is reviewed by the Staff+ Council per [C.3](belts/05-council/C03-rfc-pipeline.md).
 

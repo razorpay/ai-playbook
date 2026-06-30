@@ -272,12 +272,6 @@ entries:
   - slug: "master-index"
     path: "INDEX.md"
     status: "drafted"
-  - slug: "research-brief"
-    path: "RESEARCH-BRIEF.md"
-    status: "internal"
-  - slug: "v0.4-plan"
-    path: "V0.4-CLEANUP-PLAN.md"
-    status: "internal"
   - slug: null
     path: "manifest.yml"
     status: "build-artifact"

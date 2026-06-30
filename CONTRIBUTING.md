@@ -2,15 +2,15 @@
 
 > **Audience.** Maintainers, contributors, and anyone editing the playbook's content, substrate, or hub. Readers of the playbook do not need to read this file.
 
-This file collects the maintainer-facing material that used to live in `INDEX.md`: the design principles every chapter is held against, the seed themes the playbook was originally shaped to cover, the production-plan diagram and proposed directory layout, and the contribution flow for new chapters and skills.
+This file collects the maintainer-facing material that used to live in `INDEX.md`: the review principles every chapter is held against, the seed themes the playbook was originally shaped to cover, the production-plan diagram and current directory layout, and the contribution flow for new chapters and skills.
 
 If you are a reader looking for the playbook itself, start at the [Master Index](./INDEX.md) or the hub homepage. This document is the maintainer's manual.
 
 ---
 
-## The six design principles
+## The seven review principles
 
-Every chapter of this playbook is written against these principles. See `RESEARCH-BRIEF.md` for the original derivation.
+Every chapter of this playbook is reviewed against these principles. The original research brief was folded into this maintainer manual, the roadmap, and the chapter set; do not link to a separate root-level brief in new guidance.
 
 1. **Laymen-first, engineer-respectful.** Readable by a designer who has never opened Terminal. Deep enough that a staff engineer finds it sharp.
 2. **Belts are earned through quests, not self-reported.** Every belt has required deliverables and a boss-fight capstone.
@@ -70,8 +70,7 @@ razorpay-org-ai-playbook/
 ├── README.md                    # 60-second "what is this"
 ├── INDEX.md                     # the master index (reader-facing TOC)
 ├── CONTRIBUTING.md              # this file
-├── ROADMAP.md                   # open questions and the v0.x sequence
-├── RESEARCH-BRIEF.md            # the research that shaped the playbook
+├── ROADMAP.md                   # open questions and the v1.0 path
 ├── manifest.yml                 # machine-readable course manifest
 ├── slugs.yml                    # stable URL and skill-ID map
 ├── CHANGELOG.md                 # version history
@@ -192,7 +191,7 @@ When changing the substrate (`manifest.yml`, `slugs.yml`, the hub generator, the
 
 Pull requests are reviewed against:
 
-- The six design principles (above).
+- The seven review principles (above).
 - The content rules (above).
 - The voice commitments (above).
 - The link sweep (zero broken markdown links).
