@@ -1,10 +1,41 @@
+/* ============================================================================
+   Razorpay AI Playbook — hub theme
+   "Engineering handbook with a dojo spine."
+   Editorial type (Fraunces display + Hanken Grotesk body) over a belt-driven
+   semantic color system. Readability first; the belt spectrum supplies identity.
+   ========================================================================== */
+
+/* ---- 1. Type + base tokens ----------------------------------------------- */
 :root {
-  --sl-color-accent-low: #dff5ee;
-  --sl-color-accent: #0f766e;
-  --sl-color-accent-high: #063f3b;
-  --sl-color-text-accent: #0f766e;
-  --sl-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --sl-content-width: 52rem;
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  --sl-font: var(--font-body);
+  --sl-font-mono: var(--font-mono);
+  --sl-content-width: 50rem;
+
+  /* Brand base accent (Foundation / Prologue / neutral) — a refined teal. */
+  --brand: #0f766e;
+  --brand-vivid: #14b8a6;
+  --sl-color-accent-low: #d6f1ec;
+  --sl-color-accent: var(--brand);
+  --sl-color-accent-high: #06302d;
+  --sl-color-text-accent: var(--brand);
+
+  /* Per-belt palette. Each belt exposes a text-safe accent (AA on white) and a
+     vivid badge/band color. These match the diagram palette. */
+  --belt-accent: var(--brand);
+  --belt-vivid: var(--brand-vivid);
+  --belt-soft: #d6f1ec;
+  --belt-ink: #0b3d39;
+  --belt-label: 'Foundation';
+
+  --pb-radius: 12px;
+  --pb-radius-sm: 8px;
+  --pb-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -12px rgba(15, 23, 42, 0.16);
+  --pb-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --pb-hairline: var(--sl-color-gray-5);
 }
 
 :root[data-theme='dark'] {
@@ -12,23 +43,309 @@
   --sl-color-accent: #2dd4bf;
   --sl-color-accent-high: #ccfbf1;
   --sl-color-text-accent: #5eead4;
+  --belt-accent: #2dd4bf;
+  --belt-vivid: #2dd4bf;
+  --belt-soft: #0d3d39;
+  --belt-ink: #ccfbf1;
+  --pb-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 36px -16px rgba(0, 0, 0, 0.6);
+  --pb-hairline: var(--sl-color-gray-5);
 }
 
-.site-title {
-  letter-spacing: 0;
+/* ---- 2. Belt theming ----------------------------------------------------- */
+/* Light-mode belt palettes. */
+:root[data-belt='white'] {
+  --belt-accent: #475569; --belt-vivid: #64748b; --belt-soft: #eef2f6;
+  --belt-ink: #1e293b; --belt-label: 'White Belt';
+}
+:root[data-belt='yellow'] {
+  --belt-accent: #b45309; --belt-vivid: #f59e0b; --belt-soft: #fef3da;
+  --belt-ink: #7c2d12; --belt-label: 'Yellow Belt';
+}
+:root[data-belt='green'] {
+  --belt-accent: #047857; --belt-vivid: #10b981; --belt-soft: #d8f3e7;
+  --belt-ink: #064e3b; --belt-label: 'Green Belt';
+}
+:root[data-belt='black'] {
+  --belt-accent: #334155; --belt-vivid: #0f172a; --belt-soft: #e7eaef;
+  --belt-ink: #0f172a; --belt-label: 'Black Belt';
+}
+:root[data-belt='council'] {
+  --belt-accent: #6d28d9; --belt-vivid: #7c3aed; --belt-soft: #ece4fb;
+  --belt-ink: #4c1d95; --belt-label: 'Staff+ Council';
 }
 
+/* Dark-mode belt palettes — brighter accents for contrast on dark. */
+:root[data-theme='dark'][data-belt='white'] { --belt-accent: #cbd5e1; --belt-vivid: #94a3b8; --belt-soft: #1e293b; --belt-ink: #e2e8f0; }
+:root[data-theme='dark'][data-belt='yellow'] { --belt-accent: #fbbf24; --belt-vivid: #f59e0b; --belt-soft: #422006; --belt-ink: #fde68a; }
+:root[data-theme='dark'][data-belt='green'] { --belt-accent: #34d399; --belt-vivid: #10b981; --belt-soft: #052e22; --belt-ink: #6ee7b7; }
+:root[data-theme='dark'][data-belt='black'] { --belt-accent: #94a3b8; --belt-vivid: #cbd5e1; --belt-soft: #1e293b; --belt-ink: #e2e8f0; }
+:root[data-theme='dark'][data-belt='council'] { --belt-accent: #a78bfa; --belt-vivid: #8b5cf6; --belt-soft: #2e1065; --belt-ink: #c4b5fd; }
+
+/* Route the global Starlight accent through the active belt so links, active
+   sidebar items, focus rings, and the right-rail marker all pick up identity. */
+:root[data-belt] {
+  --sl-color-accent: var(--belt-accent);
+  --sl-color-text-accent: var(--belt-accent);
+  --sl-color-accent-low: var(--belt-soft);
+}
+
+/* ---- 3. Typography ------------------------------------------------------- */
+body { font-family: var(--font-body); letter-spacing: -0.006em; }
+
+/* Display face for the page title + section headings. Fraunces optical sizing
+   gives titles real editorial character without hurting body readability. */
+.content-panel h1,
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.hero h1 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.018em;
+}
+
+.content-panel h1, .sl-markdown-content h1 {
+  font-weight: 600;
+  font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3rem);
+  line-height: 1.08;
+}
+
+/* Eyebrow above the page title on belt pages — gives instant "where am I". */
+:root[data-belt] .content-panel .sl-container > h1::before {
+  content: var(--belt-label);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--belt-accent);
+  margin-bottom: 0.7rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 100px;
+  background: var(--belt-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--belt-vivid) 35%, transparent);
+}
+
+/* Strong, distinct H2/H3 rhythm so long pages stay triage-able at a glance. */
+.sl-markdown-content h2 {
+  font-weight: 600;
+  font-size: 1.62rem;
+  margin-top: 2.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--belt-soft);
+}
+.sl-markdown-content h2::after {
+  content: '';
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-top: -2px;
+  background: var(--belt-vivid);
+}
+.sl-markdown-content h3 {
+  font-weight: 600;
+  font-size: 1.22rem;
+  letter-spacing: -0.01em;
+  margin-top: 2rem;
+  color: var(--belt-ink);
+}
+:root[data-theme='dark'] .sl-markdown-content h3 { color: var(--sl-color-white); }
+
+.sl-markdown-content { line-height: 1.72; }
+.sl-markdown-content p { font-size: 1.025rem; }
+
+/* ---- 4. Site chrome ------------------------------------------------------ */
+.site-title { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+
+/* A thin belt-spectrum strip under the top bar — quiet brand signature. */
+header.header { border-bottom: 1px solid var(--pb-hairline); }
+header.header::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 3px;
+  background: linear-gradient(90deg, #94a3b8 0%, #f59e0b 28%, #10b981 52%, #0f172a 76%, #7c3aed 100%);
+  opacity: 0.9;
+}
+/* On belt pages, collapse the rainbow to the active belt for focus. */
+:root[data-belt] header.header::after {
+  background: linear-gradient(90deg, transparent, var(--belt-vivid) 30%, var(--belt-vivid) 70%, transparent);
+}
+
+/* Active sidebar item gets a belt-colored chip. */
+.sidebar-content a[aria-current='page'] {
+  font-weight: 600;
+  background: var(--belt-soft);
+  border-radius: var(--pb-radius-sm);
+}
+.sidebar-content summary, .sidebar-content a { letter-spacing: -0.01em; }
+
+/* ---- 5. Metadata bar (the leading status blockquote) --------------------- */
+/* The generator emits "> **Status:** drafted · Time · Audience" as the first
+   blockquote. Style it as an intentional meta bar, not an alarming raw line. */
+.sl-markdown-content > blockquote:first-child {
+  border: 1px solid var(--pb-hairline);
+  border-inline-start: 3px solid var(--belt-vivid);
+  background: color-mix(in srgb, var(--belt-soft) 50%, var(--sl-color-bg));
+  border-radius: var(--pb-radius-sm);
+  padding: 0.7rem 1rem;
+  margin-bottom: 1.6rem;
+  font-size: 0.9rem;
+}
+.sl-markdown-content > blockquote:first-child p { font-size: 0.9rem; margin: 0; }
+.sl-markdown-content > blockquote:first-child strong { color: var(--belt-ink); }
+:root[data-theme='dark'] .sl-markdown-content > blockquote:first-child strong { color: var(--sl-color-white); }
+
+/* ---- 6. Cards + asides --------------------------------------------------- */
+/* SVG framing (kept from the original, refined). */
 .sl-markdown-content img[src$='.svg'] {
   background: #f8fafc;
-  border: 1px solid var(--sl-color-gray-5);
-  border-radius: 8px;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--pb-hairline);
+  border-radius: var(--pb-radius);
+  box-shadow: var(--pb-shadow);
+  padding: 0.5rem;
 }
+:root[data-theme='dark'] .sl-markdown-content img[src$='.svg'] { background: #0b1220; }
 
+/* Starlight asides → real callouts with semantic color. */
+.sl-markdown-content .starlight-aside {
+  border-radius: var(--pb-radius);
+  border-inline-start-width: 4px;
+  box-shadow: var(--pb-shadow-sm);
+}
+.starlight-aside--tip { --sl-color-asides-text-accent: #047857; --sl-color-asides-border: #10b981; background: #ecfdf5; }
+.starlight-aside--note { --sl-color-asides-text-accent: var(--belt-accent); --sl-color-asides-border: var(--belt-vivid); }
+.starlight-aside--caution { --sl-color-asides-text-accent: #b45309; --sl-color-asides-border: #f59e0b; background: #fffbeb; }
+.starlight-aside--danger { --sl-color-asides-text-accent: #b91c1c; --sl-color-asides-border: #ef4444; background: #fef2f2; }
+:root[data-theme='dark'] .starlight-aside--tip { background: #052e22; }
+:root[data-theme='dark'] .starlight-aside--caution { background: #2a1a05; }
+:root[data-theme='dark'] .starlight-aside--danger { background: #2a0a0a; }
+
+/* ---- 7. Tables ----------------------------------------------------------- */
 .sl-markdown-content table {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid var(--pb-hairline);
+  border-radius: var(--pb-radius);
+  overflow: hidden;
+}
+.sl-markdown-content thead th {
+  background: var(--belt-soft);
+  color: var(--belt-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--pb-hairline);
+}
+:root[data-theme='dark'] .sl-markdown-content thead th { color: var(--sl-color-white); }
+.sl-markdown-content tbody tr:nth-child(even) { background: color-mix(in srgb, var(--sl-color-gray-6) 45%, transparent); }
+.sl-markdown-content th, .sl-markdown-content td { border: 0; padding: 0.6rem 0.85rem; }
+
+/* ---- 8. Links + inline code ---------------------------------------------- */
+.sl-markdown-content a:not(.sl-flip-skip) {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--belt-accent) 40%, transparent);
+}
+.sl-markdown-content a:hover { text-decoration-color: var(--belt-accent); }
+.sl-markdown-content :not(pre) > code {
+  font-size: 0.85em;
+  background: var(--belt-soft);
+  color: var(--belt-ink);
+  border: 1px solid color-mix(in srgb, var(--belt-vivid) 22%, transparent);
+  border-radius: 6px;
+  padding: 0.12em 0.4em;
+}
+:root[data-theme='dark'] .sl-markdown-content :not(pre) > code { color: var(--sl-color-gray-1); }
+
+/* Prev/next pager → tactile cards. */
+.pagination-links a {
+  border: 1px solid var(--pb-hairline);
+  border-radius: var(--pb-radius);
+  box-shadow: var(--pb-shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.pagination-links a:hover {
+  border-color: var(--belt-vivid);
+  box-shadow: var(--pb-shadow);
+  transform: translateY(-2px);
 }
 
-.sl-markdown-content blockquote {
-  border-inline-start-color: var(--sl-color-accent);
+/* ---- 9. Home / splash hero ----------------------------------------------- */
+:root[data-home] .hero { padding-block: 1rem 2rem; }
+:root[data-home] .hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 1.8rem + 4vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  background: linear-gradient(105deg, #0f172a 0%, #0f766e 55%, #10b981 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-theme='dark'][data-home] .hero h1 {
+  background: linear-gradient(105deg, #e2e8f0 0%, #5eead4 55%, #34d399 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+:root[data-home] .hero .tagline {
+  font-size: 1.18rem;
+  max-width: 34ch;
+  color: var(--sl-color-gray-2);
+}
+/* Spectrum rule under the hero — span the full hero row so it doesn't orphan
+   in the splash grid's empty image column. */
+:root[data-home] .hero::after {
+  content: '';
+  display: block;
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: 4px;
+  margin-top: 1.6rem;
+  max-width: 30rem;
+  background: linear-gradient(90deg, #94a3b8, #f59e0b, #10b981, #0f172a, #7c3aed);
+}
+/* Primary CTA → solid belt-spectrum gradient pill. */
+:root[data-home] .hero .actions a.button[data-variant='primary'] {
+  background: linear-gradient(105deg, #0f766e, #10b981);
+  border: 0;
+  border-radius: 100px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px -8px rgba(16, 185, 129, 0.6);
+}
+
+/* Tighten the oversized default gaps between splash sections. */
+:root[data-home] .sl-markdown-content > h2 { margin-top: 2.2rem; }
+:root[data-home] .sl-markdown-content hr { display: none; }
+
+/* ---- 10. Mobile hero diagram legibility ---------------------------------- */
+/* The belt-ladder SVG is unreadable when shrunk to phone width. Let it keep a
+   legible minimum and scroll horizontally instead of collapsing. */
+@media (max-width: 640px) {
+  .sl-markdown-content img[src*='belt-ladder-hero'] { min-width: 540px; }
+  .sl-markdown-content p:has(> img[src*='belt-ladder-hero']) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--pb-radius);
+  }
+  .content-panel h1, .sl-markdown-content h1 { font-size: clamp(1.9rem, 6vw, 2.4rem); }
+}
+
+/* ---- 11. Focus + motion -------------------------------------------------- */
+.sl-markdown-content a:focus-visible,
+.pagination-links a:focus-visible {
+  outline: 2px solid var(--belt-vivid);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
