@@ -152,7 +152,7 @@ Overall: RED — Quest W-0 is not yet claimable. 1 blocker to resolve.
 
 ## What to fix first
 
-- **Check 2 (RED):** Claude Code is installed but not authenticated. The `claude code whoami` probe returned "not authenticated". Fix: `claude code login --plan=program` per W.4.
+- **Check 2 (RED):** Claude Code is installed but not authenticated. The `claude auth status --text` probe returned "not authenticated". Fix: `claude auth login --sso` per W.4.
 - **Check 7 (YELLOW):** Compass plugin is installed at v1.x; pinned version is v1.y. One minor version behind. Fix: `claude plugin update compass`.
 
 Escalation: If any RED persists after one hour of fixes, post this full report in the program's primary support channel.

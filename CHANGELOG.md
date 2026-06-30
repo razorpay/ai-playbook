@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.37 — setup-verify auth command alignment (2026-06-30)
+
+The setup-verify skill docs still referenced a stale `claude code login --plan=program` command family even though the current Claude CLI exposes authentication under `claude auth`. A Day-1 reader following the skill's Check 2 fix would copy a command the live CLI does not support.
+
+**What changed.**
+
+- **Check 2 one-line fix corrected.** `skills/setup-verify/one-line-fixes.md` now uses `claude auth login --sso` and `claude auth logout && claude auth login --sso`.
+- **Worked output and tests aligned.** `output-shape.md` and `test-cases.md` now use the current `claude auth status --text` probe and the same auth-login fix.
+- **Version markers bumped.** README and INDEX now report v0.37 / 2026-06-30 for this setup-verify command correction.
+
+Stacks on #26 (`docs/cron-2026-06-29-login-command-faq`) because that in-flight PR already clarifies the shell-vs-session login command path.
+
 ## v0.36 — Shell login-command FAQ (2026-06-29)
 
 Recent onboarding-support threads show a repeated Day-1 confusion: builders see `/login` in Claude Code output and run `claude /login` from the terminal, which produces `Unknown skill: login`. Support fixes converged on the same distinction: start Claude Code with `claude` and follow the in-session/browser login flow; use `claude auth logout` / `claude auth login` only when an editor session remains stuck.

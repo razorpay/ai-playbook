@@ -31,7 +31,7 @@ Then re-install pnpm globally. Deeper fix: W.5.
 **YELLOW (auth older than 90 days).** Re-authenticate.
 
 ```
-claude code login
+claude auth login --sso
 ```
 
 Follow the prompts. Deeper fix: [W.4 — Your auth setup](../../belts/01-white/W04-auth-setup.md).
@@ -39,7 +39,7 @@ Follow the prompts. Deeper fix: [W.4 — Your auth setup](../../belts/01-white/W
 **RED (not installed or not authenticated).** Install per W.5, then authenticate per W.4. If you are already installed but authenticated against a personal plan, the fix is:
 
 ```
-claude code logout && claude code login --plan=program
+claude auth logout && claude auth login --sso
 ```
 
 Deeper fix: W.4 and W.5.
