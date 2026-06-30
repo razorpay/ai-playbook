@@ -40,7 +40,7 @@ Each scenario has: a setup (what the environment looks like), an invocation (wha
 
 ## T3: Claude Code unauthenticated (RED)
 
-**Setup.** Same as T1 but with `claude code whoami` returning "not authenticated".
+**Setup.** Same as T1 but with `claude auth status --text` returning "not authenticated".
 
 **Invocation.** "Am I set up correctly?"
 
@@ -48,7 +48,7 @@ Each scenario has: a setup (what the environment looks like), an invocation (wha
 - The skill runs all ten checks.
 - Check 2 returns RED with the specific signal "Claude Code is installed but not authenticated".
 - Overall is RED.
-- The "What to fix first" section names Check 2 with the one-line fix `claude code login --plan=program`.
+- The "What to fix first" section names Check 2 with the one-line fix `claude auth login --sso`.
 - The header line says "Overall: RED — Quest W-0 is not yet claimable. 1 blocker to resolve."
 
 **Falsifier.** Check 2 returns YELLOW instead of RED, or the overall line does not flag W-0 as blocked, or the fix is for a different check.
