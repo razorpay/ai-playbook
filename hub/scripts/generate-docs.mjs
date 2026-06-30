@@ -362,6 +362,50 @@ function stripVersionStamps(body) {
     .replace(/ ?\(v\d+\.\d+[a-z]?\)/g, '');
 }
 
+// Many reference chapters (Appendix A Tool Atlas especially) describe an item
+// as a "card": a `### Title` heading followed by a run of bold-lead-in
+// paragraphs (`**Surface type.** …`, `**What it can see.** …`). In raw Markdown
+// these render as an undifferentiated wall of text. Wrap each such run — plus
+// the heading that titles it — in a `<div class="pb-card">` so the theme can
+// give it a real bordered card. The blank lines around the div tags are load
+// bearing: they keep the inner content parsed as Markdown (CommonMark ends an
+// HTML block at a blank line), so links, code, and emphasis still render.
+//
+// Threshold is 3+ consecutive bold-lead paragraphs, which targets genuine card
+// stacks (the tool cards carry 7 fields each) while leaving lone or paired
+// bold-lead paragraphs — ordinary emphasis — untouched.
+function wrapBoldFieldCards(body) {
+  const blocks = body.split(/\n{2,}/);
+  // A "field" block is a paragraph that leads with a bold label and a space:
+  // `**Surface type.** …`. The `^\*\*` anchor already excludes headings,
+  // blockquotes, list items, tables, and raw HTML (none of which start `**`).
+  const isField = (b) => /^\*\*[^*\n]+\*\*\s/.test(b.replace(/^\s+/, ''));
+  const isCardHeading = (b) => /^#{3,4}\s/.test(b.trimStart());
+
+  const out = [];
+  let i = 0;
+  while (i < blocks.length) {
+    if (isField(blocks[i])) {
+      let j = i;
+      while (j < blocks.length && isField(blocks[j])) j += 1;
+      const run = blocks.slice(i, j);
+      if (run.length >= 3) {
+        const parts = [...run];
+        // Pull the immediately-preceding heading into the card as its title.
+        if (out.length && isCardHeading(out[out.length - 1])) {
+          parts.unshift(out.pop());
+        }
+        out.push(`<div class="pb-card">\n\n${parts.join('\n\n')}\n\n</div>`);
+        i = j;
+        continue;
+      }
+    }
+    out.push(blocks[i]);
+    i += 1;
+  }
+  return out.join('\n\n');
+}
+
 async function buildChapter(entry, slugByPath, entryBySlug, allChapters) {
   const sourcePath = path.join(repoRoot, entry.path);
   const raw = await fs.readFile(sourcePath, 'utf8');
@@ -370,7 +414,7 @@ async function buildChapter(entry, slugByPath, entryBySlug, allChapters) {
   const merged = { ...sourceData, ...entry };
   const title = pageTitle(merged, parsed.content);
   const rewritten = await rewriteLinks(parsed.content.trimStart(), entry.path, slugByPath);
-  const body = stripVersionStamps(stripDuplicateChrome(rewritten));
+  const body = wrapBoldFieldCards(stripVersionStamps(stripDuplicateChrome(rewritten)));
   const frontmatter = buildFrontmatter(merged, title, entryBySlug);
   const gradedStrip = beltGradedArtefactsStrip(merged, allChapters);
   const output = `---\n${YAML.stringify(frontmatter).trim()}\n---\n\n${statusBlock(merged)}${gradedStrip}${body}`;
