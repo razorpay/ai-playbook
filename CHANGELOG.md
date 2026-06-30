@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.39 — model-wise usage-limit guidance (2026-06-30)
+
+The support surface changed from a single shared-budget explanation to model-wise limits: the 2026-06-30 product-function announcement says code usage should go through LiteLLM in the CLI with a $750 total cap, Opus/Sonnet/GPT sublimits, and OSS models treated separately. The previous FAQ still implied that every gateway model switch was useless once quota pain appeared, which is too coarse for Day-1 triage.
+
+**What changed.**
+
+- **Prologue and W.5 updated.** The mental model and canonical setup chapter now distinguish model-family sublimits from total LiteLLM `Budget=750.0` exhaustion and point routine work toward Sonnet, Codex, or enabled OSS instead of automatic quota bumps.
+- **Appendix D and H.7 aligned.** The known-issues FAQ and Day-1 quick reference now carry the same model-wise-limit wording and cite the 2026-06-30 support/announcement evidence.
+- **Version markers bumped.** README and INDEX now report v0.39 / 2026-06-30 for this quota-guidance refresh.
+
 ## v0.38 — dead maintainer-artifact cleanup (2026-06-30)
 
 `CONTRIBUTING.md` and `slugs.yml` still referenced two root-level maintainer artefacts, `RESEARCH-BRIEF.md` and `V0.4-CLEANUP-PLAN.md`, that are no longer present in the repository. That left contributors with a broken source-of-truth link and left the slug map advertising internal pages that cannot resolve.

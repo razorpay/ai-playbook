@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-06-29"
+updated: "2026-06-30"
 ---
 
 # W.5 - Installing the stack
@@ -228,7 +228,7 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **5. `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6`.** Cause: Opus has tighter rate limits, especially when many engineers hit it concurrently. Fix: switch to Sonnet for the moment — change `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` on the CLI. Opus is for deep reasoning; Sonnet is the recommended default for everyday work.
 
-**6. Hit the LiteLLM usage cap.** Symptom: Claude Code errors with `ExceededBudget` and shows `Budget=750.0`, even if the claude.ai usage page shows a different number. Kimi, DeepSeek, GPT, and other LiteLLM gateway models will also fail once the same key is out of budget. Fix: treat LiteLLM as the source of truth. Do not expect a gateway model switch to bypass an exhausted budget. Wait for reset, move non-blocking work to tooling outside the exhausted LiteLLM key, or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception. Do not assume a bump is automatic; the current per-builder cap is $750.
+**6. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, or a quota-increase request is declined. As of the 2026-06-30 product announcement, code usage should go through LiteLLM in the CLI: the total per-builder cap remains $750, with model-family limits for Opus ($300), Sonnet ($200), GPT ($100), and open-source models treated separately. Fix: first check whether you hit a model-family limit or the total LiteLLM cap. For a Claude-family limit, move everyday work to Sonnet, Codex, or an enabled OSS model instead of asking for an automatic bump. For a total `Budget=750.0` exhaustion, do not expect another paid gateway model to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
 
 **7. Usage not visible in the LiteLLM dashboard.** Cause: shell-level env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. Fix: `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in your current shell, then check `~/.bashrc` / `~/.zshrc` and remove any persisted overrides. Restart terminal.
 
@@ -284,7 +284,7 @@ For the print-this-and-stick-it-on-your-monitor version:
 | Canonical rollout thread | [Step-by-step in `#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) |
 | Pricing reference | [Anthropic pricing docs](https://platform.claude.com/docs/en/about-claude/pricing) |
 
-*Last reviewed: 2026-06-29. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
+*Last reviewed: 2026-06-30. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
 
 > **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the common failure modes onto a single printable card.
 
