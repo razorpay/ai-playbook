@@ -126,7 +126,7 @@ The hub is regenerated on every build via `hub/scripts/generate-docs.mjs`. The s
 Key conventions:
 
 - The generator wipes `hub/src/content/docs/` on every run. Do not edit files there directly; they are overwritten.
-- The generator excludes maintainer files (`CONTRIBUTING.md`, `ROADMAP.md`, `V0.x-*-PLAN.md`, research briefs) from hub generation.
+- The generator excludes maintainer files (`CONTRIBUTING.md`, `ROADMAP.md`, research briefs, and any future release-plan artefacts) from hub generation.
 - Status markers in front-matter are preserved; the rendered hub hides them from titles but uses them for `[planned]`-style badges where appropriate.
 - The custom homepage at `hub/src/content/docs/index.md` overrides the generated README → index mapping. The generator writes it after the per-chapter pass.
 
@@ -152,7 +152,7 @@ Both run `generate-docs.mjs` first.
 5. Add an entry to `slugs.yml` mapping the slug to the file.
 6. If the chapter introduces a new track, add it to the trackLabels map in `hub/scripts/generate-docs.mjs`.
 7. Run `npm run dev` from `hub/` to verify the chapter renders.
-8. Run the repo-wide link sweep (see `Stage 8` in any `V0.x-*-PLAN.md` for the script).
+8. Run the repo-wide link sweep used by the current release branch and paste the command plus output in the PR body. Do not point reviewers at historical `V0.x-*-PLAN.md` files; those archival release-plan files are not carried in the current repository.
 9. Open the PR with the chapter, the manifest edit, the slug edit, and the link-sweep output.
 
 ### For new skills
@@ -212,9 +212,9 @@ For smaller changes (a chapter revision, a new skill, a glossary entry, a card r
 
 ## Versioning
 
-The playbook uses pre-release versioning (`0.x-alpha`) until v1.0. Each version is committed in `manifest.yml`'s top-level `version` field. The version corresponds to a release plan file at the repo root (`V0.x-*-PLAN.md`).
+The playbook uses pre-release versioning (`0.x-alpha`) until v1.0. Each version is recorded in `CHANGELOG.md` with the rationale, scope, and touched surfaces. `manifest.yml` carries course metadata and may lag historical release labels; do not treat it as the human-facing version history.
 
-The shipped versions through v0.18 are documented in `CHANGELOG.md` (planned for v0.20+). Until the changelog lands, the plan files at the repo root carry the historical record.
+Historical version-prefixed release-plan files are not carried in the current repository. If a future release needs a separate plan, link or summarise it from the changelog entry before archiving it elsewhere.
 
 ---
 
