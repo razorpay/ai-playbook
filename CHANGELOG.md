@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.38 — dead maintainer-artifact cleanup (2026-06-30)
+
+`CONTRIBUTING.md` and `slugs.yml` still referenced two root-level maintainer artefacts, `RESEARCH-BRIEF.md` and `V0.4-CLEANUP-PLAN.md`, that are no longer present in the repository. That left contributors with a broken source-of-truth link and left the slug map advertising internal pages that cannot resolve.
+
+**What changed.**
+
+- **Maintainer guidance corrected.** `CONTRIBUTING.md` now says the original research brief was folded into the maintainer manual, roadmap, and chapter set instead of pointing at a missing file, and it names the seven review principles consistently.
+- **Directory layout corrected.** The sample root tree no longer lists `RESEARCH-BRIEF.md`, and the roadmap description now matches the current v1.0 path wording.
+- **Slug map cleaned.** `slugs.yml` no longer advertises `research-brief` or `v0.4-plan` entries whose targets are absent.
+- **Version markers bumped.** README and INDEX now report v0.38 / 2026-06-30 for this maintainer-artifact cleanup.
+
 ## v0.37 — setup-verify auth command alignment (2026-06-30)
 
 The setup-verify skill docs still referenced a stale `claude code login --plan=program` command family even though the current Claude CLI exposes authentication under `claude auth`. A Day-1 reader following the skill's Check 2 fix would copy a command the live CLI does not support.

@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.37 · last reviewed 2026-06-30 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.38 · last reviewed 2026-06-30 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -123,7 +123,7 @@ Belts tell a story of *earned competence*, not self-reported progress. Ramp's L0
 
 ## How the playbook is shaped
 
-Every chapter is written against six design principles: laymen-first plus engineer-respectful, belts earned through quests rather than self-reported, teach the constraint not the trick, the 5-pillar adoption lattice, Prompt × Context × Harness as the technique-tagging axes, knowledge-base-driven development as the operating philosophy, and fintech guardrails as load-bearing. The full principles plus the contribution flow are in [CONTRIBUTING.md](./CONTRIBUTING.md).
+Every chapter is reviewed against seven principles: laymen-first plus engineer-respectful, belts earned through quests rather than self-reported, teach the constraint not the trick, the 5-pillar adoption lattice, Prompt × Context × Harness as the technique-tagging axes, knowledge-base-driven development as the operating philosophy, and fintech guardrails as load-bearing. The full principles plus the contribution flow are in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
