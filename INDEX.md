@@ -117,7 +117,7 @@ Belts tell a story of *earned competence*, not self-reported progress. Ramp's L0
 | 🟢 Green  | L2           | Ships across a product repo *and* a greenfield repo. Writes skills others install. |
 | ⚫ Black  | L3           | Contributes to Blade or ships full-stack. Builds plugins / MCPs. Multiplies others. |
 
-> **Why this matters.** The belts aren't decorative — they map to the **certification track** the program is running internally. Earning a belt isn't just internal pride; it's a verifiable artefact with a row in the tracker. The gamification and the business metric are the same metric. See [Appendix L](#appendix-l--certification).
+> **Why this matters.** The belts aren't decorative — they map to the **certification track** the program is running internally. Earning a belt isn't just internal pride; it's a verifiable artefact with a row in the tracker. The gamification and the business metric are the same metric. See [Appendix L](appendices/L-certification/README.md).
 
 ---
 

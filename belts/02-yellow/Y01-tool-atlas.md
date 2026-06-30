@@ -45,7 +45,7 @@ The job: you noticed a dashboard's empty state shows "Loading..." forever when t
 
 **The right sequence.**
 
-1. **[Slack connector](../../appendices/A-tool-atlas/README.md#slack)** first, to find the team thread where this was reported. The complaint usually has more detail than your one-line memory of it.
+1. **Slack connector** first, to find the team thread where this was reported. The complaint usually has more detail than your one-line memory of it.
 2. **[Figma connector](../../belts/02-yellow/Y09-figma-mcp.md)** next, to check whether the empty state has a designed-target. If yes, the fix is unambiguous; if no, you'll need to negotiate the right copy with design.
 3. **[Claude Code](../../appendices/A-tool-atlas/README.md#claude-code)** to actually edit the file. Ask it to locate the empty-state component first, then propose a small plan, then apply.
 4. **Local check** via `npm run dev` or the equivalent — make sure the fix renders.
