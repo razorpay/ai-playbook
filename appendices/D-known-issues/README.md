@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-06-29"
+updated: "2026-06-30"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -103,15 +103,15 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
-### D.6 — Hit the LiteLLM $750 usage cap (status: workaround)
+### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 
-**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; the error shows `Budget=750.0` or the LiteLLM dashboard shows you against the per-builder cap, even when claude.ai shows a different remaining balance. Switching the same LiteLLM key to Kimi, DeepSeek, GPT, or another gateway model still errors.
+**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; a model that worked yesterday is now restricted; or `#ai-help` says quota extensions are not being granted by default. The claude.ai usage page may show a different remaining balance.
 
-**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway budget, not the separate claude.ai usage page. The current per-builder LiteLLM cap is $750, and that budget is account-wide across models served by the gateway.
+**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway, not the separate claude.ai usage page. As of the 2026-06-30 product-function announcement, code usage should go through LiteLLM in the CLI with a $750 total cap and model-family limits: Opus $300, Sonnet $200, GPT $100, and open-source models treated separately.
 
-**Fix.** Treat the LiteLLM error as authoritative. Do not expect a model switch inside LiteLLM to bypass an exhausted budget; all gateway-backed models draw from the same pool. For non-blocking work, wait for the reset or move to tooling outside the exhausted LiteLLM key. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
+**Fix.** Treat the LiteLLM error as authoritative. If you hit a Claude-family sublimit, move routine work to Sonnet, Codex, or an enabled OSS model; quota bumps are not automatic. If the error shows total `Budget=750.0` exhaustion, do not expect another paid gateway model to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
 
-**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
+**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019).
 
 ### D.7 — Usage not visible in the LiteLLM dashboard (status: fixed)
 
