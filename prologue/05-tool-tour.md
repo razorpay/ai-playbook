@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-06-22"
+updated: "2026-07-01"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -35,7 +35,7 @@ There are seven tools you'll see named repeatedly. Here's the one-line version o
 | **Compass** | Razorpay's plugin that ships skills, hooks, and MCPs into Claude Code — *not* a tool you open, it's a layer inside Claude Code. |
 | **Slash** | Razorpay's internal AI product (formerly "Vyom") — a web UI over internal data. Different from the others; don't confuse it with Claude Code. |
 | **Cursor** | A VS Code-style IDE with AI built in; useful for reading code visually while Claude Code edits it. |
-| **Codex / OpenAI tools** | Out of scope for this program — mentioned so you know why we standardised on Claude, not because you'll use them. |
+| **Codex / OpenAI tools** | A secondary coding-agent surface. Not the belt default, but useful when current LiteLLM policy routes routine overflow or second-opinion work there. |
 
 If you only remember one thing: **Claude Code is the one you live in.** Everything else is an accessory.
 
@@ -129,9 +129,13 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Codex / other non-Claude AI coding tools
 
-**Briefly, for completeness.** There are other AI coding tools: OpenAI's Codex CLI, GitHub Copilot, Amazon Q, various self-hosted agents. This playbook is Claude-shaped because Razorpay standardised on Claude (routed through the LiteLLM gateway) for three reasons: the Compass plugin is Claude-native; the Blade connector integrates cleanly with Claude Code's MCP layer; and our skills library is written as Claude Code skills.
+**What they are:** OpenAI's Codex CLI, GitHub Copilot, Amazon Q, and other coding agents that can inspect or edit a local workspace. They are real builder tools, but they do not load Razorpay's Claude-shaped Compass skills, Blade connector, or pre-ship guardrails by default.
 
-**You don't need to use other tools to earn any belt.** If you're curious about them for comparison, [Appendix A — Tool Atlas](../appendices/A-tool-atlas/README.md) is the durable map of which surface fits which job. For now, the playbook's stance is: *one harness, one skill library, one workflow.* Pick Claude Code. Go deep.
+**Why they're here now:** Current usage policy treats Codex as an approved fallback when Claude-family or LiteLLM model limits block routine work. That does not make it the playbook default; it means a Day-1 builder should recognise the name when support says "use Codex for this overflow task."
+
+**Rule of thumb:** Use Claude Code for belt work, Compass-backed workflows, Blade-aware reviews, and anything you plan to certify. Use Codex for bounded implementation, verification, or a second opinion when the support path explicitly routes you there. If Codex produces code that lands in a Razorpay repo, still bring the result back through Claude Code + Compass checks before PR.
+
+If you're curious about the broader comparison, [Appendix A — Tool Atlas](../appendices/A-tool-atlas/README.md) is the durable map of which surface fits which job.
 
 ---
 
@@ -156,6 +160,7 @@ Five minutes now saves you hours of "wait, which tool am I supposed to be in?" l
 - **Cowork is the designer / PM-friendly front door** to the same AI stack, optimised for documents over repos.
 - **Slash is a different category** — a consumer chatbot over internal data, not a builder tool.
 - **Cursor** is a graphical IDE you can run Claude Code inside for the best of both worlds.
+- **Codex is a fallback, not the curriculum spine.** Use it when the support path points there; run Compass-backed checks before shipping its output.
 - The next chapter ([§0.6 — Meet the people](06-people-and-pocs.md)) introduces the roles and forums that own these tools and where to ask when things break.
 
 ---
