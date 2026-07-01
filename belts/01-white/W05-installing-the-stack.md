@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-06-30"
+updated: "2026-07-01"
 ---
 
 # W.5 - Installing the stack
@@ -30,6 +30,7 @@ White Belt uses the program-pinned setup path. Your job is to run it, read the o
 ## If you're short on time
 
 - Two steps: (1) get access via MyAccess, (2) run one setup script in your terminal.
+- Claude Desktop verifies your enterprise seat for chat/co-work. Code work in this playbook runs through terminal Claude Code via LiteLLM.
 - The setup script is `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash`. That is the only install command you should run.
 - A successful install is not enough. You pass only when `claude --version` prints a version and `claude` opens without errors.
 
@@ -63,7 +64,7 @@ This is why setup has to be boring and pinned.
 1. Open [myaccess.microsoft.com](https://myaccess.microsoft.com), search **"Claude AI"**, submit the request.
 2. Ask your manager to approve it (under Approvals in MyAccess). If your manager is OOO, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and tag `@techit` — admins bypass the approval after a short delay.
 3. Wait ~30–40 minutes after approval for Azure AD sync. If Claude.ai still shows you on a "Free Plan" after that window, sync is still catching up; give it another 15 minutes before re-routing.
-4. Install **Claude Desktop** from Self Service (Mac).
+4. Install **Claude Desktop** from Self Service (Mac). Treat this as the enterprise seat / SSO check for chat and co-work — not the code path.
 5. Go to [claude.ai](https://claude.ai), sign in with SSO → Razorpay email + MFA. You should see your org workspace.
 
 ### Step 2 — Install Claude Code
@@ -82,7 +83,7 @@ The script:
 - installs the Zscaler certificate trust chain,
 - removes any stale Vertex environment variables left over from the March migration.
 
-After the script finishes, **restart your terminal** (important — environment changes only apply to new shells). Then run `claude` and follow the browser SSO login prompt if it appears. Do **not** run `claude /login` from the shell; `/login` is an in-session slash command, not a terminal subcommand. You are ready when a fresh prompt returns a response.
+After the script finishes, **restart your terminal** (important — environment changes only apply to new shells). Then run `claude` and follow the browser SSO login prompt if it appears. Do **not** run `claude /login` from the shell; `/login` is an in-session slash command, not a terminal subcommand. You are ready when a fresh prompt returns a response. For code tasks, trust this terminal path and the LiteLLM dashboard over Claude Desktop's quota display.
 
 Do not paste commands from a teammate's terminal unless `#ai-help` confirms they apply to your machine. Two laptops can have different existing state — especially if one of you was on the Vertex-era setup.
 
