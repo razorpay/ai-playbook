@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-06-16"
+updated: "2026-07-01"
 ---
 
 # W.6 - The LLM Gateway
@@ -28,7 +28,7 @@ This module is intentionally short. The goal is vocabulary and a quick way to tr
 ## If you're short on time
 
 - The gateway is `https://llm-gateway.razorpay.com`. It runs **LiteLLM**, an open-source model proxy.
-- Every Claude Code request from your laptop goes through it. The gateway authenticates your personal key, picks a model (Sonnet, Opus, or Haiku), forwards to Anthropic, and records the usage.
+- Every Claude Code request from your laptop goes through it. The gateway authenticates your personal key, applies the current model-family limits, routes to the enabled model, and records the usage.
 - The setup script in [W.5](W05-installing-the-stack.md) writes everything you need into `~/.claude/settings.json`. You should not hand-edit it.
 - If a gateway call fails, capture the short error and route it. Do not try to bypass it.
 
@@ -42,15 +42,15 @@ You
   -> ~/.claude/settings.json (LiteLLM key + model defaults)
   -> Compass plugin (skills, hooks, MCPs)
   -> https://llm-gateway.razorpay.com  ← Razorpay's LiteLLM gateway
-  -> Anthropic API (Claude Sonnet / Opus / Haiku)
+  -> enabled model provider (Claude, GPT, or approved OSS)
   -> response back to Claude Code
 ```
 
 The gateway exists so the organisation can control access, routing, observability, and safety. Three concrete things it does:
 
 1. **Auth.** Every request carries your personal LiteLLM key as a Bearer token. The key is minted by the setup script and rotated on demand.
-2. **Routing.** You ask for `claude-sonnet-4-6`; the gateway picks the right provider region and forwards. If a provider has issues, the gateway can fall back without you noticing.
-3. **Observability.** Every request lands in the LiteLLM dashboard with cost, latency, and token count. That is how the program understands what's being built and how to scale quotas.
+2. **Routing.** You ask for an enabled model such as `claude-sonnet-4-6`; the gateway picks the right provider route and forwards. The approved model list can include Claude, GPT, or OSS models depending on the current rollout.
+3. **Observability and limits.** Every request lands in the LiteLLM dashboard with cost, latency, token count, and budget usage. That dashboard is the source of truth when claude.ai or Claude Desktop shows a different remaining balance.
 
 Without it, every builder would invent their own model path, and the program would become impossible to support.
 
@@ -95,7 +95,7 @@ In one paragraph, explain what a pull request is to a first-time builder.
 At White Belt, you do not need to know:
 
 - How LiteLLM is deployed inside Razorpay.
-- How quotas are calculated per builder.
+- How quotas are calculated per builder or per model family.
 - How model fallback rules are configured.
 - How observability traces are stored or who reads them.
 
@@ -105,13 +105,15 @@ You will learn more of this later if your work requires it (see [G.23 — The LL
 
 ## Common failure modes
 
-The detailed seven are in [W.5](W05-installing-the-stack.md#common-failure-modes). The short version of the gateway-related ones:
+The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failure-modes). The short version of the gateway-related ones:
 
 **`401 authentication_error`.** Your LiteLLM key rotated or expired. Re-run the setup script; it re-mints the key into `~/.claude/settings.json`.
 
 **`403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`.** Stale Vertex env vars in your shell rc from the pre-March-2026 setup. Remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, and `CLOUD_ML_REGION` from `~/.bashrc` / `~/.zshrc`, restart your terminal.
 
 **`429 RESOURCE_EXHAUSTED` on `claude-opus-4-6`.** Opus has tighter rate limits. Switch to Sonnet for the moment (`--model sonnet` on CLI, or change `"model": "sonnet[1m]"` in `~/.claude/settings.json`).
+
+**`ExceededBudget` or model-wise limit errors.** Trust LiteLLM over the Claude Desktop usage display. Check the LiteLLM usage page, then follow [W.5 failure mode #6](W05-installing-the-stack.md#common-failure-modes): move routine work to an enabled fallback when only a model family is capped, and route true business blockers through `#ai-help` with manager approval visible.
 
 **"My usage isn't showing in the dashboard."** Shell env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. `unset` them, then remove from your shell rc.
 
