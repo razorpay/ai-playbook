@@ -35,6 +35,30 @@ curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
 
 ---
 
+## PM/product add-ons after you are GREEN
+
+These are not part of Quest W-0. Install them only after Claude Code opens cleanly.
+
+**PM tracer for the AI Adoption Leaderboard:**
+
+```bash
+claude marketplace add razorpay-marketplace https://github.com/razorpay/claude-plugins.git  # first time only
+claude marketplace update razorpay-marketplace
+claude plugin install rzp-pm-tracing@razorpay-marketplace
+```
+
+Restart Claude Code, then run `/tracing-doctor` inside Claude. A clean check means your sessions, skills, and tool usage are flowing into the PM adoption dashboard.
+
+**Agentic Analytics for metric questions:**
+
+```bash
+claude plugin install analytics-agent@razorpay-marketplace
+```
+
+Inside Claude, run `/analytics-setup`, `/analytics-onboard`, then use `/analytics-query` for metric questions and `/analytics-review` for health reviews. This is the replacement path for the old Compass `querying-metrics` skill.
+
+---
+
 ## The five GREEN checks (Quest W-0)
 
 ```bash
