@@ -14,7 +14,7 @@ next: "belts/white"
 pillar: null
 belt: null
 tags: ["orientation", "changelog"]
-updated: "2026-06-22"
+updated: "2026-07-02"
 ---
 
 # 0.12 — What's shipping this week
@@ -49,7 +49,7 @@ The playbook is drafted end-to-end and hosted as a live site at **[razorpay.gith
 - Appendices A through N, with Appendix E kept as a drafted skeleton and Appendix M still planned. The drafted set includes the live Slack channel directory (F), the named role-holder roster (in §0.6), the Day-1 quick reference card (H.7), and the root changelog as Appendix K.
 - Seven Claude Code skills: `playbook-course`, `setup-verify`, `pre-ship-check`, `blade-compliance-reviewer`, `production-compiler`, `design-intel`, `security-review-subagent`.
 - The Astro Starlight hub at **[razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/)**, auto-deployed on every merge to `master` with PR-preview builds.
-- Twelve theme-aware SVG diagrams and seven hand-drawn Excalidraw companion illustrations.
+- Nine signature SVG diagrams, two legacy SVG aliases, and seven hand-drawn Excalidraw companion illustrations.
 
 **Still in motion:**
 

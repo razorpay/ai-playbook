@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.41 — diagram inventory count alignment (2026-07-02)
+
+The first-read inventory still claimed twelve signature/theme-aware SVG diagrams even though the diagram directory documents nine signature diagrams, with two legacy alias SVGs kept only so older chapter references continue to resolve. The drafted-content inventory should match the repository shape instead of inflating the visual surface.
+
+**What changed.**
+
+- **README inventory corrected.** The repository layout now says `diagrams/` contains nine signature SVG diagrams plus two legacy aliases.
+- **What's Shipping aligned.** Prologue §0.12 now reports nine signature SVG diagrams, two legacy aliases, and seven Excalidraw companions.
+- **Version markers bumped.** README and INDEX now report v0.41 / 2026-07-02 for this inventory-count cleanup.
+
 ## v0.40 — retired Opus default cleanup (2026-07-02)
 
 The 2026-07-01 support queue showed repeated `exceeded budget for model=claude-opus-4-6` errors after Opus 4.6/4.7 were retired. W.5, W.6, Appendix D, Appendix F, and H.7 still carried the old Opus default in settings snippets or troubleshooting rows, which could teach a new builder to copy the stale model back into config.
