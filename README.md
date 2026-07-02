@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>v0.40 alpha</strong> · updated 2026-07-02 · source of truth: Markdown<br>
+  <strong>v0.41 alpha</strong> · updated 2026-07-02 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -60,7 +60,7 @@ If you want a guided walk, open Claude Code in this directory and say *"start th
 ├── case-studies/             # Boss Fight B-B case studies seed here
 │
 ├── skills/                  # 7 Claude Code skills (incl. playbook-course)
-├── diagrams/                 # 12 signature SVG diagrams (theme-aware)
+├── diagrams/                 # 9 signature SVG diagrams + 2 legacy aliases
 ├── excalidraw/               # 7 hand-drawn companion illustrations
 ├── hub/                      # Astro Starlight source — regenerated from above
 └── scripts/                  # build + polish tooling
