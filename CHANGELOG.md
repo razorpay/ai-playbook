@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.40 — retired Opus default cleanup (2026-07-02)
+
+The 2026-07-01 support queue showed repeated `exceeded budget for model=claude-opus-4-6` errors after Opus 4.6/4.7 were retired. W.5, W.6, Appendix D, Appendix F, and H.7 still carried the old Opus default in settings snippets or troubleshooting rows, which could teach a new builder to copy the stale model back into config.
+
+**What changed.**
+
+- **Setup snippets corrected.** W.5 and H.7 now show `ANTHROPIC_DEFAULT_OPUS_MODEL` as `claude-opus-4-8`.
+- **Troubleshooting rows aligned.** W.5, W.6, Appendix D, Appendix F, and H.7 now distinguish retired Opus defaults from real model-family or total-budget caps.
+- **Version markers bumped.** README and INDEX now report v0.40 / 2026-07-02 for this model-default cleanup.
+
 ## v0.39 — model-wise usage-limit guidance (2026-06-30)
 
 The support surface changed from a single shared-budget explanation to model-wise limits: the 2026-06-30 product-function announcement says code usage should go through LiteLLM in the CLI with a $750 total cap, Opus/Sonnet/GPT sublimits, and OSS models treated separately. The previous FAQ still implied that every gateway model switch was useless once quota pain appeared, which is too coarse for Day-1 triage.

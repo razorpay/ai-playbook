@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-06-30"
+updated: "2026-07-02"
 ---
 
 # H.7 — Day-1 quick reference
@@ -56,7 +56,7 @@ If any check fails → see Common failures below.
   "env": {
     "ANTHROPIC_BASE_URL": "https://llm-gateway.razorpay.com",
     "ANTHROPIC_CUSTOM_HEADERS": "x-litellm-api-key: Bearer sk-...",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
     "DISABLE_PROMPT_CACHING": "0",
@@ -118,7 +118,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 | "Free Plan" showing on claude.ai after approval | wait 30–40 minutes for Azure AD sync; if past 60 min, re-route in `#ai-help` |
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` | remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION` from `~/.bashrc`/`~/.zshrc`; re-run setup; restart terminal |
 | `401 authentication_error` after laptop restart | re-run the setup script (re-mints the LiteLLM key) |
-| `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6` | switch to Sonnet — edit `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` |
+| `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7` | switch the retired Opus default to `claude-opus-4-8` — enable it in LiteLLM, then run `/model claude-opus-4-8` or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` |
 | Hit a model-wise or LiteLLM usage limit | trust LiteLLM over claude.ai usage; try Sonnet, Codex, or enabled OSS for routine work; if total `Budget=750.0` is exhausted, wait for reset or post in `#ai-help` with manager approval for approved exceptions |
 | Usage missing from LiteLLM dashboard | `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in current shell; remove persisted overrides from `~/.bashrc`/`~/.zshrc`; restart terminal |
 | Anything else | post in `#ai-help` with: command run, redacted output, machine class, what you tried |
@@ -138,7 +138,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-06-27. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-07-02. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 

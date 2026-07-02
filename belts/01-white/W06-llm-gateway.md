@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-01"
+updated: "2026-07-02"
 ---
 
 # W.6 - The LLM Gateway
@@ -111,7 +111,7 @@ The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failu
 
 **`403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`.** Stale Vertex env vars in your shell rc from the pre-March-2026 setup. Remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, and `CLOUD_ML_REGION` from `~/.bashrc` / `~/.zshrc`, restart your terminal.
 
-**`429 RESOURCE_EXHAUSTED` on `claude-opus-4-6`.** Opus has tighter rate limits. Switch to Sonnet for the moment (`--model sonnet` on CLI, or change `"model": "sonnet[1m]"` in `~/.claude/settings.json`).
+**`exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Those Opus defaults are retired. Enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. Use Sonnet or enabled OSS models for routine work when Opus 4.8 is capped.
 
 **`ExceededBudget` or model-wise limit errors.** Trust LiteLLM over the Claude Desktop usage display. Check the LiteLLM usage page, then follow [W.5 failure mode #6](W05-installing-the-stack.md#common-failure-modes): move routine work to an enabled fallback when only a model family is capped, and route true business blockers through `#ai-help` with manager approval visible.
 

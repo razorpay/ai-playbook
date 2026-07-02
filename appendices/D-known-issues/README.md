@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-06-30"
+updated: "2026-07-02"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -93,15 +93,15 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **References.** [W.5 failure mode #4](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
-### D.5 — `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6` (status: workaround)
+### D.5 — Retired Opus default still points at `claude-opus-4-6` (status: workaround)
 
-**Symptom.** Opus prompts intermittently fail with `429 RESOURCE_EXHAUSTED`, especially around peak hours.
+**Symptom.** Claude Code errors with `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`, even after you added or selected Opus 4.8 in LiteLLM.
 
-**Diagnosis.** Opus has tighter shared rate limits than Sonnet. Concurrent heavy-Opus usage across the org spikes the limit.
+**Diagnosis.** Your active Claude Code session or `~/.claude/settings.json` still points at a retired Opus model. LiteLLM will not rescue that request by guessing a newer Opus for you.
 
-**Fix.** Switch to Sonnet for the moment — edit `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` on the CLI. Use Opus for genuinely deep reasoning, not as a default. Sonnet is the recommended everyday model.
+**Fix.** Enable `claude-opus-4-8` at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Opus 4.8 itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work.
 
-**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
+**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` retired-model response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887045764659), [`#ai-help` config response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887627150789).
 
 ### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 
@@ -274,4 +274,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-05-29. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-07-02. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*

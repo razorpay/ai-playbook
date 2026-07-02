@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-01"
+updated: "2026-07-02"
 ---
 
 # W.5 - Installing the stack
@@ -152,7 +152,7 @@ The setup script writes this file for you. You should not need to edit it. If yo
   "env": {
     "ANTHROPIC_BASE_URL": "https://llm-gateway.razorpay.com",
     "ANTHROPIC_CUSTOM_HEADERS": "x-litellm-api-key: Bearer sk-...",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
     "DISABLE_PROMPT_CACHING": "0",
@@ -227,7 +227,7 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **4. `claude` errors with `401 authentication_error` after a laptop restart.** Cause: LiteLLM OAuth token expired or rotated. Fix: re-run the setup script. It re-mints a fresh key into `~/.claude/settings.json`.
 
-**5. `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6`.** Cause: Opus has tighter rate limits, especially when many engineers hit it concurrently. Fix: switch to Sonnet for the moment — change `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` on the CLI. Opus is for deep reasoning; Sonnet is the recommended default for everyday work.
+**5. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work; Opus is for deep reasoning, not the everyday default.
 
 **6. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, or a quota-increase request is declined. As of the 2026-06-30 product announcement, code usage should go through LiteLLM in the CLI: the total per-builder cap remains $750, with model-family limits for Opus ($300), Sonnet ($200), GPT ($100), and open-source models treated separately. Fix: first check whether you hit a model-family limit or the total LiteLLM cap. For a Claude-family limit, move everyday work to Sonnet, Codex, or an enabled OSS model instead of asking for an automatic bump. For a total `Budget=750.0` exhaustion, do not expect another paid gateway model to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
 
