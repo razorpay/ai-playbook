@@ -14,7 +14,7 @@ next: "appendices/certification"
 pillar: "context"
 belt: "green"
 tags: ["appendix", "skills", "agents", "workflow"]
-updated: "2026-06-18"
+updated: "2026-07-02"
 ---
 
 # Appendix C — Skills Library
@@ -214,9 +214,29 @@ When a workflow repeats three times, capture it in this order:
 2. Run it on a real task and mark what was ambiguous.
 3. Add the minimum context files or connector assumptions.
 4. Convert the recipe into a skill or slash command only after the manual version works.
-5. Add it back to this library with owner, status, and examples.
+5. Add it back to this library with owner, status, examples, and the distribution surface where other teams can find it.
 
 That order matters. Automating a vague workflow makes the vagueness faster.
+
+---
+
+## Where reusable skills graduate
+
+Keep a recipe local while it is still being shaped. Once other PODs are expected to install or copy it, graduate it into the shared skills distribution path instead of passing around a zip, a DM, or a personal dotfiles folder.
+
+At Razorpay today, the observed shared home for org-distributed skills is `razorpay/agent-skills`. Use [`#devex-skills`](https://razorpay.slack.com/archives/C0A8QFH9KEF) for repo placement, review-path, and policy questions; use [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) for discovery and adoption once the skill is ready for other teams to try.
+
+Copy this graduation check before you publish:
+
+| If the skill is... | Do this before announcing it |
+|---|---|
+| Still a one-team helper | Keep it in the team's repo or working docs until it has survived real use. |
+| Useful beyond your team | Open a PR in the shared skills repo with a clear owner, README, trigger, output shape, and tests. |
+| Touching customer contact exports, restricted data, or anti-scrape logic | Route it through DevX plus Security/AppSec review before merge. |
+| Hard to place in the repo | Ask in `#devex-skills`; do not guess a permanent home from an old thread. |
+| Ready for adoption | Announce in `#rzp-claude-skills` with the use case, owner, install path, and what feedback you want. |
+
+The point is not bureaucracy. The point is searchability and ownership: a skill that lives in the shared repo, has review history, and has an owner can be improved by the next team instead of rediscovered by them.
 
 ---
 
