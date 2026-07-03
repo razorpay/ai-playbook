@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.41 · last reviewed 2026-07-02 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.42 · last reviewed 2026-07-03 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -670,4 +670,4 @@ Contributing to the playbook (design principles, production plan, content rules,
 
 ---
 
-*Designed to be a living document. Pull requests welcome. Last reviewed 2026-05-29.*
+*Designed to be a living document. Pull requests welcome. Last reviewed 2026-07-03.*
