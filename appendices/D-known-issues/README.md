@@ -139,15 +139,25 @@ Then `grep` your `~/.bashrc` and `~/.zshrc` for those same variables and remove 
 
 **References.** [W.5](../../belts/01-white/W05-installing-the-stack.md), [W.4](../../belts/01-white/W04-auth-setup.md).
 
-### D.9 — Certificate errors during `npm install` or other installs (status: fixed)
+### D.9 — Zscaler certificate errors during installs or Claude startup (status: fixed)
 
-**Symptom.** Package installs fail with certificate, SSL, or "self-signed certificate in certificate chain" wording.
+**Symptom.** Package installs fail with certificate, SSL, or "self-signed certificate in certificate chain" wording; or Claude Code / Claude Desktop fails with `UNKNOWN_CERTIFICATE_VERIFICATION_ERROR`, `ERR_SOCKET_CLOSED`, a blank startup screen, or Anthropic TLS/preconnect errors.
 
-**Diagnosis.** Zscaler corporate proxy injects a certificate that your package manager doesn't trust yet.
+**Diagnosis.** Zscaler is intercepting the HTTPS connection, but the current terminal/app session does not trust the Zscaler root certificate or has a stale Zscaler connection. This is a certificate-trust problem, not a reason to disable SSL checks.
 
-**Fix.** Do not bypass certificate checks. Re-run the setup script; it installs the Zscaler trust chain. If installs still fail, post in `#ai-help` with the exact failing command and redacted output.
+**Fix.** Use this order:
 
-**References.** [W.5](../../belts/01-white/W05-installing-the-stack.md).
+1. Re-run the setup script; it installs the Zscaler trust chain:
+
+   ```bash
+   curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
+   ```
+
+2. Close old terminals, open a fresh terminal, and retry `claude` or the install command.
+3. If Claude still fails with certificate or TLS wording, open Zscaler Client Connector, re-authenticate / reconnect it, then restart Claude Desktop or the terminal session.
+4. If it still fails, post in `#ai-help` with the exact failing command, the redacted error text, your OS, and whether you were on office or home network. Do not bypass certificate checks.
+
+**References.** [W.5](../../belts/01-white/W05-installing-the-stack.md), [`#ai-help` certificate thread 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783058951691469), [`#ai-help` Claude Desktop/TLS thread 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783058295417399).
 
 ### D.10 — `claude native binary not installed` after install (status: fixed)
 
