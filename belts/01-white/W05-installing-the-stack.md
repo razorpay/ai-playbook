@@ -227,7 +227,7 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **4. `claude` errors with `401 authentication_error` after a laptop restart.** Cause: LiteLLM OAuth token expired or rotated. Fix: re-run the setup script. It re-mints a fresh key into `~/.claude/settings.json`.
 
-**5. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work; Opus is for deep reasoning, not the everyday default.
+**5. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Claude Code's model picker still lists Opus 4.7 or other retired labels, treat the picker as stale and use the direct `/model claude-opus-4-8` command instead. If the gateway says `key_model_access_denied`, enable Opus 4.8 on your LiteLLM key and retry after two to three minutes. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work; Opus is for deep reasoning, not the everyday default.
 
 **6. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, or a quota-increase request is declined. Code usage should go through LiteLLM in the CLI: the total per-builder cap remains $750 across all enabled gateway models, including OSS routes, with model-family limits for Opus ($300), Sonnet ($200), and GPT ($100) able to run out earlier. Fix: first check whether you hit a model-family limit or the total LiteLLM cap. For a model-family limit, move everyday work to Sonnet, Codex, or an enabled OSS model instead of asking for an automatic bump. For a total `Budget=750.0` exhaustion, do not expect another gateway model, OSS route, or personal Claude Max plan to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
 
@@ -285,7 +285,7 @@ For the print-this-and-stick-it-on-your-monitor version:
 | Canonical rollout thread | [Step-by-step in `#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) |
 | Pricing reference | [Anthropic pricing docs](https://platform.claude.com/docs/en/about-claude/pricing) |
 
-*Last reviewed: 2026-06-30. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
+*Last reviewed: 2026-07-03. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
 
 > **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the common failure modes onto a single printable card.
 

@@ -97,11 +97,11 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **Symptom.** Claude Code errors with `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`, even after you added or selected Opus 4.8 in LiteLLM.
 
-**Diagnosis.** Your active Claude Code session or `~/.claude/settings.json` still points at a retired Opus model. LiteLLM will not rescue that request by guessing a newer Opus for you.
+**Diagnosis.** Your active Claude Code session or `~/.claude/settings.json` still points at a retired Opus model. LiteLLM will not rescue that request by guessing a newer Opus for you. Claude Code's model picker can also lag retirement changes, so a visible Opus 4.7, `default`, or 1M-context option may still route to a retired model.
 
-**Fix.** Enable `claude-opus-4-8` at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Opus 4.8 itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work.
+**Fix.** Enable `claude-opus-4-8` at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then run `/model claude-opus-4-8` inside Claude Code. Use the direct command even if the picker still shows older labels. If you want a sticky default, set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If the gateway says `key_model_access_denied`, confirm Opus 4.8 is enabled on your LiteLLM key and retry after the cache refresh. If Opus 4.8 itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work.
 
-**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` retired-model response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887045764659), [`#ai-help` config response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887627150789).
+**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` retired-model response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887045764659), [`#ai-help` config response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887627150789), [`#ai-help` stale-picker response 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783084811495669).
 
 ### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 
