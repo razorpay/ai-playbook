@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.42 — LiteLLM total-cap clarification (2026-07-03)
+
+The 2026-07-03 support thread clarified that the `$750` LiteLLM total budget is enforced across all gateway models, including OSS routes like `glm-5p2`; a personal Claude Max plan is not a bypass for Razorpay's gateway cap. The prior wording correctly taught model-family fallbacks, but it still implied OSS was separate enough to try after total `Budget=750.0` exhaustion.
+
+**What changed.**
+
+- **Quota mental model corrected.** Prologue §0.3, W.5, Appendix D, Appendix F, and H.7 now distinguish model-family caps from total LiteLLM budget exhaustion.
+- **Fallback wording narrowed.** Sonnet/Codex/OSS fallback advice now applies to model-family caps; total-budget exhaustion routes to reset or manager-approved `#ai-help` exception review.
+- **Version markers bumped.** README and INDEX now report v0.42 / 2026-07-03 for this quota-guidance correction.
+
 ## v0.41 — diagram inventory count alignment (2026-07-02)
 
 The first-read inventory still claimed twelve signature/theme-aware SVG diagrams even though the diagram directory documents nine signature diagrams, with two legacy alias SVGs kept only so older chapter references continue to resolve. The drafted-content inventory should match the repository shape instead of inflating the visual surface.
