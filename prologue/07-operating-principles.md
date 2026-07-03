@@ -14,7 +14,7 @@ next: "prologue/how-to-read"
 pillar: null
 belt: null
 tags: ["orientation", "knowledge-base"]
-updated: "2026-04-26"
+updated: "2026-07-03"
 ---
 
 # 0.7 — Operating Principles (knowledge-base-driven development)
@@ -134,7 +134,7 @@ The pay-off is delayed but it's enormous. That's why this is a Prologue chapter 
 
 ## Going deeper
 
-If you finished this chapter and want the long-form profiles of each framework, plus Simon Willison's three-pillar frame, the spec-first pattern, and a rubric for evaluating the next gstack-equivalent that ships in six months (that's [Appendix N) Methodologies & Frameworks](../appendices/N-methodologies/README.md).
+If you finished this chapter and want the long-form profiles of each framework, plus Simon Willison's three-pillar frame, the spec-first pattern, and a rubric for evaluating the next gstack-equivalent that ships in six months, start with [Appendix N — Methodologies & Frameworks](../appendices/N-methodologies/README.md).
 
 If you want to read the originals (and you should, eventually):
 
