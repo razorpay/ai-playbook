@@ -14,7 +14,7 @@ next: null
 pillar: "context"
 belt: null
 tags: ["template", "wiki", "knowledge-base"]
-updated: "2026-05-08"
+updated: "2026-07-04"
 ---
 
 # Template: Minimum viable wiki seed
@@ -95,7 +95,7 @@ Updates land through the project's normal review process.
 
 ## File 2: log.md
 
-```markdown
+````markdown
 # <!-- project name --> log
 
 <!-- DELETE: Append-only journal of decisions and changes that affect
@@ -133,7 +133,7 @@ What changed: Frontend now uses Blade v3.x; v2.x components are deprecated and w
 Why: Blade v2.x is being deprecated org-wide; v3.x has the accessibility patterns we need for the upcoming launch.
 
 References: design/CLAUDE.md, kb/component-migration.md.
-```
+````
 
 ---
 
