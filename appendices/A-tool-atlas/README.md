@@ -14,12 +14,12 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-05-29"
+updated: "2026-07-04"
 ---
 
 # Appendix A — Tool Atlas
 
-> **What this is.** A working map of the AI surfaces named across the playbook. Use it when you are unsure whether a job belongs in Claude Code, Claude.ai, Cowork, Compass, Slash, Cursor, Codex, or a more traditional IDE.
+> **What this is.** A working map of the AI surfaces named across the playbook. Use it when you are unsure whether a job belongs in Claude Code, Claude.ai, Claude Design, Cowork, Compass, Slash, Cursor, Codex, or a more traditional IDE.
 
 ---
 
@@ -29,6 +29,7 @@ updated: "2026-05-29"
 |---|---|---|
 | Claude Code | You are changing files in a repo, running commands, reading errors, or iterating on a PR. | Sensitive data dumping, long-form stakeholder writing, or work where the repo is irrelevant. |
 | Claude.ai | You need a thinking partner for synthesis, drafts, analysis, or exploration outside a codebase. | Repo edits, terminal work, or anything that must inspect local files. |
+| Claude Design | You are exploring UI, deck, or design concepts with Razorpay design-system context. | Repo edits, Blade compliance gates, or anything that must ship through a PR. |
 | Cowork | You want a guided enterprise assistant with approved connectors and repeatable non-code workflows. | Deep codebase surgery or local build/test loops. |
 | Compass | You need Razorpay-specific skills, hooks, MCPs, and policy-aware workflows inside Claude Code. | One-off general chat. Compass is the overlay, not the conversation surface. |
 | Slash | You need a named command or packaged workflow, especially for repeated internal tasks. | Open-ended exploration where the shape of the task is still unclear. |
@@ -84,6 +85,22 @@ For every surface in this atlas, you should be able to answer five questions bef
 **Common failure modes.** Drafting code there and pasting it into a Razorpay repo without going back through Claude Code. Code from Claude.ai does not know about Blade conventions, repo guardrails, or pre-ship checks. The fix is a habit: think in Claude.ai, ship in Claude Code.
 
 **Belt relevance.** All belts use Claude.ai for thinking and writing; none use it for shipping.
+
+### Claude Design
+
+**Surface type.** A Claude design workspace at [claude.ai/design](https://claude.ai/design), separate from Claude Code. It is useful for visual ideation and design-system-aware drafts, not for changing source code.
+
+**Default context.** The design system project you select in the workspace. For Razorpay design work, the Blade Design System project provides tokens, component anatomy, states, interaction patterns, and approved deck templates where available.
+
+**What it can see.** The design assets, deck inputs, screenshots, and prompt context you provide inside that workspace. It does not automatically see your local repo, your branch, or the Compass plugin context loaded in Claude Code.
+
+**What it can do.** Generate and iterate on design concepts, UI explorations, and Razorpay-branded deck drafts using the selected design system. A good prompt is explicit: "Use the Blade design system" or "Use the approved deck template."
+
+**What it cannot do.** Open a PR, run tests, verify Blade compliance in a codebase, or replace the Blade MCP / Blade audit path inside Claude Code. If the work needs to ship, move the intent into Claude Code and let the repo plus Compass guardrails drive the implementation.
+
+**Common failure modes.** Treating a pretty Claude Design output as production-ready code. Mixing up Claude Design with Claude Code. Forgetting that generated decks and visuals still need human review for names, numbers, confidential data, and brand fit.
+
+**Belt relevance.** Useful for designers and PMs from Yellow Belt onward as an ideation surface. Green Belt design-to-code work still ships through Claude Code with Figma, Blade, Code Connect, and review evidence.
 
 ### Cowork
 
@@ -163,6 +180,7 @@ Before you open a tool, run this filter in your head:
 
 - If the work edits files in a repo, default to Claude Code.
 - If the work is "think with me," default to Claude.ai.
+- If the work is visual ideation or a deck draft with design-system context, default to Claude Design.
 - If the work is non-code office workflow on a folder, default to Cowork.
 - If the work is internal-data research, default to Slash.
 - If the work needs visual file navigation, host Claude Code inside Cursor's terminal.
@@ -175,6 +193,8 @@ Before you open a tool, run this filter in your head:
 The atlas exists because these patterns keep happening and keep costing time.
 
 **Drafting code in Claude.ai, pasting into a repo.** Skips every guardrail Compass provides. Code that "looked clean" in chat lands in a PR with the wrong design-system component, the wrong prop names, or no test coverage. Always re-route through Claude Code before committing.
+
+**Treating Claude Design as the shipping path.** Claude Design is excellent for seeing options quickly. It is not a repo-aware implementation environment, and it does not replace the Blade MCP or review evidence. Move from visual intent to Claude Code before changing source.
 
 **Asking Claude Code to do non-code synthesis.** Treating it as a chat tool wastes its harness. If the task does not touch a file, a run, or a connector, do it in Claude.ai or Cowork.
 
