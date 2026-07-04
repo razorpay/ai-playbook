@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-03"
+updated: "2026-07-04"
 ---
 
 # W.5 - Installing the stack
@@ -208,7 +208,7 @@ If any of those five fails, you are YELLOW or RED — see the next section and r
 
 ## Common failure modes
 
-These are the eight shapes the support channel sees most often. Each has a known fix — try the fix before re-routing.
+These are the nine shapes the support channel sees most often. Each has a known fix — try the fix before re-routing.
 
 **1. Manager OOO blocks your MyAccess approval.** Symptom: you submitted the access request, manager is on leave, nothing moves. Fix: post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with `@techit` tagged and a one-line "manager OOO, requesting bypass." Admins bulk-approve in batches; expect ~1 hour business-time, then a fresh ~40-minute Azure AD sync window.
 
@@ -235,7 +235,9 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **8. `Unknown skill: login` after running `claude /login`.** Cause: `/login` is an in-session slash command, not a shell command. Running `claude /login` passes `/login` as prompt text and Claude tries to resolve it as a skill. Fix: run `claude` by itself and follow the browser SSO flow if prompted. If an editor extension session is stuck after setup, run `claude auth logout`, then `claude auth login`, restart the editor, and retry.
 
-If you hit a shape that isn't one of these eight, route it to `#ai-help` with: the command you ran, the redacted output, your machine class, and what you have already tried.
+**9. `claude native binary not installed`.** Symptom: `claude` is on PATH, but startup prints `Error: claude native binary not installed` with `postinstall`, `--ignore-scripts`, or `--omit=optional` wording. Cause: the JavaScript wrapper installed, but the platform-native Claude Code binary did not download or its postinstall step was skipped. Fix: rerun the Razorpay setup script from a fresh terminal, close old terminal windows, open a new one, then check `claude --version`. If it still fails, post the exact redacted output in `#ai-help`; do not copy the `node node_modules/@anthropic-ai/claude-code/install.cjs` path from the error unless support confirms the install location.
+
+If you hit a shape that isn't one of these nine, route it to `#ai-help` with: the command you ran, the redacted output, your machine class, and what you have already tried.
 
 ---
 
