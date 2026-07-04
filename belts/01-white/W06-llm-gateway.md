@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-02"
+updated: "2026-07-04"
 ---
 
 # W.6 - The LLM Gateway
@@ -53,6 +53,20 @@ The gateway exists so the organisation can control access, routing, observabilit
 3. **Observability and limits.** Every request lands in the LiteLLM dashboard with cost, latency, token count, and budget usage. That dashboard is the source of truth when claude.ai or Claude Desktop shows a different remaining balance.
 
 Without it, every builder would invent their own model path, and the program would become impossible to support.
+
+---
+
+## Don't accidentally burn your monthly budget
+
+Gateway usage is easier to understand when you think in **tokens**, not messages. One short prompt can become expensive if Claude Code is carrying a huge folder context, running a long agentic loop, asking a verbose reasoning model, or retrying the same task across multiple sessions. The dashboard is the bill; chat-window "messages left" indicators are only hints.
+
+Use this quick check before a long run:
+
+- **Scope the context.** Open Claude Code in the smallest relevant folder, or tell it exactly which files to read before it starts exploring.
+- **Pick the boring model first.** Use Sonnet for routine reading, summarising, and PR prep. Save Opus or heavyweight OSS routes for work that truly needs them.
+- **Cap the loop.** Ask for a plan, then approve one step at a time instead of "keep going until done" on a fuzzy task.
+- **Restart when the thread is bloated.** A fresh session with a crisp summary is often cheaper than dragging 80 turns of history behind every prompt.
+- **Check the dashboard after experiments.** If a run looks surprisingly expensive, inspect usage by session before repeating the pattern. Future-you deserves rent money.
 
 ---
 
