@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "frameworks", "rubric"]
-updated: "2026-04-26"
+updated: "2026-07-05"
 ---
 
 # N.8 — Evaluating new frameworks (a rubric)
@@ -114,6 +114,40 @@ Pace yourself — it's about an hour for a framework you've already skimmed; two
 5. **Share it with your team channel.** The summary is the artefact, not the verdict. Other people can disagree with the verdict and still trust the analysis.
 
 This is the rubric's contribution: making evaluation a *process* with an artefact, rather than a vibes-based opinion that lives in one head.
+
+### Copy/paste rubric card
+
+Use this when a teammate drops a new framework in Slack and the thread starts moving faster than the evidence. Fill it in before arguing for adoption; your future self will thank you, probably with fewer tabs open.
+
+```markdown
+# Framework evaluation: <name>
+
+## One-line verdict
+Adopt full / adopt partial / pass / revisit in <date>: <why>
+
+## Evidence read
+- Primary source: <README/blog/gist/docs>
+- Example use 1: <link>
+- Example use 2: <link>
+
+## Rubric answers
+1. Pillar strengthened: Prompt / Context / Harness — <specific evidence>
+2. Maintenance cost: <release cadence, owner, weekly upkeep>
+3. Buy-in needed: Solo / Team / Org — <who must change behaviour>
+4. Deepest concept: <one mental model the team must learn>
+5. Minimum viable adoption: <smallest safe trial>
+6. Relationship to current stack: Compose / Replace / Coexist awkwardly — <why>
+7. Failure mode: <how it rots in our hands>
+8. Exit path: <how we back out if the trial fails>
+
+## Trial proposal
+- Scope: <repo/team/workflow>
+- Duration: <1-2 weeks is usually enough>
+- Success signal: <observable behaviour or shipped artefact>
+- Stop condition: <what makes us abandon it early>
+```
+
+The card is intentionally boring. Boring is good here; framework selection should feel more like a design review and less like buying sneakers during a hype drop.
 
 ---
 
