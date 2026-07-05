@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.43 — policy-managed LiteLLM cap wording (2026-07-05)
+
+The 2026-07-05 `#ai-help` queue showed a builder's visible spend limit changing from `$100` to `$50` to `$20`; support clarified that per-model caps and total monthly budgets are centrally managed and can change based on platform policy or overall spend. The playbook should teach Day-1 builders to trust the gateway error and route business blockers, not treat one week's dollar amount as a durable entitlement.
+
+**What changed.**
+
+- **Quota wording depinned.** Prologue §0.3, W.5, Appendix D, Appendix F, and H.7 now describe current caps as LiteLLM-managed policy values rather than fixed promise amounts.
+- **Escalation path preserved.** The fix still distinguishes model-family caps from total-budget exhaustion and keeps manager-approved `#ai-help` exception review as the blocker path.
+- **Version markers bumped.** README and INDEX now report v0.43 / 2026-07-05 for this quota-language correction.
+
 ## v0.42 — LiteLLM total-cap clarification (2026-07-03)
 
 The 2026-07-03 support thread clarified that the `$750` LiteLLM total budget is enforced across all gateway models, including OSS routes like `glm-5p2`; a personal Claude Max plan is not a bypass for Razorpay's gateway cap. The prior wording correctly taught model-family fallbacks, but it still implied OSS was separate enough to try after total `Budget=750.0` exhaustion.
