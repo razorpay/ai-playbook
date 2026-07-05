@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-03"
+updated: "2026-07-05"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -105,13 +105,13 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 ### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 
-**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; a model that worked yesterday is now restricted; or `#ai-help` says quota extensions are not being granted by default. The claude.ai usage page may show a different remaining balance.
+**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; a model that worked yesterday is now restricted; a visible spend limit drops; or `#ai-help` says quota extensions are not being granted by default. The claude.ai usage page may show a different remaining balance.
 
-**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway, not the separate claude.ai usage page. The CLI path has a $750 total cap across all enabled gateway models, including OSS routes such as `glm-5p2`; model-family limits such as Opus $300, Sonnet $200, and GPT $100 can still run out earlier.
+**Diagnosis.** Claude Code usage is governed by the LiteLLM gateway, not the separate claude.ai usage page. The CLI path has a centrally managed total cap across enabled gateway models, including OSS routes such as `glm-5p2`; model-family limits for Opus, Sonnet, GPT, or OSS routes can still run out earlier. Support can change these caps based on platform policy or overall spend, so do not treat any dollar amount you saw last week as a durable entitlement.
 
-**Fix.** Treat the LiteLLM error as authoritative. If you hit a model-family sublimit, move routine work to Sonnet, Codex, or an enabled OSS model; quota bumps are not automatic. If the error shows total `Budget=750.0` exhaustion, do not expect another gateway model, OSS route, or personal Claude Max plan to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
+**Fix.** Treat the LiteLLM error as authoritative. If you hit a model-family sublimit, move routine work to Sonnet, Codex, or an enabled OSS model; quota bumps are not automatic. If the error shows total-budget exhaustion, do not expect another gateway model, OSS route, or personal Claude Max plan to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
 
-**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819).
+**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), `#ai-help` policy-managed cap response 2026-07-05.
 
 ### D.7 — Usage not visible in the LiteLLM dashboard (status: fixed)
 

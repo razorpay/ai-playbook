@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-04"
+updated: "2026-07-05"
 ---
 
 # W.5 - Installing the stack
@@ -229,7 +229,7 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **5. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Claude Code's model picker still lists Opus 4.7 or other retired labels, treat the picker as stale and use the direct `/model claude-opus-4-8` command instead. If the gateway says `key_model_access_denied`, enable Opus 4.8 on your LiteLLM key and retry after two to three minutes. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled OSS model for routine work; Opus is for deep reasoning, not the everyday default.
 
-**6. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, or a quota-increase request is declined. Code usage should go through LiteLLM in the CLI: the total per-builder cap remains $750 across all enabled gateway models, including OSS routes, with model-family limits for Opus ($300), Sonnet ($200), and GPT ($100) able to run out earlier. Fix: first check whether you hit a model-family limit or the total LiteLLM cap. For a model-family limit, move everyday work to Sonnet, Codex, or an enabled OSS model instead of asking for an automatic bump. For a total `Budget=750.0` exhaustion, do not expect another gateway model, OSS route, or personal Claude Max plan to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
+**6. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, the visible spend limit changes, or a quota-increase request is declined. Code usage should go through LiteLLM in the CLI: the gateway applies the current total cap across enabled gateway models and can also enforce model-family limits for Opus, Sonnet, GPT, or OSS routes. These numbers are centrally managed and can change with platform policy or spend controls, so the gateway error is the source of truth. Fix: first check whether you hit a model-family limit or the total LiteLLM cap. For a model-family limit, move everyday work to Sonnet, Codex, or an enabled OSS model instead of asking for an automatic bump. For total-budget exhaustion, do not expect another gateway model, OSS route, or personal Claude Max plan to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
 
 **7. Usage not visible in the LiteLLM dashboard.** Cause: shell-level env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. Fix: `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in your current shell, then check `~/.bashrc` / `~/.zshrc` and remove any persisted overrides. Restart terminal.
 
