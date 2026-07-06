@@ -14,7 +14,7 @@ next: "prologue/operating-principles"
 pillar: null
 belt: null
 tags: ["orientation", "support", "directory"]
-updated: "2026-06-16"
+updated: "2026-07-06"
 ---
 
 # 0.6 — Meet the people (roles, forums, the support surface)
@@ -51,7 +51,7 @@ The handful of named roles (by what they do, not by who currently does them) tha
 
 The person ultimately accountable for the org-wide AI rollout, the LiteLLM gateway, the access provisioning, and the support channel. They run the cadence, set the OKRs, and adjudicate edge cases when the rules don't quite fit a situation. On the engineering rollout side, they pair with the engineering co-lead who owns the setup-script tooling and the infrastructure plumbing.
 
-> **Current as of 2026-05-13:** Bhanu Prakash Rayapati (`@Bhanu Prakash Rayapati`) leads the program; Kaushik Bhat (`@kb`) is the engineering co-lead. The setup-script tooling specifically is owned by Prafulla Anurag (`@prafulla`), and `@RKV` is the standard escalation for usage-cap and Vertex-migration questions.
+> **Current as of 2026-05-13:** Bhanu Prakash Rayapati (`@Bhanu Prakash Rayapati`) leads the program; Kaushik Bhat (`@kb`) is the engineering co-lead. The setup-script tooling specifically is owned by Prafulla Anurag (`@prafulla`). Usage-cap and retired migration questions now route through [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD), with business justification and manager approval visible in-thread when a quota exception is needed.
 
 When to engage: when you're not sure whether something counts as belt-progress, when a recipe in this playbook seems wrong-shaped for your team, when you have feedback that should change the playbook itself. For setup/install/access friction, the first hop is the support channel ([`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD)) rather than the program lead directly — the channel routes faster.
 
