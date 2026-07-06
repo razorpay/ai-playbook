@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-04"
+updated: "2026-07-06"
 ---
 
 # W.6 - The LLM Gateway
@@ -28,7 +28,7 @@ This module is intentionally short. The goal is vocabulary and a quick way to tr
 ## If you're short on time
 
 - The gateway is `https://llm-gateway.razorpay.com`. It runs **LiteLLM**, an open-source model proxy.
-- Every Claude Code request from your laptop goes through it. The gateway authenticates your personal key, applies the current model-family limits, routes to the enabled model, and records the usage.
+- Every Claude Code request from your laptop goes through it. The gateway authenticates your personal key, checks whether the requested model is enabled for that key, applies the current access and budget rules, routes to the model, and records the usage.
 - The setup script in [W.5](W05-installing-the-stack.md) writes everything you need into `~/.claude/settings.json`. You should not hand-edit it.
 - If a gateway call fails, capture the short error and route it. Do not try to bypass it.
 
@@ -99,7 +99,7 @@ In one paragraph, explain what a pull request is to a first-time builder.
 ```
 
 - **Both work** → harness and gateway are alive. Trust the verification skill and move on.
-- **First works, second fails** → the harness is alive but the gateway request failed. Read the short error: it will be `401` (key issue), `403` (stale Vertex env vars from the old setup), `429` (quota), or a timeout. See [W.5 common failure modes](W05-installing-the-stack.md#common-failure-modes).
+- **First works, second fails** → the harness is alive but the gateway request failed. Read the short error: `401` usually means key issue; `403` means either stale Vertex env vars *when the error mentions `aiplatform.googleapis.com`* or missing model access *when it says your key can only access another model list*; `429` means quota or rate limit; a timeout needs routing. See [W.5 common failure modes](W05-installing-the-stack.md#common-failure-modes).
 - **Both fail** → likely local setup. Re-verify W.5.
 
 ---
@@ -124,6 +124,8 @@ The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failu
 **`401 authentication_error`.** Your LiteLLM key rotated or expired. Re-run the setup script; it re-mints the key into `~/.claude/settings.json`.
 
 **`403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`.** Stale Vertex env vars in your shell rc from the pre-March-2026 setup. Remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, and `CLOUD_ML_REGION` from `~/.bashrc` / `~/.zshrc`, restart your terminal.
+
+**`403 key not allowed to access model` or `This key can only access models=[...]`.** Your LiteLLM key exists, but the requested model is not enabled on it. Go to `https://llm-gateway.razorpay.com/auth`, enable the active model you need (for example, `claude-opus-4-8`), wait two to three minutes for the gateway cache to refresh, then restart the Claude Code session and retry.
 
 **`exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Those Opus defaults are retired. Enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. Use Sonnet or enabled OSS models for routine work when Opus 4.8 is capped.
 
