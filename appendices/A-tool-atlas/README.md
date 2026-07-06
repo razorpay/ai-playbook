@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-04"
+updated: "2026-07-06"
 ---
 
 # Appendix A — Tool Atlas
@@ -34,7 +34,7 @@ updated: "2026-07-04"
 | Compass | You need Razorpay-specific skills, hooks, MCPs, and policy-aware workflows inside Claude Code. | One-off general chat. Compass is the overlay, not the conversation surface. |
 | Slash | You need a named command or packaged workflow, especially for repeated internal tasks. | Open-ended exploration where the shape of the task is still unclear. |
 | Cursor | You want an IDE-native coding assistant inside an editor workflow. | Program-specific belt flows that depend on Compass conventions. |
-| Codex | You want a coding agent that can inspect and edit the local workspace, especially for technical implementation and verification. | Document-only work that needs no local files or execution. |
+| Codex | Support has routed you to the approved OpenAI workspace for bounded implementation, verification, overflow, or a second-agent check. | Program certification work that depends on Compass skills, Razorpay connectors, or Claude Code guardrails. |
 
 The pattern: **pick the surface that can see the right context and take the right action.** A better model with the wrong visibility still fails.
 
@@ -168,9 +168,17 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 ### Codex / non-Claude coding tools
 
-**Why it is mentioned.** Builders sometimes ask whether OpenAI's Codex CLI, GitHub Copilot, or other agents are interchangeable with Claude Code. For program purposes, they are not, because the Compass plugin, the skill library, and the connector trust list are Claude-shaped.
+**Surface type.** A coding-agent workspace outside the Claude Code + Compass path. Codex can inspect and edit a local workspace, but it does not automatically inherit Razorpay's Claude-shaped skills, hooks, MCPs, or connector approvals.
 
-**When you might still use one.** Comparison work, evaluating a new model surface, or cases where a teammate is already deep in another stack. The atlas does not forbid it; the program just does not certify against it.
+**Default context.** The workspace or app session you open, plus whatever files and plugins that surface is allowed to access. Access itself is controlled separately: request Codex through MyAccess, get the manager approval, accept the OpenAI workspace invite, then launch from MyApps or the Self Service desktop app where available.
+
+**What it can do.** Bounded implementation, verification, second opinions, and overflow work when Claude-family or LiteLLM limits block routine progress. It is useful when support explicitly says "use Codex for this task" or when you want a different model family to inspect a narrow change.
+
+**What it cannot do.** Replace Claude Code as the belt path. It does not make Compass checks optional, and plugin access can still be blocked by org OAuth or security policy even after the base workspace works.
+
+**Common failure modes.** Assuming a Codex plugin has the same connector approval as Claude Code. Treating Codex output as ready to ship without bringing it back through Claude Code, Compass, tests, and the normal PR review path.
+
+**Belt relevance.** Optional fallback from Yellow Belt onward. White Belt still establishes Claude Code + Compass because that is the certified program spine.
 
 ---
 
@@ -184,6 +192,7 @@ Before you open a tool, run this filter in your head:
 - If the work is non-code office workflow on a folder, default to Cowork.
 - If the work is internal-data research, default to Slash.
 - If the work needs visual file navigation, host Claude Code inside Cursor's terminal.
+- If support routes you to Codex for overflow or verification, use it for the bounded task and bring the result back through Claude Code before shipping.
 - If you cannot tell what shape of work it is, name the work in one sentence first; the right tool usually appears in the sentence.
 
 ---
@@ -201,6 +210,8 @@ The atlas exists because these patterns keep happening and keep costing time.
 **Using Slash for build tasks.** Slash is a research and discovery surface, not a builder. Pulling code out of it and shipping it skips the policy layer.
 
 **Running two parallel sessions and hoping they synchronise.** Cursor's side panel and Claude Code in the terminal are different sessions. Pick one to drive a given task.
+
+**Treating Codex as a Compass clone.** Codex may be approved for the coding task, but its plugins and connectors are governed separately. If a plugin auth fails, do not work around it by pasting sensitive data into the session. Route the plugin/access issue through the support path and keep shipping changes behind Claude Code + Compass review.
 
 **Sending sensitive data to the wrong surface.** PII, secrets, customer-identifying records, and money-handling fragments belong in approved surfaces only. The safety brief in Prologue 0.11 and the redline cards in Appendix H are the canonical references.
 
