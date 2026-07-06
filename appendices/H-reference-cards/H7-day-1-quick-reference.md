@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-05"
+updated: "2026-07-06"
 ---
 
 # H.7 — Day-1 quick reference
@@ -143,7 +143,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` | remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION` from `~/.bashrc`/`~/.zshrc`; re-run setup; restart terminal |
 | `401 authentication_error` after laptop restart | re-run the setup script (re-mints the LiteLLM key) |
 | `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7` | switch the retired Opus default to `claude-opus-4-8` — enable it in LiteLLM, then run `/model claude-opus-4-8` or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` |
-| Hit a model-wise or LiteLLM usage limit | trust LiteLLM over claude.ai usage; caps can change centrally; for model-family caps, try Sonnet, Codex, or enabled OSS for routine work; if the total budget is exhausted, another gateway model, OSS route, or personal Claude Max plan will not bypass it — wait for reset or post in `#ai-help` with manager approval for approved exceptions |
+| Hit a model-wise or LiteLLM usage limit | trust LiteLLM over claude.ai usage; caps can change centrally; for frontier-model caps, try Sonnet, Codex, or enabled open-weight models for routine work; if the total budget is exhausted, another gateway model, open-weight route, or personal Claude Max plan will not bypass it — wait for reset or post in `#ai-help` with manager approval for approved exceptions |
 | Usage missing from LiteLLM dashboard | `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in current shell; remove persisted overrides from `~/.bashrc`/`~/.zshrc`; restart terminal |
 | Anything else | post in `#ai-help` with: command run, redacted output, machine class, what you tried |
 
@@ -162,7 +162,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-07-05. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-07-06. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 

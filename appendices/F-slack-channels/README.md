@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-07-05"
+updated: "2026-07-06"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
@@ -136,7 +136,7 @@ Quick reference for "where does this question go?". Full role-and-forum mapping 
 | Can't install Claude Code; `claude --version` not found; setup script erroring | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) |
 | Can't see Claude AI in MyAccess; manager OOO blocking approval | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with `@techit` tagged |
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`; stale Vertex env vars | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — see [W.5 failure mode #3](../../belts/01-white/W05-installing-the-stack.md) |
-| Retired Opus-model error (for example, `exceeded budget for model=claude-opus-4-6`) or total-budget exhaustion | For `4-6`/`4-7`, switch the Opus default to `claude-opus-4-8`. For a model-family cap, try Sonnet, an OSS model via LiteLLM, or Codex where appropriate. If the total budget is exhausted, the visible cap changed, or the work is business-blocking, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with manager approval visible; see [D.5](../D-known-issues/README.md#d5--retired-opus-default-still-points-at-claude-opus-4-6-status-workaround) and [D.6](../D-known-issues/README.md#d6--hit-a-model-wise-or-litellm-usage-limit-status-workaround). |
+| Retired Opus-model error (for example, `exceeded budget for model=claude-opus-4-6`) or total-budget exhaustion | For `4-6`/`4-7`, switch the Opus default to `claude-opus-4-8`. For a frontier-model cap, try Sonnet, Codex, or an enabled open-weight model via LiteLLM where appropriate. If the total budget is exhausted, the visible cap changed, or the work is business-blocking, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with manager approval visible; see [D.5](../D-known-issues/README.md#d5--retired-opus-default-still-points-at-claude-opus-4-6-status-workaround) and [D.6](../D-known-issues/README.md#d6--hit-a-model-wise-or-litellm-usage-limit-status-workaround). |
 | Razorpay devstack / local environment broken | [`#devstack-onboarding-support`](https://razorpay.slack.com/archives/C08T27QH5L4) |
 | Cowork desktop app issue | [`#cowork-help`](https://razorpay.slack.com/archives/C0B0G3NGLP6) |
 | Blade component question; design-system compliance | [`#design-system`](https://razorpay.slack.com/archives/CMQ3RBHEU) or [`#experience_fe_core`](https://razorpay.slack.com/archives/C01H13RTF8V) ticket |
@@ -179,4 +179,4 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 ---
 
-*Last reviewed: 2026-07-05. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
+*Last reviewed: 2026-07-06. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*

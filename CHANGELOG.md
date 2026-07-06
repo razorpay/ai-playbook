@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.44 — open-weight quota wording (2026-07-06)
+
+The 2026-07-06 `#ai-help` queue clarified the quota model one notch further: each engineer has a monthly budget with per-model caps for frontier models, while open-weight models such as Kimi, Qwen, and DeepSeek draw from the overall budget without per-model caps. The v0.43 wording correctly depinned dollar amounts, but overgeneralised sublimits to OSS routes.
+
+**What changed.**
+
+- **Open-weight fallback wording corrected.** W.5, Appendix D, Appendix F, and H.7 now distinguish frontier-model caps from open-weight models that draw from the overall LiteLLM budget.
+- **Total-budget caveat preserved.** The fix still says another gateway model or personal Claude Max plan will not bypass total-budget exhaustion.
+- **Version markers bumped.** README and INDEX now report v0.44 / 2026-07-06 for this quota-wording correction.
+
 ## v0.43 — policy-managed LiteLLM cap wording (2026-07-05)
 
 The 2026-07-05 `#ai-help` queue showed a builder's visible spend limit changing from `$100` to `$50` to `$20`; support clarified that per-model caps and total monthly budgets are centrally managed and can change based on platform policy or overall spend. The playbook should teach Day-1 builders to trust the gateway error and route business blockers, not treat one week's dollar amount as a durable entitlement.
