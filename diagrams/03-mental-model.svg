@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
   <title id="title">The five-layer mental model of the AI development stack</title>
-  <desc id="desc">A vertical stack from Files at the bottom through Terminal and Git, the LLM Gateway, the Compass plugin, Claude Code, and the user at the top. Setup runs alongside as Layer 0.</desc>
+  <desc id="desc">A vertical stack from Files at the bottom through Terminal and Git, the LiteLLM Gateway, Compass plus plugins, and Claude Code at the top.</desc>
   <defs>
     <style>
       :root { --fg: #1F2937; --bg: #FFFFFF; --fg-muted: #6B7280; --accent: #6366F1; }
@@ -30,71 +30,71 @@
 
   <!-- Title -->
   <text x="600" y="42" text-anchor="middle" class="title">The five-layer mental model</text>
-  <text x="600" y="68" text-anchor="middle" class="subtitle">What happens between your fingers and a running dashboard. Layer 0 (Setup) runs alongside.</text>
+  <text x="600" y="68" text-anchor="middle" class="subtitle">What happens between your intent and a running dashboard.</text>
 
-  <!-- Layer 5: User (top) -->
+  <!-- Layer 5: Claude Code (top) -->
   <g transform="translate(280, 110)">
     <rect class="layer" x="0" y="0" width="640" height="64" rx="8"/>
     <text x="20" y="28" class="layer-num">LAYER 5</text>
-    <text x="20" y="50" class="layer-name">You · the user</text>
-    <text x="620" y="40" text-anchor="end" class="layer-detail">prompts · intent · review</text>
+    <text x="20" y="50" class="layer-name">Claude Code · the harness</text>
+    <text x="620" y="40" text-anchor="end" class="layer-detail">CLI · diffs · permissions</text>
   </g>
   <line class="arrow" x1="600" y1="174" x2="600" y2="206" marker-end="url(#arrow-up)" transform="rotate(180 600 190)"/>
 
-  <!-- Layer 4: Claude Code -->
+  <!-- Layer 4: Compass plugin + skills -->
   <g transform="translate(280, 210)">
     <rect class="layer" x="0" y="0" width="640" height="64" rx="8"/>
     <text x="20" y="28" class="layer-num">LAYER 4</text>
-    <text x="20" y="50" class="layer-name">Claude Code · the agent</text>
-    <text x="620" y="40" text-anchor="end" class="layer-detail">CLI · permissions · slash commands</text>
+    <text x="20" y="50" class="layer-name">Compass + Plugins</text>
+    <text x="620" y="40" text-anchor="end" class="layer-detail">skills · hooks · MCPs</text>
   </g>
   <line class="arrow" x1="600" y1="274" x2="600" y2="306" marker-end="url(#arrow-up)" transform="rotate(180 600 290)"/>
 
-  <!-- Layer 3: Compass plugin + skills -->
+  <!-- Layer 3: LiteLLM Gateway -->
   <g transform="translate(280, 310)">
     <rect class="layer" x="0" y="0" width="640" height="64" rx="8"/>
     <text x="20" y="28" class="layer-num">LAYER 3</text>
-    <text x="20" y="50" class="layer-name">Plugins · skills · hooks</text>
-    <text x="620" y="40" text-anchor="end" class="layer-detail">Compass plugin · MCP connectors</text>
+    <text x="20" y="50" class="layer-name">LiteLLM Gateway</text>
+    <text x="620" y="40" text-anchor="end" class="layer-detail">auth · routing · policy</text>
   </g>
   <line class="arrow" x1="600" y1="374" x2="600" y2="406" marker-end="url(#arrow-up)" transform="rotate(180 600 390)"/>
 
-  <!-- Layer 2: LLM Gateway -->
+  <!-- Layer 2: Terminal + Git -->
   <g transform="translate(280, 410)">
     <rect class="layer" x="0" y="0" width="640" height="64" rx="8"/>
     <text x="20" y="28" class="layer-num">LAYER 2</text>
-    <text x="20" y="50" class="layer-name">LLM Gateway</text>
-    <text x="620" y="40" text-anchor="end" class="layer-detail">LiteLLM gateway · Anthropic API · policy</text>
+    <text x="20" y="50" class="layer-name">Terminal + Git</text>
+    <text x="620" y="40" text-anchor="end" class="layer-detail">shell · branches · commands</text>
   </g>
   <line class="arrow" x1="600" y1="474" x2="600" y2="506" marker-end="url(#arrow-up)" transform="rotate(180 600 490)"/>
 
-  <!-- Layer 1: Terminal + Git -->
+  <!-- Layer 1: Files -->
   <g transform="translate(280, 510)">
     <rect class="layer" x="0" y="0" width="640" height="64" rx="8"/>
     <text x="20" y="28" class="layer-num">LAYER 1</text>
-    <text x="20" y="50" class="layer-name">Terminal · Git · files</text>
-    <text x="620" y="40" text-anchor="end" class="layer-detail">shell · branches · commits</text>
+    <text x="20" y="50" class="layer-name">Files</text>
+    <text x="620" y="40" text-anchor="end" class="layer-detail">source · diffs · repo truth</text>
   </g>
   <line class="arrow" x1="600" y1="574" x2="600" y2="606" marker-end="url(#arrow-up)" transform="rotate(180 600 590)"/>
 
-  <!-- Layer 0 (foundation, full width at bottom) -->
+  <!-- Debug note (foundation, full width at bottom) -->
   <g transform="translate(280, 610)">
     <rect class="layer" x="0" y="0" width="640" height="44" rx="8" style="stroke-dasharray: 6 6;"/>
-    <text x="20" y="28" class="layer-name" style="font-size: 16px;">Layer 0 · Files &amp; filesystem · the floor</text>
+    <text x="20" y="28" class="layer-name" style="font-size: 16px;">Debug by naming the stuck layer; act from files upward.</text>
   </g>
 
   <!-- Setup boundary (dashed envelope on the left) -->
   <g transform="translate(50, 110)">
     <path class="setup-band" d="M180,0 L0,0 L0,540 L180,540"/>
-    <text x="90" y="280" text-anchor="middle" class="setup-text" transform="rotate(-90 90 280)">Setup · Layer 0 health</text>
+    <text x="90" y="280" text-anchor="middle" class="setup-text" transform="rotate(-90 90 280)">Setup keeps all layers healthy</text>
   </g>
 
   <!-- Annotation column on the right -->
   <g transform="translate(960, 110)">
     <text x="0" y="28" class="layer-detail" style="font-weight: 600; fill: var(--fg);">where the belts live</text>
-    <text x="0" y="56" class="layer-detail">⚪ White · Layers 0–2 (setup, terminal)</text>
-    <text x="0" y="80" class="layer-detail">🟡 Yellow · Layers 3–4 (Claude Code)</text>
+    <text x="0" y="56" class="layer-detail">⚪ White · setup + gateway foundations</text>
+    <text x="0" y="80" class="layer-detail">🟡 Yellow · Claude Code practice</text>
     <text x="0" y="104" class="layer-detail">🟢 Green · all five (engineering around)</text>
-    <text x="0" y="128" class="layer-detail">⚫ Black · authors Layer 3 (skills, plugins)</text>
+    <text x="0" y="128" class="layer-detail">⚫ Black · authors skills + plugins</text>
   </g>
 </svg>
