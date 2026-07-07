@@ -59,6 +59,8 @@ claude plugin install analytics-agent@razorpay-marketplace
 
 Inside Claude, run `/analytics-setup`, `/analytics-onboard`, then use `/analytics-query` for metric questions and `/analytics-review` for health reviews. This is the replacement path for the old Compass `querying-metrics` skill.
 
+Native Windows caveat: the analytics plugin currently assumes a Unix-like surface (`bash`, `python3`, shell-launched connectors, and POSIX locking for tracing). If you are on Windows, do **not** try to hand-port it; ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the approved WSL2 or remote Linux path before installing.
+
 ---
 
 ## The five GREEN checks (Quest W-0)
