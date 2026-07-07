@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-06"
+updated: "2026-07-07"
 ---
 
 # H.7 — Day-1 quick reference
@@ -26,6 +26,8 @@ updated: "2026-07-06"
 ## The two-step install
 
 **Step 1 — Get access.** [myaccess.microsoft.com](https://myaccess.microsoft.com) → search "Claude AI" → submit → manager approves → wait ~30–40 minutes for Azure AD sync → install Claude Desktop from Self Service → sign into [claude.ai](https://claude.ai) with SSO.
+
+Use Desktop/claude.ai to confirm your enterprise seat and for chat/co-work only. Do **not** treat Desktop as the code path: product announced on 2026-07-07 that Claude Code on Claude Desktop is being disabled, so code work should use the terminal Claude Code + LiteLLM setup below.
 
 **Step 2 — Install Claude Code.** Run this in your terminal, then restart the terminal:
 
@@ -162,7 +164,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-07-06. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-07-07. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 
