@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.45 — mental-model gateway diagram alignment (2026-07-07)
+
+The Prologue §0.3 five-layer chapter had two bits of drift: the prose still described the LiteLLM gateway as routing only to Claude models, while W.6 now teaches enabled Claude/GPT/approved open-weight routes; the rendered SVG also labelled the user as Layer 5 even though the same chapter defines Layer 5 as Claude Code and Layer 1 as Files.
+
+**What changed.**
+
+- **Gateway wording aligned.** Prologue §0.3 now describes LiteLLM as applying current model-family policy and routing to enabled provider routes instead of hardcoding Anthropic-only routing.
+- **Diagram aliases corrected.** Both `03-mental-model.svg` and the canonical `5-layer-mental-model.svg` now use the same Layer 1–5 ordering as the chapter text and ASCII diagram.
+- **Version markers bumped.** README and INDEX now report v0.45 / 2026-07-07 for this mental-model correction.
+
 ## v0.44 — open-weight quota wording (2026-07-06)
 
 The 2026-07-06 `#ai-help` queue clarified the quota model one notch further: each engineer has a monthly budget with per-model caps for frontier models, while open-weight models such as Kimi, Qwen, and DeepSeek draw from the overall budget without per-model caps. The v0.43 wording correctly depinned dollar amounts, but overgeneralised sublimits to OSS routes.

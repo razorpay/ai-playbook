@@ -14,7 +14,7 @@ next: "prologue/enablement-stack"
 pillar: null
 belt: null
 tags: ["orientation", "mental-model"]
-updated: "2026-07-05"
+updated: "2026-07-07"
 ---
 
 # 0.3 — The 5-Layer Mental Model of the AI Dev Stack
@@ -29,7 +29,7 @@ The AI dev stack has five layers. From bottom to top:
 
 1. **Files** — the code on disk. The ground truth. Everything else is a wrapper around changing files.
 2. **Terminal + Git** — how you move between versions of files and tell the machine what to do.
-3. **LiteLLM Gateway** — the model backend. Your prompt travels through Razorpay's LiteLLM gateway at `llm-gateway.razorpay.com`, which routes it to the right Claude model (Sonnet, Opus, Haiku) and bills centrally. You don't pay per token, and you never handle a model-provider API key.
+3. **LiteLLM Gateway** — the model backend. Your prompt travels through Razorpay's LiteLLM gateway at `llm-gateway.razorpay.com`, which routes it to an enabled provider (Claude, GPT, or approved open-weight models) and bills centrally. You don't pay per token, and you never handle a model-provider API key.
 4. **Compass + Plugins**: the Razorpay-specific overlay: skills, hooks, MCPs, slash-commands, subagents. This is the layer that makes Claude "know" our repo, our design system, our review conventions.
 5. **Claude Code** — the harness you actually type into. The terminal app that reads/writes files, runs commands, and talks to the model through the gateway via Compass.
 
@@ -80,9 +80,9 @@ Here is the mental picture. Use the rendered version first, and keep the text fo
                             ▼
    ┌──────────────────────────────────────────────────────────────┐
    │  LAYER 3  ·  LITELLM GATEWAY (the model backend)             │
-   │  llm-gateway.razorpay.com — routes to Claude Sonnet/Opus/    │
-   │  Haiku and bills centrally. No per-token cost. No API keys   │
-   │  to manage; the setup script writes a personal LiteLLM key   │
+   │  llm-gateway.razorpay.com — routes to enabled Claude/GPT/    │
+   │  open-weight models and bills centrally. No API keys to       │
+   │  manage; the setup script writes a personal LiteLLM key       │
    │  into ~/.claude/settings.json.                                │
    └──────────────────────────────────────────────────────────────┘
                             │  returns text / tool calls
@@ -135,9 +135,9 @@ Node/pnpm/nvm live here too — the JavaScript runtime and package managers that
 
 This is the layer that usually confuses people the most, because it's invisible.
 
-When you type a question to Claude, Claude Code does not have a tiny model on your laptop thinking about your question. It packages your prompt, your file context, and your conversation history into a network request and sends it to **the LiteLLM gateway at `llm-gateway.razorpay.com`**. LiteLLM authenticates your personal key, picks the right Claude model (Sonnet by default, Opus or Haiku when you ask), forwards the request to Anthropic, captures the response and the usage record, and returns the response to Claude Code. Every single time.
+When you type a question in Claude Code, the harness does not have a tiny model on your laptop thinking about your question. It packages your prompt, your file context, and your conversation history into a network request and sends it to **the LiteLLM gateway at `llm-gateway.razorpay.com`**. LiteLLM authenticates your personal key, applies the current model-family policy, forwards the request to an enabled provider route (Claude, GPT, or approved open-weight models), captures the response and the usage record, and returns the response to Claude Code. Every single time.
 
-Why a centralised gateway and not the Anthropic API directly? Three reasons, all practical:
+Why a centralised gateway and not a provider API directly? Three reasons, all practical:
 
 1. **Centralised billing and quota.** Razorpay buys model capacity once and shares it across builders. Your prompts are billed against an org-managed budget, not your personal credit card. You never paste an Anthropic API key. LiteLLM is the source of truth for the current total cap and any model-family sublimits, even when the claude.ai usage page shows a different number. Those caps can change with platform policy and spend controls, so treat the number in the gateway error as authoritative. If an exception is approved for your work, route it through [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with manager approval visible.
 2. **Observability.** Every request lands in the LiteLLM dashboard with cost, model, latency, and tokens. That is how the program understands what is being built, what is expensive, and where to invest.
