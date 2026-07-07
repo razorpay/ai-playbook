@@ -14,14 +14,14 @@ next: "belts/green/pii-pci-rbi"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "llm-proxy", "litellm", "harness"]
-updated: "2026-06-16"
+updated: "2026-07-07"
 ---
 
 # G.23 — The LLM proxy
 
 Every approved model call from a Razorpay program-pinned environment routes through an LLM proxy. The proxy is not a performance overhead; it is a safety, observability, and policy layer that makes the program defensible to security, compliance, and finance teams. This chapter is what every Green Belt builder should know about that layer: what LiteLLM does, what the proxy lets the program do that direct API calls cannot, and how to debug when the proxy itself is the friction.
 
-> **Migration note.** Until March 2026, the proxy's upstream was Google Vertex AI. Today it is Anthropic's API directly. The chapter's frame — scan, log, gate, attribute — is unchanged; only the egress hop changed.
+> **Migration note.** Until March 2026, the proxy's upstream was Google Vertex AI. Today LiteLLM routes to the enabled provider for the selected model — Claude, GPT, or an approved open-weight route depending on the current rollout. The chapter's frame — scan, log, gate, attribute — is unchanged; only the provider hop changed.
 
 ---
 
@@ -54,8 +54,8 @@ Every approved model call from a Razorpay program-pinned environment routes thro
    │                       │                           │
    │                       ▼                           │
    │              ┌──────────────────┐               │
-   │              │   ANTHROPIC API  │               │
-   │              │   (model host)   │               │
+   │              │ ENABLED PROVIDER │               │
+   │              │ Claude/GPT/OSS   │               │
    │              └──────────────────┘               │
    │                                                  │
    └────────────────────────────────────────────────┘
@@ -68,7 +68,7 @@ Every link in the chain has a job:
 - **Proxy → model host:** the egress to the actual provider. The model itself does not see the calling team's identity; the proxy holds that mapping.
 - **Response back through the chain:** the response can be classified (G.25's output classifiers) before it reaches the client.
 
-LiteLLM is the open-source proxy that Razorpay's program-pinned setup uses. The upstream is Anthropic's API (post the March-2026 migration off Google Vertex AI); LiteLLM holds the provider credentials so individual builders never see them.
+LiteLLM is the open-source proxy that Razorpay's program-pinned setup uses. The upstream is the enabled provider route for the selected model (post the March-2026 migration off Google Vertex AI); LiteLLM holds the provider credentials so individual builders never see them.
 
 ---
 
@@ -98,7 +98,7 @@ Per-team and per-builder rollups. The cost dashboard from G.20 reads from the pr
 
 ## Why direct model calls are not approved
 
-A builder might wonder: "I have a Claude API key; why do I need to route through a proxy?" The answer is that a direct call:
+A builder might wonder: "I have a provider API key; why do I need to route through a proxy?" The answer is that a direct call:
 
 - bypasses the redline scan;
 - does not generate the audit log;
@@ -146,7 +146,7 @@ A response that used to take two seconds now takes thirty. Two layers to check.
 
 **Layer 1.** The proxy itself. The proxy is generally fast (single-digit ms overhead); a sustained slowness usually means the proxy is rate-limiting or queuing.
 
-**Layer 2.** The model-host hop. Regional latency at Anthropic varies. A slowdown is usually transient; if it persists, the program lead has the dashboards.
+**Layer 2.** The model-provider hop. Regional latency and provider queues vary by enabled route. A slowdown is usually transient; if it persists, the program lead has the dashboards.
 
 The right move on a transient slowdown: wait, retry. The right move on a sustained slowdown: report via [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); do not switch off the proxy.
 
@@ -208,5 +208,5 @@ G.24 (*PII / PCI / RBI*) names the regulators behind the redlines. The proxy enf
 **Further reading**
 
 - [LiteLLM docs](https://docs.litellm.ai/) — the open-source proxy
-- [Anthropic API docs](https://platform.claude.com/docs) — the current upstream
+- [W.6 — The LLM Gateway](../../01-white/W06-llm-gateway.md) — the Day-1 source of truth for enabled-provider routing
 - [G.20 — Observability with AI](../b-practices/G20-observability-with-ai.md) — the cost dashboard reads proxy data
