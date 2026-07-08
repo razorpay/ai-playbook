@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-07"
+updated: "2026-07-08"
 ---
 
 # H.7 — Day-1 quick reference
@@ -132,7 +132,7 @@ Full directory in [Appendix F](../F-slack-channels/README.md). When in doubt abo
 | Design transformation | Saurabh Soni (`@Saurabh Soni`) | design-track-specific friction |
 | Compass plugin (co-owned) | Aravinth P K (`@Aravinth P K`) + Vaibhav Dhir (`@Dhir`) | plugin updates, skill load failures, contribution intent |
 | Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | Blade compliance edge cases |
-| Playbook author | Vaibhav Dhir (`@Dhir`) | a chapter reads wrong, something's missing, stale info to patch |
+| Playbook author | Vaibhav Dhir (`@Dhir`) | only if `#ai-help` routes a stale-line fix to the author; otherwise post the stale line and better source publicly |
 
 For most questions, post in the right channel before DMing. DMs help you; channels help everyone. See [§0.6 — Meet the people](../../prologue/06-people-and-pocs.md).
 
@@ -166,7 +166,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-07-07. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-07-08. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 
