@@ -198,6 +198,16 @@ claude auth login
 
 **References.** [W.5 failure mode #8](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031813947089), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031973755329), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775025117236129).
 
+### D.12 — `thinking.signature` or missing `thinking` block errors on Bedrock (status: workaround)
+
+**Symptom.** Claude Code or the VS Code plugin returns a `400` with `thinking.signature.str: Input should be a valid string`, `each thinking block must contain thinking`, or `Received Model Group=...-bedrock`. The error can show up even when the model is enabled and your LiteLLM budget is fine.
+
+**Diagnosis.** This is a request-shape problem, not a quota problem. Claude Code is sending an extended-thinking block that Bedrock validates more strictly than the normal chat path. A stale session, plugin window, or manual script that mutates message payloads can keep replaying the bad block.
+
+**Fix.** Start a fresh Claude Code session or VS Code window first. If the error repeats, turn extended thinking off with `/thinking off` or the equivalent setting, then retry the prompt. Also confirm the model name is a current Razorpay LiteLLM route (`claude-opus-4-8`, not a stale Opus label) and update Claude Code if the same window keeps sending malformed thinking blocks. If you still need help, post the redacted full error and whether you were using terminal Claude Code or the VS Code plugin in `#ai-help`.
+
+**References.** [`#ai-help` Opus 4.8 Bedrock signature thread 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782906068266519), [`#ai-help` missing thinking block response 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783403194671699), [`#ai-help` Sonnet signature response 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783419646357009).
+
 ---
 
 ## Layer 1 — Compass plugin
