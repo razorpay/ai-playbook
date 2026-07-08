@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-06"
+updated: "2026-07-08"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -105,13 +105,13 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 ### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 
-**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; a model that worked yesterday is now restricted; a visible spend limit drops; or `#ai-help` says quota extensions are not being granted by default. The claude.ai usage page may show a different remaining balance.
+**Symptom.** Claude Code starts refusing prompts with `ExceededBudget`; `Server is temporarily limiting requests (not your usage limit)` followed by `exceeded budget for model=...`; a model that worked yesterday is now restricted; a visible spend limit drops; or `#ai-help` says quota extensions are not being granted by default. The claude.ai usage page may show a different remaining balance.
 
 **Diagnosis.** Claude Code usage is governed by the LiteLLM gateway, not the separate claude.ai usage page. The CLI path has a centrally managed total cap across enabled gateway models, including open-weight routes such as Kimi, Qwen, and DeepSeek. Frontier models can have per-model caps; open-weight models draw from the overall budget without per-model caps today. Support can change caps based on platform policy or overall spend, so do not treat any dollar amount you saw last week as a durable entitlement.
 
-**Fix.** Treat the LiteLLM error as authoritative. If you hit a frontier-model cap, move routine work to Sonnet, Codex, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, do not expect another gateway model, open-weight route, or personal Claude Max plan to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
+**Fix.** Treat the LiteLLM error as authoritative, even when the Claude prefix says `not your usage limit`. Read the trailing phrase: `exceeded budget for model=claude-sonnet-4-6` means that model cap is exhausted; `ExceededBudget: User=... over budget` means the total LiteLLM cap is exhausted. Check the LiteLLM usage dashboard first. If you hit a frontier-model cap, move routine work to Sonnet, Codex, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, do not expect another gateway model, open-weight route, or personal Claude Max plan to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
 
-**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), `#ai-help` policy-managed cap response 2026-07-05, [`#ai-help` open-weight cap clarification 2026-07-06](https://razorpay.slack.com/archives/C08C35GKJKD/p1783317615357959).
+**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), `#ai-help` policy-managed cap response 2026-07-05, [`#ai-help` open-weight cap clarification 2026-07-06](https://razorpay.slack.com/archives/C08C35GKJKD/p1783317615357959), [`#ai-help` misleading rate-limit wording thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783410203787589).
 
 ### D.7 — Usage not visible in the LiteLLM dashboard (status: fixed)
 
