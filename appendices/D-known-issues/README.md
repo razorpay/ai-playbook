@@ -248,7 +248,21 @@ Problems with skill invocation, MCP server timeouts, agent loops, subagent hando
 
 **Escalation path:** [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) for skill-discovery issues, [`#mcp-dev`](https://razorpay.slack.com/archives/C08PEUVAZ1B) for MCP server issues, [`#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ) for craft questions.
 
-*Entries seed from cohort experience.*
+### D.14 — `Prompt is too long` or context fills at session start (status: workaround)
+
+**Symptom.** Claude Code / Claude Cowork refuses a prompt with `Prompt is too long`, says the conversation is too long to continue, hits the context limit after only one or two prompts, or shows a large context-window jump even when the first message is just `hi`.
+
+**Diagnosis.** This is context-window exhaustion, not a LiteLLM quota cap. The window includes your current prompt, earlier turns, files or logs the agent has read, RAG chunks, MCP/tool schemas, enabled plugin instructions, hooks, and system prompt material loaded at session start. Some startup payloads do not show as tool usage in `/mcp`, so a blank prompt can still be expensive if heavy tools are preloaded.
+
+**Fix.** Use this order:
+
+1. Start a fresh Claude Code / Cowork session and retry a minimal prompt such as `hi`.
+2. If the minimal prompt works, reduce the original input: summarise earlier turns, split pasted docs or logs into smaller chunks, reduce RAG/file payloads, and ask the agent to read only the files needed for the current step.
+3. Run `/context` to see what is filling the window. If the first turn is already large, temporarily disable unused MCPs, plugins, and session-start hooks; restart Claude Code; then re-enable them one at a time.
+4. If `/mcp` shows zero usage but the window still jumps, inspect your `~/.claude/settings.json` for enabled plugins, `mcpServers`, custom hooks, status-line commands, or auto-included prompts that may inject schemas at startup.
+5. If a clean session with a minimal prompt still fails, run Claude Code with `--debug`, redact secrets from the initial prompt/system blocks, and post the exact error plus the redacted startup-context excerpt in `#ai-help`.
+
+**References.** [G.2 context-window mental model](../../belts/03-green/a-craft/G02-context-windows.md), [`#ai-help` prompt-too-long thread 2026-06-11](https://razorpay.slack.com/archives/C08C35GKJKD/p1781142551149419), [`#ai-help` context-limit thread 2026-07-02](https://razorpay.slack.com/archives/C08C35GKJKD/p1783016485230679), [`#ai-help` startup-context thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783429353309609), [`#ai-help` prompt-too-long thread 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783585337029519).
 
 ---
 
@@ -306,4 +320,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-07-02. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-07-09. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*

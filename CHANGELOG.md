@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.47 — context-window exhaustion FAQ (2026-07-09)
+
+Recent `#ai-help` threads showed the same context-bloat failure from several angles: `Prompt is too long`, context limits after one or two prompts, and fresh sessions where `hi` already consumed a large slice of the window. The playbook taught the concept in Green Belt G.2, but Appendix D did not give support-style triage for builders who are blocked in the moment.
+
+**What changed.**
+
+- **Appendix D FAQ added.** D.14 documents the symptom, separates context exhaustion from LiteLLM quota/model errors, and gives the fresh-session, `/context`, plugin/MCP/hook isolation, and debug-escalation path.
+- **Index summary updated.** The Appendix D index row now names the new Layer 3 context-window FAQ instead of implying all promoted entries are still Layer 0 setup items.
+- **Version markers bumped.** README and INDEX now report v0.47 / 2026-07-09 for this support-FAQ addition.
+
 ## v0.46 — LiteLLM enrollment FAQ (2026-07-09)
 
 Recent `#ai-help` threads showed a repeated Day-1 setup gap: builders can have a Claude.ai enterprise seat or a completed local setup, but still be blocked because their LiteLLM gateway account/key is not provisioned or current models are not enabled on the key. That is different from a retired-model default, a quota cap, or an expired local key.
