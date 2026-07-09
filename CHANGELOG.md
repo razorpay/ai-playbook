@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.46 — LiteLLM enrollment FAQ (2026-07-09)
+
+Recent `#ai-help` threads showed a repeated Day-1 setup gap: builders can have a Claude.ai enterprise seat or a completed local setup, but still be blocked because their LiteLLM gateway account/key is not provisioned or current models are not enabled on the key. That is different from a retired-model default, a quota cap, or an expired local key.
+
+**What changed.**
+
+- **New setup failure mode.** W.5 now separates missing LiteLLM enrollment/model grants from retired Opus defaults and quota exhaustion.
+- **Appendix D FAQ added.** D.13 documents the provisioning request, Add Models step, two-to-three-minute cache wait, Claude Code restart, direct `/model ...` selection, and usage-dashboard login path.
+- **Version markers bumped.** README and INDEX now report v0.46 / 2026-07-09, the Appendix D index summary counts thirteen Layer 0 entries, and W.6's failure-mode pointer follows the renumbered quota entry.
+
 ## v0.45 — mental-model gateway diagram alignment (2026-07-07)
 
 The Prologue §0.3 five-layer chapter had two bits of drift: the prose still described the LiteLLM gateway as routing only to Claude models, while W.6 now teaches enabled Claude/GPT/approved open-weight routes; the rendered SVG also labelled the user as Layer 5 even though the same chapter defines Layer 5 as Claude Code and Layer 1 as Files.
