@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-06"
+updated: "2026-07-09"
 ---
 
 # W.5 - Installing the stack
@@ -79,7 +79,7 @@ The script:
 
 - installs Claude Code,
 - writes `~/.claude/settings.json` pointing at the Razorpay LiteLLM gateway (`https://llm-gateway.razorpay.com`),
-- mints a LiteLLM API key for you,
+- mints and writes your LiteLLM API key once gateway access is provisioned,
 - installs the Zscaler certificate trust chain,
 - removes any stale Vertex environment variables left over from the March migration.
 
@@ -208,7 +208,7 @@ If any of those five fails, you are YELLOW or RED — see the next section and r
 
 ## Common failure modes
 
-These are the nine shapes the support channel sees most often. Each has a known fix — try the fix before re-routing.
+These are the ten shapes the support channel sees most often. Each has a known fix — try the fix before re-routing.
 
 **1. Manager OOO blocks your MyAccess approval.** Symptom: you submitted the access request, manager is on leave, nothing moves. Fix: post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with `@techit` tagged and a one-line "manager OOO, requesting bypass." Admins bulk-approve in batches; expect ~1 hour business-time, then a fresh ~40-minute Azure AD sync window.
 
@@ -227,17 +227,19 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **4. `claude` errors with `401 authentication_error` after a laptop restart.** Cause: LiteLLM OAuth token expired or rotated. Fix: re-run the setup script. It re-mints a fresh key into `~/.claude/settings.json`.
 
-**5. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Claude Code's model picker still lists Opus 4.7 or other retired labels, treat the picker as stale and use the direct `/model claude-opus-4-8` command instead. If the gateway says `key_model_access_denied`, enable Opus 4.8 on your LiteLLM key and retry after two to three minutes. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled open-weight model for routine work; Opus is for deep reasoning, not the everyday default.
+**5. LiteLLM account or model access is not enrolled.** Symptom: setup ran, but Claude Code says the LiteLLM account/key is not enrolled, the model is not enabled, or `key_model_access_denied` appears for current models. Cause: the Claude.ai enterprise seat and the LiteLLM gateway key are related but separate; the setup script cannot approve a missing gateway enrollment or model grant by itself. Fix: ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for LiteLLM gateway provisioning. After the admin confirms, open `https://llm-gateway.razorpay.com/auth/`, click **Add Models**, enable the routes you need (for example `claude-opus-4-8` and `claude-sonnet-4-6`), wait two to three minutes, restart Claude Code, then select the model with `/model ...`.
 
-**6. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, the visible spend limit changes, or a quota-increase request is declined. Code usage should go through LiteLLM in the CLI: the gateway applies the current total cap across enabled gateway models and can also enforce per-model caps for frontier models such as Opus, Sonnet, or GPT. Open-weight models such as Kimi, Qwen, and DeepSeek draw from the overall budget without per-model caps today, but the gateway error is still the source of truth. Fix: first check whether you hit a frontier-model cap or the total LiteLLM cap. For a frontier-model cap, move everyday work to Sonnet, Codex, or an enabled open-weight model instead of asking for an automatic bump. For total-budget exhaustion, do not expect another gateway model, open-weight route, or personal Claude Max plan to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
+**6. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Claude Code's model picker still lists Opus 4.7 or other retired labels, treat the picker as stale and use the direct `/model claude-opus-4-8` command instead. If the gateway says `key_model_access_denied`, enable Opus 4.8 on your LiteLLM key and retry after two to three minutes. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled open-weight model for routine work; Opus is for deep reasoning, not the everyday default.
 
-**7. Usage not visible in the LiteLLM dashboard.** Cause: shell-level env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. Fix: `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in your current shell, then check `~/.bashrc` / `~/.zshrc` and remove any persisted overrides. Restart terminal.
+**7. Hit a model-wise or LiteLLM usage limit.** Symptom: Claude Code errors with `ExceededBudget`, a model becomes restricted, the visible spend limit changes, or a quota-increase request is declined. Code usage should go through LiteLLM in the CLI: the gateway applies the current total cap across enabled gateway models and can also enforce per-model caps for frontier models such as Opus, Sonnet, or GPT. Open-weight models such as Kimi, Qwen, and DeepSeek draw from the overall budget without per-model caps today, but the gateway error is still the source of truth. Fix: first check whether you hit a frontier-model cap or the total LiteLLM cap. For a frontier-model cap, move everyday work to Sonnet, Codex, or an enabled open-weight model instead of asking for an automatic bump. For total-budget exhaustion, do not expect another gateway model, open-weight route, or personal Claude Max plan to bypass the cap; wait for reset or post in `#ai-help` with the blocked work and manager approval visible if your work has an approved exception.
 
-**8. `Unknown skill: login` after running `claude /login`.** Cause: `/login` is an in-session slash command, not a shell command. Running `claude /login` passes `/login` as prompt text and Claude tries to resolve it as a skill. Fix: run `claude` by itself and follow the browser SSO flow if prompted. If an editor extension session is stuck after setup, run `claude auth logout`, then `claude auth login`, restart the editor, and retry.
+**8. Usage not visible in the LiteLLM dashboard.** Cause: shell-level env vars `ANTHROPIC_BASE_URL` or `ANTHROPIC_API_KEY` overriding what `~/.claude/settings.json` sets. Fix: `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in your current shell, then check `~/.bashrc` / `~/.zshrc` and remove any persisted overrides. Restart terminal.
 
-**9. `claude native binary not installed`.** Symptom: `claude` is on PATH, but startup prints `Error: claude native binary not installed` with `postinstall`, `--ignore-scripts`, or `--omit=optional` wording. Cause: the JavaScript wrapper installed, but the platform-native Claude Code binary did not download or its postinstall step was skipped. Fix: rerun the Razorpay setup script from a fresh terminal, close old terminal windows, open a new one, then check `claude --version`. If it still fails, post the exact redacted output in `#ai-help`; do not copy the `node node_modules/@anthropic-ai/claude-code/install.cjs` path from the error unless support confirms the install location.
+**9. `Unknown skill: login` after running `claude /login`.** Cause: `/login` is an in-session slash command, not a shell command. Running `claude /login` passes `/login` as prompt text and Claude tries to resolve it as a skill. Fix: run `claude` by itself and follow the browser SSO flow if prompted. If an editor extension session is stuck after setup, run `claude auth logout`, then `claude auth login`, restart the editor, and retry.
 
-If you hit a shape that isn't one of these nine, route it to `#ai-help` with: the command you ran, the redacted output, your machine class, and what you have already tried.
+**10. `claude native binary not installed`.** Symptom: `claude` is on PATH, but startup prints `Error: claude native binary not installed` with `postinstall`, `--ignore-scripts`, or `--omit=optional` wording. Cause: the JavaScript wrapper installed, but the platform-native Claude Code binary did not download or its postinstall step was skipped. Fix: rerun the Razorpay setup script from a fresh terminal, close old terminal windows, open a new one, then check `claude --version`. If it still fails, post the exact redacted output in `#ai-help`; do not copy the `node node_modules/@anthropic-ai/claude-code/install.cjs` path from the error unless support confirms the install location.
+
+If you hit a shape that isn't one of these ten, route it to `#ai-help` with: the command you ran, the redacted output, your machine class, and what you have already tried.
 
 ---
 

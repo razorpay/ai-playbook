@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-08"
+updated: "2026-07-09"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -101,7 +101,7 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **Fix.** Enable `claude-opus-4-8` at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then run `/model claude-opus-4-8` inside Claude Code. Use the direct command even if the picker still shows older labels. If you want a sticky default, set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If the gateway says `key_model_access_denied`, confirm Opus 4.8 is enabled on your LiteLLM key and retry after the cache refresh. If Opus 4.8 itself is capped or rate-limited, use Sonnet or an enabled open-weight model for routine work.
 
-**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` retired-model response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887045764659), [`#ai-help` config response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887627150789), [`#ai-help` stale-picker response 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783084811495669).
+**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` retired-model response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887045764659), [`#ai-help` config response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887627150789), [`#ai-help` stale-picker response 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783084811495669).
 
 ### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 
@@ -111,7 +111,7 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **Fix.** Treat the LiteLLM error as authoritative, even when the Claude prefix says `not your usage limit`. Read the trailing phrase: `exceeded budget for model=claude-sonnet-4-6` means that model cap is exhausted; `ExceededBudget: User=... over budget` means the total LiteLLM cap is exhausted. Check the LiteLLM usage dashboard first. If you hit a frontier-model cap, move routine work to Sonnet, Codex, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, do not expect another gateway model, open-weight route, or personal Claude Max plan to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
 
-**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), `#ai-help` policy-managed cap response 2026-07-05, [`#ai-help` open-weight cap clarification 2026-07-06](https://razorpay.slack.com/archives/C08C35GKJKD/p1783317615357959), [`#ai-help` misleading rate-limit wording thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783410203787589).
+**References.** [W.5 failure mode #7](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), `#ai-help` policy-managed cap response 2026-07-05, [`#ai-help` open-weight cap clarification 2026-07-06](https://razorpay.slack.com/archives/C08C35GKJKD/p1783317615357959), [`#ai-help` misleading rate-limit wording thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783410203787589).
 
 ### D.7 — Usage not visible in the LiteLLM dashboard (status: fixed)
 
@@ -127,7 +127,7 @@ unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY
 
 Then `grep` your `~/.bashrc` and `~/.zshrc` for those same variables and remove any persisted definitions. Close the terminal and open a new one.
 
-**References.** [W.5 failure mode #7](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [W.4](../../belts/01-white/W04-auth-setup.md).
+**References.** [W.5 failure mode #8](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [W.4](../../belts/01-white/W04-auth-setup.md).
 
 ### D.8 — `command not found: claude` after install (status: fixed)
 
@@ -196,7 +196,7 @@ claude auth logout
 claude auth login
 ```
 
-**References.** [W.5 failure mode #8](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031813947089), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031973755329), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775025117236129).
+**References.** [W.5 failure mode #9](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031813947089), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775031973755329), [`#claude-onboarding-support` thread 2026-04-01](https://razorpay.slack.com/archives/C0ANCMTCJA2/p1775025117236129).
 
 ### D.12 — `thinking.signature` or missing `thinking` block errors on Bedrock (status: workaround)
 
@@ -207,6 +207,18 @@ claude auth login
 **Fix.** Start a fresh Claude Code session or VS Code window first. If the error repeats, turn extended thinking off with `/thinking off` or the equivalent setting, then retry the prompt. Also confirm the model name is a current Razorpay LiteLLM route (`claude-opus-4-8`, not a stale Opus label) and update Claude Code if the same window keeps sending malformed thinking blocks. If you still need help, post the redacted full error and whether you were using terminal Claude Code or the VS Code plugin in `#ai-help`.
 
 **References.** [`#ai-help` Opus 4.8 Bedrock signature thread 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782906068266519), [`#ai-help` missing thinking block response 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783403194671699), [`#ai-help` Sonnet signature response 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783419646357009).
+
+### D.13 — LiteLLM account or model access is not enrolled (status: fixed)
+
+**Symptom.** Claude Desktop or claude.ai access looks fine, and you may have already run the setup script, but Claude Code still says the LiteLLM account/key is not enrolled, the selected model is not enabled, or `key_model_access_denied` appears for a current Razorpay route such as `claude-opus-4-8` or `claude-sonnet-4-6`.
+
+**Diagnosis.** The Claude.ai enterprise seat and the LiteLLM gateway key are separate gates. The setup script can write the local Claude Code configuration, but it cannot approve a missing LiteLLM enrollment or model grant by itself. Current models also need to be enabled on your LiteLLM key before Claude Code can use them.
+
+**Fix.** Post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) asking for LiteLLM gateway provisioning. Once an admin confirms the key/enrollment, open `https://llm-gateway.razorpay.com/auth/`, click **Add Models**, enable the routes you need, wait two to three minutes for the gateway cache to refresh, then restart Claude Code. Inside Claude Code, select the model directly with `/model claude-opus-4-8` or `/model claude-sonnet-4-6`. To check usage later, open `https://llm-gateway.razorpay.com/ui/?page=new_usage` and log in with your Razorpay email plus the LiteLLM key as the password.
+
+Do not solve this by hunting for a raw external OpenAI or Anthropic key. Standard Claude Code/OpenCode access should route through the Razorpay LiteLLM gateway; direct external API keys follow a separate CISO-approved request path only when a tool cannot use the internal gateway.
+
+**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` LiteLLM key request 2026-07-08](https://razorpay.slack.com/archives/C08C35GKJKD/p1783506503286129), [`#ai-help` LiteLLM enrolment response 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783579071236499), [`#ai-help` Add Models response 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783576779048349).
 
 ---
 
