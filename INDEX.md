@@ -490,7 +490,7 @@ The fast decision map for choosing the right AI surface. Includes one-line guida
 | Tool             | One-liner                                             |
 |------------------|-------------------------------------------------------|
 | Claude Code      | Terminal-native coding agent; Razorpay's default      |
-| Codex            | OpenAI's coding agent; available for teams that prefer it |
+| Codex            | OpenAI's coding agent; use for bounded fallback or second-agent work when support routes you there |
 | Slash            | Razorpay's internal AI copilot                        |
 | Claude.ai        | The web chat; good for thinking out loud              |
 | Claude Enterprise| Team plan; SSO, admin controls, audit                 |
