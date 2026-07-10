@@ -107,13 +107,13 @@ Deeper fix: [W.6 — The LLM Gateway](../../belts/01-white/W06-llm-gateway.md).
 
 ---
 
-## Check 6: LiteLLM proxy
+## Check 6: LiteLLM gateway reachable
 
 **YELLOW (elevated latency).** No user-side fix; the platform team is the right escalation. Continue working; the latency may resolve. If it persists for more than thirty minutes, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with your probe output.
 
-**RED (proxy unreachable).** First, confirm VPN is connected. Second, check the program's status page if one exists. If both look fine and the proxy is still unreachable, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the full probe output and your setup-verify report.
+**RED (gateway unreachable).** First, confirm VPN is connected. Second, check the program's status page if one exists. If both look fine and the gateway is still unreachable, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the full probe output and your setup-verify report.
 
-Deeper fix: [G.23 — The LLM proxy](../../belts/03-green/c-guardrails/G23-llm-proxy.md).
+Deeper fix: [W.6 — The LLM Gateway](../../belts/01-white/W06-llm-gateway.md).
 
 ---
 
