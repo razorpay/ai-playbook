@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "glossary", "reference"]
-updated: "2026-05-08"
+updated: "2026-07-10"
 ---
 
 # Appendix G: Glossary
@@ -73,7 +73,7 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 **Coaching.** Situation-driven, shorter-term, more directive support for a specific situation. Distinct from mentoring. See [C.4 — Mentoring and sponsorship](../../belts/05-council/C04-mentoring-and-sponsorship.md).
 
-**Codex.** OpenAI's coding agent. Available for teams that prefer it. See [Appendix A — Tool Atlas](../A-tool-atlas/README.md).
+**Codex.** OpenAI's coding agent for bounded fallback, verification, overflow, or second-agent checks when support routes you there. See [Appendix A — Tool Atlas](../A-tool-atlas/README.md).
 
 **Cohort.** A group of builders progressing through a belt or program element together. The Ship-to-Learn cohort is the structured Green Belt path.
 
