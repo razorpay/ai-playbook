@@ -1,6 +1,6 @@
 # setup-verify output shape
 
-The structured report the skill produces. The shape is stable; downstream readers (the user, the cohort lead, the program's primary support channel) can rely on it.
+The structured report the skill produces. The shape is stable; downstream readers (the user, the cohort lead, and `#ai-help`) can rely on it.
 
 ## Header
 
@@ -59,7 +59,7 @@ Nothing. All ten checks passed.
 A footer line naming when to escalate.
 
 ```
-Escalation: If any RED persists after one hour of fixes, post this full report in the program's primary support channel.
+Escalation: If any RED persists after one hour of fixes, post this full report in #ai-help.
 ```
 
 The line is identical regardless of colour. A GREEN report does not need escalation, but the line stays for consistency and so the user knows where to go if a previously-green check turns red later.
@@ -103,7 +103,7 @@ Overall: GREEN — All 10 checks passed. Quest W-0 is claimable.
 
 Nothing. All ten checks passed.
 
-Escalation: If any RED persists after one hour of fixes, post this full report in the program's primary support channel.
+Escalation: If any RED persists after one hour of fixes, post this full report in #ai-help.
 ```
 
 ## Worked example: YELLOW
@@ -129,7 +129,7 @@ Overall: YELLOW — Quest W-0 is claimable, but 2 warnings worth fixing.
 - **Check 3 (YELLOW):** internal npm registry config is correct, but a probe install of `<scoped-package>` fell back to the public registry. Fix: `pnpm config set @razorpay:registry <internal-url>` per Appendix B.
 - **Check 8 (YELLOW):** Git is configured with a personal credential helper rather than corp SSO. Fix: re-run the auth setup from W.4 to switch credential helpers.
 
-Escalation: If any RED persists after one hour of fixes, post this full report in the program's primary support channel.
+Escalation: If any RED persists after one hour of fixes, post this full report in #ai-help.
 ```
 
 ## Worked example: RED
@@ -155,7 +155,7 @@ Overall: RED — Quest W-0 is not yet claimable. 1 blocker to resolve.
 - **Check 2 (RED):** Claude Code is installed but not authenticated. The `claude auth status --text` probe returned "not authenticated". Fix: `claude auth login --sso` per W.4.
 - **Check 7 (YELLOW):** Compass plugin is installed at v1.x; pinned version is v1.y. One minor version behind. Fix: `claude plugin update compass`.
 
-Escalation: If any RED persists after one hour of fixes, post this full report in the program's primary support channel.
+Escalation: If any RED persists after one hour of fixes, post this full report in #ai-help.
 ```
 
 The three worked examples cover the three overall states. Any actual report will resemble one of these.
