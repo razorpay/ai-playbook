@@ -14,7 +14,7 @@ next: "prologue/operating-principles"
 pillar: null
 belt: null
 tags: ["orientation", "support", "directory"]
-updated: "2026-07-06"
+updated: "2026-07-11"
 ---
 
 # 0.6 — Meet the people (roles, forums, the support surface)
@@ -37,7 +37,7 @@ You'll notice this chapter is structured around *roles* and *forums*, with curre
 
 Roles are durable. *"The program lead"* is the right person to ask whether the role-holder rotates twice in a year. *"The Compass plugin owner"* is the right person to ping whether the team behind it has restructured. The role descriptions in this chapter are written to outlast specific tenures.
 
-But role names alone are not actionable on Day 1. A new joiner needs to know who to ping right now — and asking around to find out *"who is the program lead this quarter?"* is friction the playbook is supposed to remove. So each role below lists the current holder with their Slack handle, dated by the `updated` field at the top of the page. If a holder has rotated since that date, the playbook is stale, not the structure — ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets refreshed in the next quarterly review.
+But role names alone are not actionable on Day 1. A new joiner needs to know who to ping right now — and asking around to find out *"who is the program lead this quarter?"* is friction the playbook is supposed to remove. So each role below lists the current holder with their Slack handle where the playbook has one, dated by the `updated` field at the top of the page. If a holder has rotated since that date, the playbook is stale, not the structure — ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets refreshed in the next quarterly review.
 
 This dual-naming also makes the playbook *shareable*. A reader outside Razorpay can follow the role structure without needing to know our hiring history; a reader inside Razorpay can act on the names today.
 
@@ -59,7 +59,7 @@ When to engage: when you're not sure whether something counts as belt-progress, 
 
 The senior leader who owns the *strategic* level of the program — the executive who said yes to the investment, the person whose roadmap this lives on. Usually one or two levels up from the program lead.
 
-> **Current as of 2026-05-13:** TBD — the sponsor row is being confirmed in the next revision. Ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the current name if you need to escalate before that.
+> **Current as of 2026-07-11:** Khilan Haria is the program sponsor / charter sponsor. The sponsor layer is not the first hop for Day-1 blockers; route structural blockers through the program lead or [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) so the context is visible before it escalates.
 
 When to engage: rarely directly. The program sponsor's main role from your perspective is that the program *has weight* because they back it. If you find a structural blocker (*"my manager doesn't think I should be spending time on this"*) the escalation path runs through the program lead first; the sponsor is the second layer.
 
