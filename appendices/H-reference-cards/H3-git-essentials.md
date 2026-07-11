@@ -14,7 +14,7 @@ next: "appendices/reference-cards/claude-code-essentials"
 pillar: "harness"
 belt: null
 tags: ["appendix", "reference-card", "git"]
-updated: "2026-05-08"
+updated: "2026-07-11"
 ---
 
 # H.3 — Git essentials
@@ -77,7 +77,7 @@ The first line is what shows up in `git log --oneline`. Make it useful.
 
 ## When to escalate
 
-If `git pull` produces a merge conflict and you do not know what to do, **stop typing**. Take a screenshot or copy the output, and ask in the program's primary support channel. Bad merge resolutions are how repositories get into states that are hard to recover from.
+If `git pull` produces a merge conflict and you do not know what to do, **stop typing**. Take a screenshot or copy the output, and ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Bad merge resolutions are how repositories get into states that are hard to recover from.
 
 If you see "DETACHED HEAD" in `git status`, you can usually recover with `git checkout <branch-name>`. If you are unsure, ask.
 

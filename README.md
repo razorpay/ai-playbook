@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>v0.47 alpha</strong> · updated 2026-07-09 · source of truth: Markdown<br>
+  <strong>v0.48 alpha</strong> · updated 2026-07-11 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 

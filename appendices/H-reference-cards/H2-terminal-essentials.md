@@ -14,7 +14,7 @@ next: "appendices/reference-cards/git-essentials"
 pillar: "harness"
 belt: null
 tags: ["appendix", "reference-card", "terminal"]
-updated: "2026-05-08"
+updated: "2026-07-11"
 ---
 
 # H.2 — Terminal essentials
@@ -61,9 +61,9 @@ A new user who has the twelve commands and four shortcuts can do most of what Wh
 
 ## When to escalate
 
-If the terminal prints an error you do not understand, copy the full error and ask in the program's primary support channel. Do not retype the error from memory; the exact wording matters.
+If the terminal prints an error you do not understand, copy the full error and ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not retype the error from memory; the exact wording matters.
 
-If you accidentally delete something with `rm`, stop typing. Some recovery is possible if you act quickly, especially through the system's trash mechanism. Reach out to the program's primary support channel before doing anything else.
+If you accidentally delete something with `rm`, stop typing. Some recovery is possible if you act quickly, especially through the system's trash mechanism. Reach out in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) before doing anything else.
 
 ---
 
