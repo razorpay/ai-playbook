@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-07-01"
+updated: "2026-07-11"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -71,13 +71,13 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Cowork
 
-**What it is:** Anthropic's desktop application, currently in research-preview, aimed at people who are not developers. Same Claude models, same agent loops, same file/code capabilities — but presented through a folder-first UI instead of a terminal prompt.
+**What it is:** Anthropic's desktop application, currently in research-preview, aimed at people who are not developers. Same Claude models, same agent-loop feel, and a folder-first UI for documents, decks, spreadsheets, and local files — but not the repo-shipping path.
 
-**Why you'll see it mentioned:** Some builders — especially designers and ops folks who are deep in documents, spreadsheets, and presentations rather than code — find Cowork a more natural entry point. It's what this playbook is being written in right now. Cowork has a built-in **skills** system that parallels Claude Code's (pptx, docx, pdf, etc.), so a lot of "create a deck for my skip" work happens here.
+**Why you'll see it mentioned:** Some builders — especially designers and ops folks who are deep in documents, spreadsheets, and presentations rather than code — find Cowork a more natural entry point. It's what this playbook is being written in right now. Cowork has a built-in **skills** system that parallels Claude Code's (pptx, docx, pdf, etc.), so a lot of "create a deck for my skip" work happens here. If the task touches source code or a Razorpay repo, move to terminal Claude Code through LiteLLM.
 
 **The feel:** Like having Claude live in a folder on your Desktop. You open it, point it at a directory, and talk.
 
-**Relationship to Claude Code:** Same underlying stack, different front door. A designer using Cowork for decks can later move to Claude Code for repo work without relearning how to prompt — the mental model is the same.
+**Relationship to Claude Code:** Similar prompting muscle, different job. A designer using Cowork for decks can later move to Claude Code for repo work without relearning how to prompt — but the actual code path is Claude Code in the terminal, with Compass and LiteLLM active.
 
 **When to reach for it:** If you're not touching code yet and want to automate document-heavy work (reports, decks, spreadsheets). If your current task is "I need to write this Word document / deck / PDF for a review," Cowork is usually faster than booting Claude Code + a docx skill.
 
