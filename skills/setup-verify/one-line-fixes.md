@@ -79,7 +79,7 @@ For Claude Code, see [W.4](../../belts/01-white/W04-auth-setup.md) for the tool-
 
 **RED (cert missing or untrusted).** Install the corporate cert into the system trust store. The setup script normally handles this; if it did not, re-run the cert step manually.
 
-Deeper fix: W.4. If the cert symptom looks like an MITM failure, post the full error in the program's primary support channel; do not work around it.
+Deeper fix: W.4. If the cert symptom looks like an MITM failure, post the full error in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); do not work around it.
 
 ---
 
@@ -180,7 +180,7 @@ Deeper fix: [W.5 — Installing the stack](../../belts/01-white/W05-installing-t
 
 **YELLOW (degraded latency).** No user-side fix; the platform team is the escalation. Note the degradation in your daily standup if it affects work.
 
-**RED (endpoints unreachable).** First, confirm VPN is connected. If VPN is up and endpoints are still unreachable, the issue is platform-side. Post in the infrastructure channel with the full setup-verify report.
+**RED (endpoints unreachable).** First, confirm VPN is connected. If VPN is up and endpoints are still unreachable, the issue is platform-side. Post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the full setup-verify report so it can be routed to the owning platform team.
 
 Deeper fix: [Appendix B — Environment Setup](../../appendices/B-environment-setup/README.md).
 
@@ -192,9 +192,9 @@ If the one-line fix does not resolve the issue within fifteen minutes:
 
 1. Read the deeper-fix pointer (the chapter linked under each check).
 2. Search [Appendix D — Known Issues](../../appendices/D-known-issues/README.md) for the specific symptom.
-3. If the symptom is not in Appendix D, post in the program's primary support channel with the full setup-verify report.
+3. If the symptom is not in Appendix D, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the full setup-verify report.
 4. If you solve the issue yourself, contribute the fix to Appendix D so the next person finds it faster.
 
 ---
 
-*Last updated: 2026-05-08. Fixes evolve as common-issue patterns emerge; the underlying checks (in `checks.md`) are pinned.*
+*Last updated: 2026-07-11. Fixes evolve as common-issue patterns emerge; the underlying checks (in `checks.md`) are pinned.*

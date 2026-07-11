@@ -52,12 +52,12 @@ What to fix first
 - Check 3 (YELLOW): internal npm registry is reachable but using public scoped fallback for one package. Fix: `pnpm config set registry <internal-url>` per Appendix B.
 - Check 8 (YELLOW): Git is configured with personal credential helper; switch to corp SSO. Fix: re-run the auth setup from W.4.
 
-Escalation: If any RED persists after one hour of fixes, post this report in the program's primary support channel.
+Escalation: If any RED persists after one hour of fixes, post this report in #ai-help.
 ```
 
 ## When to escalate
 
-If you have a RED check that has persisted for more than one hour after applying the one-line fix, paste your full setup-verify output into the program's primary support channel. Do not paste partial output. Do not paste "it's broken". The full output gives the support channel what they need to help quickly.
+If you have a RED check that has persisted for more than one hour after applying the one-line fix, paste your full setup-verify output into [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not paste partial output. Do not paste "it's broken". The full output gives the support channel what they need to help quickly.
 
 ## What this skill is not
 

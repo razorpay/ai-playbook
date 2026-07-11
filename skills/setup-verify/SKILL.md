@@ -24,7 +24,7 @@ The ten checks are documented in `checks.md`. Each check has a fix documented in
 1. Read the user's environment state. Use the shell to query versions, run health probes, and check installed components. Do not modify the environment.
 2. Run each of the ten checks in order. Record status (GREEN / YELLOW / RED) and the specific signal (version number, error message, command output) that produced it.
 3. For each non-green check, look up the one-line fix from `one-line-fixes.md`.
-4. Produce a structured report per `output-shape.md`. The report is ready to paste into the program's primary support channel if the user is YELLOW or RED after one hour of attempting fixes.
+4. Produce a structured report per `output-shape.md`. The report is ready to paste into `#ai-help` if the user is YELLOW or RED after one hour of attempting fixes.
 5. Surface the overall colour: GREEN if all ten checks are GREEN, YELLOW if any are YELLOW (and none RED), RED if any are RED.
 
 The skill does not modify the user's environment. It diagnoses. The user runs the fixes themselves.
@@ -49,7 +49,7 @@ See `output-shape.md` for the structured format. The summary form:
 - A header line naming the overall colour and the cohort-relevant context (e.g., "Overall: RED — Quest W-0 not yet claimable").
 - A per-check table showing each check's status and the specific signal.
 - A "What to fix first" section listing the RED checks (then YELLOW), each with the one-line fix from `one-line-fixes.md`.
-- A footer line naming when to escalate ("Post this report in the program's primary support channel if any RED check persists after one hour").
+- A footer line naming when to escalate ("Post this report in #ai-help if any RED check persists after one hour").
 
 ## Reference files
 
