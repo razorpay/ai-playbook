@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.48 — reference-card support-route alignment (2026-07-11)
+
+The H.2 Terminal and H.3 Git printable cards still told stuck learners to ask in "the program's primary support channel" even though Appendix F and H.7 now name `#ai-help` as the active routed help surface. These are stop-and-ask moments for Day-1 readers, so the card should carry the actual channel link instead of a placeholder.
+
+**What changed.**
+
+- **Reference-card escalation routes named.** H.2 now routes unclear terminal errors and accidental `rm` recovery to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); H.3 routes uncertain merge-conflict recovery there too.
+- **Version markers bumped.** README and INDEX now report v0.48 / 2026-07-11 for this support-route alignment.
+
 ## v0.47 — context-window exhaustion FAQ (2026-07-09)
 
 Recent `#ai-help` threads showed the same context-bloat failure from several angles: `Prompt is too long`, context limits after one or two prompts, and fresh sessions where `hi` already consumed a large slice of the window. The playbook taught the concept in Green Belt G.2, but Appendix D did not give support-style triage for builders who are blocked in the moment.
