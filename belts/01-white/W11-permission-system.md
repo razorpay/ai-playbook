@@ -14,7 +14,7 @@ next: "belts/white/first-pr"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "permissions", "safety"]
-updated: "2026-04-27"
+updated: "2026-07-12"
 ---
 
 # W.11 - The permission system
@@ -29,6 +29,7 @@ Claude Code may ask before reading a file, running a command, editing, or using 
 
 - Say yes only when you understand the action, folder, and expected output.
 - Say no when the action is broad, destructive, outside scope, or surprising.
+- Use the 10-second test: **action, place, reason, rollback**. If you cannot name all four, ask Claude to explain before approving.
 - Do not use always-approve as a White Belt default.
 
 ---
@@ -36,17 +37,17 @@ Claude Code may ask before reading a file, running a command, editing, or using 
 ## The mental model
 
 Every permission prompt asks:
-
 ```text
-Should this assistant do this action, in this place, for this reason, right now?
+Should this assistant do this action, in this place, for this reason, right now — and can I undo it?
 ```
 
-You need all four:
+You need all five:
 
 - **this action**: read, edit, run, search, install;
 - **this place**: current repo, one file, one folder, outside repo;
 - **this reason**: tied to your goal;
-- **right now**: after plan and before action.
+- **right now**: after plan and before action;
+- **undo it**: `git diff`, a backup, or a clean way to stop.
 
 If any part is unclear, ask Claude to explain before approving.
 
@@ -61,6 +62,19 @@ If any part is unclear, ask Claude to explain before approving.
 | Always | Repeated low-risk action in a known scope. | Rare in White Belt. |
 
 The risky option is not "no." The risky option is "always" when you are still learning the shape of the task.
+
+Use this tiny decision loop:
+
+1. **Safe yes:** "Read `README.md`" when your prompt named `README.md`.
+2. **Ask first:** "Search the repo" when your prompt named one file or one folder.
+3. **No:** "Install packages", "delete files", "force push", "change global config", or anything outside the repo unless the chapter explicitly asked for it.
+4. **Always:** only for repeated low-risk reads in a known folder after you have seen the first request and understand why it repeats.
+
+When in doubt, reply inside Claude Code with:
+
+```text
+Explain why this permission is needed, what exact files or commands it touches, and how I can undo it if it goes wrong.
+```
 
 ---
 
@@ -84,6 +98,19 @@ Claude asks to run install commands. Deny. That does not match the prompt.
 
 Claude asks to edit README.md after it has proposed the exact line and you approved the plan. Approve if you still want the edit.
 
+### Mini-drill: what would you press?
+
+Before reading the answers, decide: **yes**, **ask first**, or **no**.
+
+| Prompt you gave | Permission Claude asks for | Best move |
+|---|---|---|
+| "Summarise this README." | Read `README.md`. | **Yes.** It matches the task exactly. |
+| "Summarise this README." | Run `npm install`. | **No.** A summary does not need installs. |
+| "Find where checkout copy lives." | Search the repo for `checkout`. | **Yes or ask first.** A repo search fits the task; ask first if the repo is huge or sensitive. |
+| "Draft a safer wording for this section. Do not edit." | Edit the file directly. | **No.** Ask for the proposed wording first. |
+| "Update the docs link in this repo." | Edit one markdown file, then run `git diff`. | **Yes.** Small scoped edit plus verification. |
+| "Fix the failing test." | Run `rm -rf` or `sudo` command. | **No.** Destructive/elevated commands need a human-reviewed reason and usually belong outside White Belt. |
+
 ---
 
 ## Common failure modes
@@ -91,6 +118,8 @@ Claude asks to edit README.md after it has proposed the exact line and you appro
 **"I clicked yes because I wanted to keep moving."** Slow down. Permission is where mistakes enter.
 
 **"I clicked always and now Claude is doing a lot."** Stop the session if needed, then inspect `git status` and `git diff`.
+
+**"Claude says it needs a broad permission to be efficient."** Ask for the smallest useful version. Efficient is good; unsupervised wandering is not.
 
 **"I denied something and felt like I broke the flow."** You did not. Ask Claude to explain the action or propose a smaller one.
 
