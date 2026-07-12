@@ -14,12 +14,12 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-06"
+updated: "2026-07-12"
 ---
 
 # Appendix A — Tool Atlas
 
-> **What this is.** A working map of the AI surfaces named across the playbook. Use it when you are unsure whether a job belongs in Claude Code, Claude.ai, Claude Design, Cowork, Compass, Slash, Cursor, Codex, or a more traditional IDE.
+> **What this is.** A working map of the AI surfaces named across the playbook. Use it when you are unsure whether a job belongs in Claude Code, Claude.ai, Claude Design, Cowork, Compass, PM tracer, Analytics Agent, Slash, Cursor, Codex, or a more traditional IDE.
 
 ---
 
@@ -32,6 +32,8 @@ updated: "2026-07-06"
 | Claude Design | You are exploring UI, deck, or design concepts with Razorpay design-system context. | Repo edits, Blade compliance gates, or anything that must ship through a PR. |
 | Cowork | You want a guided enterprise assistant with approved connectors and repeatable non-code workflows. | Deep codebase surgery or local build/test loops. |
 | Compass | You need Razorpay-specific skills, hooks, MCPs, and policy-aware workflows inside Claude Code. | One-off general chat. Compass is the overlay, not the conversation surface. |
+| PM tracer | You want your PM/Product Claude Code usage to count toward the AI Adoption Leaderboard after your setup is GREEN. | Debugging, answering questions, or trying to "game" adoption through token spend. It is instrumentation, not an assistant. |
+| Analytics Agent | You need the standalone Self Serve Analytics path for metric questions, lineage checks, or health reviews. | Native-Windows hand ports, ad-hoc database access, or metric work before the plugin is onboarded. |
 | Slash | You need a named command or packaged workflow, especially for repeated internal tasks. | Open-ended exploration where the shape of the task is still unclear. |
 | Cursor | You want an IDE-native coding assistant inside an editor workflow. | Program-specific belt flows that depend on Compass conventions. |
 | Codex | Support has routed you to the approved OpenAI workspace for bounded implementation, verification, overflow, or a second-agent check. | Program certification work that depends on Compass skills, Razorpay connectors, or Claude Code guardrails. |
@@ -134,6 +136,38 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 **Belt relevance.** Required from White Belt setup. Becomes the centre of gravity at Green and Black, where builders begin authoring their own skills.
 
+### PM tracer (`rzp-pm-tracing`)
+
+**Surface type.** A Claude marketplace plugin that instruments PM/Product Claude Code usage for the AI Adoption Leaderboard. It is an add-on after the core Claude Code setup is GREEN, not a Quest W-0 prerequisite.
+
+**Default context.** The Claude Code sessions, skills, and tool-usage signals that the tracing plugin emits once installed and healthy.
+
+**What it can see.** Usage signals from your PM/Product AI workflows. The leaderboard rewards applied usage patterns and shipped work, not raw token burn or cost spend.
+
+**What it can do.** Feed the PM adoption dashboard so your AI workflow activity is visible, check the tracing pipeline through `/tracing-doctor`, and make adoption gaps easier to debug.
+
+**What it cannot do.** Answer metric questions, edit repos, improve the substance of your work, or turn token-heavy sessions into meaningful adoption. It measures; it does not build.
+
+**Common failure modes.** Installing it before Claude Code is healthy. Forgetting to restart Claude Code before running `/tracing-doctor`. Treating the leaderboard as a token-spend contest instead of an applied-work signal.
+
+**Belt relevance.** PM/Product add-on immediately after White Belt setup. H.7 carries the exact install sequence; this atlas explains what surface you are installing.
+
+### Analytics Agent
+
+**Surface type.** A standalone Claude marketplace plugin for Self Serve Analytics work. It replaces the old Compass `querying-metrics` path for metric questions.
+
+**Default context.** The approved SSA connector setup, onboarding state, and analytics sources exposed through the plugin once `/analytics-setup` and `/analytics-onboard` are complete.
+
+**What it can see.** The metric, lineage, and health-review surfaces exposed by the SSA plugin. It should not be treated as a license to paste raw credentials, export customer data, or bypass data-access approvals.
+
+**What it can do.** Run metric questions through `/analytics-query`, support `/analytics-review` health checks, and keep PM analytics work on the maintained SSA path instead of scattered one-off SQL snippets.
+
+**What it cannot do.** Fix missing data-access grants by itself, replace source-of-truth dashboards, or run reliably on native Windows today. The current plugin assumes a Unix-like surface for shell wrappers, `python3`, hooks, and POSIX locking.
+
+**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named.
+
+**Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
+
 ### Slash
 
 **Surface type.** Razorpay's internal AI assistant, web-based, scoped to internal data. Distinct from Claude Code; do not confuse them.
@@ -190,6 +224,8 @@ Before you open a tool, run this filter in your head:
 - If the work is "think with me," default to Claude.ai.
 - If the work is visual ideation or a deck draft with design-system context, default to Claude Design.
 - If the work is non-code office workflow on a folder, default to Cowork.
+- If the work is PM adoption instrumentation, install the PM tracer after Claude Code is GREEN and verify it with `/tracing-doctor`.
+- If the work is metric or SSA analysis, use Analytics Agent after its setup/onboarding flow instead of the retired `querying-metrics` habit.
 - If the work is internal-data research, default to Slash.
 - If the work needs visual file navigation, host Claude Code inside Cursor's terminal.
 - If support routes you to Codex for overflow or verification, use it for the bounded task and bring the result back through Claude Code before shipping.
@@ -208,6 +244,10 @@ The atlas exists because these patterns keep happening and keep costing time.
 **Asking Claude Code to do non-code synthesis.** Treating it as a chat tool wastes its harness. If the task does not touch a file, a run, or a connector, do it in Claude.ai or Cowork.
 
 **Using Slash for build tasks.** Slash is a research and discovery surface, not a builder. Pulling code out of it and shipping it skips the policy layer.
+
+**Confusing instrumentation with capability.** The PM tracer can make usage visible; it cannot make the work useful. More tokens do not mean better adoption.
+
+**Treating Analytics Agent as a raw database shortcut.** Use the maintained SSA plugin flow. If access, setup, or native-Windows plumbing blocks you, route the issue instead of improvising credentials or shell wrappers.
 
 **Running two parallel sessions and hoping they synchronise.** Cursor's side panel and Claude Code in the terminal are different sessions. Pick one to drive a given task.
 
