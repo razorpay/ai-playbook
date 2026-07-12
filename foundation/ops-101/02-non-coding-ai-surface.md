@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-06-16"
+updated: "2026-07-12"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -25,22 +25,24 @@ updated: "2026-06-16"
 
 ## If you're short on time
 
-There are three places non-coders open AI for work, and one supporting concept that ties them together:
+There are three general places non-coders open AI for work, one supporting concept that ties them together, and two PM/Product add-ons that matter once you start doing measurable product work:
 
-| Tool | One-sentence definition |
+| Tool / capability | One-sentence definition |
 |---|---|
-| **Claude.ai** | A web browser tab where you talk to Claude. Best for thinking, writing, drafting, brainstorming. No file access, no auto-running, no connectors. |
+| **Claude.ai** | A web browser tab where you talk to Claude. Best for thinking, writing, drafting, brainstorming. No local file access or auto-running; approved connectors vary by workspace. |
 | **Cowork** | A desktop app where Claude can work in folders on your computer and use installed plugins. Best for document-heavy work and small repeatable tasks. |
 | **Slash** | Razorpay's internal assistant, a web tool that already knows about your tickets, docs, and channels. Best for "what does my sprint look like" questions. |
 | **Connectors** | Not a tool. A *capability*. A connector is what lets an AI read or act on Slack, Google Workspace, your ticketing tool, your calendar — i.e. the apps where your work actually lives. |
+| **Analytics Agent** | A Claude Code plugin for Self Serve Analytics metric questions. Best for PMs asking “what does this metric mean / is it healthy?” Not a general assistant. |
+| **PM Tracer** | A Claude Code plugin that instruments PM AI usage for the adoption leaderboard. Best for proving applied workflow usage. Not a tool you ask questions to. |
 
-If you only remember one thing: **the AI tool is not the bottleneck. The connectors are.** Which AI surface you pick is a question of comfort and habit. *What that AI can see* (your messages, your docs, your tickets) is a question of which connectors you've turned on, and that's where most of the leverage in this track comes from.
+If you only remember one thing: **the AI tool is not the bottleneck. The context path is.** Which general surface you pick is a question of comfort and habit. *What that AI can see* (your messages, your docs, your tickets) depends on connectors. *Which specialised job it can do* (metric analysis, PM adoption instrumentation) depends on the right plugin. That is where most of the leverage in this track comes from.
 
 ---
 
 ## Why the surface matters less than you think
 
-It's tempting to ask "which is the best one?" The honest answer is that any of the three will get most ops work done. Comfort matters. The AI surface you'll actually open every day is the one that wins.
+It's tempting to ask "which is the best one?" The honest answer is that any of the three general surfaces will get most ops work done. Comfort matters. The AI surface you'll actually open every day is the one that wins.
 
 Pick the one whose layout you like. Pick the one your team already uses. Pick the one that's already on your laptop. Don't agonise. *The leverage isn't in the surface, it's in what the surface can see and do on your behalf.* The rest of this chapter is about the see-and-do part.
 
@@ -103,6 +105,27 @@ The one-line distinction: **Slash is a great place to ask. Claude.ai and Cowork 
 
 ---
 
+## PM/Product add-ons: Analytics Agent and PM Tracer
+
+Two current PM/Product workflows do **not** belong in the generic "pick any surface" bucket.
+
+**Analytics Agent** is the recommended surface for Self Serve Analytics metric questions. If the work is *"explain this metric, query this funnel, review this dashboard's health"*, route it through the Analytics Agent plugin instead of asking generic Claude or Slash to guess from partial context. Treat it like a metric co-pilot with SSA context, not a spreadsheet chatbot.
+
+**PM Tracer** is instrumentation. It feeds the AI Adoption Leaderboard by recording applied AI workflow usage: skills, automations, breadth of surfaces, consistency, and shipped output. You do not brainstorm with PM Tracer. You install it once, run the health check, and then let it quietly report whether your real AI work is visible.
+
+The distinction matters because these two plugins answer different questions:
+
+| If your question is... | Use... |
+|---|---|
+| "What happened in my sprint, tickets, or internal docs?" | Slash |
+| "Can you help me draft, summarise, or package this document?" | Claude.ai or Cowork |
+| "What does this metric/funnel/dashboard say, and is it healthy?" | Analytics Agent |
+| "Is my PM AI usage being counted for adoption/proficiency signals?" | PM Tracer |
+
+For install snippets and caveats, use [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md) and [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md). This chapter's job is the mental model: **general surfaces for general work; specialised plugins for specialised PM workflows.**
+
+---
+
 ## The supporting concept: connectors
 
 This is the part that determines whether you save four hours a week or twenty.
@@ -131,6 +154,8 @@ Mentally, picture it like this:
 
 The AI surface on top is the front door. The connectors in the middle are how it reaches into the real-work tools at the bottom. Each connector is a separate switch — you turn on the ones you need, you leave off the ones you don't.
 
+Plugins are different from connectors. A connector gives a surface access to a system. A plugin packages a workflow, skill, command, or instrumentation path inside a host like Claude Code. Analytics Agent and PM Tracer are plugins; Slack and Google Workspace are connectors. Mixing those up is how people open the right-looking tool and still get the wrong result.
+
 **Why this matters for everything that follows.** Every chapter from 0B.3 onwards (triage, generation, ticket workflows, document workflows, agents) is a different *combination* of connectors. Triage = email + Slack + ticketing. Generation = Slack + Calendar + Docs. Document workflows = Drive + Docs. Lightweight agents = whichever combination of the above plus a schedule. Once you grasp the connector concept, the rest of the track becomes "pick connectors, write a recipe, run it."
 
 **The minimum useful set for most readers.** Slack, Google Workspace (Drive + Docs + Calendar + Gmail at least), your ticketing tool of choice, and (if you're working with a team) a shared knowledge base or doc index connector. Four switches, four big leaps in capability.
@@ -147,6 +172,10 @@ Don't overthink this. Use the heuristic, then change your mind later if you want
 
 **Are you mostly asking questions about the internal world: sprints, tickets, channels, decisions?** → Slash. It's already plumbed in for you.
 
+**Are you asking metric/SSA questions?** → Analytics Agent. Metrics need the SSA-aware plugin, not vibes plus a pasted screenshot.
+
+**Are you checking whether your PM AI work is counted?** → PM Tracer. It is instrumentation, not a chat surface.
+
 **Are you doing all three?** → Most of us are. Pick whichever feels best as a daily driver, and use the others when they're the right tool. Most readers end up with Claude.ai pinned in a tab, Cowork installed for document work, and Slash bookmarked for "what's going on internally" questions. Three tools, three reflexes, no agonising over which one to open.
 
 **Don't try to make one tool do everything.** A common mistake is to treat your favourite as a hammer and force every task through it. Doable, but slow. The 30 seconds it takes to switch tabs is far less than the 10 minutes you'd spend coercing the wrong tool into doing a task it wasn't built for.
@@ -160,6 +189,8 @@ The chapters from 0B.3 onwards assume you've made two cheap moves:
 1. **Logged into your daily-driver AI surface** (whichever you picked above).
 2. **Turned on connectors for at least Slack and Google Workspace.** Your ticketing connector matters too; turn it on if you have access. The exact installation steps vary by tool — there's a setup-checklist appendix you can use as a reference.
 
+PM/Product readers should also confirm whether their cohort expects Analytics Agent or PM Tracer. Those are post-setup add-ons, not universal Ops 101 prerequisites. Install them when your workflow or adoption program needs them; do not block the rest of this track waiting on instrumentation.
+
 If your laptop policy or your IT setup gets in the way of either step, post a question in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — chances are someone else hit the same wall last week and the workaround is already known. Don't try to brute-force a permission issue alone; that's exactly the time-tax this track is supposed to be reducing, not creating.
 
 ---
@@ -167,7 +198,7 @@ If your laptop policy or your IT setup gets in the way of either step, post a qu
 ## What you should carry into the next chapter
 
 - The AI surface you choose (Claude.ai, Cowork, Slash) matters less than you think. Pick by comfort. Use all three across the day.
-- **Connectors are the actual leverage.** They turn each AI surface from an island into a remote control for the apps where your work lives.
+- **Connectors and plugins are the actual leverage.** Connectors turn each AI surface from an island into a remote control for the apps where your work lives; plugins add specialised workflows such as Analytics Agent and PM Tracer.
 - The minimum useful connector set for most readers is Slack + Google Workspace + your ticketing tool. Three switches, big delta.
 - Slash is a great place to *ask* about the internal world. Claude.ai and Cowork are good places to *act* on it.
 - The next chapter ([0B.3 — Triage automations](03-triage-automations.md)) is the first place you actually save time. We'll work through inbox triage, Slack triage, and on-call queue triage as three concrete recipes.
