@@ -14,7 +14,7 @@ next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect"]
-updated: "2026-04-29"
+updated: "2026-07-12"
 ---
 
 # G.15 — Design-to-code
@@ -30,6 +30,7 @@ This chapter walks the path end to end with a real worked example.
 - Design-to-code is not "ask Claude to make a button look like the Figma." It is "Claude reads the Figma surface via the connector, identifies the closest Blade components, names the gaps, and writes code that uses real Blade primitives."
 - The flow has five named steps. Skipping any one of them produces ad-hoc components that drift from the design system.
 - The boss fight in Part C requires a product-repo PR built through this flow, with Code Connect mappings and Blade-native components — not a pixel-pushed lookalike.
+- When the change affects a real journey, run a DQA flow review on the preview before PR. Treat the report as review evidence and a fix list, not as permission to skip human design review.
 
 ---
 
@@ -143,6 +144,29 @@ The output is a React component file. Every `<Button>` is a Blade `Button`. Ever
 ### Step 5 — Run the daily loop on the result
 
 The component renders in your local dev (G.18), you preview it on a branch URL (G.19), the design partner reviews. Iterate. The iteration is structural — a wrong variant gets fixed by changing the variant prop, not by adding CSS.
+
+### DQA review — when the change is a journey, not a component
+
+After the component renders in preview, ask Design Quality Agent (DQA) to review the journey if the change affects a customer-visible flow, mobile + desktop behaviour, accessibility, or a persona-specific decision. This is review evidence, not generation. The code is already in a branch; DQA is now helping you find the UX holes before a human reviewer has to.
+
+Use a bounded prompt:
+
+```text
+Do a design review of <preview-url>.
+Goal: <user goal, e.g. create a Payment Link>.
+Cover: desktop and mobile if available.
+Pause and hand control back to me on login, OTP, payment, or other sensitive steps.
+Return: top 3 fixes, UI/UX score, screens covered, and any persona-specific risk.
+```
+
+What to do with the output:
+
+1. Fix the top issues that are in scope for this PR.
+2. Paste the top 3 findings and the HTML-report link or saved artefact into the PR notes.
+3. If DQA flags a design-system gap, route it like any other Blade / Code Connect gap instead of hiding it with custom CSS.
+4. If the report disagrees with your design partner, the human wins; capture the disagreement as a note, not a fight with the bot. The bot does not get a feelings budget.
+
+DQA is especially useful on full flows because it returns a combined UI + UX report with per-screen coverage and persona impact. It is less useful for a one-line copy fix; do not make a tiny PR wear a tuxedo.
 
 ---
 
