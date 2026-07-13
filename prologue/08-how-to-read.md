@@ -14,7 +14,7 @@ next: "prologue/how-to-lead"
 pillar: null
 belt: null
 tags: ["orientation", "navigation"]
-updated: "2026-06-25"
+updated: "2026-07-13"
 ---
 
 # 0.8 — How to use this playbook (as a reader)
@@ -39,11 +39,11 @@ That last line is the trick. Belts are not reading levels. They are evidence lev
 
 The playbook is arranged as a climb, but you do not have to read every page linearly.
 
-**If you are new to software:** read [Part 0 — Foundation](../foundation/README.md), then the Prologue, then White Belt when it lands. Foundation gives you the vocabulary; the Prologue gives you the map; White Belt gives you the first shipped artefact.
+**If you are new to software:** read [Part 0 — Foundation](../foundation/README.md), then the Prologue, then White Belt. Foundation gives you the vocabulary; the Prologue gives you the map; White Belt gives you the first shipped artefact.
 
 **If you are a PM, designer, ops lead, or TPM with some technical exposure:** skim Tech 101, read Ops 101 properly, then read the Prologue. Ops 101 is where you can start saving time before touching a repo.
 
-**If you are an engineer:** skim Foundation for the vocabulary your non-engineer teammates will now use. Read the Prologue, then jump to the first belt that stretches you. Green and Black are where the deeper craft will live.
+**If you are an engineer:** skim Foundation for the vocabulary your non-engineer teammates will now use. Read the Prologue, then jump to the first belt that stretches you. Green and Black are where the deeper craft lives.
 
 **If you are a manager or team lead:** read the Prologue, [§0.9](09-how-to-lead.md), Ops 101, and [Appendix L — Certification](../appendices/L-certification/README.md). Your job is not to read on behalf of the team; your job is to create the conditions where the team can earn evidence.
 
@@ -67,7 +67,7 @@ The best readers switch modes deliberately. They do not mistake reading for prog
 
 A `[coming]` marker means the playbook knows the section belongs here but the chapter is not yet drafted. The marker is rare: the belts and Council layer are drafted, Appendix E is an intentional skeleton, and Appendix M is the only planned appendix still waiting on the full operational template. When you do see `[coming]`, do not wait unless your current goal depends on it.
 
-If the missing page is part of a future belt, treat it as a signal about the shape of the curriculum, not a blocker. If the missing page is an appendix, use the current chapter's summary until the full reference lands.
+If the missing page is Appendix M or another deliberately marked scaffold, treat it as a signal about the shape of the curriculum, not a blocker. Use the current chapter's summary until the full reference lands.
 
 Treat `[coming]` as a visible scaffold, not a broken promise — the playbook prefers naming the gap to hiding it.
 
