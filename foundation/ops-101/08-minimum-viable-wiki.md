@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "ops-101"
 order: 8
-time_minutes: 20
+time_minutes: 25
 audience: "pm-designer-ops"
 outcome: "Set up a small project wiki that lets AI work with memory instead of repeated context."
 prev: "ops-101/lightweight-agents"
@@ -14,12 +14,12 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-04-26"
+updated: "2026-07-13"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
 
-> **⏱ 20 minutes · 👥 PMs, designers, ops, anyone running ongoing workstreams · 🎯 Leaves with:** the operating-philosophy capstone of the Ops 101 track — a one-hour recipe for a knowledge base that grows alongside your work and earns its keep across weeks.
+> **⏱ 25 minutes · 👥 PMs, designers, ops, anyone running ongoing workstreams · 🎯 Leaves with:** the operating-philosophy capstone of the Ops 101 track — a one-hour recipe for a knowledge base that grows alongside your work and earns its keep across weeks.
 
 ---
 
@@ -250,6 +250,67 @@ This is when it lands. Not before; not by accident.
 
 ---
 
+## When to add a retrieval layer
+
+The folder you built is the source of truth. For many projects, `INDEX.md` plus ordinary search is all you need. Do not install a knowledge platform merely because your four-page wiki now has ambitions.
+
+A retrieval layer becomes useful when:
+
+- the index no longer gets you to the right page reliably;
+- useful answers need evidence scattered across several pages;
+- the same source-finding work repeats across meetings or workflows; and
+- someone owns ingestion, access, and the weekly quality check.
+
+GBrain is one current option. Razorpay's [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) covers the internal setup path, including LiteLLM and embeddings. The [GBrain repository](https://github.com/garrytan/gbrain) describes the product boundary: your Markdown repository remains the system of record; GBrain indexes it for raw retrieval and cited synthesis. It does not make source quality, permissions, or maintenance somebody else's problem.
+
+Treat setup as a trial, not a migration.
+
+### Run a bounded retrieval trial
+
+Use one real, non-sensitive project folder and a small known-answer test. You are testing whether retrieval improves your work, not whether installation succeeds.
+
+1. **Freeze the source set.** Use a copy or branch of one wiki. Remove credentials, customer PII, private legal material, and anything outside the intended audience before indexing.
+2. **Write five test questions first.** For each question, name the page that contains the answer. Add one question the wiki cannot answer; a trustworthy system should expose that gap rather than improvise.
+3. **Follow the internal setup guide.** Use its current Razorpay-specific LiteLLM and embedding steps instead of copying a public provider configuration. Setup changes faster than this playbook should.
+4. **Index only the trial folder.** Do not connect Gmail, Slack, Drive, or an automated ingestion pipeline yet. A bounded source set makes a bad result diagnosable.
+5. **Test retrieval before synthesis.** Check whether the right source page appears. Then ask for a synthesised answer and inspect every citation. Fluent prose is not a retrieval score.
+6. **Test freshness.** Add or correct one fact in the Markdown source, run the guide's update flow, and ask again. If the answer remains stale, the trial has found an ingestion or indexing gap.
+7. **Write the decision down.** Adopt, improve and retest, or stop. Record who owns updates and what would make you switch the layer off later.
+
+Use this card so the trial leaves an artefact instead of a vague *"search felt pretty good"* conclusion:
+
+```markdown
+# Retrieval trial: <project>
+
+| Question | Expected source | Correct source surfaced? | Answer supported by source? | Notes |
+|---|---|---|---|---|
+| <known-answer question 1> | <page> | Yes / No | Yes / No | |
+| <known-answer question 2> | <page> | Yes / No | Yes / No | |
+| <known-answer question 3> | <page> | Yes / No | Yes / No | |
+| <known-answer question 4> | <page> | Yes / No | Yes / No | |
+| <known-answer question 5> | <page> | Yes / No | Yes / No | |
+| <question the wiki cannot answer> | None | N/A | Gap admitted / Invented | |
+
+- Freshness check after one source update: Pass / Fail
+- Maintenance owner: <role>
+- Decision: Adopt / Improve and retest / Stop
+- Why: <one paragraph grounded in the table>
+```
+
+Adopt the layer only if it reliably surfaces the right sources for your important questions, keeps citations grounded, reflects updates, and has a maintenance owner. If it fails, fix the Markdown structure or ingestion path before adding more machinery. Retrieval cannot rescue a source set nobody trusts.
+
+### Failure modes to watch
+
+- **Automating ingestion before retrieval works.** More sources make a weak test harder to debug, not more impressive.
+- **Treating synthesis as evidence.** The answer is a convenience; the cited page is the evidence. Open it.
+- **Indexing beyond the audience.** A technically reachable page is not automatically appropriate to ingest. Preserve the restrictions in `CONTEXT.md`.
+- **Replacing the wiki with the index.** Keep edits in Markdown and re-index. If two stores can both become canonical, they eventually disagree.
+- **Skipping the owner.** An unattended retrieval layer becomes a faster route to stale context.
+
+The graduation path is intentionally boring: build the folder, prove the habit, test retrieval on known answers, then scale. Boring keeps your knowledge base useful after the demo glow wears off.
+
+---
+
 ## How this connects to the boss fight
 
 If you've been working through Ops 101 in order, your boss fight has probably been a triage / generation / ticket / agent automation. The wiki is *not* a replacement for any of those — it's the *substrate they all run better on*.
@@ -278,6 +339,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - **`CONTEXT.md` is the keystone.** The 20 minutes you spend filling it in is itself most of the value.
 - **The three habits are ingest, query-and-file-back, lint.** Each one is a sentence at the end of an existing prompt; together they're how the wiki grows.
 - The compounding is delayed (week 1 feels like overhead) but real (week 8 is when it lands).
+- Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
 - A shared wiki needs a named owner for `CONTEXT.md` and for the weekly lint pass. Without ownership, it rots.
 - This chapter closes Ops 101. You can stop here: the boss fight (if you've completed it), the wiki (if you've stood it up), and the seven prior chapters are a coherent on-ramp into AI-leveraged work that doesn't require any code.
 - If you want to graduate to *coding* AI work next, the natural next step is the [Prologue](../../prologue/README.md), which orients you to the developer side. White Belt picks up from there.
@@ -291,3 +353,5 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - [Appendix N.1 — KB-driven development](../../appendices/N-methodologies/N1-kb-driven-development.md) — the long-form discipline; if you're hooked, this is where to go deeper
 - [Appendix N.7 — The minimum viable wiki](../../appendices/N-methodologies/N7-minimum-viable-wiki.md) — the developer-shaped version of this recipe; same shape, different harness
 - [Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the manifesto that named this pattern
+- [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) — current Razorpay-specific setup and maintenance guidance
+- [GBrain](https://github.com/garrytan/gbrain) — official source for the retrieval/synthesis model and public documentation
