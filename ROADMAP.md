@@ -32,9 +32,9 @@ The Council reviews open questions at the annual charter revision per [C.2](belt
 
 ## The version sequence
 
-The shipped versions through v0.18 are documented in the `V0.x-*-PLAN.md` files at the repo root and in `CHANGELOG.md` (planned for v0.20+).
+Release history is canonical in [`CHANGELOG.md`](./CHANGELOG.md). The version-prefixed planning files that scoped pre-v0.20 work are archival and are not carried in the current repository.
 
-The v0.19+ sequence proposed below. Each version is one to two execution sessions of authoring time plus calendar time for review where indicated.
+The sequence below captures the original v0.19-to-v1.0 roadmap. Each planned milestone is one to two execution sessions of authoring time plus calendar time for review where indicated.
 
 ### v0.19 — Hub IA restructuring (shipped)
 
@@ -64,7 +64,7 @@ Sponsor review (program lead, design transformation lead, sponsor leadership). S
 
 Operational close: certification tracker confirmed; the program's primary Slack channels set up and pinned; the Compass plugin integration shipped; the four belt badges designed and added to the program's badge system. Open-question resolution: the eight questions above each get an explicit answer through an RFC or a program-lead decision. All-hands launch.
 
-The v1.0 release also brings the playbook out of pre-release versioning. The `CHANGELOG.md` becomes the canonical version history.
+The v1.0 release also brings the playbook out of pre-release versioning. `CHANGELOG.md` remains the canonical version history.
 
 ---
 
