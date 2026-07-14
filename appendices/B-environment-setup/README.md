@@ -14,7 +14,7 @@ next: "appendices/skills-library"
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "setup", "environment", "mcp"]
-updated: "2026-05-29"
+updated: "2026-07-14"
 ---
 
 # Appendix B — Environment Setup
@@ -141,7 +141,7 @@ The only mistake that compounds across belts is treating setup as someone else's
 ## Where to go next
 
 - For the mental model behind the layers, read [Prologue 0.3 — The 5-Layer Mental Model](../../prologue/03-mental-model.md).
-- For the first actual verification gate, follow White Belt when it lands.
+- For the first actual verification gate, complete [Quest W-0 — Turn GREEN](../../belts/01-white/quest-W0-turn-green.md).
 - For safe prompting rules, keep [Appendix H — Reference Cards](../H-reference-cards/README.md) close.
 - For the connector and skill catalogue this appendix pairs with, read [Appendix C — Skills Library](../C-skills-library/README.md).
 
