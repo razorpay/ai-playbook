@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-09"
+updated: "2026-07-14"
 ---
 
 # W.5 - Installing the stack
@@ -227,7 +227,7 @@ Then re-run the setup script and **restart your terminal**. The new script auto-
 
 **4. `claude` errors with `401 authentication_error` after a laptop restart.** Cause: LiteLLM OAuth token expired or rotated. Fix: re-run the setup script. It re-mints a fresh key into `~/.claude/settings.json`.
 
-**5. LiteLLM account or model access is not enrolled.** Symptom: setup ran, but Claude Code says the LiteLLM account/key is not enrolled, the model is not enabled, or `key_model_access_denied` appears for current models. Cause: the Claude.ai enterprise seat and the LiteLLM gateway key are related but separate; the setup script cannot approve a missing gateway enrollment or model grant by itself. Fix: ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for LiteLLM gateway provisioning. After the admin confirms, open `https://llm-gateway.razorpay.com/auth/`, click **Add Models**, enable the routes you need (for example `claude-opus-4-8` and `claude-sonnet-4-6`), wait two to three minutes, restart Claude Code, then select the model with `/model ...`.
+**5. LiteLLM account or model access is not enrolled.** Symptom: setup ran, but Claude Code says the LiteLLM account/key is not enrolled, the model is not enabled, or `key_model_access_denied` appears for current models. Cause: the Claude.ai enterprise seat and the LiteLLM gateway key are related but separate; the setup script cannot approve a missing gateway enrollment or model grant by itself. First read the full error. If it says `This key can only access models=[...]` and ends with `Tried to access <model>`, your key is enrolled but Claude Code selected a route outside that list; the leading `Please run /login` is misleading. Inside Claude Code, run `/model <exact-enabled-route>` using a route named in the error. If an approved route you need is absent, open `https://llm-gateway.razorpay.com/auth/`, click **Add Models**, enable it, wait two to three minutes, then restart Claude Code. Ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) only when the account/key is not enrolled or an approved route cannot be enabled.
 
 **6. `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Cause: your session or config still points at a retired Opus model. Fix: enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If Claude Code's model picker still lists Opus 4.7 or other retired labels, treat the picker as stale and use the direct `/model claude-opus-4-8` command instead. If the gateway says `key_model_access_denied`, enable Opus 4.8 on your LiteLLM key and retry after two to three minutes. If `claude-opus-4-8` itself is capped or rate-limited, use Sonnet or an enabled open-weight model for routine work; Opus is for deep reasoning, not the everyday default.
 
