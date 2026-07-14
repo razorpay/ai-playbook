@@ -26,6 +26,13 @@ jobs:
           cache: npm
           cache-dependency-path: hub/package-lock.json
 
+      - name: Setup PMG proxy
+        uses: safedep/pmg@v1
+        with:
+          server-mode: true
+          api-key: ${{ secrets.PMG_PUBLIC_REPOS_TOKEN }}
+          tenant-id: ${{ secrets.PMG_TENANT_ID }}
+
       - name: Install dependencies
         run: npm ci
         working-directory: hub
@@ -40,6 +47,10 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: hub/dist
+
+      - name: Enforce PMG policy
+        if: always()
+        run: pmg proxy stop --fail-on-violation
 
   deploy:
     needs: build
