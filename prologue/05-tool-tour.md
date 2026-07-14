@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-07-11"
+updated: "2026-07-14"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -33,7 +33,7 @@ There are seven tools you'll see named repeatedly. Here's the one-line version o
 | **Claude.ai** | The browser chat at `claude.ai`. Fine for thinking out loud; **not** for shipping code. |
 | **Cowork** | Anthropic's desktop app for non-developers — same AI, wrapped in a folder-and-file UI instead of a terminal. |
 | **Compass** | Razorpay's plugin that ships skills, hooks, and MCPs into Claude Code — *not* a tool you open, it's a layer inside Claude Code. |
-| **Slash** | Razorpay's internal AI product (formerly "Vyom") — a web UI over internal data. Different from the others; don't confuse it with Claude Code. |
+| **Slash** | Razorpay's remote AI worker for internal research and bounded repo tasks. Use knowledge-first mode to understand; use execution mode when the repo and result are clear. |
 | **Cursor** | A VS Code-style IDE with AI built in; useful for reading code visually while Claude Code edits it. |
 | **Codex / OpenAI tools** | A secondary coding-agent surface. Not the belt default, but useful when current LiteLLM policy routes routine overflow or second-opinion work there. |
 
@@ -103,15 +103,15 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Slash (formerly Vyom)
 
-**What it is:** Razorpay's internal AI product: a web-based assistant that sits over internal data (tickets, messaging, docs, etc.) for asking questions in natural language. Rebranded from "Vyom" in 2025.
+**What it is:** Razorpay's remote internal AI worker, invoked with `@slash`. It has two useful modes: knowledge first for understanding internal flows and execution for a scoped repo task that may end in a draft PR. It was formerly called Vyom.
 
-**Why it's in this playbook:** Because people confuse it with Claude Code, and they shouldn't. Slash is a *consumer* product for the whole org — any Razorpayan can use it to ask "what does my sprint look like?" or "summarise this thread." It's great at that. Claude Code is a *builder* product that edits repos and opens PRs. Different jobs.
+**Why it's in this playbook:** Because it is easy to confuse remote delegation with the Claude Code session on your laptop. Slash can research approved internal sources, work against a named remote repo, implement a bounded change, and raise a PR. It cannot see your local uncommitted files or provide the same tight edit-run-debug loop.
 
-**The feel:** A company-branded chatbot with access to Razorpay's internal data sources. Web UI.
+**The feel:** Handing a well-scoped task to a remote teammate. The clearer the repo, constraints, and expected result, the better the handoff.
 
-**When to reach for it:** For research and discovery questions that benefit from Razorpay context: competitive analyses, summarising support trends, asking about org-wide data. Not for writing code, running tests, or opening PRs.
+**When to reach for it:** Use `@slash --plan <query>` or `--discover` when you need internal context before acting. Use `@slash repo:<repo-name> <task>` when the repository, change, and expected result are already clear.
 
-**Relationship to this playbook:** Tangential. You may use Slash *to inform* a task ("what are the top support complaints in the merchant dashboard?") but you'll still ship the actual code through Claude Code.
+**Relationship to this playbook:** Complementary, not interchangeable. Slash handles remote research and bounded repo tasks. Claude Code + Compass remains the local, policy-aware belt path for iterative editing, builds, tests, certification, and final shipping checks. Review a Slash-generated PR like any other PR; opening one is not proof that the work is done.
 
 ---
 
@@ -158,7 +158,7 @@ Five minutes now saves you hours of "wait, which tool am I supposed to be in?" l
 - **Compass is inside Claude Code** — it's not a thing you launch separately.
 - **Claude.ai is for talking about code, not shipping it.** Don't paste its output into a Razorpay PR.
 - **Cowork is the designer / PM-friendly front door** to the same AI stack, optimised for documents over repos.
-- **Slash is a different category** — a consumer chatbot over internal data, not a builder tool.
+- **Slash is the remote delegation path** — knowledge-first for internal context, execution mode for a bounded repo task.
 - **Cursor** is a graphical IDE you can run Claude Code inside for the best of both worlds.
 - **Codex is a fallback, not the curriculum spine.** Use it when the support path points there; run Compass-backed checks before shipping its output.
 - The next chapter ([§0.6 — Meet the people](06-people-and-pocs.md)) introduces the roles and forums that own these tools and where to ask when things break.
