@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-09"
+updated: "2026-07-14"
 ---
 
 # W.6 - The LLM Gateway
@@ -125,7 +125,7 @@ The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failu
 
 **`403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com`.** Stale Vertex env vars in your shell rc from the pre-March-2026 setup. Remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, and `CLOUD_ML_REGION` from `~/.bashrc` / `~/.zshrc`, restart your terminal.
 
-**`403 key not allowed to access model` or `This key can only access models=[...]`.** Your LiteLLM key exists, but the requested model is not enabled on it. Go to `https://llm-gateway.razorpay.com/auth`, enable the active model you need (for example, `claude-opus-4-8`), wait two to three minutes for the gateway cache to refresh, then restart the Claude Code session and retry.
+**`403 key not allowed to access model` or `This key can only access models=[...]`.** Read the end of the error before re-authenticating. If it says `Tried to access <model>`, compare that route with the enabled-model list in the same message. A leading `Please run /login` can be misleading: when the key already has enabled models, select one of those exact routes with `/model <exact-enabled-route>`. If an approved route you need is absent, add it at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then restart Claude Code. Escalate to `#ai-help` only if the key is not enrolled or an approved route cannot be enabled.
 
 **`exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Those Opus defaults are retired. Enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. Use Sonnet or enabled OSS models for routine work when Opus 4.8 is capped.
 

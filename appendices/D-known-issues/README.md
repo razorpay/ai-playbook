@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-09"
+updated: "2026-07-14"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -210,15 +210,21 @@ claude auth login
 
 ### D.13 — LiteLLM account or model access is not enrolled (status: fixed)
 
-**Symptom.** Claude Desktop or claude.ai access looks fine, and you may have already run the setup script, but Claude Code still says the LiteLLM account/key is not enrolled, the selected model is not enabled, or `key_model_access_denied` appears for a current Razorpay route such as `claude-opus-4-8` or `claude-sonnet-4-6`.
+**Symptom.** Claude Desktop or claude.ai access looks fine, and you may have already run the setup script, but Claude Code still says the LiteLLM account/key is not enrolled, the selected model is not enabled, or `key_model_access_denied` appears. In one recurring shape, the message starts with `Please run /login`, lists `This key can only access models=[...]`, then ends with `Tried to access <model>`.
 
-**Diagnosis.** The Claude.ai enterprise seat and the LiteLLM gateway key are separate gates. The setup script can write the local Claude Code configuration, but it cannot approve a missing LiteLLM enrollment or model grant by itself. Current models also need to be enabled on your LiteLLM key before Claude Code can use them.
+**Diagnosis.** The Claude.ai enterprise seat and the LiteLLM gateway key are separate gates. The setup script can write the local Claude Code configuration, but it cannot approve a missing LiteLLM enrollment or model grant by itself. When the error already lists enabled models, however, the key is enrolled: Claude Code has selected a default route outside that list. In that case, the `/login` banner is not the diagnosis.
 
-**Fix.** Post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) asking for LiteLLM gateway provisioning. Once an admin confirms the key/enrollment, open `https://llm-gateway.razorpay.com/auth/`, click **Add Models**, enable the routes you need, wait two to three minutes for the gateway cache to refresh, then restart Claude Code. Inside Claude Code, select the model directly with `/model claude-opus-4-8` or `/model claude-sonnet-4-6`. To check usage later, open `https://llm-gateway.razorpay.com/ui/?page=new_usage` and log in with your Razorpay email plus the LiteLLM key as the password.
+**Fix.** Use this order:
+
+1. If the error lists enabled models, run `/model <exact-enabled-route>` inside Claude Code using one of those names. Do not keep retrying `/login`.
+2. If an approved route you need is absent, open `https://llm-gateway.razorpay.com/auth/`, click **Add Models**, enable it, wait two to three minutes for the gateway cache to refresh, then restart Claude Code.
+3. If the account/key is not enrolled or an approved route cannot be enabled, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) asking for LiteLLM gateway provisioning or model enablement.
+
+To check usage later, open `https://llm-gateway.razorpay.com/ui/?page=new_usage` and log in with your Razorpay email plus the LiteLLM key as the password.
 
 Do not solve this by hunting for a raw external OpenAI or Anthropic key. Standard Claude Code/OpenCode access should route through the Razorpay LiteLLM gateway; direct external API keys follow a separate CISO-approved request path only when a tool cannot use the internal gateway.
 
-**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` LiteLLM key request 2026-07-08](https://razorpay.slack.com/archives/C08C35GKJKD/p1783506503286129), [`#ai-help` LiteLLM enrolment response 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783579071236499), [`#ai-help` Add Models response 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783576779048349).
+**References.** [W.5 failure mode #5](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` LiteLLM key request 2026-07-08](https://razorpay.slack.com/archives/C08C35GKJKD/p1783506503286129), [`#ai-help` LiteLLM enrolment response 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783579071236499), [`#ai-help` Add Models response 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783576779048349), [`#ai-help` default-model report 2026-07-11](https://razorpay.slack.com/archives/C08C35GKJKD/p1783800597608559), [`#ai-help` repeated model-list failures and selection fix 2026-07-14](https://razorpay.slack.com/archives/C08C35GKJKD/p1784030394776029).
 
 ---
 
