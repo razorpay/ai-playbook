@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.49 — misleading model-login error triage (2026-07-14)
+
+Three recent `#ai-help` reports showed Claude Code selecting a default model that the user's LiteLLM key did not enable. The resulting error began with `Please run /login` even though the key was valid and the same message listed enabled routes, sending blocked builders toward an irrelevant authentication loop.
+
+**What changed.**
+
+- **Error order made explicit.** W.5, W.6, and Appendix D.13 now tell readers to compare `Tried to access <model>` with the enabled-model list, select an exact listed route first, and request model enablement only when an approved route is absent.
+- **Escalation narrowed.** `#ai-help` remains the path for missing enrollment or an approved route that cannot be enabled, rather than the first step for every model mismatch.
+- **Version markers bumped.** README and INDEX now report v0.49 / 2026-07-14 for this support-FAQ correction.
+
 ## v0.48 — reference-card support-route alignment (2026-07-11)
 
 The H.2 Terminal and H.3 Git printable cards still told stuck learners to ask in "the program's primary support channel" even though Appendix F and H.7 now name `#ai-help` as the active routed help surface. These are stop-and-ask moments for Day-1 readers, so the card should carry the actual channel link instead of a placeholder.
