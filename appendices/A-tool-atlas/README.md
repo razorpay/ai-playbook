@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-12"
+updated: "2026-07-14"
 ---
 
 # Appendix A — Tool Atlas
@@ -34,7 +34,7 @@ updated: "2026-07-12"
 | Compass | You need Razorpay-specific skills, hooks, MCPs, and policy-aware workflows inside Claude Code. | One-off general chat. Compass is the overlay, not the conversation surface. |
 | PM tracer | You want your PM/Product Claude Code usage to count toward the AI Adoption Leaderboard after your setup is GREEN. | Debugging, answering questions, or trying to "game" adoption through token spend. It is instrumentation, not an assistant. |
 | Analytics Agent | You need the standalone Self Serve Analytics path for metric questions, lineage checks, or health reviews. | Native-Windows hand ports, ad-hoc database access, or metric work before the plugin is onboarded. |
-| Slash | You need a named command or packaged workflow, especially for repeated internal tasks. | Open-ended exploration where the shape of the task is still unclear. |
+| Slash | You need remote internal research or a bounded repo task: use knowledge-first mode to understand, or execution mode to change code and raise a PR. | Local uncommitted work, an interactive dev loop, or a task whose repo and success criteria are still unclear. |
 | Cursor | You want an IDE-native coding assistant inside an editor workflow. | Program-specific belt flows that depend on Compass conventions. |
 | Codex | Support has routed you to the approved OpenAI workspace for bounded implementation, verification, overflow, or a second-agent check. | Program certification work that depends on Compass skills, Razorpay connectors, or Claude Code guardrails. |
 
@@ -170,19 +170,22 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 ### Slash
 
-**Surface type.** Razorpay's internal AI assistant, web-based, scoped to internal data. Distinct from Claude Code; do not confuse them.
+**Surface type.** Razorpay's remote internal AI worker, invoked with `@slash`. It has a knowledge-first mode for understanding and an execution mode for scoped repo work. It is distinct from the Claude Code session running on your machine.
 
-**Default context.** The internal sources Slash is wired to, governed by the org's data policy.
+**Default context.** Your task, any repo scope you name, and the approved skills, plugins, and internal sources available to that Slash run. This is remote task context, not your local terminal state.
 
-**What it can see.** Approved internal data only. Not your local files. Not the public web by default.
+**What it can see.** Approved internal data and the remote repo or repos selected for the task. It cannot see uncommitted files on your laptop, and public-web access is not a safe default assumption.
 
-**What it can do.** Run named commands and packaged workflows, summarise internal threads and tickets, and answer questions that require Razorpay context.
+**What it can do.** Research an internal flow, gather context before implementation, invoke approved skills/plugins, implement a scoped change, and raise a PR. Choose the mode explicitly:
 
-**What it cannot do.** Open a PR. Edit a file in your repo. Replace Claude Code for builder work.
+- Knowledge first: `@slash --plan <query>` (or `--discover`) when you need to understand a flow, owner, or code path before changing anything.
+- Execute: `@slash repo:<repo-name> <task>` (or `repos:<repo-a>,<repo-b>`) when the job and expected result are already clear.
 
-**Common failure modes.** Treating Slash as a substitute for Claude Code, or treating Claude Code as a substitute for Slash. They are complements, not alternatives.
+**What it cannot do.** Inspect your local uncommitted state, provide a tight localhost edit-run-debug loop, or turn an opened PR into verified work. Claude Code remains the local belt path; Slash is the remote delegation path.
 
-**Belt relevance.** Useful at every belt for research, scoping, and discovery. Not a build surface.
+**Common failure modes.** Executing before the problem is understood. Omitting the repo scope. Assuming a remote run sees local changes. Treating the generated PR as reviewed. Fix the first with knowledge-first mode; fix the rest with explicit scope and normal review evidence.
+
+**Belt relevance.** Useful at every belt for research and scoping; useful from Yellow onward for bounded remote repo tasks. It complements rather than replaces the Claude Code + Compass belt workflow.
 
 ### Cursor
 
@@ -226,7 +229,7 @@ Before you open a tool, run this filter in your head:
 - If the work is non-code office workflow on a folder, default to Cowork.
 - If the work is PM adoption instrumentation, install the PM tracer after Claude Code is GREEN and verify it with `/tracing-doctor`.
 - If the work is metric or SSA analysis, use Analytics Agent after its setup/onboarding flow instead of the retired `querying-metrics` habit.
-- If the work is internal-data research, default to Slash.
+- If the work is internal research, use Slash knowledge-first mode. If it is a bounded remote repo task, give Slash the repo and acceptance criteria in execution mode.
 - If the work needs visual file navigation, host Claude Code inside Cursor's terminal.
 - If support routes you to Codex for overflow or verification, use it for the bounded task and bring the result back through Claude Code before shipping.
 - If you cannot tell what shape of work it is, name the work in one sentence first; the right tool usually appears in the sentence.
@@ -243,7 +246,7 @@ The atlas exists because these patterns keep happening and keep costing time.
 
 **Asking Claude Code to do non-code synthesis.** Treating it as a chat tool wastes its harness. If the task does not touch a file, a run, or a connector, do it in Claude.ai or Cowork.
 
-**Using Slash for build tasks.** Slash is a research and discovery surface, not a builder. Pulling code out of it and shipping it skips the policy layer.
+**Using the wrong Slash mode.** Asking execution mode to “figure it out and ship” mixes discovery with code changes. Use knowledge-first mode until the repo, constraints, and success criteria are clear; then delegate the bounded implementation and review the PR normally.
 
 **Confusing instrumentation with capability.** The PM tracer can make usage visible; it cannot make the work useful. More tokens do not mean better adoption.
 
