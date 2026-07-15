@@ -14,12 +14,12 @@ next: "belts/black/api-council-contributions"
 pillar: "governance"
 belt: "black"
 tags: ["black-belt", "rfc", "governance"]
-updated: "2026-05-07"
+updated: "2026-07-15"
 ---
 
 # B.14 — Writing an AI RFC: what good looks like at Razorpay
 
-The first governance module of Part C. Where B.12 (office hours) and B.13 (embedded sprints) propagate platform-builder patterns through cultural moves, B.14 covers the *written* propagation move: when a change touches the program's shared AI surface — a new connector, a new policy, a new shared skill pack, a new model-routing decision — the change earns a merge through an RFC.
+The first governance module of Part C. Where B.12 (office hours) and B.13 (embedded sprints) propagate platform-builder patterns through cultural moves, B.14 covers the *written* propagation move: when a change touches the program's shared AI surface — a new connector, a new policy, a structural change to the shared skill library, a new model-routing decision — the change earns a merge through an RFC.
 
 An RFC merges when reviewers can name what would change and how to measure whether it worked. That is the bar.
 

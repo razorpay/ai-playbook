@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.50 — repository-native shared-skill publishing (2026-07-15)
+
+The Black Belt publishing path still taught a fictional `pack.yml` bundle, SemVer tag, checksummed pinned channel, and central platform-community approval. The live `razorpay/agent-skills` repository and repeated `#devex-skills` review routing now use ordinary skill-directory pull requests, repository validation, owning-team approval for content, and DevEx review for structural changes.
+
+**What changed.**
+
+- **B.2 rebuilt around the current repository.** The chapter now teaches shared/team/business placement, repository-native `SKILL.md` structure, `make test` plus focused validation, owning-team review, clean `npx skills add` installation, and a copyable pre-PR checklist.
+- **Quest and governance evidence corrected.** Quest B-1 now asks candidates to merge and prove adoption of a shared skill; B.16 uses the merged PR as the durable approval record and adds reviewers according to ownership and scope.
+- **Related Black Belt examples aligned.** Part A, B.3, B.6, B.13–B.14, Part C, the Black Belt quest/boss-fight/badge guidance, and C.6 no longer point readers to the retired pack/pinned-channel model; `manifest.yml` now matches the touched frontmatter.
+- **Version markers bumped.** README and INDEX now report v0.50 / 2026-07-15 for the publishing-workflow correction.
+
 ## v0.49 — misleading model-login error triage (2026-07-14)
 
 Three recent `#ai-help` reports showed Claude Code selecting a default model that the user's LiteLLM key did not enable. The resulting error began with `Please run /login` even though the key was valid and the same message listed enabled routes, sending blocked builders toward an irrelevant authentication loop.

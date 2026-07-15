@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.49 · last reviewed 2026-07-14 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.50 · last reviewed 2026-07-15 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -376,7 +376,7 @@ Write, commit, and share a SKILL.md that captures one of your team's repeated wo
 *Success criteria:* merged skill, invocation log from ≥1 teammate.
 
 **🎮 [Quest G-2 — The Greenfield cross-over](belts/03-green/b-practices/quest-G2-greenfield-crossover.md) [drafted].**
-Pick a greenfield target (an internal tool, a new agent skill pack, a self-serve analytics surface, a plugin) and ship one meaningful change that exercises Part A and Part B together.
+Pick a greenfield target (an internal tool, a new shared skill, a self-serve analytics surface, a plugin) and ship one meaningful change that exercises Part A and Part B together.
 *Success criteria:* merged PR, logged against your tracker row.
 
 ### Boss fight (required to earn Green Belt)
@@ -406,7 +406,7 @@ A real feature on a product repo plus your Quest G-2 greenfield PR. The product-
 | §    | Chapter                                                              | Pillar  |
 |------|----------------------------------------------------------------------|---------|
 | B.1  | [Authoring an internal MCP server — architecture, auth, packaging](belts/04-black/a-platform/B01-internal-mcp-server.md) [drafted] | Harness |
-| B.2  | [Publishing a skill pack — naming, versioning, governance](belts/04-black/a-platform/B02-skill-pack-publishing.md) [drafted] | Context |
+| B.2  | [Publishing a shared skill — placement, validation, review](belts/04-black/a-platform/B02-skill-pack-publishing.md) [drafted] | Context |
 | B.3  | [Building a plugin marketplace entry for Razorpay Cowork](belts/04-black/a-platform/B03-cowork-plugin-marketplace.md) [drafted] | Harness |
 | B.4  | [The Claude Agent SDK — when to write your own agent](belts/04-black/a-platform/B04-agent-sdk.md) [drafted] | Harness |
 | B.5  | [Multi-agent orchestration — patterns that work, patterns that don't](belts/04-black/a-platform/B05-multi-agent-orchestration.md) [drafted] | Harness |
@@ -434,8 +434,8 @@ A real feature on a product repo plus your Quest G-2 greenfield PR. The product-
 
 ### Quests (both required)
 
-**🎮 [Quest B-1 — Publish an internal plugin](belts/04-black/a-platform/quest-B1-publish-an-internal-plugin.md) [drafted].**
-A skill pack + (optionally) an MCP integration, published so another POD can install it with one command. Mirror the Compass plugin distribution model (version-locked, checksummed, validated) *or* — if the registry is live — publish via `/plugin install`.
+**🎮 [Quest B-1 — Publish a shared skill](belts/04-black/a-platform/quest-B1-publish-an-internal-plugin.md) [drafted].**
+A repository-native skill, with an MCP dependency only when needed, merged to `razorpay/agent-skills` so another POD can install it with one command.
 *Success criteria:* ≥2 installs from other PODs within a month.
 
 **🎮 [Quest B-2 — Component contribution or full-stack feature](belts/04-black/b-craft/quest-B2-contribution-or-full-stack.md) [drafted].**

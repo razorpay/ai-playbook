@@ -14,7 +14,7 @@ next: "belts/black/writing-an-ai-rfc"
 pillar: "culture"
 belt: "black"
 tags: ["black-belt", "embedded-sprints", "culture"]
-updated: "2026-05-07"
+updated: "2026-07-15"
 ---
 
 # B.13 — Embedded sprints: the CTO-with-a-team week
@@ -39,7 +39,7 @@ The pattern comes from staff-engineer literature: a senior individual contributo
 
 The Black Belt promise is *force multiplier*. Office hours (B.12) propagate answers across a POD set in 60-minute increments. Embedded sprints propagate *the way a senior builder works* across an entire team in a one-week increment. The difference is depth: in an office hour you can answer a question; in an embedded sprint you can change how the host POD ships.
 
-A platform team that has authored an MCP, a skill pack, and a custom agent (Quest B-1) and that has shipped a Blade contribution or a full-stack feature (Quest B-2) is well-equipped to *teach* but only marginally equipped to *spread*. Spread requires showing up. Spread requires sharing the keyboard.
+A platform team that has authored an MCP, a shared skill, and a custom agent (Quest B-1) and that has shipped a Blade contribution or a full-stack feature (Quest B-2) is well-equipped to *teach* but only marginally equipped to *spread*. Spread requires showing up. Spread requires sharing the keyboard.
 
 Embedded sprints are also one of the inputs to Boss Fight B-B — a one-month POD-AI-uplift embed is a *month-long* version of this pattern with a measurable outcome.
 
@@ -97,26 +97,26 @@ A representative shape (no real team names).
 
 **Pre-week.** Embedding builder reaches out to host POD lead. They scope:
 
-- *deliverable:* host POD has a recurring weekly status report that takes a builder ~3 hours; can the embed automate it via a skill pack so the time goes to ~30 minutes?
+- *deliverable:* host POD has a recurring weekly status report that takes a builder ~3 hours; can the embed automate it via a shared skill so the time goes to ~30 minutes?
 - *owner-pair:* embedding builder + a mid-level builder on the host team;
-- *constraints:* must use the program's pinned plugin distribution; must not depend on any data the host team does not already have access to;
-- *done:* the skill pack is published, the host team has run it on two consecutive weekly reports, and the time-saved measurement is logged.
+- *constraints:* publish through `razorpay/agent-skills`; must not depend on any data the host team does not already have access to;
+- *done:* the skill is merged, the host team has run it on two consecutive weekly reports, and the time-saved measurement is logged.
 
 The pre-week conversation takes 45 minutes; without it, Monday is wasted on scoping.
 
-**Monday.** Embed reads the host POD's CLAUDE.md, last week's PRs, the relevant Slack channels. Pairs with the mid-level builder. They walk the manual report-writing flow together; the embed asks "what is annoying about this?" and takes notes. By end-of-day they have a sketch for the skill pack: triggers (the report deadline), inputs (the team's tracker, the team's primary Slack channel), outputs (a Markdown report in the team's standard shape), failure modes (when the tracker has no entries, when the Slack channel has no relevant messages).
+**Monday.** Embed reads the host POD's CLAUDE.md, last week's PRs, the relevant Slack channels. Pairs with the mid-level builder. They walk the manual report-writing flow together; the embed asks "what is annoying about this?" and takes notes. By end-of-day they have a sketch for the shared skill: triggers (the report deadline), inputs (the team's tracker, the team's primary Slack channel), outputs (a Markdown report in the team's standard shape), failure modes (when the tracker has no entries, when the Slack channel has no relevant messages).
 
-**Tuesday-Wednesday.** They author the skill pack's SKILL.md (per G.7), test scenarios in `tests/`, and run the acceptance scenarios. The embed shows the mid-level builder how to apply progressive disclosure (per B.7) so the SKILL.md stays under 200 lines. They publish a v0.1 to the program's pinned channel for the team's review.
+**Tuesday-Wednesday.** They author the skill's `SKILL.md` (per G.7), add references or scripts only where needed, and run the repository validation plus acceptance scenarios. The embed shows the mid-level builder how to apply progressive disclosure (per B.7). They open an `agent-skills` PR for the owning team's review.
 
-**Thursday.** They run the skill pack on the actual weekly report. It works for 80% of the content; the 20% that fails is in cases where the team's tracker uses a non-standard label. They iterate to v0.2 that handles the edge case. The mid-level builder owns the v0.2 PR; the embed reviews. The host team's lead approves.
+**Thursday.** They run the skill on the actual weekly report. It works for 80% of the content; the 20% that fails is in cases where the team's tracker uses a non-standard label. They update the PR to handle the edge case. The mid-level builder owns the PR; the embed reviews. The host team's lead approves.
 
-**Friday morning.** v1.0 ships. The mid-level builder runs it on the *next* week's report (in advance), times it, logs the result: 40 minutes vs the historical 3 hours.
+**Friday morning.** The skill merges. The mid-level builder clean-installs it, runs it on the *next* week's report (in advance), times it, and logs the result: 40 minutes vs the historical 3 hours.
 
 **Friday afternoon.** The embed writes the debrief:
 
-- *deliverable:* skill pack `weekly-status-pack` v1.0 published; ~85% time saving on the recurring report;
+- *deliverable:* `weekly-status` skill merged to `razorpay/agent-skills`; ~85% time saving on the recurring report;
 - *what was harder than expected:* the host POD's tracker has three label variants for the same concept; this is a documentation gap, not an AI gap, and the host POD should standardise;
-- *what the platform team should fix:* the program's pinned plugin had a small install-friction issue on the host POD's setup that wasted ~30 minutes; ticket filed;
+- *what the platform team should fix:* the shared-library install path had a small friction issue on the host POD's setup that wasted ~30 minutes; ticket filed;
 - *what the host POD should keep doing:* the team's CLAUDE.md is unusually well-written, which made the embed possible in one week; this is a model;
 - *what the next embed should know:* if the host team has a non-standard tracker pattern, build the SKILL.md to detect-and-redirect rather than assuming the standard.
 
@@ -162,13 +162,13 @@ The pattern that builders can copy. Two starting paths.
 
 **Time box bleeds.** The embed runs into a second week, then a third. Fix: the debrief on Friday is the cut-off, even if the deliverable is partial. A partial deliverable + a clear debrief is better than a complete deliverable that took three weeks.
 
-**Ship-without-with.** The embedded builder writes the skill pack alone Tuesday-Thursday and hands it over Friday. Fix: pair from Monday; the *with* is the propagation mechanism. A skill pack handed over without pairing is just a contribution.
+**Ship-without-with.** The embedded builder writes the skill alone Tuesday-Thursday and hands it over Friday. Fix: pair from Monday; the *with* is the propagation mechanism. A skill handed over without pairing is just a contribution.
 
 **Debrief written in private.** The lessons stay with the embed. Fix: debrief is pinned in the program's main forum; the next embed reads it before their pre-week.
 
 **Embed-as-evaluation.** The embedding builder uses the debrief to assess the host POD's people. Fix: debriefs name *patterns* (the tracker has three label variants; the CLAUDE.md is unusually clean), not *people* (Builder X is slow; Builder Y is unclear).
 
-**No measurement on the deliverable.** "We shipped a skill pack" is not the same as "we shipped a skill pack and measured an 85% time saving on the recurring report." Fix: measurement is part of "done"; if the deliverable cannot be measured, name what *can* be (e.g., "the team can now author this kind of skill pack independently — the next one took them three days instead of asking us for an embed").
+**No measurement on the deliverable.** "We shipped a skill" is not the same as "we shipped a skill and measured an 85% time saving on the recurring report." Fix: measurement is part of "done"; if the deliverable cannot be measured, name what *can* be (e.g., "the team can now author this kind of shared skill independently — the next one took them three days instead of asking us for an embed").
 
 ---
 
@@ -188,7 +188,7 @@ The pattern that builders can copy. Two starting paths.
 
 ## Where to go next
 
-Office hours and embedded sprints surface what *should change* across the platform. When a change needs alignment beyond a single embed (when it touches a shared connector, a shared policy, a shared skill pack) the next move is an AI RFC. B.14 covers the shape.
+Office hours and embedded sprints surface what *should change* across the platform. When a change needs alignment beyond a single embed (when it touches a shared connector, a shared policy, or the shared skill library) the next move is an AI RFC. B.14 covers the shape.
 
 **Previous:** [← B.12 Running office hours](B12-running-office-hours.md) · **Next:** [→ B.14 Writing an AI RFC](B14-writing-an-ai-rfc.md)
 

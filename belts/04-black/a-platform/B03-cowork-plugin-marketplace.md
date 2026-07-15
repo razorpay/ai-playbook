@@ -8,18 +8,18 @@ track: "black"
 order: 3
 time_minutes: 45
 audience: "platform-builder"
-outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install your skill pack with one click — and understand the governance step that separates a marketplace entry from a personal pack."
+outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install the workflow with one click — and understand how that surface differs from the shared skill library."
 prev: "belts/black/skill-pack-publishing"
 next: "belts/black/agent-sdk"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "cowork", "plugin-marketplace", "publishing"]
-updated: "2026-04-29"
+updated: "2026-07-15"
 ---
 
 # B.3 — Building a plugin marketplace entry for Razorpay Cowork
 
-A skill pack in the program's pinned channel reaches engineers who run Claude Code. The Cowork plugin marketplace reaches a wider audience: PMs, ops, designers, support — anyone using Cowork as their daily AI surface. This module is about contributing a plugin entry to that marketplace.
+A shared skill in `razorpay/agent-skills` reaches teammates using supported coding agents. The Cowork plugin marketplace reaches a wider audience: PMs, ops, designers, support — anyone using Cowork as their daily AI surface. This module is about contributing a plugin entry to that marketplace.
 
 ---
 
@@ -44,11 +44,10 @@ A skill pack in the program's pinned channel reaches engineers who run Claude Co
    │   Razorpay's Cowork tenant marketplace          │
    │     - curated, governed                         │
    │     - Razorpay-specific plugins                 │
-   │     - sourced from the program's pinned        │
-   │       distribution where appropriate            │
+   │     - can reuse shared agent-skills workflows  │
    │                                                  │
    │   What an entry contains:                       │
-   │     - skill pack(s)                             │
+   │     - skill(s)                                  │
    │     - MCP integrations (optional)               │
    │     - subagent definitions (optional)           │
    │     - install metadata + governance review     │
@@ -64,7 +63,7 @@ The Cowork marketplace itself is public; Anthropic publishes the platform docs. 
 
 A plugin entry typically packages:
 
-- **One or more skill packs** (per B.2). The skills the consumer's Cowork picks up.
+- **One or more skills.** Reuse repository-native workflows from B.2 where the runtime supports them.
 - **Optional MCP integrations.** If the plugin needs access to a connector that does not ship with Cowork by default, the entry declares it.
 - **Optional subagent definitions.** Specialist subagents the plugin's skills can spawn (per G.8).
 - **Install metadata.** Name, version, owner, description, what it does, what it does not do.
@@ -74,15 +73,15 @@ The entry is structured (the public Cowork docs name the file shapes); the disci
 
 ---
 
-## Why publish to the marketplace, not just the program's pinned channel
+## Why publish to the marketplace, not just the shared skill library
 
 Three audiences differ enough to justify both surfaces.
 
-**The pinned channel** reaches engineers running Claude Code. They are comfortable with `/plugin install`-style commands. They version-pin manually. They read changelogs.
+**The shared skill library** reaches teammates using supported coding agents. They install a named skill from `razorpay/agent-skills`, work in repositories, and can inspect the source and PR history.
 
 **The Cowork marketplace** reaches everyone else. PMs who want a "summarise my sprint" skill. Ops who want a "triage incoming tickets" skill. Designers who want a "audit this Figma frame against Blade" skill. They do not run Claude Code; they open Cowork; they click *Install*.
 
-The same underlying skill can ship to both surfaces — the source is the same; the packaging differs. A Black Belt builder who publishes only to the pinned channel is leaving the non-engineer audience unreached. The leverage delta is real and worth the publishing effort.
+The same underlying workflow can ship to both surfaces — the source may be shared, but the packaging and audience differ. A Black Belt builder who publishes only to the agent-skills library may leave the non-engineer audience unreached. The leverage delta is real when the workflow genuinely fits both surfaces.
 
 ---
 
@@ -115,23 +114,23 @@ Non-engineer consumers read a marketplace entry differently than engineers read 
 
 ## When NOT to publish to the marketplace
 
-Three patterns where pinned-channel-only is correct.
+Three patterns where the shared skill library is the better surface.
 
 **Pattern 1.** The plugin is engineering-only. A `release-pipeline-toolkit` plugin has no use for a designer; surfacing it in the marketplace is noise.
 
 **Pattern 2.** The plugin requires repo-shape context that Cowork users do not have. Cowork is folder-first, not repo-first; a plugin that assumes a git checkout fits awkwardly there.
 
-**Pattern 3.** The plugin handles regulator-scoped data. The governance review will likely refuse, and the right path is to keep the plugin in the program's tighter pinned channel where the audit trail is stronger.
+**Pattern 3.** The workflow handles regulator-scoped data. Use the approved restricted path and review boundary; do not broaden distribution merely to gain marketplace reach.
 
 ---
 
-## Worked sketch — publishing the `release-pipeline-toolkit` pack to Cowork
+## Worked sketch — publishing a release workflow to Cowork
 
-Following on from B.2's sketch: the team has authored `release-pipeline-toolkit@1.0.0` and it is in the program's pinned channel. Should it go to the Cowork marketplace?
+Following on from B.2: the team has published a `release-pipeline-toolkit` skill to `razorpay/agent-skills`. Should it also go to the Cowork marketplace?
 
-**Decision.** No. The pack is engineering-only (it operates on git branches and CI pipelines). Pinned channel is the right surface.
+**Decision.** No. The workflow is engineering-only: it operates on git branches and CI pipelines. The shared skill library is the right surface.
 
-Now consider a different pack: `weekly-status-summary@1.0.0`. The team authored a skill that summarises a team's week from merged PRs and ticket activity. Useful for engineers and useful for PMs and useful for engineering managers.
+Now consider a different skill: `weekly-status-summary`. It summarises a team's week from merged PRs and ticket activity. It is useful to engineers, PMs, and engineering managers.
 
 **Decision.** Yes. Publish to the Cowork marketplace.
 
@@ -159,7 +158,7 @@ The plugin goes through governance review (clean), lands in the tenant marketpla
 
 **No README, just install instructions.** Non-engineers cannot evaluate. Fix: the six-question README from §"What the marketplace entry's README should answer".
 
-**Publishing engineering-only plugins to the marketplace.** Noise for non-engineers; clutter for everyone. Fix: pin-channel only; reserve the marketplace for plugins that pay off across audiences.
+**Publishing engineering-only plugins to the marketplace.** Noise for non-engineers; clutter for everyone. Fix: keep the workflow in the shared skill library; reserve the marketplace for plugins that pay off across audiences.
 
 **Same author for code and review.** Conflict of interest. Fix: a different reviewer per the program's governance rule.
 
@@ -172,8 +171,8 @@ The plugin goes through governance review (clean), lands in the tenant marketpla
 ## GREEN / YELLOW / RED self-check
 
 - 🟢 GREEN: I can publish a plugin to the Razorpay Cowork tenant marketplace, pass governance review, and produce an entry README a non-engineer can evaluate in 30 seconds.
-- 🟡 YELLOW — I have authored skill packs but have not navigated the marketplace publishing flow.
-- 🔴 RED — I do not yet know what the Cowork marketplace is or why it differs from the program's pinned channel.
+- 🟡 YELLOW — I have authored shared skills but have not navigated the marketplace publishing flow.
+- 🔴 RED — I do not yet know what the Cowork marketplace is or why it differs from the shared skill library.
 
 ---
 
@@ -185,12 +184,12 @@ The plugin goes through governance review (clean), lands in the tenant marketpla
 
 ## Where to go next
 
-B.4 (*The Claude Agent SDK*) covers the build-vs-install decision at the next layer up. When the program-pinned plugin and the marketplace cannot satisfy the workflow, you reach for the SDK and write your own agent.
+B.4 (*The Claude Agent SDK*) covers the build-vs-install decision at the next layer up. When the shared skill library and marketplace cannot satisfy the workflow, you reach for the SDK and write your own agent.
 
-**Previous:** [← B.2 Publishing a skill pack](B02-skill-pack-publishing.md) · **Next:** [→ B.4 The Claude Agent SDK](B04-agent-sdk.md)
+**Previous:** [← B.2 Publishing a shared skill](B02-skill-pack-publishing.md) · **Next:** [→ B.4 The Claude Agent SDK](B04-agent-sdk.md)
 
 **Further reading**
 
 - [Anthropic's Cowork plugin docs](https://claude.com/) — the public reference for plugin shape
-- [B.2 — Publishing a skill pack](B02-skill-pack-publishing.md)
+- [B.2 — Publishing a shared skill](B02-skill-pack-publishing.md)
 - [Prologue 0.5 — Meet your tools](../../../prologue/05-tool-tour.md) — Cowork in the tool atlas

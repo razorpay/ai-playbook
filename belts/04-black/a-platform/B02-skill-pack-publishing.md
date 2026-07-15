@@ -1,5 +1,5 @@
 ---
-title: "Publishing a skill pack — naming, versioning, governance"
+title: "Publishing a shared skill — placement, validation, review"
 slug: "belts/black/skill-pack-publishing"
 section: "belts"
 status: "drafted"
@@ -8,202 +8,225 @@ track: "black"
 order: 2
 time_minutes: 30
 audience: "platform-builder"
-outcome: "Bundle one or more SKILL.md artefacts into a pack and publish it so other PODs can install, pin, and adopt it without re-deriving the workflow."
+outcome: "Publish a reusable skill to razorpay/agent-skills so other teams can discover, install, verify, and maintain it without re-deriving the workflow."
 prev: "belts/black/internal-mcp-server"
 next: "belts/black/cowork-plugin-marketplace"
 pillar: "context"
 belt: "black"
-tags: ["black-belt", "skill-pack", "publishing", "governance"]
-updated: "2026-04-29"
+tags: ["black-belt", "agent-skills", "publishing", "governance"]
+updated: "2026-07-15"
 ---
 
-# B.2 — Publishing a skill pack
+# B.2 — Publishing a shared skill
 
-Green Belt taught you to author a SKILL.md (G.7) and contributed `playbook-course` and three Part C skills to the program library (v0.8 and v0.12). Black Belt teaches you to bundle skills into *packs* — installable artefacts other PODs can adopt with one command. This module is about the publishing layer: naming, versioning, governance.
+Green Belt taught you to author a `SKILL.md` (G.7). Black Belt teaches you to publish that workflow to [`razorpay/agent-skills`](https://github.com/razorpay/agent-skills), Razorpay's shared skill library, so another team can install and maintain it.
+
+The unit of contribution is a **skill directory in the shared repository**, not a separate `pack.yml`, checksummed bundle, or private registry entry. The normal delivery path is a pull request.
 
 ---
 
 ## If you're short on time
 
-- A skill pack bundles related skills behind one install. Consumers install once; they get the pack's contents at the pinned version.
-- Three governance properties matter: a clear *owner*, a versioning story, and a deprecation path.
-- Most packs fail not because the skills are bad but because nobody owned them after the original author moved teams.
+- Put the skill in the right `razorpay/agent-skills` directory: shared technical capability, team-owned workflow, or cross-functional business workflow.
+- Keep the required instructions in `SKILL.md`; use `references/`, `scripts/`, and `assets/` only when they earn their keep.
+- Run the repository validation, open a normal PR, and get approval from the owning team. Structural changes also need DevEx review.
+- Prove the merged skill installs with `npx skills add razorpay/agent-skills --skill <skill-name>`.
+- Do not invent a wrapper pack merely to look platform-shaped. A boring, installable directory beats an elegant diagram nobody can run.
 
 ---
 
-## What is a skill pack
+## The mental model
 
-```
-   ┌────────────────────────────────────────────────┐
-   │              SKILL PACK SHAPE                    │
-   ├────────────────────────────────────────────────┤
-   │                                                  │
-   │   pack-name@version                             │
-   │   ├── pack.yml             (metadata, contents) │
-   │   ├── README.md            (consumer-facing)   │
-   │   ├── skills/                                   │
-   │   │   ├── skill-1/                              │
-   │   │   │   ├── SKILL.md                          │
-   │   │   │   └── reference files                  │
-   │   │   ├── skill-2/                              │
-   │   │   │   └── SKILL.md                          │
-   │   │   └── ...                                   │
-   │   └── tests/               (acceptance tests)  │
-   │                                                  │
-   └────────────────────────────────────────────────┘
+```text
+Repeated workflow
+  -> one well-scoped SKILL.md
+  -> correct agent-skills directory
+  -> validation + usage example
+  -> owning-team PR review
+  -> merged shared library entry
+  -> clean install by another team
 ```
 
-The pack is a directory with a metadata file (`pack.yml`), a consumer README, the skills themselves, and test scenarios. A consumer installs the pack; their Claude Code picks up the skills.
+The repository is both distribution surface and audit trail. The skill path says who it is for; Git history records how it changed; CODEOWNERS and the PR establish review.
 
 ---
 
-## Naming
+## Choose the placement before writing
 
-Three rules for pack names.
+Use this decision tree. It is intentionally small enough to run in your head:
 
-**Rule 1: Verb-noun or noun-noun, lowercased, hyphenated.** `release-pipeline-toolkit`, `dashboard-debugging-pack`, `merchant-onboarding-skills`. Avoid generic names; "helpers" attracts clutter.
+```text
+Is this a technical capability useful across teams?
+├─ yes -> <category>/skills/<skill-name>/
+└─ no
+   Is this one team's workflow or tooling?
+   ├─ yes -> teams/<team-name>/skills/<skill-name>/
+   └─ no -> business/<domain>/<skill-name>/
+```
 
-**Rule 2 — Scoped to the job, not the team.** A pack named after the team (`team-foo-pack`) ages badly when the team renames or splits. A pack named after the job (`merchant-onboarding-skills`) survives org changes.
+Examples:
 
-**Rule 3 — Unique within the program registry.** Check the program's published-pack list before any new name; collisions confuse consumers who can't tell which pack they have.
+- `development/skills/code-review` — a reusable technical capability;
+- `teams/<team>/skills/<workflow>` — a team-owned operating workflow;
+- `business/<domain>/<workflow>` — a cross-functional business process.
 
----
-
-## Versioning
-
-Semantic versioning, same shape as MCP servers and the Compass plugin:
-
-- **Major bump (`1.x → 2.x`).** A breaking change to a skill's trigger, output shape, or hard rules. Consumers must opt in.
-- **Minor bump (`1.0 → 1.1`).** A backward-compatible addition: a new skill, a new optional input, a new output field.
-- **Patch (`1.0.0 → 1.0.1`).** A bug fix. Consumers get this on next install with no behaviour change.
-
-Pin one major version per consumer. Document major-version changes in the pack's CHANGELOG; the changelog is what consumers read at upgrade time.
-
----
-
-## The metadata file (`pack.yml`)
-
-Every pack ships with a `pack.yml` that names:
-
-- pack name and current version;
-- the owner (a team handle, not a person — owners outlive individuals);
-- a one-paragraph description suitable for a registry listing;
-- the list of skills the pack contains, with their slugs and trigger phrases;
-- compatibility: which version of the program-pinned plugin the pack was tested against;
-- the deprecation signal: any skill in the pack flagged for retirement, with the timeline.
-
-A consumer reading `pack.yml` should be able to decide in 60 seconds whether to install. A pack whose `pack.yml` cannot answer "what is this for and what does it cost" is a pack that does not get adopted.
+If placement is unclear, ask in `#devex-skills` before building a new top-level category. A structural change is the exceptional case; most contributions fit an existing directory.
 
 ---
 
-## Governance — the three load-bearing properties
+## Build the repository-native shape
 
-### Property 1 — Named owner (a team, not a person)
+A shared skill normally looks like this:
 
-Every pack has a team owner. The team's handle is in `pack.yml`. When the original author moves teams, the new author inherits ownership; if the owning team dissolves, the pack moves to a sibling team or to the program's plugin maintainers.
+```text
+<location>/<skill-name>/
+├── SKILL.md        # required
+├── references/     # optional: context loaded when needed
+├── scripts/        # optional: deterministic helpers
+└── assets/         # optional: templates or output assets
+```
 
-The trap: a pack owned by an individual. Individuals move; packs do not. A pack whose owner field reads as a single person is a pack that goes orphan in 6–18 months.
+`SKILL.md` needs valid frontmatter, a precise activation description, concrete instructions, and examples. The current repository guidance prefers progressive disclosure over a giant body: detailed schemas and lookup material belong in `references/`; reliable repeated code belongs in tested `scripts/`.
 
-### Property 2 — Versioning story
-
-A consumer who installed the pack at v1.0 should be able to upgrade to v1.4 without breakage. Major-version changes ship with a deprecation cycle: warn at v2.0-rc, deprecate at v2.0, remove at v3.0.
-
-### Property 3 — Deprecation path
-
-Deprecating a pack is a real act. The owner team announces in [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW); the pack's README adds a "DEPRECATED" banner; the registry marks the pack with a sunset date; consumers get a deprecation warning when they invoke deprecated skills.
-
-A pack without a deprecation path becomes the program's accumulated debt.
+Do not add a README, changelog, install guide, or `pack.yml` inside every skill unless the repository's current contribution guide explicitly requires it for that path. The skill should contain what the agent needs. Repository-level docs already explain discovery and installation.
 
 ---
 
-## Publishing flow
+## The publishing workflow
 
-Five steps from "I have skills" to "another POD has installed them":
+### 1. Search before creating
 
-1. **Bundle.** Create the pack directory; populate `pack.yml`, README, and the skills.
-2. **Test.** Run the test scenarios against a stub branch. Lint clean.
-3. **Pin.** Tag the pack at v1.0.0 (or the next appropriate version).
-4. **Publish.** Push to the program's pinned distribution channel. The exact mechanics are program-specific; the pattern is "checksummed package, single pinned URL, audit trail of who published what when."
-5. **Announce.** Post in [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW). Name the pack, the install command, the use case, the owner.
+Check whether a skill already covers the job:
 
-Quest B-1 is the practical test of this flow. The flow is small; doing it once teaches you everything later packs need.
+```bash
+npx skills add razorpay/agent-skills --list
+```
+
+Also search the repository by workflow and trigger language. If an existing skill is close, improve it instead of creating a near-duplicate with a more exciting name.
+
+### 2. Pick the owner and path
+
+Choose the shared, team, or business path. The owning team or business function must be able to review future changes and answer support questions. For a team or business skill, follow the repository's current frontmatter and CODEOWNERS guidance.
+
+### 3. Author the smallest complete skill
+
+Start with one workflow and one observable output. Include:
+
+- the trigger in the frontmatter description;
+- required inputs and preconditions;
+- the ordered workflow;
+- refusal or stop conditions;
+- output shape and at least one example;
+- failure handling;
+- tested scripts or references only where needed.
+
+### 4. Validate locally
+
+Run the repository checks from the `agent-skills` root:
+
+```bash
+make test
+```
+
+For a focused preflight, the repository also documents its skill reviewer:
+
+```bash
+python generic-helpers/skills/skill-reviewer/scripts/validate.py path/to/SKILL.md
+```
+
+Fix the findings rather than lowering the bar. If the skill has scripts, run them against representative fixtures as well.
+
+### 5. Open the pull request
+
+The PR should state:
+
+- what repeated workflow the skill captures;
+- why the chosen directory is correct;
+- who owns the workflow;
+- how the reviewer can invoke it;
+- what validation and representative test you ran;
+- what the skill deliberately does not do.
+
+Get review from the owning team. The current repository workflow routes structural changes to DevEx review; a normal skill-content PR does not need a separate central-platform blessing merely because it is a skill.
+
+### 6. Install the merged skill cleanly
+
+Do not count “merged” as “published” until a consumer can install it:
+
+```bash
+npx skills add razorpay/agent-skills --skill <skill-name>
+```
+
+For a specific supported agent, add its agent selector. Test from a clean environment or with a teammate who did not author the skill, then run one representative invocation.
+
+### 7. Announce and observe adoption
+
+Share the merged PR, install command, use case, and owner in `#devex-skills`. If the skill is useful beyond its originating team, also use the relevant discovery channel. Track real installs and feedback in the PR, issue, or owning team's durable backlog—not only in a disappearing Slack thread.
+
+Quest B-1 is the practical test: another POD must be able to install the merged skill and use it without the author driving their terminal.
 
 ---
 
-## What goes in a pack — and what does not
+## Copyable pre-PR checklist
 
-**Goes in:**
+```markdown
+## Shared-skill publishing check
 
-- Skills your team owns and maintains, including their reference files and test scenarios.
-- A consumer-facing README that explains the pack's job, its install command, and its trigger phrases.
-- Acceptance test scenarios covering the canonical paths.
+- [ ] Existing skill search completed; no near-duplicate found
+- [ ] Placement matches shared / team / business scope
+- [ ] Owning team or function identified
+- [ ] SKILL.md has a precise trigger, workflow, stop conditions, and example
+- [ ] References and scripts use progressive disclosure
+- [ ] `make test` passes
+- [ ] Any scripts ran against representative fixtures
+- [ ] Clean install command prepared
+- [ ] Out-of-team consumer can run one representative invocation
+```
 
-**Does not go in:**
-
-- Skills owned by other teams (those are in their packs).
-- Internal-only debugging skills the team uses in its own session but other teams should not load.
-- Experimental skills that have not yet survived the SKILL.md authoring discipline (G.7's three-runs-by-hand-first rule).
-- Personal preferences (those go in a builder's `CLAUDE.local.md`, not in a shared pack).
-
----
-
-## Worked sketch — a `release-pipeline-toolkit` pack
-
-Imagine a team that owns a backend service with a release pipeline. Three skills that have run cleanly multiple times by hand:
-
-1. `pre-release-check`: scans a branch for release-blocking conditions specific to this service.
-2. `release-notes-drafter`: drafts the release notes from merged PRs since the last release.
-3. `post-release-smoke`: runs the smoke-test sequence after deploy.
-
-Bundled as `release-pipeline-toolkit@1.0.0`:
-
-- `pack.yml` names the team owner, the three skills, and pins compatibility.
-- `README.md` reads "If your team owns a backend service with a release pipeline, install this pack to get the three workflows the original team uses on every release."
-- Each skill has its own SKILL.md with the standard anatomy.
-- `tests/` covers the canonical paths.
-
-Three teams adopt it in the first quarter. The pack's owner team accepts contributions; one external team opens a PR for a fourth skill, which lands in v1.1.0. The pack is alive, owned, useful.
+This checklist is the interactive element: run it before opening the PR, then paste the completed version into the description. No dashboard required.
 
 ---
 
 ## Common failure modes
 
-**Personal-name owner.** A pack owned by a person who changes teams becomes orphan. Fix: team handle, not personal handle.
+**Inventing a pack format.** A contributor creates `pack.yml`, nested READMEs, and a release wrapper that the shared repository does not consume. Fix: publish the repository-native skill directory. Use plugin packaging only when you are actually distributing a plugin with agents, hooks, or settings.
 
-**No deprecation path.** A pack accumulates skills nobody uses. Fix: quarterly review; deprecate skills that have not been invoked in two quarters.
+**Wrong placement.** A team-specific workflow lands as a universal technical skill, or a shared capability hides under one team. Fix: run the placement decision tree before authoring.
 
-**Breaking-change without a major bump.** Consumers are surprised; trust erodes. Fix: SemVer discipline; major-version bumps for breaking changes.
+**Personal ownership.** The original author is the only person who can explain or review the workflow. Fix: route the PR through the team or function that owns the underlying job and update CODEOWNERS where the repository requires it.
 
-**Mixing experimental and stable skills.** Consumers who installed for the stable skill get the experimental noise too. Fix: keep experiments in a separate `<pack-name>-lab` pack until they earn promotion.
+**Passing prose review but failing installation.** The Markdown looks good in the PR, but the merged path or skill name cannot be installed. Fix: run the real `npx skills add ... --skill ...` path from a clean environment.
 
-**No README.** Consumers cannot evaluate whether to install. Fix: every pack has a consumer-facing README answering "what is this for, what does it cost, how do I install, who owns it."
+**Central-approval queue by habit.** A normal skill PR waits on a platform team that does not own the workflow. Fix: get the owning team's approval; involve DevEx when the contribution changes repository structure or the documented path requires it.
 
-**No test scenarios.** Skills drift; nothing catches the drift. Fix: acceptance tests in `tests/`; run them on every release candidate.
+**No consumer proof.** The author can invoke the skill, but nobody else has tried it. Fix: ask an out-of-team consumer to install and run one representative case before claiming cross-POD adoption.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can bundle two-or-more skills into a pack with proper metadata, version it sanely, and publish via the program's pinned channel; my packs have team owners and deprecation paths.
-- 🟡 YELLOW — I have authored skills but have not bundled them into a pack with full governance.
-- 🔴 RED — I do not yet know what a skill pack is.
+- 🟢 GREEN: I can place, validate, review, merge, and clean-install a skill in `razorpay/agent-skills`; another team has run it without my help.
+- 🟡 YELLOW — I have authored a skill, but its ownership, placement, review path, or clean-install proof is incomplete.
+- 🔴 RED — I am preparing a custom pack or central approval request without checking the current shared-repository workflow.
 
 ---
 
 ## What you can say after this module
 
-> "I publish skill packs with named team owners, semantic versioning, deprecation paths, and consumer-facing READMEs — not orphan skills my teammates use once and forget."
+> "I publish repository-native skills with clear ownership, passing validation, the right review path, and a clean install—not orphan bundles that only work on my machine."
 
 ---
 
 ## Where to go next
 
-B.3 (*Building a plugin marketplace entry for Razorpay Cowork*) is the next surface. A skill pack lives in the program's pinned channel; a plugin marketplace entry lets non-engineer teammates install one-click via Cowork.
+B.3 covers the different case: packaging a wider plugin surface for Cowork. First prove the workflow as a shared skill. Add plugin machinery only when the audience or capability requires it.
 
 **Previous:** [← B.1 Authoring an internal MCP server](B01-internal-mcp-server.md) · **Next:** [→ B.3 Cowork plugin marketplace](B03-cowork-plugin-marketplace.md)
 
 **Further reading**
 
-- [G.6 — Skills overview](../../03-green/a-craft/G06-skills-overview.md)
+- [`razorpay/agent-skills` README](https://github.com/razorpay/agent-skills#readme) — discovery, installation, and repository commands.
+- [`razorpay/agent-skills` contributing guide](https://github.com/razorpay/agent-skills/blob/master/docs/contributing.md) — current structure, validation, and review path.
+- [`razorpay/agent-skills` placement guide](https://github.com/razorpay/agent-skills/blob/master/docs/skill-placement-guide.md) — shared versus team versus business placement.
+- [Merged `agent-skills` PR #2674](https://github.com/razorpay/agent-skills/pull/2674) — a current example of a normal skill-content PR reviewed and merged through the repository workflow.
 - [G.7 — Writing your first SKILL.md](../../03-green/a-craft/G07-writing-your-first-skill.md)
-- [Appendix C — Skills Library](../../../appendices/C-skills-library/README.md)
