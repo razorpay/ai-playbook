@@ -8,18 +8,18 @@ track: "black"
 order: 16
 time_minutes: 45
 audience: "platform-builder"
-outcome: "Govern plugin and skill lifecycles cleanly across approval (for new marketplace entries), deprecation (for plugins no team owns anymore), and security review (for plugins handling sensitive data)."
+outcome: "Govern shared-skill and plugin lifecycles across scope-sensitive approval, deprecation, and security review."
 prev: "belts/black/api-council-contributions"
 next: "belts/black/boss-fight-pod-ai-uplift"
 pillar: "governance"
 belt: "black"
 tags: ["black-belt", "governance", "plugin-lifecycle"]
-updated: "2026-05-07"
+updated: "2026-07-15"
 ---
 
 # B.16 — Plugin + skill governance: approval, deprecation, security review
 
-The closing module of Part C, and the close of Black Belt's reading content before the boss fight and the badge. Where B.14 (RFC) and B.15 (API Council) governed *new* AI surfaces at design time, B.16 governs the *lifecycle*: what happens after a plugin or skill pack ships, gets adopted, drifts, or hits a security-relevant edge.
+The closing module of Part C, and the close of Black Belt's reading content before the boss fight and the badge. Where B.14 (RFC) and B.15 (API Council) governed *new* AI surfaces at design time, B.16 governs the *lifecycle*: what happens after a plugin or shared skill ships, gets adopted, drifts, or hits a security-relevant edge.
 
 A platform-builder community without lifecycle governance accumulates orphan plugins, divergent versions, and silent compliance drift. With it, the community has a clean model: every plugin has a named owner, every plugin has a documented lifecycle stage, every transition between stages has a written trigger.
 
@@ -27,7 +27,7 @@ A platform-builder community without lifecycle governance accumulates orphan plu
 
 ## If you're short on time
 
-- Three governance moves: **approval** (for new plugin marketplace entries), **deprecation** (for plugins no team owns anymore), **security review** (for plugins handling sensitive data).
+- Three governance moves: **approval** (for shared-skill changes and new plugin marketplace entries), **deprecation** (for skills or plugins no team owns anymore), **security review** (for workflows handling sensitive data).
 - Each plugin moves through a lifecycle: **published → adopted → deprecated → removed**. Each transition has a named owner and a written trigger.
 - The discipline is *quiet*. Governance that bites at the wrong moment is a bottleneck; governance that bites at the right moment prevents the platform from drifting.
 
@@ -35,9 +35,9 @@ A platform-builder community without lifecycle governance accumulates orphan plu
 
 ## Why this is a Black Belt module
 
-You authored a plugin in Quest B-1 (Part A). You shipped it through the program's pinned distribution channel. Two PODs outside your team adopted it within a month. The badge claim, eventually, will need that plugin to *still exist*, *still have an owner*, and *still pass security review* if it touches sensitive data.
+You authored a shared skill in Quest B-1 (Part A). You merged it to `razorpay/agent-skills`. Two PODs outside your team adopted it within a month. The badge claim, eventually, will need that skill to *still exist*, *still have an owner*, and *still pass security review* if it touches sensitive data.
 
-That is the work this module covers. Not the building of the plugin — that is Quest B-1. The *care and feeding* of the plugin after it ships, so the platform-builder community does not become a graveyard of orphan packs.
+That is the work this module covers. Not the building of the skill or plugin — that is Quest B-1. The *care and feeding* after it ships, so the shared library does not become a graveyard of orphan workflows.
 
 This is also the module where the Black Belt's role changes most sharply. Through Parts A and B, you were *building*. Through Part C, you are *building plus stewarding*. B.16 is the steward's manual.
 
@@ -74,32 +74,37 @@ Most plugins never reach DEPRECATED. The governance work is for the ones that do
 
 ---
 
-## Move 1 — Approval (for new marketplace entries)
+## Move 1 — Approval (for shared skills and marketplace entries)
 
 ### What it is
 
-Before a plugin appears in the program's pinned distribution channel as an *approved* entry (versus an experimental or personal entry), it is reviewed by the platform-builder community. The review is light (heavyweight gating defeats the platform) but it ensures the plugin has the four basics:
+A shared-skill change lands through a normal `razorpay/agent-skills` pull request. The owning team or business function reviews the workflow; DevEx reviews changes that affect repository structure. This scope-sensitive path keeps approval with the people who understand the work without turning every skill into a central-platform queue.
 
-- **Owner.** A team handle, not a personal handle. (The Quest B-1 lesson; restated here because approval is where it bites.)
-- **README.** Consumer-facing answers per B.2 (what it does, what it does not do, who owns it, how to install, how to report issues).
-- **Tests.** Acceptance scenarios per B.2 / G.7.
-- **Compatibility.** Tested against the current pinned plugin versions in the program.
+The review establishes five basics:
+
+- **Owner.** The PR names an accountable team or function, the repository path makes the scope clear, and reviewers match that ownership.
+- **Bounded scope.** `SKILL.md` says when the skill activates, what it produces, and where it stops.
+- **Repository-native shape.** The contribution uses `SKILL.md` plus optional `references/`, `scripts/`, and `assets/`; it does not invent `pack.yml` or per-skill wrapper docs.
+- **Validation.** Repository checks pass, and any bundled scripts have representative execution evidence.
+- **Install path.** The named skill installs from `razorpay/agent-skills` in a clean environment.
+
+If the contribution is a plugin or includes an MCP server, the relevant packaging, auth, permission, and error-contract review still applies. A skill PR does not erase the security boundary of the tools it invokes.
 
 ### How it works
 
-A submitter posts in [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) with a link to the plugin and a one-paragraph "what this is for and why your POD might want it." The platform-builder community reviews; substantive feedback addressed; approval recorded as a pinned message or canvas entry.
+A submitter opens the repository PR with the use case, placement, owner, invocation, validation, and non-goals. The owning team reviews normal skill content. DevEx joins when the PR changes repository structure; plugin, MCP, or sensitive-data changes add the reviewers their scope requires. The merged PR is the durable approval record. Share the merged path and install command in `#devex-skills` for discovery.
 
 ### What it is not
 
-- Not a quality bar above the four basics. The marketplace is a discovery surface, not a curation surface; plugins compete on their own merits.
+- Not a central approval queue for every skill-content PR. Review follows ownership and scope.
 - Not a security review. Security-shaped plugins go through Move 3 *additionally*.
 - Not a substitute for the API Council on AI-facing surfaces (B.15) — Council review is for the API surface; approval is for the lifecycle entry.
 
 ### Common failure modes
 
-- **Personal-handle owner.** Approval should bounce until the owner is a team handle.
-- **Missing README.** Approval should bounce until the README answers the six questions.
-- **Tested only on the author's machine.** Approval should require tests that run against a clean working directory.
+- **Personal-only ownership.** Approval should bounce until the path and review route identify an accountable team or function.
+- **Wrapper docs instead of agent instructions.** Approval should bounce until the trigger, workflow, stop conditions, and example live in `SKILL.md`.
+- **Tested only on the author's machine.** Approval should require repository validation and a clean install of the named skill.
 
 ---
 
@@ -181,9 +186,9 @@ The review applies the discipline G.24 (PII / PCI / RBI), G.25 (prompt injection
 
 ### Common failure modes
 
-- **Scope drift without re-review.** A plugin starts in non-sensitive scope and a new tool quietly broadens it. Fix: the scope is part of the plugin's `pack.yml` (per B.2); changes to scope trigger fresh review.
+- **Scope drift without re-review.** A skill starts in non-sensitive scope and a new tool quietly broadens it. Fix: make trigger, tools, data access, and stop conditions explicit in `SKILL.md`; changes to those boundaries trigger fresh review.
 - **Logging sensitive data for debugging.** A v1.x adds a debug-mode log that captures sensitive data. Fix: the security review's logging check covers this; debug-mode behaviour is part of the plugin's surface.
-- **Storing credentials in `pack.yml`.** Should never happen, occasionally does. Fix: the approval check (Move 1) and the security review (Move 3) both look for this; failed credential handling is automatic Fail.
+- **Storing credentials in the skill directory.** Should never happen. Fix: the approval check (Move 1) and the security review (Move 3) both look for embedded secrets; failed credential handling is automatic Fail.
 - **Treating a Pass as permanent.** A v1 Pass does not mean v2 is automatically Pass. Fix: substantive changes to data flow, auth, or logging trigger re-review; the change-list review is part of approval for plugin v-bumps.
 - **Failing closed without telling the user.** A security-sensitive failure that the plugin handles by silently doing nothing leaves the user with no signal. Fix: the security review's failure-modes check covers this; failures that involve sensitive data should produce a clear, non-leaking error message and surface that the operation did not complete.
 
@@ -240,7 +245,7 @@ A redacted shape. Names removed; numbers illustrative.
 >
 > **Day 75.** Final-window post: "`weekly-status-pack` will be removed on <day 90>. If your POD has installed it and not migrated, please do so or reach out for help."
 >
-> **Day 90.** Plugin removed from the program's pinned channel. A historical entry remains in the marketplace's archived list (link to README, link to migration guide, removal date). The plugin's repo stays accessible read-only.
+> **Day 90.** The skill or plugin is removed from active discovery. A historical entry remains in repository history or the marketplace archive with the migration guide and removal date.
 
 The discipline: announcement at day 0, status update at day 30, status update at day 60, final-window at day 75, removal at day 90. The dates are not optional; they are the contract.
 
@@ -295,7 +300,7 @@ You have closed Part C's reading content. The Black Belt capstone (Boss Fight B-
 
 **Further reading**
 
-- [B.2 — Publishing a skill pack](../a-platform/B02-skill-pack-publishing.md) — the publishing flow that approval (Move 1) operates on top of.
+- [B.2 — Publishing a shared skill](../a-platform/B02-skill-pack-publishing.md) — the repository workflow that approval (Move 1) operates on top of.
 - [G.24: PII, PCI, RBI](../../03-green/c-guardrails/G24-pii-pci-rbi.md) — the regulator-protected-data definitions that determine when Move 3 triggers.
 - [G.25 — Prompt injection + output classifiers](../../03-green/c-guardrails/G25-prompt-injection.md) — the runtime safety layer that complements security review.
 - [The `security-review-subagent` skill](../../03-green/c-guardrails/G28-security-review-subagent.md) — the agent-shaped review that this module's Move 3 invokes.

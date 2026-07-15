@@ -1924,7 +1924,7 @@ chapters:
     pillar: null
     belt: "black"
     tags: ["black-belt", "part-a", "build-the-platform", "readme"]
-    updated: "2026-04-29"
+    updated: "2026-07-15"
   - slug: "belts/black/internal-mcp-server"
     path: "belts/04-black/a-platform/B01-internal-mcp-server.md"
     title: "Authoring an internal MCP server — architecture, auth, packaging"
@@ -1944,7 +1944,7 @@ chapters:
     updated: "2026-04-29"
   - slug: "belts/black/skill-pack-publishing"
     path: "belts/04-black/a-platform/B02-skill-pack-publishing.md"
-    title: "Publishing a skill pack — naming, versioning, governance"
+    title: "Publishing a shared skill — placement, validation, review"
     section: "belts"
     track: "black"
     status: "drafted"
@@ -1952,13 +1952,13 @@ chapters:
     order: 2
     time_minutes: 30
     audience: "platform-builder"
-    outcome: "Bundle one or more SKILL.md artefacts into a pack and publish it so other PODs can install, pin, and adopt it."
+    outcome: "Publish a reusable skill to razorpay/agent-skills so other teams can discover, install, verify, and maintain it without re-deriving the workflow."
     prev: "belts/black/internal-mcp-server"
     next: "belts/black/cowork-plugin-marketplace"
     pillar: "context"
     belt: "black"
-    tags: ["black-belt", "skill-pack", "publishing", "governance"]
-    updated: "2026-04-29"
+    tags: ["black-belt", "agent-skills", "publishing", "governance"]
+    updated: "2026-07-15"
   - slug: "belts/black/cowork-plugin-marketplace"
     path: "belts/04-black/a-platform/B03-cowork-plugin-marketplace.md"
     title: "Building a plugin marketplace entry for Razorpay Cowork"
@@ -1969,13 +1969,13 @@ chapters:
     order: 3
     time_minutes: 45
     audience: "platform-builder"
-    outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install your skill pack with one click."
+    outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install the workflow with one click — and understand how that surface differs from the shared skill library."
     prev: "belts/black/skill-pack-publishing"
     next: "belts/black/agent-sdk"
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "cowork", "plugin-marketplace", "publishing"]
-    updated: "2026-04-29"
+    updated: "2026-07-15"
   - slug: "belts/black/agent-sdk"
     path: "belts/04-black/a-platform/B04-agent-sdk.md"
     title: "The Claude Agent SDK — when to write your own agent"
@@ -2020,16 +2020,16 @@ chapters:
     order: 6
     time_minutes: 30
     audience: "platform-builder"
-    outcome: "Design tool contracts — input schemas, output shapes, error shapes — that compose, scale, and survive version changes."
+    outcome: "Design tool contracts — input schemas, output shapes, error shapes — that compose, scale, and survive version changes without breaking the agents that depend on them."
     prev: "belts/black/multi-agent-orchestration"
     next: "belts/black/quest-publish-an-internal-plugin"
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "tool-design", "json-schema", "contracts"]
-    updated: "2026-04-29"
+    updated: "2026-07-15"
   - slug: "belts/black/quest-publish-an-internal-plugin"
     path: "belts/04-black/a-platform/quest-B1-publish-an-internal-plugin.md"
-    title: "Quest B-1: Publish an internal plugin"
+    title: "Quest B-1: Publish a shared skill"
     section: "belts"
     track: "black"
     status: "drafted"
@@ -2037,13 +2037,13 @@ chapters:
     order: 90
     time_minutes: 480
     audience: "platform-builder"
-    outcome: "Author and publish a skill pack so at least two PODs outside your team install it within a month."
+    outcome: "Publish a skill to razorpay/agent-skills so at least two PODs outside your team install it within a month — and capture the cross-POD adoption signal."
     prev: "belts/black/tool-design"
     next: "belts/black/b-craft"
     pillar: "harness"
     belt: "black"
-    tags: ["black-belt", "quest", "plugin-publishing", "platform"]
-    updated: "2026-04-29"
+    tags: ["black-belt", "quest", "skill-publishing", "platform"]
+    updated: "2026-07-15"
   - slug: "belts/black/b-craft"
     path: "belts/04-black/b-craft/README.md"
     title: "Black Belt Part B — Push the Craft"
@@ -2173,13 +2173,13 @@ chapters:
     order: 0
     time_minutes: 8
     audience: "platform-builder"
-    outcome: "Understand the Part C arc and walk it from office hours through governance to the boss fight and the badge."
+    outcome: "Understand the Part C arc — the cultural and governance moves that turn an individual platform-builder into a force multiplier for the whole org — and know how to walk it."
     prev: "belts/black/quest-contribution-or-full-stack"
     next: "belts/black/running-office-hours"
     pillar: null
     belt: "black"
     tags: ["black-belt", "readme", "org", "culture", "governance"]
-    updated: "2026-05-07"
+    updated: "2026-07-15"
   - slug: "belts/black/running-office-hours"
     path: "belts/04-black/c-org/B12-running-office-hours.md"
     title: "Running office hours — the Whoop / Ramp pattern"
@@ -2207,13 +2207,13 @@ chapters:
     order: 13
     time_minutes: 30
     audience: "platform-builder"
-    outcome: "Embed for a week with a POD outside your own and ship with the team rather than for it; produce a written debrief."
+    outcome: "Embed for a week with a POD outside your own and ship *with* the team rather than *for* it; produce a written debrief that the next embed inherits."
     prev: "belts/black/running-office-hours"
     next: "belts/black/writing-an-ai-rfc"
     pillar: "culture"
     belt: "black"
     tags: ["black-belt", "embedded-sprints", "culture"]
-    updated: "2026-05-07"
+    updated: "2026-07-15"
   - slug: "belts/black/writing-an-ai-rfc"
     path: "belts/04-black/c-org/B14-writing-an-ai-rfc.md"
     title: "Writing an AI RFC — what good looks like at Razorpay"
@@ -2224,13 +2224,13 @@ chapters:
     order: 14
     time_minutes: 45
     audience: "platform-builder"
-    outcome: "Write an AI RFC that earns a merge by naming what would change and how to measure whether it worked."
+    outcome: "Write an AI RFC that earns a merge — a written proposal that names what would change, the options considered, the recommendation, the cost-and-risk, the rollout plan, the success metric, and the rollback plan."
     prev: "belts/black/embedded-sprints"
     next: "belts/black/api-council-contributions"
     pillar: "governance"
     belt: "black"
     tags: ["black-belt", "rfc", "governance"]
-    updated: "2026-05-07"
+    updated: "2026-07-15"
   - slug: "belts/black/api-council-contributions"
     path: "belts/04-black/c-org/B15-api-council-contributions.md"
     title: "Contributing to the API Council (AI-specific reviews)"
@@ -2258,13 +2258,13 @@ chapters:
     order: 16
     time_minutes: 45
     audience: "platform-builder"
-    outcome: "Govern plugin and skill lifecycles cleanly across approval, deprecation, and security review."
+    outcome: "Govern shared-skill and plugin lifecycles across scope-sensitive approval, deprecation, and security review."
     prev: "belts/black/api-council-contributions"
     next: "belts/black/boss-fight-pod-ai-uplift"
     pillar: "governance"
     belt: "black"
     tags: ["black-belt", "governance", "plugin-lifecycle"]
-    updated: "2026-05-07"
+    updated: "2026-07-15"
   - slug: "belts/black/boss-fight-pod-ai-uplift"
     path: "belts/04-black/c-org/boss-fight-BB-pod-ai-uplift.md"
     title: "Boss Fight B-B: Own a POD's AI uplift for a month"
@@ -2275,13 +2275,13 @@ chapters:
     order: 99
     time_minutes: 1800
     audience: "platform-builder"
-    outcome: "Embed with a POD outside your own for a month, intervene with the full Black Belt toolkit, ship a signed-off metric lift and a one-pager case study."
+    outcome: "Embed with a POD outside your own for one month; intervene with the full Black Belt toolkit; ship a signed-off metric lift and a one-pager case study contributed back to this playbook."
     prev: "belts/black/plugin-and-skill-governance"
     next: "belts/black/badge"
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "boss-fight", "capstone"]
-    updated: "2026-05-07"
+    updated: "2026-07-15"
   - slug: "belts/black/badge"
     path: "belts/04-black/c-org/badge.md"
     title: "Black Belt badge"
@@ -2292,13 +2292,13 @@ chapters:
     order: 100
     time_minutes: 5
     audience: "platform-builder"
-    outcome: "Claim the Black Belt, the platform-builder community's admission ticket."
+    outcome: "Claim the Black Belt — the platform-builder community's admission ticket and the close of the belt curriculum."
     prev: "belts/black/boss-fight-pod-ai-uplift"
     next: "council"
     pillar: null
     belt: "black"
     tags: ["black-belt", "badge"]
-    updated: "2026-05-08"
+    updated: "2026-07-15"
   - slug: "council"
     path: "belts/05-council/README.md"
     title: "Staff+ Council"
@@ -2411,13 +2411,13 @@ chapters:
     order: 6
     time_minutes: 25
     audience: "staff-plus"
-    outcome: "Understand what the Council shapes that no quarterly artefact captures: the multi-year direction of the AI program."
+    outcome: "Understand what the Council shapes that no quarterly artefact captures: the program's posture across model generations, regulatory frames, and platform-builder community changes over five-to-ten-year horizons."
     prev: "council/external-voice"
     next: null
     pillar: null
     belt: null
     tags: ["council", "long-arc", "strategy"]
-    updated: "2026-05-08"
+    updated: "2026-07-15"
   - slug: "council/charter"
     path: "belts/05-council/charter.md"
     title: "Council charter (template)"
