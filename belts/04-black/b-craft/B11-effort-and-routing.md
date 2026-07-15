@@ -14,7 +14,7 @@ next: "belts/black/quest-contribution-or-full-stack"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "effort-settings", "model-routing", "fall-backs"]
-updated: "2026-04-29"
+updated: "2026-07-15"
 ---
 
 # B.11 — Effort settings, model routing, fall-backs
@@ -25,9 +25,10 @@ The closing module of Part B. Where B.10 measured cost at scale, B.11 is the per
 
 ## If you're short on time
 
-- **Effort settings** let you ask the model to spend more or less reasoning time on a single call. Higher effort costs more; sometimes pays off, sometimes does not.
+- **Effort settings** tell the model how eagerly to spend tokens on a single call. Higher effort costs more; sometimes pays off, sometimes does not.
 - **Model routing** picks which model handles which call. Different models for different jobs; cost-quality differs across model families.
 - **Fall-backs** define what happens when the primary path fails: rate limit, timeout, classifier flag. A clean fall-back beats a noisy retry loop.
+- **Estimate → Execute → Expand.** Start with the minimum route that can reliably do the job. Expand context, model capability, or effort only when verification gives you a reason.
 - The discipline: pick by stakes. A 5x cost increase for a 5% quality lift on a low-stakes call is the wrong trade.
 
 ---
@@ -60,9 +61,38 @@ The three knobs interact: a high-effort call on a smaller model may cost more th
 
 ---
 
+## Route the task before you route the model
+
+A recent internal example separates quick repository lookups, planning, and implementation instead of sending all three through the slowest route. Fresh research calls the broader pattern **Estimate → Execute → Expand (E3)**: judge the work's stakes and minimum evidence, run the smallest credible path, then widen the path only when verification fails.
+
+This is not “always use the cheap model first.” A security review can justify a capable model and high effort on its first pass. The rule is **minimum sufficient execution**, not minimum possible spend.
+
+### Copyable routing card
+
+Fill this in before a repeated workflow or expensive agent run:
+
+```markdown
+## Task route
+- Outcome: <what must be true when this finishes?>
+- Failure cost: <low / medium / high, and why?>
+- Minimum evidence: <files, sources, tests, or human checks required>
+- Initial route:
+  - Context: <smallest relevant folder / source set>
+  - Model tier: <fast / balanced / deep-reasoning>
+  - Effort: <low / medium / high / provider-supported level>
+  - Stop limit: <time, tool calls, or steps>
+- Verify with: <test, rubric, source comparison, or reviewer>
+- Expand only if: <named failed check or unresolved uncertainty>
+- Expansion: <more context, stronger model, higher effort, or human escalation>
+```
+
+Run the same representative task at two plausible routes. Record quality, latency, token/cost usage, and failure shape. Pick the cheaper route only when it passes the same acceptance bar. That small trial is the interactive exercise; a model leaderboard would age faster and teach less.
+
+---
+
 ## Knob 1 — Effort settings
 
-What it is: a per-call parameter that asks the model to invest more or less reasoning time. The exact name varies by provider (Anthropic uses "effort levels" with named steps; other providers use temperature, max-thinking-tokens, or similar). The semantic shape is the same: more effort, more cost, sometimes more quality.
+What it is: a per-call parameter that asks the model to invest more or less reasoning time. Anthropic describes effort as how eager Claude is to spend tokens, with supported named levels depending on the model. Other providers may expose a reasoning budget or thinking-token control. **Temperature is not an effort setting**: it changes sampling variability, not how much reasoning the task deserves. Treat effort as a behavioural signal rather than a guaranteed token ceiling.
 
 **When to dial up effort.**
 
@@ -116,15 +146,17 @@ What it is: what happens when the primary call fails. Three named failure modes:
 
 ## Worked example — tuning a "pre-ship-check" invocation
 
-The pre-ship-check skill (v0.12) runs on every PR in some teams. Tuning the per-call layer:
+The pre-ship-check skill (v0.12) runs on every PR in some teams. Route one invocation with E3:
 
-**Effort.** The skill's six layers are bounded checks, not open-ended reasoning. Default effort is appropriate; high effort would cost more without producing better findings on most PRs. A specific layer (Layer 5 — prompt-craft trace) might benefit from higher effort because it requires nuanced reading of a session log; the SKILL.md could differentiate.
+**Estimate.** The required evidence is bounded: redlines, design-system compliance, tests, PR craft, prompt-craft trace, and behaviour preservation. Layers 1–4 are mostly deterministic checks; Layers 5–6 require judgement. The failure cost is high enough that every layer must run, but not every layer needs the same model or effort.
 
-**Model.** The Layers 1–4 (redlines, design system, tests, PR craft) are pattern-matching shaped; a smaller model handles them well. Layer 5 (prompt-craft trace) and Layer 6 (behaviour preservation) benefit from a larger model because they need deeper reasoning. The skill's workflow could route per-layer if the cost difference is meaningful.
+**Execute.** Start Layers 1–4 with bounded context, a smaller model, and low or default effort. Route Layers 5–6 to a more capable model at medium effort because they need deeper reading. Cap retries and require each layer to return named evidence rather than a generic pass.
 
-**Fall-backs.** Rate-limited: backoff and retry; the skill is not interactive. Timeout: fail fast with a clear "pre-ship-check did not complete; reviewer should run manually" message. Classifier-flagged: surface the flag in the report; do not redact silently.
+**Verify.** Run the routed version and the current single-route version against the same golden PR set. Compare missed findings, false positives, latency, and cost. Do not promote the routed version unless it meets the existing quality bar.
 
-The result: a skill that costs less per invocation than a default-everything setup, runs reliably under load, and fails cleanly when it fails. A team running pre-ship-check on every PR pays maybe 30–50% of what a naive setup would cost, with no quality drop.
+**Expand.** If a deterministic layer returns ambiguous evidence, rerun that layer with more context or the stronger route. Rate-limited: back off and retry within the cap. Timeout: fail with a clear "pre-ship-check did not complete; reviewer should run manually" message. Classifier-flagged: surface the flag; do not retry blindly.
+
+The result is not a promised savings percentage. It is a measured route: cheaper only when the golden set proves quality held, and explicit about when to spend more.
 
 ---
 
@@ -152,21 +184,23 @@ The result: a skill that costs less per invocation than a default-everything set
 
 **Effort tuning without eval.** "We dialled up effort and it feels better" is the vibes-driven update B.9 forbids. Fix: A/B against the golden set.
 
+**Expanding before evidence asks for it.** The agent reads the whole repo or jumps to the strongest route before trying the bounded path. Fix: name the initial scope, verification check, and expansion trigger on the routing card.
+
 **Forgetting the cost cascade.** A skill that runs 1000x/day with a 2x effort multiplier is paying 1000x more than the team thinks. Fix: B.10's per-team rollup catches this; B.11 is what you do once you find it.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I tune per-call effort, model routing, and fall-back paths against the work's stakes; my skills evaluate effort changes against the golden set; my fall-backs surface failures cleanly.
+- 🟢 GREEN: I estimate the task's stakes and minimum evidence, execute the smallest credible route, expand only after a named verification failure, evaluate route changes against the golden set, and surface fall-back failures cleanly.
 - 🟡 YELLOW — I understand the knobs but my skills default to the highest setting available without evaluation.
-- 🔴 RED — I do not tune per-call settings; my skills inherit whatever default the program-pinned plugin applies and I have not measured.
+- 🔴 RED — I route by model reputation or habit; I have not defined an acceptance bar or an expansion trigger.
 
 ---
 
 ## What you can say after this module
 
-> "I tune per-call effort, model routing, and fall-back paths to match the work's stakes: picking the cheapest setting that meets the quality bar, evaluating changes against the golden set, and naming the fall-back paths at design time."
+> "I estimate the task, execute the minimum sufficient route, verify it, and expand only when evidence asks me to — while keeping fall-backs explicit and quality measured against the golden set."
 
 ---
 
@@ -178,7 +212,9 @@ You have finished Black Belt Part B. Quest B-2 (*Component contribution or full-
 
 **Further reading**
 
-- [Anthropic on effort settings](https://docs.claude.com/) — public reference
+- [Anthropic on effort settings](https://platform.claude.com/docs/en/build-with-claude/effort) — current parameter semantics and supported levels
+- [Yin & Feng — *Do AI Agents Know When a Task Is Simple?*](https://arxiv.org/abs/2607.13034v1) — Estimate → Execute → Expand and minimum-sufficient execution
+- [`#ai-help` task-shaped model-routing example (2026-07-15)](https://razorpay.slack.com/archives/C08C35GKJKD/p1784102296404509) — internal fast-lookup, planning, and implementation routes
 - [LiteLLM docs](https://docs.litellm.ai/) — the public routing proxy
 - [G.23 — The LLM proxy](../../03-green/c-guardrails/G23-llm-proxy.md)
 - [B.10 — Cost + observability](B10-cost-and-observability.md) — the dashboards this module's tunings feed
