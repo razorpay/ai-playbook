@@ -14,7 +14,7 @@ next: "prologue/operating-principles"
 pillar: null
 belt: null
 tags: ["orientation", "support", "directory"]
-updated: "2026-07-11"
+updated: "2026-07-15"
 ---
 
 # 0.6 — Meet the people (roles, forums, the support surface)
@@ -220,7 +220,7 @@ This is also why the playbook has contribution flows at every belt. Yellow Belt'
 
 ---
 
-*Last reviewed: 2026-06-16. Named-holder rows are refreshed quarterly and on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
+*Last reviewed: 2026-07-15. Named-holder rows are refreshed quarterly and on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
 
 ---
 
