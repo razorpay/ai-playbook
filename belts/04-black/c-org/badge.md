@@ -14,12 +14,12 @@ next: "council"
 pillar: null
 belt: "black"
 tags: ["black-belt", "badge"]
-updated: "2026-05-08"
+updated: "2026-07-15"
 ---
 
 # ⚫ Black Belt — The badge
 
-> You have walked Parts A, B, and C. You have claimed Quest B-1 (a published plugin adopted by two PODs outside your team) and Quest B-2 (a Blade contribution or a full-stack feature you owned end-to-end). You have shipped Boss Fight B-B (a one-month POD embed with a signed-off metric lift and a contributed case study). You are ready to claim the Black Belt.
+> You have walked Parts A, B, and C. You have claimed Quest B-1 (a shared skill adopted by two PODs outside your team) and Quest B-2 (a Blade contribution or a full-stack feature you owned end-to-end). You have shipped Boss Fight B-B (a one-month POD embed with a signed-off metric lift and a contributed case study). You are ready to claim the Black Belt.
 
 ---
 
@@ -29,9 +29,9 @@ The promise the belt has carried since the Prologue:
 
 > "I am a force multiplier for Razorpay."
 
-Three pieces of evidence prove it: a *published* plugin (cross-POD adoption), a *cross-layer* contribution (Blade or full-stack ownership), and a *measured* uplift on a POD outside your own (the boss fight). The chapters teach the moves; the quests prove you can make them; the boss fight proves the moves *propagate*.
+Three pieces of evidence prove it: a *published* shared skill (cross-POD adoption), a *cross-layer* contribution (Blade or full-stack ownership), and a *measured* uplift on a POD outside your own (the boss fight). The chapters teach the moves; the quests prove you can make them; the boss fight proves the moves *propagate*.
 
-The Black Belt is not a graduation. It is an **admission ticket** to the platform-builder community, the cohort of builders the program leans on for the harder shapes of work: complex skill packs, MCPs, custom agents, plugin lifecycle decisions, RFCs against the program's AI surface, and (when invited) membership of the [Staff+ Council](../../05-council/README.md).
+The Black Belt is not a graduation. It is an **admission ticket** to the platform-builder community, the cohort of builders the program leans on for the harder shapes of work: complex shared skills, MCPs, custom agents, plugin lifecycle decisions, RFCs against the program's AI surface, and (when invited) membership of the [Staff+ Council](../../05-council/README.md).
 
 A reader can hold this belt and continue to ship in their POD. A reader can also hold this belt and pivot toward platform-builder work as their primary focus. Both are valid. The belt does not prescribe; it *qualifies*.
 
@@ -49,7 +49,7 @@ Walk your tracker row and confirm:
 - 🟡 Yellow Belt earned (date logged).
 - 🟢 Green Belt earned (date logged).
 - Black Belt nomination registered (manager or Green Belt teammate, recorded with the cohort lead).
-- Quest B-1 claimed: published plugin URL, install confirmations from ≥2 outside-team PODs, reviewer attestation.
+- Quest B-1 claimed: merged shared-skill PR, install confirmations from ≥2 outside-team PODs, reviewer attestation.
 - Quest B-2 claimed: merged Blade contribution OR full-stack PR pair, reviewer attestation.
 - Boss Fight B-B claimed: case-study link, POD lead's metric sign-off, all-hands share confirmation, two reviewer attestations (one out-of-team, one Black-Belt-or-above).
 
@@ -155,7 +155,7 @@ If you have not yet claimed:
 
 The badge image lives in the program's badge system. The shape: a black square with the Razorpay mark and the word **BLACK** in the program's typography, plus the date the candidate claimed. The artefact lands in the candidate's profile, the celebrations-channel post, and (if the candidate wishes) their LinkedIn or external profile.
 
-The artefact is a token. The work it represents is the boss-fight case study, the published plugin, the cross-layer contribution, and the closing reflection.
+The artefact is a token. The work it represents is the boss-fight case study, the published shared skill, the cross-layer contribution, and the closing reflection.
 
 ---
 

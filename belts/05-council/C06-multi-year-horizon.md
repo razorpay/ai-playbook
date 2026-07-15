@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["council", "long-arc", "strategy"]
-updated: "2026-05-08"
+updated: "2026-07-15"
 ---
 
 # C.6 — The multi-year horizon
@@ -61,11 +61,11 @@ The work is light per session and substantive over time. A Council that does the
 
 A representative shape, drawn from synthesis of the literature rather than a specific case.
 
-A program adopts an MCP-based platform in 2026. The first year is largely about adoption: teams build their own MCP servers, the platform-builder community shares patterns, the first plugins are published. The Council's RFC archive has decisions about MCP authentication, MCP packaging, and the program's pinned distribution channel.
+A program adopts an MCP-based platform in 2026. The first year is largely about adoption: teams build their own MCP servers, the platform-builder community shares patterns, and the first shared skills and plugins are published. The Council's RFC archive has decisions about MCP authentication, plugin packaging, and the shared skill library.
 
-In 2027, the second year, the patterns mature. The first generation of skill packs are stable; the second generation begins layering on top. New team integrations follow a more standardised template. The Council's RFC archive has decisions about the canonical connector class, the deprecation lifecycle, and the relationship to the API Council.
+In 2027, the second year, the patterns mature. The first generation of shared skills is stable; the second generation begins layering on top. New team integrations follow a more standardised template. The Council's RFC archive has decisions about the canonical connector class, the deprecation lifecycle, and the relationship to the API Council.
 
-In 2028, the third year, a new model generation lands that changes what agents can do. Some of the early MCP design choices are no longer the right ones for the new capabilities. Some skill packs that were valuable are now redundant. New patterns emerge that the program did not anticipate. The Council's RFC archive begins to include decisions that revise earlier ones.
+In 2028, the third year, a new model generation lands that changes what agents can do. Some of the early MCP design choices are no longer the right ones for the new capabilities. Some shared skills that were valuable are now redundant. New patterns emerge that the program did not anticipate. The Council's RFC archive begins to include decisions that revise earlier ones.
 
 The Council's multi-year work, across these three years, is to notice the shape of the evolution. To name when adoption matures into standardisation. To name when standardisation calcifies into ossification. To revise the deprecation lifecycle for plugins when the new model generation makes the old ones less useful. To bring engineers from the new generation of work into the Council so the membership reflects the program's current shape.
 
