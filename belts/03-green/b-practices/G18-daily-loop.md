@@ -14,7 +14,7 @@ next: "belts/green/design-preview-platform"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "daily-loop", "node", "pnpm", "localhost"]
-updated: "2026-04-29"
+updated: "2026-07-15"
 ---
 
 # G.18 — The daily loop
@@ -28,6 +28,7 @@ The daily loop is the local-dev cycle: install dependencies, start the dev serve
 - Three commands matter daily: `pnpm install`, `pnpm dev`, and a viewport-switch keyboard shortcut. Make all three muscle memory.
 - The dev server should restart in under five seconds on a config change. If it does not, your loop has friction; fix it.
 - Test on the smallest mobile viewport (320px) at least once per change. The dashboard's chart-legend bug from G.12 is a real example of why.
+- When an approved browser-automation skill is available, let the agent run the journey at desktop and mobile, capture evidence, and rerun after fixes. You still own the acceptance criteria and the final judgement.
 
 ---
 
@@ -168,14 +169,54 @@ A well-set-up agent in the daily loop:
 
 - **Runs `pnpm install` and `pnpm dev`** on request, with the right port for the worktree.
 - **Watches the dev server's output** for "ready" or for compile errors; surfaces errors before the builder asks.
-- **Reads the rendered URL** via the browser connector (when configured) for visual verification.
-- **Suggests viewport checks** after a UI change, not always but often.
+- **Reads the rendered URL** via a browser connector when one is configured.
+- **Drives the rendered journey** when an approved browser-automation CLI such as `agent-browser` is available: navigate, interact, switch viewports, and capture screenshots.
+- **Suggests viewport checks** after a UI change and can run them when browser automation is available.
 
 What the agent does *not* do:
 
-- Open or close browser windows for you (that is not the connector's job).
-- Decide your change is correct based on rendered output alone (visual diff is suggestive, not authoritative).
+- Pretend a structure-reading connector can click through a journey. Connectors and browser automation are different tools.
+- Decide your change is correct from a screenshot alone. The acceptance criteria, interaction path, and human judgement are still authoritative.
+- Cross login, OTP, payment, CAPTCHA, or destructive steps without handing control back to you.
 - Auto-commit after a successful render (commits are human decisions).
+
+---
+
+## Close the loop with browser-backed verification
+
+Razorpay teams are already using `agent-browser` for real Chrome UAT and production-safe read verification. One [internal UAT example](https://razorpay.slack.com/archives/C08NRSW1BUZ/p1781118753601019) turned an E2E test-case file plus a staging URL into a pass/fail report with screenshots and saved about an hour on a medium feature. A later [Dashboard migration PR](https://github.com/razorpay/dashboard/pull/22197) used it to compare migrated reads with their REST equivalents. This is no longer a demo-only pattern.
+
+Use it when your team image or plugin already provides the approved browser skill. Do not add a new global dependency to a product repo just to run one check; follow the team's installation path.
+
+### The seven-step loop
+
+1. **Name the affected journey.** "Merchant opens Shipping Settings, changes the fee rule, saves, and sees the persisted value" is testable. "Check the page" is not.
+2. **Name the acceptance criteria.** Include the expected state, one failure state, and the viewports that matter.
+3. **Open the local or branch-preview URL.** Wait for the page to settle before taking the first snapshot.
+4. **Interact from a fresh snapshot.** After navigation, a modal, or any large DOM change, take a new accessibility snapshot before using element references again.
+5. **Run desktop and mobile.** Start with the normal desktop viewport, then repeat the risky part of the flow at 320px.
+6. **Capture evidence to an absolute workspace path.** Save before/after screenshots where reviewers can actually find them. Relative paths can resolve against the browser daemon's working directory instead of your repo.
+7. **Fix and rerun.** The loop ends when the acceptance criteria pass, not when the first screenshot exists. Attach the final evidence to the PR; keep failed captures only when they explain the fix.
+
+Use this prompt as a starting point:
+
+```text
+Visually verify <journey> at <local-or-preview-url> with the approved browser skill.
+
+Acceptance criteria:
+- <expected user-visible result>
+- <failure state or edge case to check>
+
+Run the journey at desktop and 320px mobile. Take a fresh accessibility
+snapshot after navigation or large DOM changes. Stop and hand control back
+to me for login, OTP, payment, CAPTCHA, or destructive actions.
+
+Save final screenshots under <absolute-workspace-path>.
+Return: steps covered, pass/fail per criterion, issues found, and artefact paths.
+Do not commit, upload, post, or change an assertion just to make the run pass.
+```
+
+This is a lightweight interactive exercise, not a replacement for Playwright. Browser-backed verification gives the agent eyes and hands for one review run; a Playwright test makes the behaviour repeatable in CI. If the journey protects a regression you fear, do both.
 
 ---
 
@@ -192,6 +233,12 @@ What the agent does *not* do:
 **Running only against the latest fixtures.** Symptom: the change works against your local DB but breaks for users with older data. Fix: run against the seeded fixtures (per G.14's discipline) at least once before commit.
 
 **Treating hot reload as authoritative.** Sometimes hot reload caches stale CSS or stale modules. Symptom: the change looks right in the browser but ships broken. Fix: a browser hard reload (Cmd-Shift-R) before the final commit, especially on stylistic changes.
+
+**Screenshot theatre.** The PR has two polished images, but nobody ran the actual journey or checked the failure state. Fix: report the steps and acceptance criteria beside the artefacts.
+
+**Reusing stale element references.** The page changed after a click and the agent acted on refs from the previous snapshot. Fix: snapshot again after navigation, modal changes, or major rerenders.
+
+**Saving captures to a relative path.** The tool reports success, but the files land in its daemon directory. Fix: use an absolute path inside the active workspace and verify the files exist before referencing them.
 
 ---
 
@@ -219,3 +266,4 @@ G.19 (*Branch-preview platform*) covers the next layer up: a branch URL the team
 
 - [G.9 — Worktrees](../a-craft/G09-worktrees.md)
 - [pnpm docs](https://pnpm.io/) — for advanced workspace patterns
+- [`agent-browser` official docs](https://github.com/vercel-labs/agent-browser) — browser CLI commands, snapshots, viewport controls, and screenshots
