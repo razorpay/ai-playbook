@@ -1,5 +1,5 @@
 ---
-title: "Quest B-1: Publish an internal plugin"
+title: "Quest B-1: Publish a shared skill"
 slug: "belts/black/quest-publish-an-internal-plugin"
 section: "belts"
 status: "drafted"
@@ -8,38 +8,38 @@ track: "black"
 order: 90
 time_minutes: 480
 audience: "platform-builder"
-outcome: "Author and publish a skill pack (with an optional MCP) so at least two PODs outside your team install it within a month — and capture the cross-POD adoption signal."
+outcome: "Publish a skill to razorpay/agent-skills so at least two PODs outside your team install it within a month — and capture the cross-POD adoption signal."
 prev: "belts/black/tool-design"
 next: "belts/black/b-craft"
 pillar: "harness"
 belt: "black"
-tags: ["black-belt", "quest", "plugin-publishing", "platform"]
-updated: "2026-04-29"
+tags: ["black-belt", "quest", "skill-publishing", "platform"]
+updated: "2026-07-15"
 ---
 
-# 🎮 Quest B-1 — Publish an internal plugin
+# 🎮 Quest B-1 — Publish a shared skill
 
 > **Belt progress:** Part A of Black Belt
 > **Time budget:** ~8 hours active, more elapsed (publishing + install signal collection)
 > **Prerequisite:** Green Belt awarded; nomination registered; B.1–B.6 read at GREEN colour
-> **What you'll prove:** that you can take a workflow your team owns, bundle it as a published artefact, distribute it through the program's pinned channel, and watch other PODs adopt it — the platform-builder loop in concrete form
+> **What you'll prove:** that you can take a workflow your team owns, publish it through `razorpay/agent-skills`, and watch other PODs adopt it — the platform-builder loop in concrete form
 
 ---
 
 ## What this quest is
 
-Pick a workflow your team owns and runs three or more times by hand. Bundle the workflow as a skill pack (per B.2), with an optional MCP integration if the workflow needs one (per B.1). Publish the pack to the program's pinned distribution channel. Watch for installs from PODs outside your immediate team. The quest is claimed when at least **two PODs outside your immediate team** have installed the plugin within a month of publication.
+Pick a workflow your team owns and runs three or more times by hand. Author it as a focused skill (per B.2), using an MCP integration only if the workflow needs one (per B.1). Publish the skill to `razorpay/agent-skills`. The quest is claimed when at least **two PODs outside your immediate team** have installed the merged skill within a month of publication.
 
 ---
 
 ## What does NOT count
 
-- A skill pack only your team has installed.
-- A pack published to a personal repo rather than the program's pinned channel.
-- A pack installed by your team and one adjacent team that shares your manager — Appendix L's sample-size rule applies; the two installs must be from genuinely outside teams.
-- A pack that fails the SKILL.md anatomy checks (per G.7) on any of its skills.
-- A pack with no consumer-facing README that names what it is, what it costs, who owns it, and how to report issues.
-- A pack that handles regulator-protected data without the right governance path.
+- A skill only your team has installed.
+- A skill published to a personal repo instead of `razorpay/agent-skills`.
+- A skill installed by your team and one adjacent team that shares your manager — Appendix L's sample-size rule applies; the two installs must be from genuinely outside teams.
+- A skill that fails the repository validation or G.7 anatomy checks.
+- A skill with no clear owner, trigger, usage example, or clean-install proof.
+- A skill that handles regulator-protected data without the right governance path.
 
 ---
 
@@ -55,7 +55,7 @@ Open your team's recent week. Look for a workflow that:
 - produces a concrete artefact each time (a Markdown report, a diff, a list, a draft);
 - has plausible value to teams beyond your own — at minimum, two PODs you can name should benefit.
 
-Common candidates that compose into useful packs:
+Common candidates for a reusable skill:
 
 - a **release workflow** for a service your team owns (pre-release check + release-notes drafter + post-release smoke);
 - a **triage toolkit** for a recurring incoming-work queue (classify + draft response + route);
@@ -63,7 +63,7 @@ Common candidates that compose into useful packs:
 - a **migration helper** for a pattern other teams need to adopt;
 - a **status/reporting toolkit** that produces a structured artefact other teams can consume.
 
-If you cannot list two named PODs that would plausibly install your candidate pack, pick again.
+If you cannot list two named PODs that would plausibly install your candidate skill, pick again.
 
 ### Step 2 — Run the workflow by hand and take notes (~30 minutes)
 
@@ -75,63 +75,64 @@ Before authoring any SKILL.md, run the workflow one more time deliberately. Take
 - outputs (the literal shape);
 - failure modes (what goes wrong, and what the recovery looks like).
 
-The notes become the SKILL.md bodies and the consumer-facing README.
+The notes become the `SKILL.md` workflow, examples, stop conditions, and supporting references.
 
-### Step 3 — Author the skill(s) (~2 hours active)
+### Step 3 — Author the skill (~2 hours active)
 
-Apply the SKILL.md anatomy from G.7. One SKILL.md per skill in the pack; reference files where needed; test scenarios in `tests/`. Pass the trigger / refusal / output-shape tests from G.7's "How to test a skill" section.
+Apply the SKILL.md anatomy from G.7. Keep one `SKILL.md` for the workflow; add `references/`, `scripts/`, or `assets/` only when needed. Pass the trigger, refusal, output-shape, and representative execution tests from G.7.
 
-If the pack also needs an MCP integration (per B.1), author the MCP server alongside; the pack's `pack.yml` declares the dependency.
+If the skill needs an MCP integration (per B.1), name that precondition and the failure path in `SKILL.md`. Do not hide connector requirements inside an invented pack manifest.
 
-### Step 4 — Bundle the pack (~30 minutes)
+### Step 4 — Place it in the shared repository (~30 minutes)
 
-Apply the structure from B.2:
+Apply the placement decision from B.2:
 
-- `pack.yml` with metadata (name, version, owner team, description, skill list, compatibility);
-- `README.md` with consumer-facing answers (what it does, what it does not do, who owns it, how to install, how to report issues);
-- `skills/` containing each skill;
-- `tests/` containing the acceptance scenarios.
+- `<category>/skills/<skill-name>/` for a shared technical capability;
+- `teams/<team>/skills/<skill-name>/` for a team-owned workflow; or
+- `business/<domain>/<skill-name>/` for a cross-functional business workflow.
 
-### Step 5 — Run the pack's tests (~30 minutes)
+Put required instructions in `SKILL.md`. Follow the repository's current frontmatter and CODEOWNERS guidance for the chosen path.
 
-Run the acceptance scenarios. Lint clean. The pack should pass its own tests before you ship it; cohort feedback comes free, but only after the pack is shippable.
+### Step 5 — Run repository validation (~30 minutes)
 
-### Step 6 — Publish to the program's pinned channel (~30 minutes)
+Run `make test` from the `agent-skills` root and the focused skill reviewer from B.2. Run any bundled scripts against representative fixtures. Cohort feedback comes free, but only after the contribution is shippable.
 
-Push to the channel per B.2's publishing flow. Tag at v1.0.0. Confirm the install command works against a clean working directory.
+### Step 6 — Open and merge the pull request (~30 minutes)
+
+Open a normal PR to `razorpay/agent-skills`. State the use case, path decision, owner, invocation, validation, and non-goals. Get approval from the owning team; involve DevEx when the PR changes repository structure. After merge, confirm the real `npx skills add razorpay/agent-skills --skill <skill-name>` command from a clean environment.
 
 ### Step 7 — Announce (~30 minutes elapsed)
 
-Post in [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) with:
+Post in `#devex-skills` with:
 
-- the pack name and the install command;
+- the skill name and the install command;
 - a one-paragraph "what this is for and why your POD might want it";
-- a link to the pack's README;
+- a link to the merged PR and skill path;
 - the team handle that owns it;
 - a polite ask: "if your POD installs this, drop a 👍 here so I can track adoption."
 
-The announcement is the reach — without it, only you know the pack exists. With it, the two other PODs are reachable in a single thread.
+The announcement is the reach — without it, only you know the skill exists. With it, the two other PODs are reachable in a single thread.
 
 ### Step 8 — Watch for installs (~elapsed; ~3-4 hours active over a month)
 
-The quest's success criterion is **two PODs outside your immediate team install the pack within a month**. Help that signal materialise without forcing it:
+The quest's success criterion is **two PODs outside your immediate team install the skill within a month**. Help that signal materialise without forcing it:
 
 - talk to the teams who 👍'd the announcement;
 - offer a 15-minute "is this useful for you" pairing session if a team is on the fence;
-- iterate on the pack if early feedback surfaces gaps; ship a v1.1 that addresses real friction;
+- iterate on the skill if early feedback surfaces gaps; merge a follow-up that addresses real friction;
 - collect install confirmations as they happen.
 
-If after a month you do not have two outside-team installs, the quest is not yet claimed. Two paths forward: (a) talk to [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) for advice on adoption; (b) revisit the workflow choice — your candidate may not have generalised as much as you thought.
+If after a month you do not have two outside-team installs, the quest is not yet claimed. Two paths forward: (a) ask in `#devex-skills` for advice on discovery and fit; (b) revisit the workflow choice — your candidate may not have generalised as much as you thought.
 
 ### Step 9 — Reflect (~30 minutes)
 
 Write a one-paragraph reflection covering:
 
 - what the workflow does and why other PODs found it useful;
-- the moment(s) you discovered the pack needed something you did not anticipate;
-- what you would do differently for the next pack;
-- the v1 → v1.1 changes that came from outside-team adoption signal;
-- one thing about the program's pinned-channel publishing flow that worked or did not.
+- the moment(s) you discovered the skill needed something you did not anticipate;
+- what you would do differently for the next shared skill;
+- the changes that came from outside-team adoption signal;
+- one thing about the repository PR, review, or install flow that worked or did not.
 
 The reflection is what the cohort lead reads. It is what makes the quest "claimed" rather than just "merged."
 
@@ -142,13 +143,13 @@ The reflection is what the cohort lead reads. It is what makes the quest "claime
 Copy into your tracker or `LEARNER.md`:
 
 ```markdown
-## Quest B-1 — Publish an internal plugin
+## Quest B-1 — Publish a shared skill
 
 - Builder: <handle>
 - Date claimed: <YYYY-MM-DD>
-- Pack name: <pack-name>
-- Pack version at claim: <v1.x.y>
-- Repo URL: <link>
+- Skill name: <skill-name>
+- Skill path: <path in razorpay/agent-skills>
+- Merged PR URL: <link>
 - Install command: <command>
 - Owner team: <team-handle>
 - POD install confirmations (≥2 outside immediate team):
@@ -158,7 +159,7 @@ Copy into your tracker or `LEARNER.md`:
 - Reflection: <one-paragraph or link>
 ```
 
-The pack itself is the artefact. The two install confirmations are the proof of cross-POD adoption. The reflection is the proof of internalisation.
+The merged skill is the artefact. The two install confirmations are the proof of cross-POD adoption. The reflection is the proof of internalisation.
 
 ---
 
@@ -168,10 +169,10 @@ When the quest is claimed, route per [Appendix L](../../../appendices/L-certific
 
 The reviewer attests that:
 
-- the pack exists at the named path and version;
-- `pack.yml` names a team owner (not a personal handle);
-- the consumer-facing README answers the six questions from B.2 / B.3;
-- the skills inside the pack pass the SKILL.md anatomy checks;
+- the skill exists at the named repository path and merged PR;
+- the path, frontmatter, and CODEOWNERS route identify an accountable owner;
+- the skill passes repository validation and the SKILL.md anatomy checks;
+- the documented install command works from a clean environment;
 - the two install confirmations are from genuinely outside teams (not adjacent teams with the same manager);
 - the reflection shows comprehension of the platform-builder loop, not just compliance.
 
@@ -181,23 +182,23 @@ The reviewer attests that:
 
 **Picking a workflow that does not generalise.** Three runs by your team do not predict three other teams will want it. Fix: pick again with the "two named PODs" test before authoring.
 
-**Skipping the consumer-facing README.** Other teams cannot evaluate. Fix: take B.2's README guidance seriously.
+**Writing wrapper docs instead of agent instructions.** Other teams can read the pitch but the agent cannot run the workflow. Fix: keep the trigger, workflow, stop conditions, and example in `SKILL.md`; use repository-level docs for discovery.
 
-**Personal-handle owner.** A pack owned by an individual is orphan-ready. Fix: team handle.
+**Personal-only ownership.** A skill only its author can review is orphan-ready. Fix: route ownership through the team or function that owns the workflow.
 
-**Authoring all the skills before testing the install flow.** Bundle and install-test early; if the install is broken nobody can adopt regardless of skill quality. Fix: get a working install of an empty-ish pack early; add skills incrementally.
+**Testing only in the author's checkout.** If the install path is broken, nobody can adopt regardless of skill quality. Fix: merge through the shared repository, then clean-install the named skill before collecting adoption proof.
 
-**Treating the announcement as optional.** Without reach, no installs. Fix: post in [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW); offer pairing time.
+**Treating the announcement as optional.** Without reach, no installs. Fix: post the merged path and install command in `#devex-skills`; offer pairing time.
 
-**Skipping the reflection.** The reflection is what makes the quest signal-bearing. Fix: 30 minutes; future-you will use the notes for the next pack.
+**Skipping the reflection.** The reflection is what makes the quest signal-bearing. Fix: 30 minutes; future-you will use the notes for the next skill.
 
-**Over-claiming.** Two installs that are friends doing you a favour are not the same as two installs from teams that will use the pack. Fix: be honest. The cohort tracker reads the reflection.
+**Over-claiming.** Two installs that are friends doing you a favour are not the same as two installs from teams that will use the skill. Fix: be honest. The cohort tracker reads the reflection.
 
 ---
 
 ## What you can say after this quest
 
-> "I authored a skill pack, published it to the program's pinned channel, and at least two PODs outside my team adopted it within a month. I know what makes a pack reach beyond its origin team and what does not."
+> "I published a repository-native skill to `razorpay/agent-skills`, and at least two PODs outside my team adopted it within a month. I know what makes a shared skill reach beyond its origin team and what does not."
 
 ---
 
@@ -206,7 +207,7 @@ The reviewer attests that:
 **Further reading**
 
 - [B.1 — Authoring an internal MCP server](B01-internal-mcp-server.md)
-- [B.2 — Publishing a skill pack](B02-skill-pack-publishing.md)
+- [B.2 — Publishing a shared skill](B02-skill-pack-publishing.md)
 - [B.3 — Cowork plugin marketplace](B03-cowork-plugin-marketplace.md)
 - [G.7 — Writing your first SKILL.md](../../03-green/a-craft/G07-writing-your-first-skill.md)
 - [Appendix L — Certification](../../../appendices/L-certification/README.md)

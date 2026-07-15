@@ -14,7 +14,7 @@ next: "belts/black/badge"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "boss-fight", "capstone"]
-updated: "2026-05-07"
+updated: "2026-07-15"
 ---
 
 # 🏁 Boss Fight B-B — Own a POD's AI uplift for a month
@@ -43,7 +43,7 @@ This is the moment where Black Belt's promise (*I am a force multiplier for Razo
 - A metric that moves on its own (e.g., "PRs merged" during a quarter where the POD's headcount doubled) without controlling for the underlying change.
 - A lift claim that cannot be reproduced: no baseline measurement, metric tracked differently pre and post, or one-off conditions during the embed window.
 - A case study that names individuals, exposes regulator-protected data, or relies on numbers the POD lead has not approved for sharing.
-- A purely advisory intervention — "I told them to use X." The candidate must have *built or shipped* something during the embed (a skill pack, an MCP, a custom agent, a documented practice that the POD now uses).
+- A purely advisory intervention — "I told them to use X." The candidate must have *built or shipped* something during the embed (a shared skill, an MCP, a custom agent, a documented practice that the POD now uses).
 - A boss fight that lacks a Black-Belt-or-above reviewer in the chain (per Appendix L).
 
 ---
@@ -68,7 +68,7 @@ The metric *cannot* be one the candidate proposes unilaterally. The POD lead's s
 
 **Establish the baseline.** With the POD lead, in writing, before the embed begins. The baseline is what the metric was over the most-recent comparable window — typically the four weeks preceding the embed. Documented in the same place the metric is documented. Numbers shared with the candidate.
 
-**Scope the intervention.** A rough sketch (the full plan emerges during the embed) naming what the candidate expects to do across the four weeks. Common shapes: a custom skill pack the POD adopts (per Quest B-1's pattern); an MCP integration the POD did not have; a set of office hours and one or two embedded sprints (per B.12 and B.13); a documented practice the POD then runs.
+**Scope the intervention.** A rough sketch (the full plan emerges during the embed) naming what the candidate expects to do across the four weeks. Common shapes: a shared skill the POD adopts (per Quest B-1's pattern); an MCP integration the POD did not have; a set of office hours and one or two embedded sprints (per B.12 and B.13); a documented practice the POD then runs.
 
 **Calendar.** The four weeks are blocked on the candidate's calendar. The POD lead's standups and sprint reviews are on the calendar. The all-hands or program-forum slot for the case-study share is booked tentatively.
 
@@ -82,7 +82,7 @@ The metric *cannot* be one the candidate proposes unilaterally. The POD lead's s
 
 ### Phase 2 — Weeks 2 and 3: build and ship
 
-**Build.** Skill packs, MCPs, custom agents, documented practices — whichever the intervention plan named. The candidate builds *with* the POD's builders, not for them — the same ship-with-not-for discipline as B.13's embedded sprints.
+**Build.** Shared skills, MCPs, custom agents, documented practices — whichever the intervention plan named. The candidate builds *with* the POD's builders, not for them — the same ship-with-not-for discipline as B.13's embedded sprints.
 
 **Run cultural moves.** Office hours for the POD if relevant; embedded-sprint patterns for specific deliverables; tool teaching where it lands.
 
@@ -126,7 +126,7 @@ What was the POD trying to move? Why did they care? What was the baseline?
 
 ## 2. Intervention
 
-What did the candidate do across the four weeks? Skill packs, MCPs, agents, cultural moves — name them.
+What did the candidate do across the four weeks? Shared skills, MCPs, agents, cultural moves — name them.
 
 ## 3. Result
 
@@ -156,7 +156,7 @@ A representative shape (no real POD; numbers illustrative).
 
 > **Problem.** The POD owns a recurring weekly status report that takes ~3 hours of a senior builder's time. The metric the lead picked: median time spent producing the weekly report.
 >
-> **Intervention.** Week 1 spent observing the report-writing flow. Week 2-3: authored a skill pack (`weekly-status-pack`) that pulls from the POD's tracker and primary Slack channel and produces the report in the POD's standard format; paired with a mid-level builder on the authoring; published v1.0 to the program's pinned channel. Week 4: helped the POD author a small `weekly-status-config` document that the skill pack consumes; deprecated three internal scripts the POD had been using ad-hoc; ran two office hours for the POD specifically focused on skill-pack adoption.
+> **Intervention.** Week 1 spent observing the report-writing flow. Week 2-3: authored a `weekly-status` skill that pulls from the POD's tracker and primary Slack channel and produces the report in the POD's standard format; paired with a mid-level builder on the authoring; merged it to `razorpay/agent-skills` after owning-team review. Week 4: helped the POD author a small `weekly-status-config` document that the skill consumes; deprecated three internal scripts the POD had been using ad-hoc; ran two office hours for the POD focused on shared-skill adoption.
 >
 > **Result.** Baseline: 3 hours per weekly report (4-week mean). Post-embed: 35 minutes per weekly report (2-week mean during weeks 5-6 post-embed). 80% time saving. Methodology: timed by the report-writer; recorded in the POD's tracker; signed off by the POD lead.
 >
@@ -240,7 +240,7 @@ The case study itself is the primary artefact. The reviewer attestations are the
 
 ## What you can say after this boss fight
 
-> "I embedded with a POD outside my own for a month, picked a metric *they* cared about, intervened through skill packs and cultural moves, shipped a measurable lift signed off by the POD lead, wrote a case study contributed back to the playbook, and shared the result in an all-hands. The leverage I built propagated with me in the room; my Black Belt is what I built, not what I was given."
+> "I embedded with a POD outside my own for a month, picked a metric *they* cared about, intervened through shared skills and cultural moves, shipped a measurable lift signed off by the POD lead, wrote a case study contributed back to the playbook, and shared the result in an all-hands. The leverage I built propagated with me in the room; my Black Belt is what I built, not what I was given."
 
 ---
 

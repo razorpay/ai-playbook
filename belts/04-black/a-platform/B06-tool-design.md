@@ -14,7 +14,7 @@ next: "belts/black/quest-publish-an-internal-plugin"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "tool-design", "json-schema", "contracts"]
-updated: "2026-04-29"
+updated: "2026-07-15"
 ---
 
 # B.6 — Tool design
@@ -255,7 +255,7 @@ A consumer reading this contract can write a useful agent invocation in five min
 
 ## Where to go next
 
-You have finished Black Belt Part A. Quest B-1 (*Publish an internal plugin*) is the practical test of B.1 through B.6 together. Pick a workflow your team owns; bundle a skill pack ± an MCP server; publish; get two PODs outside your team to install.
+You have finished Black Belt Part A. Quest B-1 (*Publish a shared skill*) is the practical test of B.1 through B.6 together. Pick a workflow your team owns; publish a repository-native skill, with an MCP dependency only if needed; get two PODs outside your team to install it.
 
 **Previous:** [← B.5 Multi-agent orchestration](B05-multi-agent-orchestration.md) · **Next:** [→ Quest B-1](quest-B1-publish-an-internal-plugin.md)
 

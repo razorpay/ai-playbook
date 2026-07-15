@@ -14,7 +14,7 @@ next: "belts/black/running-office-hours"
 pillar: null
 belt: "black"
 tags: ["black-belt", "readme", "org", "culture", "governance"]
-updated: "2026-05-07"
+updated: "2026-07-15"
 ---
 
 # ⚫ Black Belt — Part C: Shape the Org
@@ -29,7 +29,7 @@ updated: "2026-05-07"
 
 ## What you've already done
 
-You walked Part A (*Build the Platform*) and authored an MCP server, a skill pack, a plugin marketplace entry, a custom agent, and learnt multi-agent orchestration and tool design. You walked Part B (*Push the Craft*) and now keep skills small with progressive disclosure, design memory systems, run prompt evals, instrument cost and observability at team and org scale, and tune effort settings + model routing + fall-backs. You shipped Quests B-1 and B-2: a published plugin adopted by two PODs outside your team, and a Blade contribution or full-stack feature you owned end-to-end.
+You walked Part A (*Build the Platform*) and authored an MCP server, a shared skill, a plugin marketplace entry, a custom agent, and learnt multi-agent orchestration and tool design. You walked Part B (*Push the Craft*) and now keep skills small with progressive disclosure, design memory systems, run prompt evals, instrument cost and observability at team and org scale, and tune effort settings + model routing + fall-backs. You shipped Quests B-1 and B-2: a shared skill adopted by two PODs outside your team, and a Blade contribution or full-stack feature you owned end-to-end.
 
 Part C does not add more building. It adds the **moves you make around the building** so that the leverage you create propagates without your hand on every keyboard.
 
@@ -51,7 +51,7 @@ The "embed for a week" pattern from staff-engineer literature. Time-boxed (one w
 
 ### B.14 — Writing an AI RFC · Governance · ~45 min
 
-A written proposal for a change to the program's AI surface: a new connector, a new policy, a new shared skill pack. Problem statement, options considered, recommendation, cost-and-risk, rollout plan, success metric, rollback plan. The bar: an RFC merges when reviewers can name what would change and how to measure whether it worked.
+A written proposal for a change to the program's AI surface: a new connector, a new policy, or a structural change to the shared skill library. Problem statement, options considered, recommendation, cost-and-risk, rollout plan, success metric, rollback plan. The bar: an RFC merges when reviewers can name what would change and how to measure whether it worked.
 
 > [Open B.14 →](B14-writing-an-ai-rfc.md)
 
@@ -63,7 +63,7 @@ The API Council exists at Razorpay; this module is the AI-specific lens on it. M
 
 ### B.16 — Plugin + skill governance · Governance · ~45 min
 
-Three governance moves: approval (for new plugin marketplace entries), deprecation (for plugins no team owns anymore), security review (for plugins handling sensitive data). The lifecycle: published → adopted → deprecated → removed. Each transition has a named owner and a written trigger.
+Three governance moves: scope-sensitive approval, deprecation for skills or plugins without an owner, and security review for workflows handling sensitive data. The lifecycle: published → adopted → deprecated → removed. Each transition has a named owner and a written trigger.
 
 > [Open B.16 →](B16-plugin-and-skill-governance.md)
 
@@ -71,7 +71,7 @@ Three governance moves: approval (for new plugin marketplace entries), deprecati
 
 ## The capstone — Boss Fight B-B
 
-After the modules, the boss fight. Embed with a POD outside your own for one month. Pick a shared metric *with the POD lead* before the embed begins. Intervene through the full Black Belt toolkit: skill packs, MCPs, custom agents, training, office hours, embedded sprints. Measure the lift. Write a one-pager case study. Present in an all-hands or the program's main forum.
+After the modules, the boss fight. Embed with a POD outside your own for one month. Pick a shared metric *with the POD lead* before the embed begins. Intervene through the full Black Belt toolkit: shared skills, MCPs, custom agents, training, office hours, embedded sprints. Measure the lift. Write a one-pager case study. Present in an all-hands or the program's main forum.
 
 > [Open Boss Fight B-B →](boss-fight-BB-pod-ai-uplift.md)
 
