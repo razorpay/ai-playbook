@@ -29,6 +29,7 @@ The connector is not the work. The work is the handoff from context to a reviewa
 
 - Search connectors with a named question, not broad curiosity.
 - Summarize useful context before bringing it into Claude Code.
+- For spreadsheet analysis, name the intended row set and reconcile the returned count.
 - Redact or omit sensitive material that is not needed for the task.
 
 ---
@@ -128,6 +129,35 @@ Doc context:
 
 Avoid pasting full documents unless the approved surface and task require it.
 
+### Before analysing a spreadsheet: prove coverage
+
+A sheet read can look complete even when it is not. In the current Google Workspace CLI workflow, an unspecified read can stop at the first 999 rows. That is worse than an error: the summary can sound convincing while excluding most of the population.
+
+Make the row set part of the task contract. Copy and adapt this request:
+
+```text
+Analyse the <tab or segment> in <sheet title>.
+
+Before analysing:
+1. inspect the sheet metadata and header;
+2. state the intended population and expected row count;
+3. read an explicit range that covers that population;
+4. report returned data rows separately from the header;
+5. stop and name the gap if expected and returned rows do not reconcile.
+
+If one response cannot hold the range, read it in non-overlapping chunks,
+then reconcile the chunks before drawing conclusions.
+```
+
+Use this four-box check before trusting the result:
+
+- [ ] The tab, segment, and intended population are named.
+- [ ] The explicit range or chunk boundaries are visible.
+- [ ] Expected rows and returned rows reconcile, with the header counted separately.
+- [ ] Missing, blank, filtered, inaccessible, or skipped rows are disclosed.
+
+Do not fix a partial read by saying “use all rows” more emphatically. Specify the range, verify the count, and chunk when necessary.
+
 ---
 
 ## Try a shipped workflow: evidence-first sprint retro
@@ -203,6 +233,7 @@ You are **GREEN** if:
 
 - you can search with a named question;
 - you can produce a five-line context summary;
+- you can prove a spreadsheet read covered the intended row set;
 - you can avoid unnecessary sensitive detail;
 - you can carry context into Claude Code cleanly.
 
