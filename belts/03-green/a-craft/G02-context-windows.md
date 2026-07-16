@@ -14,7 +14,7 @@ next: "belts/green/claude-md-real-service"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "context-windows", "constraint"]
-updated: "2026-04-29"
+updated: "2026-07-16"
 ---
 
 # G.2 — Why context windows fill
@@ -99,6 +99,56 @@ Six rules of thumb:
 
 ---
 
+## The five-minute context checkpoint
+
+Knowing that context is finite is not enough. Run this checkpoint when you finish a plan, switch from investigation to editing, or notice the agent repeating itself.
+
+### 1. Inspect what matters
+
+Ask the agent for a short inventory, grounded in the current repo state:
+
+```text
+Before the next step, inspect the current context.
+
+Return only:
+1. the objective we are still pursuing;
+2. decisions and constraints that remain load-bearing;
+3. files changed and tests run, verified from git and command output;
+4. unresolved questions;
+5. context that is now noise;
+6. the single next action.
+
+Separate verified state from assumptions. Do not edit anything.
+```
+
+Read the result. If a critical constraint is missing or wrong, do not continue on momentum. Re-read the source of truth and correct the checkpoint first.
+
+### 2. Scope the next tool call
+
+Keep the next fetch smaller than the question. Filter by file, time range, error code, or test name. Prefer quiet flags and a representative error over an entire log. For a large repo, inspect the directory map or search results before opening files in bulk.
+
+The rule is simple: **reduce noise at the source before asking the model to summarise it.** A summary of 5,000 irrelevant lines is still a tax on the session.
+
+### 3. Continue, compact, or restart
+
+Use this decision table instead of dragging every session forward by default.
+
+| Signal | Action | What to carry forward |
+|---|---|---|
+| Same objective; constraints are intact; most context is still relevant | **Continue** | The next action only |
+| Same objective; history is noisy; your approved surface supports compaction | **Compact** | Save the checkpoint first, then verify the compacted summary preserved decisions, constraints, changed files, and test state |
+| Objective changed; a core constraint was forgotten; tool output dominates the session | **Restart** | Open a fresh session with the checkpoint, then re-read the canonical files rather than trusting the summary alone |
+
+Compaction is lossy by design. Treat its summary as a handoff draft, not a new source of truth. The repo, ticket, design, and test output remain authoritative.
+
+### 4. Automate only after approval
+
+Output-reduction layers can compress logs, tool responses, and conversation history before they reach the model. They can be useful, but a local proxy also sits on the data path. Do not install one from a demo or public repository by reflex. Confirm the approved setup, data handling, TLS path, and rollback with the platform and security owners first.
+
+The durable skill is the checkpoint above. A compression tool may improve it; it does not replace it.
+
+---
+
 ## Worked example
 
 You are eight turns into a session about a payments flow. The conversation has read four files, run two test suites with verbose output, and called the design-system connector twice. You ask: "now also add the empty state for the cart screen."
@@ -156,3 +206,4 @@ G.3 — *CLAUDE.md for a real service* — is the longest single chapter in Part
 
 - [Yellow Belt Y.4 — Context 101](../../02-yellow/Y04-context-101.md)
 - [Anthropic on long-context engineering](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/long-context-tips)
+- [Headroom](https://github.com/headroomlabs-ai/headroom) — one open-source example of output and context compression; evaluate against Razorpay's approved data path before use
