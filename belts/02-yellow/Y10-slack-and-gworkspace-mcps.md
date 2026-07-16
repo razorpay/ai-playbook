@@ -14,7 +14,7 @@ next: "belts/yellow/bug-hunting"
 pillar: "context"
 belt: "yellow"
 tags: ["yellow-belt", "slack", "google-workspace", "connectors"]
-updated: "2026-04-27"
+updated: "2026-07-16"
 ---
 
 # Y.10 - Slack MCP + Google Workspace MCP
@@ -130,6 +130,57 @@ Avoid pasting full documents unless the approved surface and task require it.
 
 ---
 
+## Try a shipped workflow: evidence-first sprint retro
+
+The shared [`devrev-sprint-retro` skill](https://github.com/razorpay/agent-skills/tree/master/generic-helpers/skills/devrev-sprint-retro) turns several connectors into one reviewable PM workflow. It uses DevRev for sprint state, the pod scorecard for the published score, and Slack plus Gmail or Drive for delivery context. The result is a draft retro with next-sprint suggestions, not a pile of search results.
+
+Start with a bounded request:
+
+```text
+Run the sprint retro for <pod>.
+Use DevRev for issue state, the pod scorecard for the published score,
+and the stand-up source for context. Draft only; do not post or write back.
+```
+
+Confirm these anchors before the run:
+
+- the pod or team name;
+- the DevRev sprint link, ID, or exact date window;
+- the authoritative scorecard sheet;
+- the relevant stand-up source, such as the recurring meeting or channel.
+
+The sources do different jobs. Keep them separate:
+
+| Source | Use it for | Do not use it for |
+|---|---|---|
+| DevRev | sprint dates, issue IDs, state, owner, committed work | explaining why work moved |
+| Scorecard | the published numeric sprint score | reconstructing issue state |
+| Slack / stand-up notes | blockers, decisions, handoffs, delivery friction | changing the score |
+| Gmail / Drive | meeting artefacts and missing context | silently overriding DevRev |
+
+### Evidence gate: review before sharing
+
+Use this checklist on the draft:
+
+- [ ] Every shipped, open, or dropped-work claim has a DevRev issue ID.
+- [ ] The numeric score is copied from the authoritative scorecard, not recomputed from chat context.
+- [ ] Cancelled work is classified as dropped rather than disappearing from the ledger.
+- [ ] Slack or meeting context explains delivery friction without changing score math.
+- [ ] Missing or inaccessible sources are named explicitly.
+- [ ] Next-sprint pickups are suggestions with evidence links, not silent commitments.
+- [ ] Nothing was posted or written back without an explicit confirmation.
+
+If a source conflicts with another source, surface the conflict in the draft. A retro that says “DevRev shows open; stand-up notes say shipped” is useful. A retro that quietly chooses one is tidy-looking fiction.
+
+This is the connector pattern to remember:
+
+```text
+canonical state + authoritative metric + human context
+    -> evidence ledger -> reviewed draft -> optional write-back
+```
+
+---
+
 ## Common failure modes
 
 **"The connector found too much."** Narrow the query by surface, component, date range, or exact phrase.
@@ -141,6 +192,8 @@ Avoid pasting full documents unless the approved surface and task require it.
 **"The connector result became stale."** Re-check before shipping if the task spans days.
 
 **"I searched messages to avoid asking a person."** Connectors help, but a one-line human clarification is sometimes faster and safer.
+
+**"The retro looks complete, but one source was unavailable."** Mark the missing source and rerun when access returns. Do not let polished prose hide incomplete coverage.
 
 ---
 
