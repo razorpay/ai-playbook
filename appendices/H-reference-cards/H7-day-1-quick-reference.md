@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-08"
+updated: "2026-07-16"
 ---
 
 # H.7 — Day-1 quick reference
@@ -41,6 +41,8 @@ curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
 
 These are not part of Quest W-0. Install them only after Claude Code opens cleanly.
 
+Before installing either add-on, confirm that GitHub opens both [`razorpay/claude-plugins`](https://github.com/razorpay/claude-plugins) and [`razorpay/self-serve-analytics`](https://github.com/razorpay/self-serve-analytics). If either repository says you do not have access, route the request through [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); setup cannot repair missing repository access.
+
 **PM tracer for the AI Adoption Leaderboard:**
 
 ```bash
@@ -49,7 +51,7 @@ claude marketplace update razorpay-marketplace
 claude plugin install rzp-pm-tracing@razorpay-marketplace
 ```
 
-Restart Claude Code, then run `/tracing-doctor` inside Claude. A clean check means your sessions, skills, and tool usage are flowing into the PM adoption dashboard.
+Restart Claude Code, then run `/tracing-doctor` inside Claude. It checks the tracing pipeline end to end and names the fix for any failed row.
 
 **Agentic Analytics for metric questions:**
 
@@ -57,7 +59,14 @@ Restart Claude Code, then run `/tracing-doctor` inside Claude. A clean check mea
 claude plugin install analytics-agent@razorpay-marketplace
 ```
 
-Inside Claude, run `/analytics-setup`, `/analytics-onboard`, then use `/analytics-query` for metric questions and `/analytics-review` for health reviews. This is the replacement path for the old Compass `querying-metrics` skill.
+Inside Claude, run `/analytics-setup`, then `/analytics-onboard`. Use `/analytics-query` for metric questions, `/analytics-review` for health reviews, and `/analytics-feedback` to attach a thumbs-up or thumbs-down plus an optional note to the previous answer. This is the replacement path for the old Compass `querying-metrics` skill.
+
+**Prove both add-ons are GREEN.** Installation is not the acceptance criterion. Check both boxes before moving on:
+
+- [ ] Claude Code shows the Analytics Agent commands, including `/analytics-setup`, `/analytics-onboard`, `/analytics-query`, and `/analytics-feedback`.
+- [ ] `/tracing-doctor` reports every row GREEN, with the final row saying `emit + read-back confirmed`.
+
+If either box fails, update the marketplace, restart Claude Code, and rerun the relevant setup or doctor command. Follow the command's exact fix before escalating in `#ai-help`.
 
 Native Windows caveat: the analytics plugin currently assumes a Unix-like surface (`bash`, `python3`, shell-launched connectors, and POSIX locking for tracing). If you are on Windows, do **not** try to hand-port it; ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the approved WSL2 or remote Linux path before installing.
 
@@ -166,7 +175,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-07-08. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-07-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 
