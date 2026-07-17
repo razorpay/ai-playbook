@@ -670,4 +670,4 @@ Contributing to the playbook (design principles, production plan, content rules,
 
 ---
 
-*Designed to be a living document. Pull requests welcome. Last reviewed 2026-07-03.*
+*Designed to be a living document. Pull requests welcome. Last reviewed 2026-07-15.*
