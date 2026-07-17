@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-14"
+updated: "2026-07-17"
 ---
 
 # W.6 - The LLM Gateway
@@ -80,7 +80,7 @@ White Belt readers need to distinguish three failure shapes:
 | Config / plugin failure | Claude Code opens but uses the wrong model or no skills. | You (Layers 4–5) |
 | Gateway / model-path failure | A prompt errors with `401`, `403`, `429`, or a network timeout. | The gateway, sometimes your shell environment |
 
-Only the first one is fully local. The third one is usually a setup mismatch you can fix in two minutes (see W.5 failure modes) — but if you've followed the W.5 flow cleanly and still hit them, route it to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
+Only the first one is fully local. For a gateway or model-path failure, read the short error before touching setup: fix a `401` or config-shaped `403` with the [W.5 failure modes](W05-installing-the-stack.md#common-failure-modes); use an enabled fallback when only one model is capped; route a `5xx`, timeout, or persistent failure to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Re-running setup will not clear a centrally managed cap or gateway outage.
 
 ---
 
