@@ -14,7 +14,7 @@ next: "prologue/tool-tour"
 pillar: null
 belt: null
 tags: ["orientation", "enablement"]
-updated: "2026-06-15"
+updated: "2026-07-17"
 ---
 
 # 0.4 — The Enablement Stack (the 9-layer map)
@@ -72,7 +72,7 @@ Today we're not there. A new builder still needs a Mac and a morning. But every 
 | **7** | L&D (Continuous Learning) | Self-paced modules, Mini L&Ds, Builder Days, component-contribution events, certification. | Every belt has a touchpoint here |
 | **8** | Infrastructure (Devstack) | Not owned by this program: devstack uptime, build speed, API mocking, status page. External dependency. | Out of scope — but you'll depend on it |
 
-Status at a glance (current point in the cycle): **Layers 0, 2, and 7 are the most mature** (mostly ✅ Built). **Layers 1 and 3 are active workstreams** (🔄 In Progress). **Layers 4 and 5 are the frontier** (mix of ✅, ❌, and 🗓️ planned-for-next-quarter). **Layers 6 and 8 are the bottlenecks** (❌ Gaps blocked on instrumentation work and external teams).
+Status at a glance (current point in the cycle): **Layers 0, 2, and 7 are the most mature** (mostly ✅ Built). **Layers 1 and 3 are active workstreams** (🔄 In Progress). **Layers 4 and 5 are the frontier** (mix of ✅, ❌, and 🗓️ planned-for-next-quarter). **Layers 6 and 8 remain bottlenecks** because instrumentation is only partially deployed and infrastructure work depends on external teams.
 
 ---
 
@@ -138,9 +138,9 @@ The chained pipeline reads: **design-intel → [build] → pre-ship-check → PR
 
 **Why it matters:** Skills that reason from *general* knowledge are useful but limited. Skills that reason from *Razorpay's actual data* (user behaviour, competitive benchmarks, support signals) are transformative. *"The skill is doing the analysis. If the skill isn't getting the raw data to run on, it's only half the skill."*
 
-**What's shipped:** The divergence skill (uses general knowledge + Figma, not live data) and a user-research synthesis skill that applies a jobs-to-be-done frame to interview transcripts.
+**What's shipped:** The divergence skill (uses general knowledge + Figma, not live data), a user-research synthesis skill that applies a jobs-to-be-done frame to interview transcripts, and Analytics Agent — the standalone Self Serve Analytics plugin for metric questions, lineage checks, and health reviews.
 
-**What's still a gap:** **Market-research integration** (competitive benchmarks, feature comparison), **product-analytics integration** (funnel drop-off, adoption, error rates), in-product signal ingestion (support tickets, support-channel threads → design inputs). These depend on engineering partnership with the analytics and data teams.
+**What's still a gap:** **Market-research integration** (competitive benchmarks, feature comparison); product-analytics evidence embedded in builder skills beyond the standalone Analytics Agent path; and in-product signal ingestion (support tickets, support-channel threads → design inputs). These depend on engineering partnership with the analytics and data teams.
 
 **Playbook belt:** Green Belt Part C ("data-aware skills") is where you start writing skills that pull from real Razorpay data sources.
 
@@ -148,9 +148,9 @@ The chained pipeline reads: **design-intel → [build] → pre-ship-check → PR
 
 **Why it matters:** The program's primary measure is adoption. Without instrumentation, we're flying blind. We can run an event with fifty attendees and not know whether any of them are still using the skills two weeks later.
 
-**What's shipped:** Partial tracing on a single skill pipeline. That's about it.
+**What's shipped:** PM Tracer now feeds applied workflow usage into the AI Adoption Leaderboard. Analytics Agent tracing also has an end-to-end health check that confirms events can be emitted and read back. This is a working PM/Product slice, not org-wide observability.
 
-**What's still a gap:** **Builder count via GitHub handles** — an elegant proposal to collect designer/PM GitHub handles and filter all Razorpay PRs to get an instant adoption metric; skill usage tracing across the library; time-to-PR baseline; org-wide Blade compliance %; post-event sustained-usage tracking; a weekly cross-POD signal forum that surfaces localised blockers.
+**What's still a gap:** **Builder count via GitHub handles** — an elegant proposal to collect designer/PM GitHub handles and filter all Razorpay PRs to get an instant adoption metric; consistent tracing across the full skill library and PM cohort; time-to-PR baseline; org-wide Blade compliance %; post-event sustained-usage tracking; a weekly cross-POD signal forum that surfaces localised blockers.
 
 **Playbook belt:** Black Belt Part C is where you start operating the program, not just using it: running your POD's own adoption metrics, hosting your own Mini L&Ds, feeding the cross-POD forum.
 
