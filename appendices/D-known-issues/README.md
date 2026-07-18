@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-14"
+updated: "2026-07-18"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -93,15 +93,15 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **References.** [W.5 failure mode #4](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
-### D.5 — Retired Opus default still points at `claude-opus-4-6` (status: workaround)
+### D.5 — Opus 4.6 or 4.7 reports `exceeded budget` (status: workaround)
 
-**Symptom.** Claude Code errors with `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`, even after you added or selected Opus 4.8 in LiteLLM.
+**Symptom.** Claude Code errors with `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`, while the same error or the gateway shows that route in your enabled-model list.
 
-**Diagnosis.** Your active Claude Code session or `~/.claude/settings.json` still points at a retired Opus model. LiteLLM will not rescue that request by guessing a newer Opus for you. Claude Code's model picker can also lag retirement changes, so a visible Opus 4.7, `default`, or 1M-context option may still route to a retired model.
+**Diagnosis.** The request reached an enabled frontier model whose LiteLLM per-model cap is exhausted. `Exceeded budget` describes quota; it does not prove the route retired. Model availability can change, so use the current enabled-model list rather than inferring status from the version number.
 
-**Fix.** Enable `claude-opus-4-8` at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then run `/model claude-opus-4-8` inside Claude Code. Use the direct command even if the picker still shows older labels. If you want a sticky default, set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. If the gateway says `key_model_access_denied`, confirm Opus 4.8 is enabled on your LiteLLM key and retry after the cache refresh. If Opus 4.8 itself is capped or rate-limited, use Sonnet or an enabled open-weight model for routine work.
+**Fix.** Check the LiteLLM usage view, then move routine work to a lower-cost route that your key already enables, such as Sonnet, Codex, or an approved open-weight model. Do not change the Opus default to 4.8 solely because 4.6 or 4.7 reports a budget error; another frontier route can have its own cap. If the error says your total user budget is exhausted, follow D.6. If the route is absent from the enabled list or returns `key_model_access_denied`, follow D.13 instead. For an approved business blocker, post in `#ai-help` with the blocked work and manager approval visible.
 
-**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [`#ai-help` retired-model response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887045764659), [`#ai-help` config response 2026-07-01](https://razorpay.slack.com/archives/C08C35GKJKD/p1782887627150789), [`#ai-help` stale-picker response 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783084811495669).
+**References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [D.6 — model-wise or total usage limit](#d6--hit-a-model-wise-or-litellm-usage-limit-status-workaround), [D.13 — model access](#d13--litellm-account-or-model-access-is-not-enrolled-status-fixed), [`#ai-help` current enabled-route and model-cap response 2026-07-17](https://razorpay.slack.com/archives/C08C35GKJKD/p1784260277679449).
 
 ### D.6 — Hit a model-wise or LiteLLM usage limit (status: workaround)
 

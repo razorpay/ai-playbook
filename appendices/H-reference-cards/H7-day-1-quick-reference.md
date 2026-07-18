@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-08"
+updated: "2026-07-18"
 ---
 
 # H.7 — Day-1 quick reference
@@ -146,7 +146,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 | "Free Plan" showing on claude.ai after approval | wait 30–40 minutes for Azure AD sync; if past 60 min, re-route in `#ai-help` |
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` | remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION` from `~/.bashrc`/`~/.zshrc`; re-run setup; restart terminal |
 | `401 authentication_error` after laptop restart | re-run the setup script (re-mints the LiteLLM key) |
-| `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7` | switch the retired Opus default to `claude-opus-4-8` — enable it in LiteLLM, then run `/model claude-opus-4-8` or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` |
+| `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7` | if the route is enabled, treat this as its model cap: check LiteLLM usage and use a lower-cost enabled route for routine work; do not switch to Opus 4.8 solely from this message |
 | Hit a model-wise or LiteLLM usage limit | trust LiteLLM over claude.ai usage; caps can change centrally; for frontier-model caps, try Sonnet, Codex, or enabled open-weight models for routine work; if the total budget is exhausted, another gateway model, open-weight route, or personal Claude Max plan will not bypass it — wait for reset or post in `#ai-help` with manager approval for approved exceptions |
 | Usage missing from LiteLLM dashboard | `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in current shell; remove persisted overrides from `~/.bashrc`/`~/.zshrc`; restart terminal |
 | Anything else | post in `#ai-help` with: command run, redacted output, machine class, what you tried |
