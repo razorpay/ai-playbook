@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.51 — current Opus budget-error triage (2026-07-18)
+
+The 2026-07-17 `#ai-help` queue showed `claude-opus-4-6` and `claude-opus-4-7` in a builder's enabled-model list while LiteLLM returned `exceeded budget` for Opus 4.6. The playbook still diagnosed that exact response as a retired-model default and told readers to switch to Opus 4.8. That turns a model-cap error into unnecessary configuration churn and may move the builder to another capped frontier route.
+
+**What changed.**
+
+- **Budget wording corrected.** W.5, W.6, Appendix D, Appendix F, and H.7 now treat `exceeded budget for model=...` on an enabled route as a per-model cap, not proof that the route retired.
+- **Fallback order corrected.** Readers check the LiteLLM usage view, move routine work to a lower-cost enabled route, distinguish total-budget exhaustion, and use the model-access path only when the route is absent or denied.
+- **Version markers bumped.** README and INDEX now report v0.51 / 2026-07-18 for this support-triage correction.
+
 ## v0.50 — repository-native shared-skill publishing (2026-07-15)
 
 The Black Belt publishing path still taught a fictional `pack.yml` bundle, SemVer tag, checksummed pinned channel, and central platform-community approval. The live `razorpay/agent-skills` repository and repeated `#devex-skills` review routing now use ordinary skill-directory pull requests, repository validation, owning-team approval for content, and DevEx review for structural changes.

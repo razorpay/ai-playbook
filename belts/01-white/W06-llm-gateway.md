@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-14"
+updated: "2026-07-18"
 ---
 
 # W.6 - The LLM Gateway
@@ -127,7 +127,7 @@ The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failu
 
 **`403 key not allowed to access model` or `This key can only access models=[...]`.** Read the end of the error before re-authenticating. If it says `Tried to access <model>`, compare that route with the enabled-model list in the same message. A leading `Please run /login` can be misleading: when the key already has enabled models, select one of those exact routes with `/model <exact-enabled-route>`. If an approved route you need is absent, add it at `https://llm-gateway.razorpay.com/auth`, wait two to three minutes for the gateway cache to refresh, then restart Claude Code. Escalate to `#ai-help` only if the key is not enrolled or an approved route cannot be enabled.
 
-**`exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** Those Opus defaults are retired. Enable `claude-opus-4-8` on your LiteLLM key, then run `/model claude-opus-4-8` inside Claude Code or set `"ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8"` in `~/.claude/settings.json`. Use Sonnet or enabled OSS models for routine work when Opus 4.8 is capped.
+**`exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7`.** When the route appears in your enabled-model list, its per-model cap is exhausted; the message does not mean the route retired. Check the LiteLLM usage view and use a lower-cost enabled route for routine work. If the route is absent or denied, follow the model-access step above instead.
 
 **`ExceededBudget` or model-wise limit errors.** Trust LiteLLM over the Claude Desktop usage display. Check the LiteLLM usage page, then follow [W.5 failure mode #7](W05-installing-the-stack.md#common-failure-modes): move routine work to an enabled fallback when only a model family is capped, and route true business blockers through `#ai-help` with manager approval visible.
 
