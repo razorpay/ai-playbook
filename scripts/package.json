@@ -1,0 +1,13 @@
+{
+  "name": "ai-playbook-scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Repo-root utility scripts for the Razorpay AI Playbook (project-knowledge bundle, etc.).",
+  "scripts": {
+    "build-project-knowledge": "node build-project-knowledge.mjs"
+  },
+  "dependencies": {
+    "yaml": "^2.7.1"
+  }
+}

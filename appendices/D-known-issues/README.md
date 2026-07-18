@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-19"
+updated: "2026-07-18"
 ---
 
 # Appendix D: Known Issues + FAQ
