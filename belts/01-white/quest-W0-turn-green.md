@@ -14,7 +14,7 @@ next: "belts/white/quest-hello-razorpay"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "quest", "setup-verify", "evidence"]
-updated: "2026-06-29"
+updated: "2026-07-18"
 ---
 
 # Quest W-0 - Turn GREEN
@@ -78,7 +78,7 @@ GREEN if it prints a version string (e.g. `claude 1.2.3`). RED if you see `comma
 claude
 ```
 
-GREEN if the agent prompt opens cleanly. YELLOW if it asks you to `/login` inside the Claude Code session — follow the SSO flow from that prompt, then you should be in. Do not run `claude /login` from the shell; if you already did and saw `Unknown skill: login`, see W.5 Common failure modes #8. RED if it errors with `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` — that is stale Vertex env vars from before the LiteLLM migration (see W.5 Common failure modes #3).
+GREEN if the agent prompt opens cleanly. YELLOW if it asks you to `/login` inside the Claude Code session — follow the SSO flow from that prompt, then you should be in. Do not run `claude /login` from the shell; if you already did and saw `Unknown skill: login`, follow [Appendix D.11's named fix](../../appendices/D-known-issues/README.md#d11--unknown-skill-login-after-running-claude-login-status-fixed). RED if it errors with `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` — that is stale Vertex env vars from before the LiteLLM migration (see W.5 Common failure modes #3).
 
 ### Step 5 — A prompt round-trips
 
@@ -90,7 +90,7 @@ hello
 
 GREEN if you get a reply. Exit with `Ctrl-D` or `/exit`.
 
-YELLOW if it replies but the usage does not appear in the LiteLLM dashboard — your shell env vars are overriding `~/.claude/settings.json` (see W.5 Common failure modes #7).
+YELLOW if it replies but the usage does not appear in the LiteLLM dashboard — your shell env vars are overriding `~/.claude/settings.json`; follow [Appendix D.7's named fix](../../appendices/D-known-issues/README.md#d7--usage-not-visible-in-the-litellm-dashboard-status-fixed).
 
 RED if it errors with `401 authentication_error` — LiteLLM key needs refreshing; re-run the setup script.
 
