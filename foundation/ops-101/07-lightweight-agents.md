@@ -8,18 +8,18 @@ track: "ops-101"
 order: 7
 time_minutes: 25
 audience: "pm-designer-ops"
-outcome: "Recognise when a repeated recipe deserves a configured agent and how to keep it useful."
+outcome: "Recognise when a repeated recipe deserves a configured agent, then make recurring work verifiable."
 prev: "ops-101/document-workflows"
 next: "ops-101/minimum-viable-wiki"
 pillar: null
 belt: null
 tags: ["ops-101", "agents"]
-updated: "2026-04-26"
+updated: "2026-07-18"
 ---
 
 # 0B.7 — Lightweight agents (when "automate this for me" earns its keep)
 
-> **⏱ 25 minutes · 👥 PMs, ops, anyone whose recipes are starting to repeat · 🎯 Leaves with:** the line between *recipe* and *agent*, three concrete agent patterns you can ship, and the discipline that keeps a configured agent from becoming a small abandoned graveyard.
+> **⏱ 25 minutes · 👥 PMs, ops, anyone whose recipes are starting to repeat · 🎯 Leaves with:** the line between *recipe* and *agent*, a copyable verified-loop design, three concrete agent patterns you can ship, and the discipline that keeps a configured agent from becoming a small abandoned graveyard.
 
 ---
 
@@ -40,9 +40,9 @@ A lightweight agent is the smallest possible thing that earns the name "agent." 
 - **A trigger.** Either a schedule (every Monday at 9am) or an event (every time a new ticket arrives in queue X).
 - **A prompt.** What the agent runs when triggered — usually a recipe you've already battle-tested as an on-demand version.
 - **An output channel.** Where the result goes: a Slack post, an email draft, a doc updated, a ticket created.
-- **An "I'm done" condition.** When does the agent stop? Most lightweight agents are single-shot: they fire, they produce, they finish. The more complex multi-step kind is a Black Belt topic; we're in much simpler territory here.
+- **An "I'm done" condition.** When does the agent stop? Most lightweight agents run one bounded pass: they fire, produce, check if needed, and finish. Open-ended chains and multi-agent orchestration are Black Belt topics; we're in much simpler territory here.
 
-That's it. Four parts. You're not building a sophisticated multi-agent orchestration; you're building a tiny program that runs your existing recipe on a clock.
+That's enough for a private, reversible draft. You're not building sophisticated multi-agent orchestration; you're building a tiny program that runs your existing recipe on a clock.
 
 The discipline that makes this work: *every lightweight agent is a recipe that's already proven itself.* You don't write an agent for a workflow you haven't run by hand for two weeks. The "by hand for two weeks" version is what surfaces the edge cases the agent will need to handle.
 
@@ -56,7 +56,60 @@ The pattern, in three steps:
 2. **You convert the recipe to an agent.** Same prompt, same connectors, same review discipline: but now triggered by a schedule (a cron job, a calendar trigger, a scheduled task) or an event (a webhook, a connector hook).
 3. **You watch it for two more weeks.** The conversion exposes new failure modes: the agent runs at a slightly different time of day, or processes inputs you weren't reviewing before, or hits rate limits the manual version never did. The two-week observation phase is non-negotiable.
 
-After those four total weeks of run time, the agent is something you can trust *without watching*. That's the goal. You're aiming for the moment when you forget the agent exists for a few weeks and then remember it's been quietly running.
+After those four total weeks, the agent should no longer need supervision on every run. It still needs monitoring, an owner, and a kill-switch. Trust means *review by exception*, not *forget it exists*.
+
+---
+
+## When the agent should become a verified loop
+
+A schedule gives you repetition, not reliability. Once a run informs a team decision, compares today with last week, or publishes beyond your private workspace, graduate the agent into a **verified loop**:
+
+```text
+trigger → skill → maker → checker → gate → state
+   ↑                                           │
+   └────────────── next scheduled run ─────────┘
+```
+
+This is still lightweight. The maker and checker are roles in one workflow, not necessarily separate agents or models.
+
+| Part | The question it answers | Daily-health example |
+|---|---|---|
+| **Trigger** | When should the work start? | Every weekday at 10 AM |
+| **Skill** | Which stable instructions, sources, and output contract apply? | Read the approved metric definitions; compare the same cohorts and time windows |
+| **Maker** | What produces the candidate result? | Draft a Green/Amber/Red health summary with source links |
+| **Checker** | What can disprove or block that result? | Confirm every required source returned data, time windows match, and each claim has evidence |
+| **Gate** | What may publish, and what must stop or escalate? | Auto-post a complete Green draft privately; hold missing-data runs; require a human for incident or customer-facing action |
+| **State** | What must the next run and the owner remember? | Run time, source coverage, verdict, output link, checker result, and any human override |
+
+The checker should be cheaper and more deterministic than the maker where possible: row counts, required fields, freshness timestamps, source links, and thresholds beat “ask another model if this looks right.” The gate is a rule, not automatically a person. Low-risk private output may pass when checks succeed; external, irreversible, or sensitive action keeps a human gate.
+
+State is a **run receipt**, not a transcript landfill. Store the minimum needed to compare runs, diagnose failure, and learn from overrides. Link to approved source systems instead of copying sensitive customer or employee data into a new file.
+
+### Copy this loop card
+
+Fill this before scheduling a team-facing workflow. If you cannot fill the checker, gate, and state fields, keep running the recipe manually.
+
+```text
+LOOP: <name and business outcome>
+OWNER: <person or team responsible>
+TRIGGER: <schedule or event; timezone; duplicate-run rule>
+SKILL: <instructions; approved sources; output contract>
+MAKER: <what produces the draft or recommendation>
+CHECKER: <coverage, freshness, evidence, and threshold checks>
+GATE: <auto-publish, hold, or human-confirm conditions>
+STATE: <minimal run receipt and where it lives>
+FAILURE: <where a failed or skipped run alerts>
+KILL-SWITCH: <how the owner pauses the loop>
+```
+
+Start with one known-answer run. Then test three uncomfortable cases before turning on the schedule: an empty source, a stale source, and a result that crosses the escalation threshold. A loop that only works on a cheerful Tuesday is still a demo.
+
+Common failure modes:
+
+- **The checker repeats the maker's opinion.** Replace “does this look right?” with evidence and coverage checks.
+- **The gate has no hold path.** Missing data becomes a confident-looking post. Define what stops publication and who gets alerted.
+- **State grows without a data boundary.** Keep receipts and links; do not create a shadow customer-data store.
+- **The next run cannot learn from an override.** Record the human decision and reason so the same false alarm does not recur silently.
 
 ---
 
@@ -177,6 +230,7 @@ Three suggestions before committing one as your boss fight:
 ## What you should carry into the next chapter
 
 - A **lightweight agent** is a tested recipe + a trigger + an output channel + a clear "done" condition.
+- Team-facing recurring work graduates to a **verified loop**: trigger → skill → maker → checker → gate → state.
 - The conversion path is **manual recipe (2 weeks) → configured agent (2 more weeks of observation) → trusted agent.** Skipping either two-week phase is how graveyards form.
 - Three reusable patterns: morning briefing (scheduled triage), status digest (scheduled generation), new-ticket triage (event-triggered).
 - *Agents draft; you confirm.* Auto-action is reserved for cases where you've explicitly proven the cost-benefit; default is always a Slack ping for human review.
@@ -188,6 +242,8 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [Product AI Labs — a shipped daily-health loop](https://razorpay.slack.com/archives/C0A7B848RS7/p1782211644575319) — internal example of a scheduled health skill with Slack delivery and durable history
+- [Loops for PMs — Aakash Gupta](https://www.news.aakashg.com/p/loops-pms) — a current PM-oriented treatment of trigger, skill, maker, checker, gate, and state
 - [Anthropic on scheduled tasks and triggers](https://www.anthropic.com/) — the official patterns for trigger-shaped agent work
 - [Simon Willison — designing agentic loops](https://simonwillison.net/2025/Oct/15/designing-agentic-loops/) — for why "single-shot, human in the loop" is the safer default than multi-step autonomous chains
 - [Will Larson — Operations is a feature](https://lethain.com/) — for the broader discipline that keeps automated systems from rotting in your hands
