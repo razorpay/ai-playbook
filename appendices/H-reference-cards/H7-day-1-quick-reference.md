@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-08"
+updated: "2026-07-18"
 ---
 
 # H.7 — Day-1 quick reference
@@ -121,20 +121,22 @@ Full directory in [Appendix F](../F-slack-channels/README.md). When in doubt abo
 
 ---
 
-## The people to DM
+## Escalation roles — public first
 
-| Role | Current holder | DM when |
+The names below explain ownership; they are not first-contact shortcuts. Start in the public route so the question and fix remain searchable. Contact a role-holder directly only when that channel routes you there.
+
+| Role | Current holder | Start here |
 |---|---|---|
-| Program lead | Bhanu Prakash (`@Bhanu Prakash Rayapati`) | escalating something the channel hasn't resolved |
-| Engineering co-lead | Kaushik Bhat (`@kb`) | tooling, infrastructure, devex platform |
-| Setup script owner | Prafulla Anurag (`@prafulla`) | rerunning setup doesn't fix it |
-| Usage cap / quota | `@RKV` | only if `#ai-help` routes you there |
-| Design transformation | Saurabh Soni (`@Saurabh Soni`) | design-track-specific friction |
-| Compass plugin (co-owned) | Aravinth P K (`@Aravinth P K`) + Vaibhav Dhir (`@Dhir`) | plugin updates, skill load failures, contribution intent |
-| Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | Blade compliance edge cases |
-| Playbook author | Vaibhav Dhir (`@Dhir`) | only if `#ai-help` routes a stale-line fix to the author; otherwise post the stale line and better source publicly |
+| Program lead | Bhanu Prakash (`@Bhanu Prakash Rayapati`) | the relevant public channel; use `#ai-help` if you are unsure or the issue is unresolved |
+| Engineering co-lead | Kaushik Bhat (`@kb`) | `#developer-experience` for tooling, infrastructure, or devex platform questions |
+| Setup script owner | Prafulla Anurag (`@prafulla`) | `#ai-help` with the redacted setup output and what rerunning the script changed |
+| Usage cap / quota | `@RKV` | `#ai-help` with the exact limit error and manager approval for an approved exception |
+| Design transformation | Saurabh Soni (`@Saurabh Soni`) | `#ai-in-design` for design-track friction |
+| Compass plugin (co-owned) | Aravinth P K (`@Aravinth P K`) + Vaibhav Dhir (`@Dhir`) | `#rzp-claude-skills` or `#devex-skills` for plugin updates, skill failures, or contributions |
+| Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | `#design-system` for Blade compliance edge cases |
+| Playbook author | Vaibhav Dhir (`@Dhir`) | `#ai-help` with the stale line and a better source |
 
-For most questions, post in the right channel before DMing. DMs help you; channels help everyone. See [§0.6 — Meet the people](../../prologue/06-people-and-pocs.md).
+Escalation order: post the full redacted context publicly, follow the channel's routing, then DM only if that route explicitly asks you to. See [§0.6 — Meet the people](../../prologue/06-people-and-pocs.md).
 
 ---
 
