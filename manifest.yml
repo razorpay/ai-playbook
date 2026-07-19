@@ -394,7 +394,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["ops-101", "knowledge-base"]
-    updated: "2026-04-26"
+    updated: "2026-07-19"
   - slug: "ops-101/quest-30-minute-teardown"
     path: "foundation/ops-101/quest-0B1.md"
     title: "Quest 0B-1: The 30-minute teardown"
@@ -581,7 +581,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "knowledge-base"]
-    updated: "2026-04-26"
+    updated: "2026-07-19"
   - slug: "prologue/how-to-read"
     path: "prologue/08-how-to-read.md"
     title: "How to use this playbook as a reader"
@@ -2570,7 +2570,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "knowledge-base"]
-    updated: "2026-04-26"
+    updated: "2026-07-19"
   - slug: "appendices/methodologies/gstack"
     path: "appendices/N-methodologies/N2-gstack.md"
     title: "gstack"
@@ -2621,7 +2621,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "frameworks", "knowledge-base"]
-    updated: "2026-04-26"
+    updated: "2026-07-19"
   - slug: "appendices/methodologies/three-pillars"
     path: "appendices/N-methodologies/N5-three-pillars.md"
     title: "Simon Willison's three pillars"
@@ -2672,7 +2672,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "knowledge-base"]
-    updated: "2026-04-26"
+    updated: "2026-07-19"
   - slug: "appendices/methodologies/evaluating-frameworks"
     path: "appendices/N-methodologies/N8-evaluating-frameworks.md"
     title: "Evaluating new frameworks"

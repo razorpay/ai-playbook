@@ -14,7 +14,7 @@ next: "appendices/methodologies/evaluating-frameworks"
 pillar: null
 belt: null
 tags: ["appendix", "knowledge-base"]
-updated: "2026-04-26"
+updated: "2026-07-19"
 ---
 
 # N.7 — The minimum viable wiki: a one-hour stand-up
@@ -29,7 +29,7 @@ After one hour with this recipe:
 
 - A `CLAUDE.md` schema file at the root of your project, ~100 lines of conventions and KB rules.
 - A `.kb/` folder with three files (`index.md`, `log.md`, and one starter page) and ready to grow.
-- Three habits installed: ingest, query-and-file-back, lint.
+- Three habits installed: ingest, query-verify-file-back, lint.
 - A first ingested source (a real meeting transcript, doc, or thread) that's already taught the wiki something.
 
 What you won't have: a complete wiki. The wiki *grows* through use. The recipe puts you in position to grow it; the growth itself is months of accumulation.
@@ -56,7 +56,7 @@ Roughly:
 - **Minutes 0–5:** create the files.
 - **Minutes 5–25:** write the schema (`CLAUDE.md`).
 - **Minutes 25–40:** ingest your first source.
-- **Minutes 40–50:** run a query, file the answer back.
+- **Minutes 40–50:** run a query, verify the answer, file it back.
 - **Minutes 50–60:** commit the lot, write yourself the calendar block for the weekly lint pass.
 
 That's the whole arc. If you read the rest of this section, follow it, and end the hour on time, you've installed something durable.
@@ -151,14 +151,17 @@ When I ask you to ingest a new source:
 
 ### When I ask a question
 
-When I ask a question and the answer is good:
-1. Find or create the right page in `.kb/pages/`.
-2. File the answer there (or update an existing page).
-3. Update `index.md` if a new page was created.
-4. Add a line to `log.md`: `## [YYYY-MM-DD] query | <topic>`.
+When I ask a question:
+1. Read `index.md` and the relevant pages.
+2. Answer with citations. Do not update the wiki yet.
+3. I will verify the load-bearing claims against those sources.
+4. Only after I approve, find or create the right page in `.kb/pages/`.
+5. File the answer there (or update an existing page).
+6. Update `index.md` if a new page was created.
+7. Add a line to `log.md`: `## [YYYY-MM-DD] query | <topic>`.
 
-Don't file back trivial lookups. Use judgement: file back what *future me* would
-want to find without re-asking.
+Don't file trivial lookups or unverified claims. File what *future me* would
+want to find without re-asking, after its load-bearing claims check out.
 
 ### When I ask you to lint
 
@@ -214,17 +217,17 @@ Read what got written. Edit anything that's off — but don't *rewrite* anything
 
 ---
 
-## Step 4 — Run a query and file the answer back (10 minutes)
+## Step 4 — Run a query, verify, and file the answer back (10 minutes)
 
 Now run a real question. Something you'd actually have asked the AI today:
 
-> "Look at the `.kb/index.md` and the relevant pages. Then answer this question: [your real question]. Cite which pages you drew on.
+> "Look at the `.kb/index.md` and the relevant pages. Then answer this question: [your real question]. Cite which pages you drew on. Do not update the wiki yet.
 >
-> If your answer is good (use judgement: it should be reusable, not a trivial restatement of one page), file it back as a new page or update to an existing page, and update `index.md` and `log.md` per the schema."
+> After I verify the load-bearing claims, I will tell you whether to file the answer back."
 
-The first question should be one whose answer would help future-you. *"What's our current thinking on pricing?"* is good. *"What time is it?"* is bad. The reusability is the test.
+The first question should be one whose answer would help future-you. *"What's our current thinking on pricing?"* is good. *"What time is it?"* is bad. Reusability is the first test. Before filing, open the cited pages and verify the claims that would change a decision, metric, owner, or deadline. If they hold, ask the AI to file the answer as a new page or update to an existing page, then update `index.md` and `log.md` per the schema.
 
-Read the answer. Read the page that got filed. *Notice the compounding starting*: your second question, even five minutes later, will draw on this just-filed page.
+Read the filed page once more. *Notice the compounding starting*: your second question, even five minutes later, will draw on this just-filed, verified page.
 
 ---
 
@@ -257,7 +260,7 @@ Don't expect transformation. Don't expect to be noticeably faster. Week one is t
 
 ## The first month — the compounding shows up
 
-By the end of week three, the wiki has 10–20 pages in it, mostly filed back from queries. You start *expecting* the AI to know things. You stop re-pasting context. You catch yourself ending prompts with *"file the answer back"* without thinking about it.
+By the end of week three, the wiki has 10–20 pages in it, mostly verified and filed back from queries. You start *expecting* the AI to know things. You stop re-pasting context. You also learn not to file a plausible answer until its load-bearing claims check out.
 
 Around week four:
 
