@@ -14,7 +14,7 @@ next: "appendices/methodologies/three-pillars"
 pillar: null
 belt: null
 tags: ["appendix", "frameworks", "knowledge-base"]
-updated: "2026-04-26"
+updated: "2026-07-19"
 ---
 
 # N.4 — The LLM Wiki pattern (Karpathy)
@@ -95,7 +95,7 @@ The discipline is that *one source touches many pages*. A meeting transcript isn
 
 ### Query
 
-You ask the LLM a question. It reads `index.md` first, locates the relevant pages, reads them, and answers. *If the answer is good, you ask the LLM to file it back as a new page.*
+You ask the LLM a question. It reads `index.md` first, locates the relevant pages, reads them, and answers. *If the answer is reusable, you verify it against the cited source before asking the LLM to file it back as a new page.*
 
 That last step is the operation people miss most often, and it's the most consequential. Without filing back, every query is disposable — you got an answer this time, you'll re-derive it next time. With filing back, every good query *adds a page to the wiki*, and the wiki gets sharper every time it's used. The pattern compounds because *the wiki is built incidentally, in the course of doing real work*, not as a separate writing task.
 
@@ -115,7 +115,7 @@ A few things the LLM Wiki pattern does that stand out across the three framework
 
 **The Memex framing isn't decorative.** Vannevar Bush, in 1945, imagined a desk that could hold a person's entire intellectual life (books, articles, correspondence, notes) in associative trails the user could navigate at will. The Memex was a thought experiment because the *maintenance* was uncomputable; nobody had time to build all those associative trails by hand. Eighty years of attempts to build a Memex (Vannevar Bush's own essay anticipated most of them) failed not because the *interface* was wrong but because the *librarian work* was too expensive.
 
-The LLM is, in this framing, *the librarian we never had*. It will, on request, read every source, write every cross-reference, and keep every page up to date — for the cost of typing one sentence. That's not just a clever way to use Claude; it's the resolution of an eighty-year unsolved problem in personal knowledge management. The pattern claims this lineage explicitly, and once you've read the framing, you can't unsee it. The wiki you're building isn't just a productivity hack; it's a Memex.
+The LLM is, in this framing, *the librarian we never had*: it can draft cross-references and page updates on request, making the mechanical work tractable. Treat that as the ambition, not an automatic maintenance guarantee. Source selection, verification, and contradiction resolution still need explicit human ownership. The pattern claims the Memex lineage directly; the useful advance is cheaper librarian work, not a self-healing wiki.
 
 **Anti-RAG, openly.** Most of the AI tooling community in 2024–2025 was excited about retrieval-augmented generation — the technique of letting the LLM dynamically pull relevant snippets from a large corpus at query time. The LLM Wiki pattern is the *opposite* posture: don't keep your knowledge as raw documents to be re-searched every query; *compile* it once into a wiki, and consult the wiki. The author argues this is more efficient, more accurate, and more durable at moderate scale (anything under, roughly, the size that requires a full search infrastructure). The argument has weight. RAG isn't wrong; it's just appropriate at a different scale than most people use it.
 
@@ -131,7 +131,7 @@ Three patterns from the LLM Wiki you can apply tomorrow, with no installation re
 
 **Adopt `index.md` and `log.md` as project-level files.** Even without the rest of the wiki structure, having a catalog file and an append-only journal is the lightest possible KB. `index.md` lists every meaningful page, doc, decision, or thread. `log.md` gets a dated line for every meaningful event. Both files are searchable, both are committed to the repo, both are maintained by Claude on request. *This is the 90-minute version of the pattern; do this and you've already got most of the value.*
 
-**Practice "file the answer back" as a habit.** Every time you ask Claude a question that produces a useful answer, end the prompt with: *"if this answer is good, save it as a new page in the wiki, linked from `index.md`."* The first few times it'll feel performative; by the tenth time, it'll feel obvious. Within a month, your wiki has dozens of pages you didn't deliberately write — they accumulated as a side-effect of working.
+**Practice "verify, then file the answer back" as a habit.** Every time Claude produces a reusable answer, check it against the cited source, then ask: *"save this verified answer as a new page in the wiki, linked from `index.md`."* The first few times it'll feel performative; by the tenth time, it'll feel obvious. Within a month, your wiki has dozens of pages you didn't deliberately write — they accumulated as a side-effect of working without compounding plausible mistakes.
 
 ---
 
@@ -166,7 +166,7 @@ A short cross-reference:
 - **The schema file (`CLAUDE.md`)** ↔ the Yellow Belt and Green Belt CLAUDE.md chapters. The pattern says "every project has a schema file"; the playbook teaches you to write one. Same artefact; the playbook adds Razorpay-shaped opinions about what goes in it.
 - **`index.md` and `log.md`** ↔ the *minimum viable wiki* preview chapter in Ops 101 (chapter 0B.8). Non-coders can adopt the pattern as easily as coders; the chapter teaches the three-file recipe outside any repo context.
 - **The wiki as a maintained artefact** ↔ Layer 3 of the [Enablement Stack](../../prologue/04-enablement-stack.md), the Razorpay Knowledge Base. Same idea at org scale; the LLM Wiki is the project-scale instance.
-- **The "file the answer back" habit** ↔ §0.7's third operating habit. The playbook calls it *query-and-file-back*; the pattern is the same discipline.
+- **The "verify, then file the answer back" habit** ↔ §0.7's third operating habit. The pattern is the same discipline with an explicit check before the wiki compounds it.
 
 ---
 

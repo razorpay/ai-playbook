@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.52 — human-verified knowledge-base maintenance (2026-07-19)
+
+The playbook's operating-principles chapter and long-form KB methodology profiles still said maintenance was near-zero, an LLM could keep every page current, and the only meaningful failure was forgetting to use the system. The newer Ops 101 recipe correctly requires source ownership, known-answer testing, a weekly lint pass, and human adjudication. The philosophical promise should match the workflow readers are asked to follow.
+
+**What changed.**
+
+- **The promise is now precise.** AI makes filing, linking, and linting cheaper; it does not make a knowledge base self-maintaining or self-verifying.
+- **The human contract is explicit.** The copyable Prologue, Ops 101, and Appendix N recipes now verify reusable answers against authoritative sources before filing them back and adjudicate contradictions rather than letting an LLM silently rewrite history.
+- **Version markers bumped.** README and INDEX now report v0.52 / 2026-07-19 for this knowledge-base reliability correction.
+
 ## v0.51 — current Opus budget-error triage (2026-07-18)
 
 The 2026-07-17 `#ai-help` queue showed `claude-opus-4-6` and `claude-opus-4-7` in a builder's enabled-model list while LiteLLM returned `exceeded budget` for Opus 4.6. The playbook still diagnosed that exact response as a retired-model default and told readers to switch to Opus 4.8. That turns a model-cap error into unnecessary configuration churn and may move the builder to another capped frontier route.
