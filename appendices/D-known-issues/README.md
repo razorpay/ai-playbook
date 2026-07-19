@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-18"
+updated: "2026-07-19"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -270,6 +270,16 @@ Problems with skill invocation, MCP server timeouts, agent loops, subagent hando
 
 **References.** [G.2 context-window mental model](../../belts/03-green/a-craft/G02-context-windows.md), [`#ai-help` prompt-too-long thread 2026-06-11](https://razorpay.slack.com/archives/C08C35GKJKD/p1781142551149419), [`#ai-help` context-limit thread 2026-07-02](https://razorpay.slack.com/archives/C08C35GKJKD/p1783016485230679), [`#ai-help` startup-context thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783429353309609), [`#ai-help` prompt-too-long thread 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783585337029519).
 
+### D.15 — Codex says you hit a workspace usage limit (status: workaround)
+
+**Symptom.** Codex warns that you have used most of your allowance, says `You've hit your usage limit. Contact your workspace owner for more access`, reports a workspace spend cap, or repeatedly returns `429 Too Many Requests` after usage warnings.
+
+**Diagnosis.** This is the separate Codex workspace allocation, not your Claude Code LiteLLM budget. Re-running the Razorpay Claude setup, changing a LiteLLM model, or signing into Codex again will not reset a workspace-controlled cap. The allocation and any trial extension are centrally managed, so an expiry date or percentage shown earlier is not a promise of more capacity. A single bare `429` can instead be a short rate limit; retry once after a pause before treating it as a cap.
+
+**Fix.** Stop retrying and keep the exact error text. For a bounded routine task, return to Claude Code and choose an enabled approved open-weight route only if your LiteLLM total budget still has capacity; run the normal Compass checks before shipping. If that route is unavailable or the work is blocked, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the Codex error, the blocked task, and manager approval where an exception is required. Ask for the currently approved fallback rather than a specific Codex credit amount: individual extensions are not guaranteed, and only the workspace owner can change the cap.
+
+**References.** [Appendix A — Codex tool boundary](../A-tool-atlas/README.md#codex--non-claude-coding-tools), [`#ai-help` shared-credit response 2026-07-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1784138113141539), [`#ai-help` repeated cap response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784188055043859), [`#ai-help` no-increase response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784199699971349).
+
 ---
 
 ## Layer 4 — Infrastructure (devstack)
@@ -326,4 +336,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-07-09. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-07-19. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
