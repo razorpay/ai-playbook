@@ -14,7 +14,7 @@ next: "appendices/methodologies/gstack"
 pillar: null
 belt: null
 tags: ["appendix", "knowledge-base"]
-updated: "2026-04-26"
+updated: "2026-07-19"
 ---
 
 # N.1 — Knowledge-base-driven development as a discipline
@@ -44,7 +44,7 @@ Knowledge-base-driven development is the practice of treating *the structured co
 The four practical commitments are:
 
 1. **Every project has a knowledge base.** A file or folder. Named, structured, in version control where possible. Not a habit; a deliverable.
-2. **The AI maintains it.** When you query and get a good answer, you ask the AI to file it back. When a new source matters, you ask the AI to ingest it. The bookkeeping work that doomed every prior attempt at "shared knowledge" is now near-zero, because the LLM does it.
+2. **The AI handles the bookkeeping; people own the truth.** When a new source matters, ask the AI to ingest it. When a query produces a reusable answer, verify it against the authoritative source before filing it back. The LLM makes filing and linking cheap; it does not make an unverified claim safe to compound.
 3. **Every AI interaction reads it first.** A schema file (CLAUDE.md or AGENTS.md) ensures that any new session loads the project's accumulated context before doing anything else.
 4. **Maintenance is a habit, not a project.** The KB stays current because keeping it current is a five-minute weekly hygiene pass, not a quarterly migration.
 
@@ -56,7 +56,7 @@ Each of those commitments is small. The discipline is in doing all four consiste
 
 Pattern-named-now-but-not-before is suspicious unless you can explain why. There are three reasons knowledge-base-driven development became a *practice* in 2025–2026 rather than the previous decade:
 
-**The maintenance cost is finally near zero.** The original Memex pitch (Vannevar Bush, 1945 — Karpathy's lineage in N.4) failed not because the *idea* was wrong but because nobody had time to be the librarian. Every "shared knowledge base" project from 1990 to 2020 failed for the same reason. The AI is the librarian we never had. It will, on request, read every source, write every cross-reference, and keep every page up to date — for the cost of typing one sentence. That's the unlock.
+**The mechanical maintenance cost has fallen.** The original Memex pitch (Vannevar Bush, 1945 — Karpathy's lineage in N.4) failed partly because nobody had time to be the librarian. An AI can now draft pages, links, and lint reports quickly. That removes librarian drudgery, not ownership: a person still decides which source is authoritative, verifies contested claims against code or data, and adjudicates contradictions. The unlock is cheaper maintenance with explicit checks, not a self-healing wiki.
 
 **Context windows are finally large enough.** A 2018-era model could hold about a thousand words in mind. You couldn't fit a CLAUDE.md schema, an index.md, three relevant pages, and the user's actual question into that — and even if you could, there'd be no room for the answer. A modern 200K-token context window can comfortably absorb the entire structured context of a medium-sized project plus your question plus a long answer. The cost of *consulting* the KB is now negligible.
 
@@ -100,9 +100,9 @@ The shapes vary. gstack uses a `~/.claude/skills/gstack/` folder of specialised 
 
 ### Query-and-file-back
 
-**The habit.** When you ask the AI a question about the project, you ask it (in the same prompt) to *file the answer back into the KB as a page* if the answer is good. The query is no longer disposable; it becomes a contribution.
+**The habit.** When the AI gives a reusable answer about the project, verify it against the authoritative source, then ask it to *file the answer back into the KB as a page*. The query is no longer disposable; it becomes a checked contribution.
 
-**Why it's the habit, not "save the answer somewhere."** The transformation from a one-shot answer into a structured page costs nothing extra in your time — the AI does it. Without this habit, every query is independent; with it, every query that produces a good answer compounds the KB.
+**Why it's the habit, not "save the answer somewhere."** The AI makes the mechanical transformation from a one-shot answer into a structured page cheap. Your verification is the small human step that keeps a plausible mistake from compounding. Without this habit, every query is independent; with it, every verified, reusable answer strengthens the KB.
 
 **What to file back.** Answers that surprised you. Answers that took the AI a while to assemble. Answers that connect things that weren't obviously connected. Answers about *why* something is the way it is (those are durable; the *what* changes faster).
 
