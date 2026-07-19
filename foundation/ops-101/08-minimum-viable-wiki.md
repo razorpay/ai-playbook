@@ -14,7 +14,7 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-07-13"
+updated: "2026-07-19"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
@@ -74,7 +74,7 @@ Roughly:
 - **Minutes 0–5:** create the structure.
 - **Minutes 5–25:** fill in `CONTEXT.md`.
 - **Minutes 25–40:** ingest one real source.
-- **Minutes 40–55:** run a real query, file the answer back.
+- **Minutes 40–55:** run a real query, verify the answer, file it back.
 - **Minutes 55–60:** schedule the weekly lint pass.
 
 If you're following the more developer-shaped recipe in [Appendix N.7](../../appendices/N-methodologies/N7-minimum-viable-wiki.md), this version of the recipe is the same shape with non-coding tools. Pick whichever surface fits your daily-driver — the discipline is identical.
@@ -146,9 +146,10 @@ The motivation matters because the AI will draw on it when reasoning.)
 When I ask a question:
 1. Read INDEX.md first.
 2. Find the relevant pages in pages/ and read them.
-3. Answer the question, citing which pages you drew on.
-4. If the answer is good (reusable, non-trivial), file it back as a new page
-   in pages/, link it from INDEX.md, and add a line to LOG.md.
+3. Answer the question, citing which pages you drew on. Do not write yet.
+4. I will verify the load-bearing claims against those pages.
+5. Only after I approve, file the answer as a page in pages/, link it from
+   INDEX.md, and add a line to LOG.md.
 
 When I share a new source (a meeting, a thread, a doc):
 1. Read the source.
@@ -206,17 +207,17 @@ Read what got written. Edit anything off. Don't *rewrite* — let the AI hold th
 
 ---
 
-## Step 4 — Run a real query, file back (15 minutes)
+## Step 4 — Run a real query, verify, then file back (15 minutes)
 
 Now run a real question. Something you'd actually have asked the AI today.
 
-> "Look at `INDEX.md` and the pages relevant to my question. Then answer this: [your real question]. Cite the pages you drew on.
+> "Look at `INDEX.md` and the pages relevant to my question. Then answer this: [your real question]. Cite the pages you drew on. Do not update the wiki yet.
 >
-> If your answer is good (reusable for future-me) file it back per the schema: a new page in `pages/`, an update to `INDEX.md`, a line in `LOG.md`."
+> After I verify the load-bearing claims, I will tell you whether to file the answer back."
 
-The first question should be one whose answer would help future-you. *"What's our current thinking on vendor selection?"* is good. *"What time is it?"* is bad. The reusability is the test.
+The first question should be one whose answer would help future-you. *"What's our current thinking on vendor selection?"* is good. *"What time is it?"* is bad. Reusability is the first test. Before filing, open the cited pages and verify the claims that would change a decision, metric, owner, or deadline. If they hold, ask the AI to file the answer per the schema: a new page in `pages/`, an update to `INDEX.md`, and a line in `LOG.md`.
 
-Read the answer. Read the page that got filed. *Notice the compounding starting*: your second question, even five minutes later, will draw on the just-filed page.
+Read the filed page once more. *Notice the compounding starting*: your second question, even five minutes later, will draw on the just-filed, verified page.
 
 ---
 
@@ -238,7 +239,7 @@ Walk away. The first hour is done.
 
 Week 1 feels like overhead. You're typing more around the AI, not less. *That's expected.* The compounding is mathematical, not motivational — week 1 is the investment phase.
 
-By week 3 you have 10–20 pages in the wiki, mostly filed back from queries. You start *expecting* the AI to know things. You stop re-pasting context. You catch yourself ending prompts with *"file the answer back"* without thinking about it.
+By week 3 you have 10–20 pages in the wiki, mostly verified and filed back from queries. You start *expecting* the AI to know things. You stop re-pasting context. You also learn not to file a plausible answer until its load-bearing claims check out.
 
 By week 8:
 
@@ -337,7 +338,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 
 - A wiki is **`CONTEXT.md` + `INDEX.md` + `LOG.md` + `pages/`.** Four files plus a folder.
 - **`CONTEXT.md` is the keystone.** The 20 minutes you spend filling it in is itself most of the value.
-- **The three habits are ingest, query-and-file-back, lint.** Each one is a sentence at the end of an existing prompt; together they're how the wiki grows.
+- **The three habits are ingest, query-verify-file-back, lint.** Together they grow the wiki without turning a plausible answer into durable fiction.
 - The compounding is delayed (week 1 feels like overhead) but real (week 8 is when it lands).
 - Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
 - A shared wiki needs a named owner for `CONTEXT.md` and for the weekly lint pass. Without ownership, it rots.

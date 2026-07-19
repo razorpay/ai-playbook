@@ -14,7 +14,7 @@ next: "prologue/how-to-read"
 pillar: null
 belt: null
 tags: ["orientation", "knowledge-base"]
-updated: "2026-07-03"
+updated: "2026-07-19"
 ---
 
 # 0.7 — Operating Principles (knowledge-base-driven development)
@@ -27,7 +27,7 @@ updated: "2026-07-03"
 
 1. **Most AI-coding failures are context failures.** The fix isn't a better prompt: it's a knowledge base your AI maintains alongside you, between sessions, between tasks, between teammates.
 2. Three independent frameworks have all converged on this same idea: **gstack** (specialist roles + a persistent KB-as-MCP), **Get Shit Done / GSD** (a structured `.planning/` directory with cross-session memory), and **Karpathy's LLM Wiki** (the LLM as your wiki maintainer, not your search engine). They argue it in different voices. They all say: *don't re-derive context, accumulate it.*
-3. You can stand up a "minimum viable wiki" for any project in about an hour: a `CLAUDE.md` schema, an `index.md`, a `log.md`, and a `.kb/` folder where good answers get filed back as pages. That's the recipe.
+3. You can stand up a "minimum viable wiki" for any project in about an hour: a `CLAUDE.md` schema, an `index.md`, a `log.md`, and a `.kb/` folder where reusable, verified answers get filed back as pages. That's the recipe.
 
 If that lands, jump to [§0.8 — How to use this playbook (as a reader)](08-how-to-read.md). Otherwise, read on — this chapter is short, but it's the philosophical spine that the next four belts assume.
 
@@ -77,7 +77,7 @@ Three frameworks. Three voices. One idea, restated three ways:
 
 That's the principle. Stop letting context evaporate. Compound it.
 
-It rhymes with how good design systems work: *the system improves faster than any central team can manage, because everyone using it has permission to improve it.* Same with knowledge bases for AI work — the maintenance cost is near zero (the LLM does the bookkeeping), so the only thing that fails the system is forgetting to use it.
+It rhymes with how good design systems work: *the system improves faster than any central team can manage, because everyone using it has permission to improve it.* AI makes the filing, linking, and linting cheap. It does not make maintenance free. People still decide which source is authoritative, verify contested claims, and adjudicate contradictions. Forgetting to use the KB is one failure mode; confidently compounding a stale claim is worse.
 
 ---
 
@@ -91,7 +91,7 @@ You'll see this principle show up at every belt. It's not an abstraction — it'
 - **The Razorpay Knowledge Base (Layer 3 of the Enablement Stack)** — the Wiki pattern at the org level. Test credentials, feature flags, error patterns, repo map. Once written, every builder inherits it. Every gap is filed back when someone solves it. See [§0.4](04-enablement-stack.md).
 - **`.planning/` directories on your features (Black Belt)** — the GSD pattern, applied to your own multi-week work. A fresh context window per task; persistent state across windows.
 
-Every layer of the playbook is a different *scale* of the same idea: shrink the cost of re-deriving context until it's effectively zero, and put the bookkeeping on the LLM.
+Every layer of the playbook is a different *scale* of the same idea: shrink the cost of re-deriving context, let the LLM handle routine bookkeeping, and keep source authority and verification with people.
 
 ---
 
@@ -104,12 +104,12 @@ If the rest of this chapter feels abstract, here's the concrete recipe. You can 
 - **`CLAUDE.md`** at the project root. The schema file. Tells Claude what kind of artefact this project is, what conventions apply, what *not* to do. Under 200 lines. If it grows past 200, you have two projects pretending to be one.
 - **`index.md`** in a `.kb/` folder. The catalog. List of every page you've filed, with a one-line description of each. Updated whenever you add a page. This is what Claude reads first on any new query.
 - **`log.md`** in `.kb/`. Append-only. Every meaningful event prefixed with a date stamp like `## [2026-04-26] decision | Renamed feature flag from X to Y`. Greppable, never edited, the audit trail.
-- **`.kb/pages/`**: one markdown file per concept, person, decision, source. Linked from `index.md`. The LLM owns these — when you query and get a good answer, you ask Claude to file it back here.
+- **`.kb/pages/`**: one markdown file per concept, person, decision, source. Linked from `index.md`. The LLM maintains these — when a query produces a reusable answer, verify it against the cited source before asking Claude to file it here.
 
 ### The three habits (5 minutes a day)
 
 - **Ingest.** When a new source matters (a Slack thread, a PR comment, a meeting note) paste it to Claude with "ingest this; touch whatever pages need it." Claude updates the relevant `.kb/pages/` files and writes a new `log.md` entry.
-- **Query.** When you ask Claude a question, end with "if the answer is good, file it back to the KB as a page." Don't just consume answers. Let them compound.
+- **Query.** When an answer is reusable, check it against the cited source, then ask Claude to file it back. Do not compound a plausible answer until you've verified it.
 - **Lint.** Once a week, ask Claude to review `index.md` and flag contradictions, stale pages, orphans. Five-minute pass. Keeps the wiki honest.
 
 That's it. Four files, three habits, one hour to set up. Every belt above this one assumes you've internalised the idea. Doing the recipe once on a real project is the fastest way to internalise it.
@@ -152,6 +152,7 @@ If you want to read the originals (and you should, eventually):
 - **Knowledge-base-driven development is the operating philosophy** of this playbook. Every belt is a different scale of "compound, don't re-derive."
 - **Three frameworks have already converged here.** gstack, GSD, and Karpathy's LLM Wiki are different voices saying the same thing. You don't need to adopt any of them whole — you need to recognise the pattern.
 - **You can stand up a minimum viable wiki in an hour.** `CLAUDE.md`, `index.md`, `log.md`, `.kb/pages/`. Three habits: ingest, query (and file back), lint.
+- **AI does the bookkeeping; people own the truth.** Verify reusable answers before filing them back, and adjudicate lint findings instead of letting the model silently rewrite history.
 - **The pay-off is delayed but huge.** Re-entry, onboarding, and parallel projects feel different on the other side of this curve.
 - The next chapter ([§0.8 — How to use this playbook (as a reader)](08-how-to-read.md)) is about how to navigate this document itself. After that, [§0.9](09-how-to-lead.md) is the manager-and-team-lead version.
 
