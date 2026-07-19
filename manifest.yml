@@ -2230,7 +2230,7 @@ chapters:
     pillar: "governance"
     belt: "black"
     tags: ["black-belt", "rfc", "governance"]
-    updated: "2026-07-15"
+    updated: "2026-07-19"
   - slug: "belts/black/api-council-contributions"
     path: "belts/04-black/c-org/B15-api-council-contributions.md"
     title: "Contributing to the API Council (AI-specific reviews)"
