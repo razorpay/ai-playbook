@@ -14,7 +14,7 @@ next: "belts/black/api-council-contributions"
 pillar: "governance"
 belt: "black"
 tags: ["black-belt", "rfc", "governance"]
-updated: "2026-07-15"
+updated: "2026-07-19"
 ---
 
 # B.14 — Writing an AI RFC: what good looks like at Razorpay
@@ -255,4 +255,4 @@ When the change you are RFC-ing introduces a new AI-facing API surface (an MCP s
 - [B.6 — Tool design](../a-platform/B06-tool-design.md) — the tool-shape discipline that AI-API-Council RFCs build on.
 - [B.10 — Cost + observability](../b-craft/B10-cost-and-observability.md) — the measurement discipline that backs Section 6's success metrics.
 - [B.16 — Plugin + skill governance](B16-plugin-and-skill-governance.md) — the lifecycle that RFCs unlock.
-- [Appendix I — Templates](../../../appendices/I-templates/) — the canonical RFC template lives here once it lands.
+- [Appendix I — RFC template](../../../appendices/I-templates/RFC-template.md) — copy this canonical template to start an AI RFC.
