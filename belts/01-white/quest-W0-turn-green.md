@@ -14,7 +14,7 @@ next: "belts/white/quest-hello-razorpay"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "quest", "setup-verify", "evidence"]
-updated: "2026-07-18"
+updated: "2026-07-20"
 ---
 
 # Quest W-0 - Turn GREEN
@@ -38,65 +38,54 @@ Complete or skim:
 - [W.7 Compass plugin](W07-compass-plugin.md)
 - [W.8 GREEN / YELLOW / RED](W08-green-yellow-red.md)
 
-No separate verification tool — the verification is running through the five-step sequence below.
+Quest W-0 uses the shipped [`setup-verify`](../../skills/setup-verify/README.md) skill. Its ten-check report is the evidence contract. A five-command smoke test can tell you whether Claude opens, but it does not check the registry, certificate, plugin checksum, Git/SSO, required environment variables, or program endpoints.
 
 ---
 
 ## The task
 
-Run the five verification steps in order and capture the output. If any step fails, run the one-line fix and re-run. If a fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with what you tried.
+Run the full ten-check report, resolve every YELLOW or RED, and capture the final GREEN output.
 
-### Step 1 — Setup script completed
+### Step 1 — Start from a fresh terminal
 
-You ran this in W.5:
-
-```bash
-curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
-```
-
-GREEN if the script printed a "Setup complete" line at the end. YELLOW if it printed warnings but completed. RED if it errored mid-way and stopped.
-
-*One-line fix for YELLOW:* re-run the same command. The script is idempotent.
-
-### Step 2 — Terminal restarted
-
-Close the terminal window where you ran the setup script. Open a new one. Environment variables only apply to new shells; this step is small but mandatory.
-
-### Step 3 — Claude Code on PATH
-
-```bash
-claude --version
-```
-
-GREEN if it prints a version string (e.g. `claude 1.2.3`). RED if you see `command not found`.
-
-*One-line fix for RED:* re-run the setup script, restart terminal, retry.
-
-### Step 4 — Agent mode opens
+Close the terminal window where you ran W.5 and open a new one. Then start Claude Code:
 
 ```bash
 claude
 ```
 
-GREEN if the agent prompt opens cleanly. YELLOW if it asks you to `/login` inside the Claude Code session — follow the SSO flow from that prompt, then you should be in. Do not run `claude /login` from the shell; if you already did and saw `Unknown skill: login`, follow [Appendix D.11's named fix](../../appendices/D-known-issues/README.md#d11--unknown-skill-login-after-running-claude-login-status-fixed). RED if it errors with `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` — that is stale Vertex env vars from before the LiteLLM migration (see W.5 Common failure modes #3).
+If `claude` is not found, re-run the W.5 setup script, open another fresh terminal, and retry. If the agent opens, continue.
 
-### Step 5 — A prompt round-trips
+### Step 2 — Invoke the skill
 
-Inside the `claude` prompt, type:
+Inside Claude Code, ask:
 
+```text
+Run setup-verify.
 ```
-hello
-```
 
-GREEN if you get a reply. Exit with `Ctrl-D` or `/exit`.
+Wait for the complete report. It must include an overall colour and ten rows covering Node + pnpm, Claude Code auth, the internal npm registry, corporate-proxy trust, stale Vertex variables, the LiteLLM gateway, Compass, Git + corp SSO, required environment variables, and program health endpoints.
 
-YELLOW if it replies but the usage does not appear in the LiteLLM dashboard — your shell env vars are overriding `~/.claude/settings.json`; follow [Appendix D.7's named fix](../../appendices/D-known-issues/README.md#d7--usage-not-visible-in-the-litellm-dashboard-status-fixed).
+### Step 3 — Fix, re-run, then capture GREEN
 
-RED if it errors with `401 authentication_error` — LiteLLM key needs refreshing; re-run the setup script.
+For each non-GREEN row:
 
----
+1. apply the named one-line fix yourself; `setup-verify` diagnoses but does not modify your environment;
+2. ask Claude Code to re-run that check (for example, `Re-run setup-verify check 7`);
+3. once the targeted check passes, run the full `setup-verify` report again.
 
-**You are GREEN for Quest W-0 when all five steps pass on the same fresh terminal session.**
+Capture the ten-row GREEN report. If any RED persists after one focused repair attempt, post the full redacted report in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the fix you tried.
+
+### If the skill cannot start
+
+Use the symptom to reach the right fix; do not replace the ten-check report with a partial manual pass:
+
+- `zsh: command not found: claude` → follow [D.8](../../appendices/D-known-issues/README.md#d8--command-not-found-claude-after-install-status-fixed), restart the terminal, and retry.
+- An in-session `/login` prompt → follow that SSO flow. Do not run `claude /login` from the shell; see [D.11](../../appendices/D-known-issues/README.md#d11--unknown-skill-login-after-running-claude-login-status-fixed) if you already saw `Unknown skill: login`.
+- `403 PERMISSION_DENIED` mentioning `aiplatform.googleapis.com` → remove stale Vertex variables via [D.3](../../appendices/D-known-issues/README.md#d3--403-permission_denied-referencing-aiplatformgoogleapiscom-status-fixed), restart the terminal, and retry.
+- A skill-not-found error after Claude opens → follow the Compass repair in [W.7](W07-compass-plugin.md), then retry `setup-verify`.
+
+**You are GREEN for Quest W-0 only when the full `setup-verify` report shows all ten checks GREEN.**
 
 ---
 
