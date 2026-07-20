@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.49 · last reviewed 2026-07-14 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.52 · last reviewed 2026-07-20 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -242,7 +242,7 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 ### Quests (both required)
 
 **🎮 [Quest W-0 — Turn GREEN](belts/01-white/quest-W0-turn-green.md) [drafted].**
-Run the W.5 setup flow (laptop or design-track add-on), then the five Quest W-0 verification steps. If any RED, follow the one-line fix. If you end YELLOW/RED after one hour, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with your setup output.
+Run the W.5 setup flow (laptop or design-track add-on), then invoke `setup-verify` inside Claude Code. Resolve every YELLOW or RED and capture the complete ten-row GREEN report. If a focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted report and what you tried.
 *Success criteria:* setup-verify output screenshot, all checks ✅.
 
 **🎮 [Quest W-1 — The HelloRazorpay commit](belts/01-white/quest-W1-hello-razorpay.md) [drafted].**

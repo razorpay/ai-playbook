@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.52 — White Belt verification-contract alignment (2026-07-20)
+
+Quest W-0 said there was no separate verification tool and replaced the shipped `setup-verify` skill with five manual steps. That contradicted the skill's pinned ten-check charter and the W.8 health-check lesson, so learners could submit incomplete evidence while skipping registry, certificate, plugin, Git/SSO, environment, and endpoint checks.
+
+**What changed.**
+
+- **W.8 made canonical.** The lesson now names the ten pinned `setup-verify` checks, gives a copyable invocation, and separates setup health from the later PR-path quest.
+- **Quest W-0 aligned.** The quest now requires a complete ten-row GREEN report, shows targeted reruns, and keeps symptom-specific routes for cases where the skill cannot start.
+- **Setup routes synchronized.** W.5 now labels its five commands as a smoke test rather than quest evidence; INDEX and H.7 route learners to the same ten-check skill contract.
+- **Version markers bumped.** README and INDEX now report v0.52 / 2026-07-20 for the verification-contract correction.
+
 ## v0.49 — misleading model-login error triage (2026-07-14)
 
 Three recent `#ai-help` reports showed Claude Code selecting a default model that the user's LiteLLM key did not enable. The resulting error began with `Please run /login` even though the key was valid and the same message listed enabled routes, sending blocked builders toward an irrelevant authentication loop.
