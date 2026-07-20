@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-08"
+updated: "2026-07-20"
 ---
 
 # H.7 — Day-1 quick reference
@@ -63,17 +63,17 @@ Native Windows caveat: the analytics plugin currently assumes a Unix-like surfac
 
 ---
 
-## The five GREEN checks (Quest W-0)
+## Reach GREEN (Quest W-0)
 
-```bash
-# 1. Setup script printed "Setup complete"
-# 2. Terminal restarted (close window, open new one)
-claude --version    # 3. prints a version
-claude              # 4. opens cleanly
-> hello             # 5. round-trips a reply
+Start Claude Code in a fresh terminal, then ask:
+
+```text
+Run setup-verify.
 ```
 
-If any check fails → see Common failures below.
+The report must show overall **GREEN** and ten GREEN rows: Node + pnpm; Claude Code auth; internal npm registry; corporate-proxy certificate; no stale Vertex variables; LiteLLM gateway; Compass plugin; Git + corp SSO; required environment variables; and program health endpoints.
+
+If the skill cannot start, use Common failures below. If a row is YELLOW or RED, apply its one-line fix, re-run that check, then capture a fresh full report.
 
 ---
 

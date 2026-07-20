@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-14"
+updated: "2026-07-20"
 ---
 
 # W.5 - Installing the stack
@@ -179,7 +179,7 @@ Do not "fix" by hand-editing this file unless `#ai-help` walks you through it. R
 
 ## What setup verification should prove
 
-Verification is five concrete checks. Run them in order; each one passing is your GREEN signal.
+Start with this five-step smoke test. It proves the setup script finished and Claude Code can open and round-trip a prompt; it does not produce Quest W-0 evidence.
 
 ```bash
 # 1. Setup script completed without errors
@@ -202,7 +202,7 @@ claude
 #    Expected: a reply. Exit with Ctrl-D or /exit.
 ```
 
-If any of those five fails, you are YELLOW or RED — see the next section and re-run the setup script before re-routing. Those five checks become **Quest W-0**.
+If the smoke test fails, see the next section and re-run the setup script before re-routing. Once it passes, complete the actual ten-check gate: open Claude Code, ask `Run setup-verify.`, and follow [W.8](W08-green-yellow-red.md) into [Quest W-0](quest-W0-turn-green.md). You are GREEN only when that full report shows all ten checks GREEN.
 
 ---
 
