@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "ops-101"
 order: 8
-time_minutes: 25
+time_minutes: 30
 audience: "pm-designer-ops"
 outcome: "Set up a small project wiki that lets AI work with memory instead of repeated context."
 prev: "ops-101/lightweight-agents"
@@ -14,12 +14,12 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-07-19"
+updated: "2026-07-20"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
 
-> **⏱ 25 minutes · 👥 PMs, designers, ops, anyone running ongoing workstreams · 🎯 Leaves with:** the operating-philosophy capstone of the Ops 101 track — a one-hour recipe for a knowledge base that grows alongside your work and earns its keep across weeks.
+> **⏱ 30 minutes · 👥 PMs, designers, ops, anyone running ongoing workstreams · 🎯 Leaves with:** the operating-philosophy capstone of the Ops 101 track — a one-hour recipe for a knowledge base that grows alongside your work and earns its keep across weeks.
 
 ---
 
@@ -251,6 +251,50 @@ This is when it lands. Not before; not by accident.
 
 ---
 
+## When a private NotebookLM should become team memory
+
+NotebookLM is useful while one person is exploring a bounded set of documents. It becomes a bottleneck when the same context should power a pod's questions, RCA work, monthly reviews, or analytics workflows — but only one person's notebook can use it.
+
+For analytics pods, Razorpay's current promotion path is the [`analytics-knowledge-hub` guide](https://docs.google.com/document/d/1mIMQx2pXFQ11AMUnNeA0pVOj5QgDzVHV1f4-x_vSD90/edit?usp=sharing) and the central [`analytics-knowledge` repository](https://github.com/razorpay-ai-tools/analytics-knowledge). The repository keeps one folder per pod, small answer-first topic files, source metadata, an index, and a search graph. Cross-border is the first live pilot.
+
+Promote a notebook only when:
+
+- teammates repeatedly need the same domain context;
+- the source set is appropriate for the whole intended audience;
+- a pod owner will review changes and keep the folder current; and
+- the knowledge will support a real workflow, not merely make a nicer archive.
+
+### Promote one pod with a review gate
+
+Use the current internal guide for installation and its exact NotebookLM export prompt. The durable workflow is:
+
+1. **Name the corpus and owner.** List the notebook, documents, intended readers, and the role that will approve the generated knowledge files. Remove customer PII, credentials, private legal material, and sources outside that audience before export.
+2. **Export to a reviewable source.** Follow the guide to move the notebook's knowledge into a Google Doc. Treat that document as an input bundle, not as proof that every extracted claim is correct.
+3. **Ingest through the skill.** Ask Claude: `ingest this google doc: <link>`. The `analytics-knowledge-hub` skill splits the source into topic files and prepares the pod folder and indexes.
+4. **Review the generated diff.** Open the files, not just the summary. Check topic boundaries, source and date metadata, links, duplicates, and excluded data. A large clean-looking diff is still a large diff.
+5. **Run a known-answer check.** Reuse the [bounded retrieval trial](#run-a-bounded-retrieval-trial) below: five questions with expected sources plus one question the corpus cannot answer. Inspect the source behind each answer and require the missing answer to remain missing.
+6. **Merge through a pod PR.** Add the pod folder to `analytics-knowledge` and have the named pod owner review it. The repository becomes shared memory only after that review — generation alone does not publish truth.
+7. **Keep downstream changes separate.** If the workflow proposes an Analytics Agent or Self Serve Analytics update, raise and review that in its owning repository. A KB entry may explain a metric; it does not approve the metric definition.
+
+Copy this into the PR description so the review gate survives the demo:
+
+```markdown
+## Team KB promotion check — <pod>
+- [ ] Intended audience and excluded sources are recorded
+- [ ] Generated topic files retain source and date metadata
+- [ ] Five known-answer questions surfaced the expected sources
+- [ ] One unsupported question was left unanswered
+- [ ] Load-bearing metrics, decisions, owners, and dates were checked
+- [ ] Pod maintenance owner approved the diff
+- [ ] Any SSA or Analytics Agent change is a separate reviewed PR
+
+Decision: Merge / Fix and retest / Stop
+```
+
+The failure mode to avoid is turning a private notebook into shared, searchable confidence faster than anyone can verify it. Promotion should improve reuse **and** accountability.
+
+---
+
 ## When to add a retrieval layer
 
 The folder you built is the source of truth. For many projects, `INDEX.md` plus ordinary search is all you need. Do not install a knowledge platform merely because your four-page wiki now has ambitions.
@@ -340,6 +384,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - **`CONTEXT.md` is the keystone.** The 20 minutes you spend filling it in is itself most of the value.
 - **The three habits are ingest, query-verify-file-back, lint.** Together they grow the wiki without turning a plausible answer into durable fiction.
 - The compounding is delayed (week 1 feels like overhead) but real (week 8 is when it lands).
+- Promote private analytics context into the shared knowledge hub only through source screening, known-answer checks, and a pod-owner-reviewed PR.
 - Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
 - A shared wiki needs a named owner for `CONTEXT.md` and for the weekly lint pass. Without ownership, it rots.
 - This chapter closes Ops 101. You can stop here: the boss fight (if you've completed it), the wiki (if you've stood it up), and the seven prior chapters are a coherent on-ramp into AI-leveraged work that doesn't require any code.
@@ -354,5 +399,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - [Appendix N.1 — KB-driven development](../../appendices/N-methodologies/N1-kb-driven-development.md) — the long-form discipline; if you're hooked, this is where to go deeper
 - [Appendix N.7 — The minimum viable wiki](../../appendices/N-methodologies/N7-minimum-viable-wiki.md) — the developer-shaped version of this recipe; same shape, different harness
 - [Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the manifesto that named this pattern
+- [Analytics Knowledge Hub guide](https://docs.google.com/document/d/1mIMQx2pXFQ11AMUnNeA0pVOj5QgDzVHV1f4-x_vSD90/edit?usp=sharing) — current internal setup and NotebookLM export path for analytics pods
+- [Analytics Knowledge repository](https://github.com/razorpay-ai-tools/analytics-knowledge) — central pod folders and the Cross-border pilot
 - [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) — current Razorpay-specific setup and maintenance guidance
 - [GBrain](https://github.com/garrytan/gbrain) — official source for the retrieval/synthesis model and public documentation
