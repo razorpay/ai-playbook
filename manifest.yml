@@ -768,7 +768,7 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-    updated: "2026-04-27"
+    updated: "2026-07-20"
   - slug: "belts/white/llm-gateway"
     path: "belts/01-white/W06-llm-gateway.md"
     title: "The LLM Gateway"
@@ -819,7 +819,7 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["white-belt", "health-check", "setup-verify"]
-    updated: "2026-04-27"
+    updated: "2026-07-20"
   - slug: "belts/white/first-conversation"
     path: "belts/01-white/W09-first-conversation.md"
     title: "Your first conversation with Claude Code"
@@ -904,7 +904,7 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["white-belt", "quest", "setup-verify", "evidence"]
-    updated: "2026-04-27"
+    updated: "2026-07-20"
   - slug: "belts/white/quest-hello-razorpay"
     path: "belts/01-white/quest-W1-hello-razorpay.md"
     title: "Quest W-1: The HelloRazorpay commit"
@@ -3029,6 +3029,6 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-    updated: "2026-05-13"
+    updated: "2026-07-20"
 
 planned_sections: []

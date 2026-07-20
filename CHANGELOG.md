@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.53 — White Belt verification-contract alignment (2026-07-20)
+
+Quest W-0 said there was no separate verification tool and replaced the shipped `setup-verify` skill with five manual steps. That contradicted the skill's pinned ten-check charter and the W.8 health-check lesson, so learners could submit incomplete evidence while skipping registry, certificate, plugin, Git/SSO, environment, and endpoint checks.
+
+**What changed.**
+
+- **W.8 made canonical.** The lesson now names the ten pinned `setup-verify` checks, gives a copyable invocation, and separates setup health from the later PR-path quest.
+- **Quest W-0 aligned.** The quest now requires a complete ten-row GREEN report, shows targeted reruns, and keeps symptom-specific routes for cases where the skill cannot start.
+- **Setup routes synchronized.** W.5 now labels its five commands as a smoke test rather than quest evidence; INDEX and H.7 route learners to the same ten-check skill contract.
+- **Version markers bumped.** README and INDEX now report v0.53 / 2026-07-20 for the verification-contract correction.
+
 ## v0.52 — human-verified knowledge-base maintenance (2026-07-19)
 
 The playbook's operating-principles chapter and long-form KB methodology profiles still said maintenance was near-zero, an LLM could keep every page current, and the only meaningful failure was forgetting to use the system. The newer Ops 101 recipe correctly requires source ownership, known-answer testing, a weekly lint pass, and human adjudication. The philosophical promise should match the workflow readers are asked to follow.

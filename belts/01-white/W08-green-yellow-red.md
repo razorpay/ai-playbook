@@ -14,7 +14,7 @@ next: "belts/white/first-conversation"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "health-check", "setup-verify"]
-updated: "2026-04-27"
+updated: "2026-07-20"
 ---
 
 # W.8 - GREEN / YELLOW / RED
@@ -49,20 +49,20 @@ Say "my plugin check is YELLOW," not "I am bad at setup." That wording keeps the
 
 ## The 10-point health check
 
-Your setup verification should cover:
+The [`setup-verify`](../../skills/setup-verify/README.md) skill runs the ten pinned checks below. This table is the contract; a shorter manual smoke test is useful for diagnosis, but it is not Quest W-0 evidence.
 
 | # | Check | GREEN means |
 |---:|---|---|
-| 1 | Terminal | Shell opens and basic commands work. |
-| 2 | Git | `git --version` and `git status` work in a repo. |
-| 3 | Repo access | Assigned sandbox repo can be cloned. |
-| 4 | Node | Expected runtime is available. |
-| 5 | Package manager | Repo's package manager is available. |
-| 6 | Registry path | Installs can reach the approved package path. |
-| 7 | Auth | Browser and local auth layers are valid. |
-| 8 | Model path | Claude Code can reach the approved model route. |
-| 9 | Plugin | Program plugin is installed and version-aligned. |
-| 10 | PR path | You can push a branch to the sandbox repo. |
+| 1 | Node + pnpm versions | Node matches the pinned major version; pnpm meets the pinned minimum. |
+| 2 | Claude Code authentication | Claude Code is installed and authenticated against the program plan. |
+| 3 | Internal npm registry | The internal registry is configured and the probe install succeeds without public fallback. |
+| 4 | Corporate-proxy certificate | The certificate is trusted by the system, package manager, and Claude Code. |
+| 5 | No stale Vertex env vars | Retired Vertex variables are absent from shell startup files and the current shell. |
+| 6 | LiteLLM gateway | The gateway health endpoint responds successfully within the timeout. |
+| 7 | Compass plugin | The pinned plugin version and checksum match, and its skills are discoverable. |
+| 8 | Git + corp SSO | Git uses your Razorpay identity and the corporate SSO credential path. |
+| 9 | Environment variables | Every required variable is present; values are never printed. |
+| 10 | Health endpoints | The program's required endpoints respond successfully within the timeout. |
 
 Quest W-0 asks you to capture the GREEN output.
 
@@ -70,30 +70,39 @@ Quest W-0 asks you to capture the GREEN output.
 
 ## Worked example
 
-Run the verification command from the program-pinned setup path.
+Open Claude Code and ask:
+
+```text
+Run setup-verify.
+```
+
+The skill diagnoses your environment; it does not change it. Let all ten checks finish before acting on the report.
 
 Read the output like a table, not like a wall of text:
 
 ```text
-Terminal: GREEN
-Git: GREEN
-Repo access: GREEN
-Node: GREEN
-Package manager: GREEN
-Registry path: YELLOW
-Auth: GREEN
-Model path: GREEN
-Plugin: GREEN
-PR path: not checked
+Overall: YELLOW
+
+Node + pnpm versions: GREEN
+Claude Code authentication: GREEN
+Internal npm registry: YELLOW
+Corporate-proxy certificate: GREEN
+No stale Vertex env vars: GREEN
+LiteLLM gateway reachable: GREEN
+Compass plugin: GREEN
+Git + corp SSO: GREEN
+Environment variables: GREEN
+Health endpoints: GREEN
 ```
 
-This is not GREEN. It is YELLOW because at least one required check is YELLOW and one check is incomplete.
+This is not GREEN. One YELLOW check makes the overall result YELLOW.
 
 The correct next move is not "try Quest W-1 anyway." The correct next move is:
 
-1. apply the one-line fix for registry path;
-2. rerun verification;
-3. if still YELLOW, post the redacted output through the support route.
+1. apply the report's one-line fix for the internal npm registry;
+2. ask Claude Code to `Re-run setup-verify check 3`;
+3. run the full `setup-verify` report again;
+4. if still YELLOW, post the redacted output through the support route.
 
 ---
 
@@ -127,7 +136,7 @@ White Belt setup should converge, not branch into folklore.
 
 **"The check is flaky."** Treat flakiness as YELLOW until you can explain it.
 
-**"I skipped the PR path check."** Then W-1 may fail later. Run it while support is available.
+**"The ten-row report was GREEN, but I have not tried the PR path."** Quest W-0 proves setup health; Quest W-1 proves the Git push and PR path. Do not treat one as evidence for the other.
 
 **"I posted a screenshot with too much detail."** Redact sensitive details. The support route needs symptoms, not private material.
 
