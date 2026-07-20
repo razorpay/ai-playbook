@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-19"
+updated: "2026-07-20"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -109,9 +109,18 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **Diagnosis.** Claude Code usage is governed by the LiteLLM gateway, not the separate claude.ai usage page. The CLI path has a centrally managed total cap across enabled gateway models, including open-weight routes such as Kimi, Qwen, and DeepSeek. Frontier models can have per-model caps; open-weight models draw from the overall budget without per-model caps today. Support can change caps based on platform policy or overall spend, so do not treat any dollar amount you saw last week as a durable entitlement.
 
-**Fix.** Treat the LiteLLM error as authoritative, even when the Claude prefix says `not your usage limit`. Read the trailing phrase: `exceeded budget for model=claude-sonnet-4-6` means that model cap is exhausted; `ExceededBudget: User=... over budget` means the total LiteLLM cap is exhausted. Check the LiteLLM usage dashboard first. If you hit a frontier-model cap, move routine work to Sonnet, Codex, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, do not expect another gateway model, open-weight route, or personal Claude Max plan to bypass the cap. For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
+**Fix.** Treat the LiteLLM error as authoritative, even when the Claude prefix says `not your usage limit`. Read the trailing phrase: `exceeded budget for model=claude-sonnet-4-6` means that model cap is exhausted; `ExceededBudget: User=... over budget` means the total LiteLLM cap is exhausted.
 
-**References.** [W.5 failure mode #7](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` quota response 2026-06-30](https://razorpay.slack.com/archives/C08C35GKJKD/p1782822000944019), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), `#ai-help` policy-managed cap response 2026-07-05, [`#ai-help` open-weight cap clarification 2026-07-06](https://razorpay.slack.com/archives/C08C35GKJKD/p1783317615357959), [`#ai-help` misleading rate-limit wording thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783410203787589).
+To check which limit you hit:
+
+1. Open the [LiteLLM Usage view](https://llm-gateway.razorpay.com/ui/?page=new_usage) and sign in.
+2. Set the date filter to **Month to date**.
+3. Find **Top Public Model Names** and read the spend for the model named in your error. The total-spend card can still show headroom after one frontier model has exhausted its own cap.
+4. If only that model is capped, move routine work to Sonnet, Codex, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, another gateway model, open-weight route, or personal Claude Max plan will not bypass it.
+
+For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
+
+**References.** [W.5 failure mode #7](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), `#product-function-announcements` 2026-06-30 model-wise limits post, [`#ai-help` per-model cost question 2026-06-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1781592011993679), [`#ai-help` per-model usage question 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783072284101079), [`#ai-help` model-wise breakdown question 2026-07-20](https://razorpay.slack.com/archives/C08C35GKJKD/p1784530415017989), [`#ai-help` Usage-tab walkthrough 2026-07-20](https://razorpay.slack.com/archives/C08C35GKJKD/p1784539518840649), [`#ai-help` OSS total-cap clarification 2026-07-03](https://razorpay.slack.com/archives/C08C35GKJKD/p1783049884624819), [`#ai-help` open-weight cap clarification 2026-07-06](https://razorpay.slack.com/archives/C08C35GKJKD/p1783317615357959), [`#ai-help` misleading rate-limit wording thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783410203787589).
 
 ### D.7 — Usage not visible in the LiteLLM dashboard (status: fixed)
 
@@ -336,4 +345,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-07-19. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-07-20. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
