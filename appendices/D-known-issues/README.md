@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-20"
+updated: "2026-07-21"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -99,7 +99,7 @@ Re-run the setup script: `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh
 
 **Diagnosis.** The request reached an enabled frontier model whose LiteLLM per-model cap is exhausted. `Exceeded budget` describes quota; it does not prove the route retired. Model availability can change, so use the current enabled-model list rather than inferring status from the version number.
 
-**Fix.** Check the LiteLLM usage view, then move routine work to a lower-cost route that your key already enables, such as Sonnet, Codex, or an approved open-weight model. Do not change the Opus default to 4.8 solely because 4.6 or 4.7 reports a budget error; another frontier route can have its own cap. If the error says your total user budget is exhausted, follow D.6. If the route is absent from the enabled list or returns `key_model_access_denied`, follow D.13 instead. For an approved business blocker, post in `#ai-help` with the blocked work and manager approval visible.
+**Fix.** Check the LiteLLM usage view, then move routine work to a lower-cost route that your key already enables, such as Sonnet, an approved GPT route, or an approved open-weight model. Do not change the Opus default to 4.8 solely because 4.6 or 4.7 reports a budget error; another frontier route can have its own cap. If the error says your total user budget is exhausted, follow D.6. If the route is absent from the enabled list or returns `key_model_access_denied`, follow D.13 instead. For an approved business blocker, post in `#ai-help` with the blocked work and manager approval visible.
 
 **References.** [W.5 failure mode #6](../../belts/01-white/W05-installing-the-stack.md#common-failure-modes), [D.6 — model-wise or total usage limit](#d6--hit-a-model-wise-or-litellm-usage-limit-status-workaround), [D.13 — model access](#d13--litellm-account-or-model-access-is-not-enrolled-status-fixed), [`#ai-help` current enabled-route and model-cap response 2026-07-17](https://razorpay.slack.com/archives/C08C35GKJKD/p1784260277679449).
 
@@ -116,7 +116,7 @@ To check which limit you hit:
 1. Open the [LiteLLM Usage view](https://llm-gateway.razorpay.com/ui/?page=new_usage) and sign in.
 2. Set the date filter to **Month to date**.
 3. Find **Top Public Model Names** and read the spend for the model named in your error. The total-spend card can still show headroom after one frontier model has exhausted its own cap.
-4. If only that model is capped, move routine work to Sonnet, Codex, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, another gateway model, open-weight route, or personal Claude Max plan will not bypass it.
+4. If only that model is capped, move routine work to Sonnet, an approved GPT route, or an enabled open-weight model; quota bumps are not automatic. If the error shows total-budget exhaustion, another gateway model, open-weight route, or personal Claude Max plan will not bypass it.
 
 For approved business blockers, post in `#ai-help` with the blocked work and manager approval visible so the support team can review a small exception.
 
@@ -279,15 +279,20 @@ Problems with skill invocation, MCP server timeouts, agent loops, subagent hando
 
 **References.** [G.2 context-window mental model](../../belts/03-green/a-craft/G02-context-windows.md), [`#ai-help` prompt-too-long thread 2026-06-11](https://razorpay.slack.com/archives/C08C35GKJKD/p1781142551149419), [`#ai-help` context-limit thread 2026-07-02](https://razorpay.slack.com/archives/C08C35GKJKD/p1783016485230679), [`#ai-help` startup-context thread 2026-07-07](https://razorpay.slack.com/archives/C08C35GKJKD/p1783429353309609), [`#ai-help` prompt-too-long thread 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783585337029519).
 
-### D.15 — Codex says you hit a workspace usage limit (status: workaround)
+### D.15 — Codex trial capacity or workspace usage is exhausted (status: workaround)
 
 **Symptom.** Codex warns that you have used most of your allowance, says `You've hit your usage limit. Contact your workspace owner for more access`, reports a workspace spend cap, or repeatedly returns `429 Too Many Requests` after usage warnings.
 
-**Diagnosis.** This is the separate Codex workspace allocation, not your Claude Code LiteLLM budget. Re-running the Razorpay Claude setup, changing a LiteLLM model, or signing into Codex again will not reset a workspace-controlled cap. The allocation and any trial extension are centrally managed, so an expiry date or percentage shown earlier is not a promise of more capacity. A single bare `429` can instead be a short rate limit; retry once after a pause before treating it as a cap.
+**Diagnosis.** This is the separate Codex workspace allocation, not your Claude Code LiteLLM budget. Re-running the Razorpay Claude setup, changing a LiteLLM model, or signing into Codex again will not reset a workspace-controlled cap. On 2026-07-21, `#ai-help` announced that Razorpay's shared Codex trial credits were nearly exhausted and directed builders away from Codex until a seat-based plan is resolved. An expiry date or percentage shown earlier is not a promise of more capacity. A single bare `429` can instead be a short rate limit; retry once after a pause before treating it as a cap.
 
-**Fix.** Stop retrying and keep the exact error text. For a bounded routine task, return to Claude Code and choose an enabled approved open-weight route only if your LiteLLM total budget still has capacity; run the normal Compass checks before shipping. If that route is unavailable or the work is blocked, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the Codex error, the blocked task, and manager approval where an exception is required. Ask for the currently approved fallback rather than a specific Codex credit amount: individual extensions are not guaranteed, and only the workspace owner can change the cap.
+**Fix.** Use the current transition route:
 
-**References.** [Appendix A — Codex tool boundary](../A-tool-atlas/README.md#codex--non-claude-coding-tools), [`#ai-help` shared-credit response 2026-07-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1784138113141539), [`#ai-help` repeated cap response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784188055043859), [`#ai-help` no-increase response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784199699971349).
+1. Stop retrying Codex and keep the exact error text plus a short note on the unfinished task.
+2. If you have already received Claude Team access, follow the [migration SOP](https://aidocs.razorpay.com/app/d/doc_4xaelfvzhp2aih33) linked by support and continue there.
+3. Otherwise, move the task to Claude or an enabled GPT route through LiteLLM, provided the relevant LiteLLM budget still has capacity. Run the normal Compass checks before shipping code.
+4. If neither route is available or the work remains blocked, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the error and blocked task. Follow the latest support instruction rather than requesting a specific Codex credit amount; the seat-based plan is still in progress.
+
+**References.** [Appendix A — Codex tool boundary](../A-tool-atlas/README.md#codex--non-claude-coding-tools), [`#ai-help` shared-credit response 2026-07-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1784138113141539), [`#ai-help` repeated cap response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784188055043859), [`#ai-help` no-increase response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784199699971349), [`#ai-help` Codex trial-exhaustion transition 2026-07-21](https://razorpay.slack.com/archives/C08C35GKJKD/p1784639125179399).
 
 ---
 
@@ -345,4 +350,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-07-20. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-07-21. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
