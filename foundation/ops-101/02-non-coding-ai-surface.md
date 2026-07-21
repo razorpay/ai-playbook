@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-07-12"
+updated: "2026-07-21"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -31,7 +31,7 @@ There are three general places non-coders open AI for work, one supporting conce
 |---|---|
 | **Claude.ai** | A web browser tab where you talk to Claude. Best for thinking, writing, drafting, brainstorming. No local file access or auto-running; approved connectors vary by workspace. |
 | **Cowork** | A desktop app where Claude can work in folders on your computer and use installed plugins. Best for document-heavy work and small repeatable tasks. |
-| **Slash** | Razorpay's internal assistant, a web tool that already knows about your tickets, docs, and channels. Best for "what does my sprint look like" questions. |
+| **Slash** | Razorpay's remote internal AI worker, invoked with `@slash`. Best for internal research and bounded repo tasks you can delegate with a clear result. |
 | **Connectors** | Not a tool. A *capability*. A connector is what lets an AI read or act on Slack, Google Workspace, your ticketing tool, your calendar — i.e. the apps where your work actually lives. |
 | **Analytics Agent** | A Claude Code plugin for Self Serve Analytics metric questions. Best for PMs asking “what does this metric mean / is it healthy?” Not a general assistant. |
 | **PM Tracer** | A Claude Code plugin that instruments PM AI usage for the adoption leaderboard. Best for proving applied workflow usage. Not a tool you ask questions to. |
@@ -46,7 +46,7 @@ It's tempting to ask "which is the best one?" The honest answer is that any of t
 
 Pick the one whose layout you like. Pick the one your team already uses. Pick the one that's already on your laptop. Don't agonise. *The leverage isn't in the surface, it's in what the surface can see and do on your behalf.* The rest of this chapter is about the see-and-do part.
 
-A useful frame: each of the three surfaces is a different *front door* to roughly the same AI. The room the AI lives in (the model, the agent loop, the underlying capabilities) is mostly identical. The doors are different shapes — Claude.ai is a browser tab, Cowork is a desktop window, Slash is an internal-tools page — and each is best at different ergonomics.
+A useful frame: each of the three surfaces is a different *front door* to AI-assisted work. The doors are different shapes — Claude.ai is a browser tab, Cowork is a desktop window, and Slash is a remote worker you invoke from Slack — and each is best at different ergonomics.
 
 ---
 
@@ -89,19 +89,19 @@ If your day is heavy on documents, decks, spreadsheets, and PDFs (and most ops d
 
 ## Slash
 
-**What it is.** Razorpay's internal AI assistant, a web tool you can open from your browser. Behind the scenes it's already plumbed into a number of internal data sources (tickets, docs, channels) so the queries that take you ten minutes of clicking around take it ten seconds.
+**What it is.** Razorpay's remote internal AI worker, invoked with `@slash` in Slack. It can use approved internal sources for knowledge-first work or take a scoped task against a named remote repo.
 
-**The feel.** Like a very well-informed colleague with org-wide read access. You can ask it questions about the *internal* world (your sprint, that thread from last month, what's open in your team's queue) without context-switching between four tools yourself.
+**The feel.** Like a well-informed colleague with access to approved internal sources. You can ask it questions about the *internal* world (your sprint, that thread from last month, what's open in your team's queue) without context-switching between four tools yourself.
 
 **Best for.**
 - "What does my sprint look like?" / "What's open on my plate?"
 - "Summarise this thread / channel / doc."
 - Discovery questions that benefit from internal context: competitive research that pulls from internal docs, support trend questions, "what did we decide about X last quarter."
-- Cross-tool queries that would otherwise mean opening four tabs and copy-pasting between them.
+- Bounded repo tasks where the repository, constraints, and expected result are already clear.
 
-**Limits.** Slash is a *consumer* product: for asking questions, getting summaries, doing research. It's not (today) the right place to *take action*: opening a ticket, posting to Slack, sending an email. For action-taking, you'll lean on Claude.ai or Cowork plus connectors.
+**Limits.** Slash works remotely. It cannot see uncommitted files on your laptop or provide the tight edit-run-debug loop of Claude Code. For repo work, name the repo and success criteria, then review the resulting PR like any other PR; opening one is not proof that the task is done.
 
-The one-line distinction: **Slash is a great place to ask. Claude.ai and Cowork are good places to act.**
+The one-line distinction: **Slash is for remote research and delegation. Claude.ai and Cowork are for interactive thinking and document work.** For exact Slash modes and scope syntax, use [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md#slash).
 
 ---
 
@@ -170,13 +170,13 @@ Don't overthink this. Use the heuristic, then change your mind later if you want
 
 **Are you working with files (docs, decks, spreadsheets, PDFs) every day?** → Cowork. Install it, point it at the folder you live in, install one or two plugins. Your week starts moving faster within an afternoon.
 
-**Are you mostly asking questions about the internal world: sprints, tickets, channels, decisions?** → Slash. It's already plumbed in for you.
+**Are you researching the internal world or delegating a bounded remote repo task?** → Slash. Use knowledge-first mode to understand; use execution mode when the repo and result are clear.
 
 **Are you asking metric/SSA questions?** → Analytics Agent. Metrics need the SSA-aware plugin, not vibes plus a pasted screenshot.
 
 **Are you checking whether your PM AI work is counted?** → PM Tracer. It is instrumentation, not a chat surface.
 
-**Are you doing all three?** → Most of us are. Pick whichever feels best as a daily driver, and use the others when they're the right tool. Most readers end up with Claude.ai pinned in a tab, Cowork installed for document work, and Slash bookmarked for "what's going on internally" questions. Three tools, three reflexes, no agonising over which one to open.
+**Are you doing all three?** → Most of us are. Pick whichever feels best as a daily driver, and use the others when they're the right tool. Most readers end up with Claude.ai pinned in a tab, Cowork installed for document work, and Slash in Slack for internal research or remote delegation. Three tools, three reflexes, no agonising over which one to open.
 
 **Don't try to make one tool do everything.** A common mistake is to treat your favourite as a hammer and force every task through it. Doable, but slow. The 30 seconds it takes to switch tabs is far less than the 10 minutes you'd spend coercing the wrong tool into doing a task it wasn't built for.
 
@@ -200,7 +200,7 @@ If your laptop policy or your IT setup gets in the way of either step, post a qu
 - The AI surface you choose (Claude.ai, Cowork, Slash) matters less than you think. Pick by comfort. Use all three across the day.
 - **Connectors and plugins are the actual leverage.** Connectors turn each AI surface from an island into a remote control for the apps where your work lives; plugins add specialised workflows such as Analytics Agent and PM Tracer.
 - The minimum useful connector set for most readers is Slack + Google Workspace + your ticketing tool. Three switches, big delta.
-- Slash is a great place to *ask* about the internal world. Claude.ai and Cowork are good places to *act* on it.
+- Slash is the remote path for internal research and bounded repo tasks. Claude.ai and Cowork are interactive surfaces for thinking and document work.
 - The next chapter ([0B.3 — Triage automations](03-triage-automations.md)) is the first place you actually save time. We'll work through inbox triage, Slack triage, and on-call queue triage as three concrete recipes.
 
 ---
