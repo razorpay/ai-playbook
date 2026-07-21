@@ -14,7 +14,7 @@ next: "ops-101/minimum-viable-wiki"
 pillar: null
 belt: null
 tags: ["ops-101", "agents"]
-updated: "2026-07-18"
+updated: "2026-07-21"
 ---
 
 # 0B.7 — Lightweight agents (when "automate this for me" earns its keep)
@@ -57,6 +57,46 @@ The pattern, in three steps:
 3. **You watch it for two more weeks.** The conversion exposes new failure modes: the agent runs at a slightly different time of day, or processes inputs you weren't reviewing before, or hits rate limits the manual version never did. The two-week observation phase is non-negotiable.
 
 After those four total weeks, the agent should no longer need supervision on every run. It still needs monitoring, an owner, and a kill-switch. Trust means *review by exception*, not *forget it exists*.
+
+---
+
+## Choose where the schedule runs
+
+A schedule runs on a machine, not in the abstract. The machine may be your laptop or a persistent approved runtime. It can use only the files, browser sessions, connectors, credentials, and network routes available there.
+
+That boundary is easy to miss when converting a manual recipe. A recipe that works beside you may depend on a local template folder or a signed-in browser. Moving only its prompt to a cloud schedule does not move those dependencies with it. The clock fires; the agent arrives with none of its luggage.
+
+Use this decision path before choosing the scheduler:
+
+```text
+Does the recipe need a local file, desktop/browser session, device bridge,
+keychain credential, or machine-only connector?
+├─ Yes → Run it on that computer, or first move the dependency to an
+│        approved service the persistent runtime can reach.
+└─ No  → Must it run while your computer is asleep or offline?
+         ├─ Yes → Use an approved persistent runtime and provision every
+         │        dependency there.
+         └─ No  → Either can work; choose the simpler runtime to operate.
+```
+
+Do not choose “cloud” and assume reachability will sort itself out. If the workflow is mixed — for example, local browser collection followed by remote summarisation — split it into explicit stages with an approved handoff, or keep it manual until that handoff exists.
+
+### Copy this runtime preflight
+
+Run one dry run **from the actual scheduled runtime**, not from the interactive session where you wrote the recipe.
+
+```text
+RUNTIME: <this computer | approved persistent runtime>
+MUST RUN WHILE THIS COMPUTER IS OFF: <yes/no>
+INPUTS: <each file, API, browser session, connector; where it lives>
+AUTH: <how this runtime receives approved access; no pasted secrets>
+NETWORK: <routes this runtime must reach>
+OUTPUT: <destination and write permission>
+DRY RUN: <proof each dependency was read and the output was delivered>
+FAIL CLOSED: <what posts or records a skipped run when any dependency is missing>
+```
+
+The last line matters. Missing context must produce a visible skip, not a polished digest built from partial inputs. After the preflight passes, add the schedule and continue with the verified-loop checks below.
 
 ---
 
@@ -242,6 +282,8 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [AI Daily Digest runtime failure in `#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ/p1784612067110319) — a cloud schedule correctly skipped when its browser bridge and templates existed only on the local device
+- [GitHub Docs — GitHub-hosted runners](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners) — an official example of jobs executing on a separate hosted machine
 - [Product AI Labs — a shipped daily-health loop](https://razorpay.slack.com/archives/C0A7B848RS7/p1782211644575319) — internal example of a scheduled health skill with Slack delivery and durable history
 - [Loops for PMs — Aakash Gupta](https://www.news.aakashg.com/p/loops-pms) — a current PM-oriented treatment of trigger, skill, maker, checker, gate, and state
 - [Anthropic on scheduled tasks and triggers](https://www.anthropic.com/) — the official patterns for trigger-shaped agent work
