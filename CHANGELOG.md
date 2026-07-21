@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.54 — product-function announcement routing (2026-07-21)
+
+The live Slack directory listed the org-wide `#product-all` conversation channel but omitted the separate `#product-function-announcements` surface now carrying PM enablement sessions and operating announcements. Product learners scanning Appendix F could therefore miss the channel where current workshops and rollout asks are published.
+
+**What changed.**
+
+- **Current announcement channel added.** Appendix F now links the verified public `#product-function-announcements` channel and distinguishes its announcement-only role from `#product-all` conversation.
+- **Version markers bumped.** README and INDEX now report v0.54 / 2026-07-21 for this directory correction.
+
 ## v0.53 — White Belt verification-contract alignment (2026-07-20)
 
 Quest W-0 said there was no separate verification tool and replaced the shipped `setup-verify` skill with five manual steps. That contradicted the skill's pinned ten-check charter and the W.8 health-check lesson, so learners could submit incomplete evidence while skipping registry, certificate, plugin, Git/SSO, environment, and endpoint checks.
