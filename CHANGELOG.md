@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.52 — product-function announcement routing (2026-07-21)
+
+The live Slack directory listed the org-wide `#product-all` conversation channel but omitted the separate `#product-function-announcements` surface now carrying PM enablement sessions and operating announcements. Product learners scanning Appendix F could therefore miss the channel where current workshops and rollout asks are published.
+
+**What changed.**
+
+- **Current announcement channel added.** Appendix F now links the verified public `#product-function-announcements` channel and distinguishes its announcement-only role from `#product-all` conversation.
+- **Version markers bumped.** README and INDEX now report v0.52 / 2026-07-21 for this directory correction.
+
 ## v0.51 — current Opus budget-error triage (2026-07-18)
 
 The 2026-07-17 `#ai-help` queue showed `claude-opus-4-6` and `claude-opus-4-7` in a builder's enabled-model list while LiteLLM returned `exceeded budget` for Opus 4.6. The playbook still diagnosed that exact response as a retired-model default and told readers to switch to Opus 4.8. That turns a model-cap error into unnecessary configuration churn and may move the builder to another capped frontier route.

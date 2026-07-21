@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-07-18"
+updated: "2026-07-21"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
@@ -86,6 +86,7 @@ Channels every product person should be in even outside the playbook program. No
 | Handle | Purpose | Owner | First-response expectation |
 |---|---|---|---|
 | [`#product-all`](https://razorpay.slack.com/archives/C0AGW79U34Z) | Org-wide PM channel — cross-pod product conversation, PM-of-the-week patterns, product-leadership signal. | Chirag Jain | Announcements + Q&A |
+| [`#product-function-announcements`](https://razorpay.slack.com/archives/C3GF5LWJK) | Product-function announcements and enablement — PM workshops, operating updates, and rollout asks. | Product-function announcement admins | Announcements only |
 | [`#prod-bulletin`](https://razorpay.slack.com/archives/C2NVBTWF6) | Customer-facing product announcements only. Screenshots and demo links required; no discussions. The signal channel for "what just shipped externally." | Shashank Mehta | Announcements only |
 | [`#product-design-bulletin`](https://razorpay.slack.com/archives/C07KLQKSB6U) | Product design bulletin — design launches, pattern updates, design-system shipped work. Follow [the guidelines](https://bit.ly/product-design-bulletin). | Saurabh Soni | Announcements only |
 
