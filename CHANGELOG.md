@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.52 — Codex fallback-policy alignment (2026-07-22)
+
+On 2026-07-21, `#ai-help` announced that Razorpay's shared Codex trial credits were nearly exhausted, directed builders to Claude or GPT through LiteLLM, and moved already-provisioned heavy Codex users to Claude Team. Appendix D carried the immediate transition, but the tool tour, canonical setup chapter, Tool Atlas, glossary, and Day-1 card still described Codex as an approved model-cap fallback or published its former access path.
+
+**What changed.**
+
+- **Tool choice corrected.** Prologue 0.5, Appendix A, the glossary, and INDEX now describe Codex as an optional secondary surface only when current support guidance confirms access—not the default quota fallback.
+- **Blocked-work routing aligned.** W.5 and H.7 now keep model-cap fallbacks inside enabled LiteLLM routes and reserve Codex for tasks where support explicitly confirms current access.
+- **Version markers bumped.** README and INDEX now report v0.52 / 2026-07-22 for this policy-alignment sweep.
+
 ## v0.51 — current Opus budget-error triage (2026-07-18)
 
 The 2026-07-17 `#ai-help` queue showed `claude-opus-4-6` and `claude-opus-4-7` in a builder's enabled-model list while LiteLLM returned `exceeded budget` for Opus 4.6. The playbook still diagnosed that exact response as a retired-model default and told readers to switch to Opus 4.8. That turns a model-cap error into unnecessary configuration churn and may move the builder to another capped frontier route.

@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-14"
+updated: "2026-07-22"
 ---
 
 # Appendix A — Tool Atlas
@@ -36,7 +36,7 @@ updated: "2026-07-14"
 | Analytics Agent | You need the standalone Self Serve Analytics path for metric questions, lineage checks, or health reviews. | Native-Windows hand ports, ad-hoc database access, or metric work before the plugin is onboarded. |
 | Slash | You need remote internal research or a bounded repo task: use knowledge-first mode to understand, or execution mode to change code and raise a PR. | Local uncommitted work, an interactive dev loop, or a task whose repo and success criteria are still unclear. |
 | Cursor | You want an IDE-native coding assistant inside an editor workflow. | Program-specific belt flows that depend on Compass conventions. |
-| Codex | Support has routed you to the approved OpenAI workspace for bounded implementation, verification, overflow, or a second-agent check. | Program certification work that depends on Compass skills, Razorpay connectors, or Claude Code guardrails. |
+| Codex | Current support guidance confirms that you have access for a bounded implementation, verification, or second-agent check. | General quota fallback, or certification work that depends on Compass skills, Razorpay connectors, or Claude Code guardrails. |
 
 The pattern: **pick the surface that can see the right context and take the right action.** A better model with the wrong visibility still fails.
 
@@ -207,15 +207,15 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 **Surface type.** A coding-agent workspace outside the Claude Code + Compass path. Codex can inspect and edit a local workspace, but it does not automatically inherit Razorpay's Claude-shaped skills, hooks, MCPs, or connector approvals.
 
-**Default context.** The workspace or app session you open, plus whatever files and plugins that surface is allowed to access. Access itself is controlled separately: request Codex through MyAccess, get the manager approval, accept the OpenAI workspace invite, then launch from MyApps or the Self Service desktop app where available.
+**Default context.** The workspace or app session you open, plus whatever files and plugins that surface is allowed to access. Access is controlled separately and can change. Do not assume an earlier MyAccess request or workspace invite is still an active route; confirm the latest support guidance first.
 
-**What it can do.** Bounded implementation, verification, second opinions, and overflow work when Claude-family or LiteLLM limits block routine progress. It is useful when support explicitly says "use Codex for this task" or when you want a different model family to inspect a narrow change.
+**What it can do.** Bounded implementation, verification, and second opinions when support explicitly confirms access for the task. It is not a general answer to LiteLLM model limits: when Codex is unavailable, continue with Claude or an enabled GPT route through LiteLLM, or follow the Claude Team migration route if support has provisioned you there.
 
 **What it cannot do.** Replace Claude Code as the belt path. It does not make Compass checks optional, and plugin access can still be blocked by org OAuth or security policy even after the base workspace works.
 
 **Common failure modes.** Assuming a Codex plugin has the same connector approval as Claude Code. Treating Codex output as ready to ship without bringing it back through Claude Code, Compass, tests, and the normal PR review path.
 
-**Belt relevance.** Optional fallback from Yellow Belt onward. White Belt still establishes Claude Code + Compass because that is the certified program spine.
+**Belt relevance.** Optional secondary surface from Yellow Belt onward when access is confirmed. White Belt still establishes Claude Code + Compass because that is the certified program spine.
 
 ---
 
@@ -231,7 +231,7 @@ Before you open a tool, run this filter in your head:
 - If the work is metric or SSA analysis, use Analytics Agent after its setup/onboarding flow instead of the retired `querying-metrics` habit.
 - If the work is internal research, use Slash knowledge-first mode. If it is a bounded remote repo task, give Slash the repo and acceptance criteria in execution mode.
 - If the work needs visual file navigation, host Claude Code inside Cursor's terminal.
-- If support routes you to Codex for overflow or verification, use it for the bounded task and bring the result back through Claude Code before shipping.
+- If support confirms Codex access for a bounded task, use it only for that scope and bring the result back through Claude Code before shipping.
 - If you cannot tell what shape of work it is, name the work in one sentence first; the right tool usually appears in the sentence.
 
 ---

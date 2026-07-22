@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.51 · last reviewed 2026-07-18 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.52 · last reviewed 2026-07-22 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -490,7 +490,7 @@ The fast decision map for choosing the right AI surface. Includes one-line guida
 | Tool             | One-liner                                             |
 |------------------|-------------------------------------------------------|
 | Claude Code      | Terminal-native coding agent; Razorpay's default      |
-| Codex            | OpenAI's coding agent; use for bounded fallback or second-agent work when support routes you there |
+| Codex            | OpenAI's coding agent; optional secondary surface when current support guidance confirms access |
 | Slash            | Razorpay's internal AI copilot                        |
 | Claude.ai        | The web chat; good for thinking out loud              |
 | Claude Enterprise| Team plan; SSO, admin controls, audit                 |
