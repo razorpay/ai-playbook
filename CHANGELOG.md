@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.55 — Codex fallback-policy alignment (2026-07-22)
+
+On 2026-07-21, `#ai-help` announced that Razorpay's shared Codex trial credits were nearly exhausted, directed builders to Claude or GPT through LiteLLM, and moved already-provisioned heavy Codex users to Claude Team. Appendix D carried the immediate transition, but the tool tour, canonical setup chapter, Tool Atlas, glossary, and Day-1 card still described Codex as an approved model-cap fallback or published its former access path.
+
+**What changed.**
+
+- **Tool choice corrected.** Prologue 0.5, Appendix A, the glossary, and INDEX now describe Codex as an optional secondary surface only when current support guidance confirms access—not the default quota fallback.
+- **Blocked-work routing aligned.** W.5 and H.7 now keep model-cap fallbacks inside enabled LiteLLM routes and reserve Codex for tasks where support explicitly confirms current access.
+- **Version markers bumped.** README and INDEX now report v0.55 / 2026-07-22 for this policy-alignment sweep.
+
 ## v0.54 — product-function announcement routing (2026-07-21)
 
 The live Slack directory listed the org-wide `#product-all` conversation channel but omitted the separate `#product-function-announcements` surface now carrying PM enablement sessions and operating announcements. Product learners scanning Appendix F could therefore miss the channel where current workshops and rollout asks are published.
