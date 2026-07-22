@@ -14,7 +14,7 @@ next: "belts/black/prompt-evals"
 pillar: "context"
 belt: "black"
 tags: ["black-belt", "memory-systems", "session-state", "long-running-agents"]
-updated: "2026-04-29"
+updated: "2026-07-22"
 ---
 
 # B.8 — Memory systems
@@ -144,6 +144,56 @@ What this is NOT: a distributed state machine. The full distributed-state-machin
 
 ---
 
+## When a dedicated persistent runtime earns it
+
+Durable state does not automatically require a dedicated agent runtime. Start with the lightest surface that can do the job:
+
+```text
+Does the work finish in one attended session?
+├─ Yes → Use an interactive assistant. Save only the durable artefact.
+└─ No  → Is it one proven recipe on a schedule or event?
+         ├─ Yes → Use a bounded scheduled loop with a run receipt.
+         └─ No  → Must it retain role-specific context, resume across sessions,
+                  or receive and deliver work while you are away?
+                  ├─ Yes → Consider a dedicated persistent runtime.
+                  └─ No  → Keep the workflow simpler; persistence adds operations.
+```
+
+[Hermes](https://hermes-agent.nousresearch.com/docs/) is a current example of the third surface. It combines durable memory and skills with messaging channels and scheduled work. That makes it useful when continuity is part of the job, not merely a convenience: a PM agent polling a live document for new review comments, an analyst agent maintaining an investigation history, or an operational agent producing a daily digest and remembering prior outcomes.
+
+This pattern is already in use inside Razorpay. An AI SDLC pilot separated PM, analyst, builder, and assistant profiles so each role kept a narrower state boundary. A shipped cross-border command centre uses Hermes and Claude Code to classify issues, draft KB-backed responses, publish a daily digest, and feed a weekly improvement loop. These are persistent-runtime jobs because new runs depend on owned history and unattended triggers—not because the word “agent” needed a bigger home.
+
+### Write the state contract before requesting a runtime
+
+Copy this card. If the memory and failure fields are vague, the workflow is not ready to become persistent.
+
+```text
+OUTCOME: <the recurring result this agent owns>
+OWNER: <person or team accountable for it>
+TRIGGERS: <schedule, event, or explicit message>
+INPUTS: <approved sources; freshness and access boundaries>
+CAPABILITIES: <minimum tools and write permissions>
+MEMORY: <facts to retain; authoritative source; retention boundary>
+RUN RECEIPT: <time, source coverage, result, checker verdict, output link>
+CHECK + GATE: <what proves a run is complete; what requires confirmation>
+DELIVERY: <where results and failures appear>
+RECOVERY: <retry, resume, or escalate rule>
+KILL-SWITCH: <how the owner pauses the agent>
+REVIEW: <quality, memory, and capability review cadence>
+```
+
+Keep **memory** and the **run receipt** separate. Memory stores durable facts or preferences the next session needs. The receipt records what one run did. Mixing them creates a growing transcript that is expensive to read, hard to audit, and likely to preserve data longer than intended.
+
+Three failure modes matter most:
+
+- **A chat assistant wearing a server costume.** The job has no unattended trigger or cross-session dependency. Move it back to an interactive session.
+- **One profile with every role and permission.** Context and capabilities bleed across PM, analysis, and build work. Split only when the roles have genuinely different state or access boundaries; do not create a bot org chart for theatre.
+- **Persistence mistaken for reliability.** A long-running process can still lose access, miss a schedule, or return partial data. Emit a receipt on success, fail loudly, and monitor the runtime itself. [B.10](B10-cost-and-observability.md) covers the observability layer.
+
+Internal provisioning and connector policy can change faster than this chapter. Use the current approved support path for setup; do not copy old environment variables, provider keys, or network workarounds from chat history.
+
+---
+
 ## Worked example — a "weekly-status" agent
 
 A team wants a "weekly-status" agent that runs each Friday: reads the team's PRs and tickets from the last week, drafts a status summary, posts it. Where does state live?
@@ -213,4 +263,8 @@ B.9 (*Prompt evals*) covers the discipline that turns "the agent feels right" in
 - [G.2 — Why context windows fill](../../03-green/a-craft/G02-context-windows.md)
 - [G.5 — CLAUDE.local.md](../../03-green/a-craft/G05-claude-local-md.md)
 - [`skills/playbook-course/state-schema.md`](../../../skills/playbook-course/state-schema.md) — the canonical Layer-3 state-file pattern
+- [Product Function — Hermes enablement announcement](https://razorpay.slack.com/archives/C3GF5LWJK/p1782734977980559) — internal walkthrough of use cases, provisioning, configuration, and troubleshooting
+- [AI SDLC pilot — role-specific Hermes profiles](https://razorpay.slack.com/archives/C0B2LQ1V1SQ/p1779710778779049) — PM, analyst, builder, and assistant profiles with separate persistent knowledge boundaries
+- [AI Bulletin — cross-border command centre](https://razorpay.slack.com/archives/C08NRSW1BUZ/p1781866421807989) — a shipped operational workflow using Hermes, Claude Code, daily reporting, and a feedback loop
+- [Hermes Agent documentation](https://hermes-agent.nousresearch.com/docs/) — public reference for memory, skills, messaging, and scheduled automations
 - [Anthropic on auto-memory](https://docs.claude.com/) — public reference
