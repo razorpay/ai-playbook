@@ -168,6 +168,46 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
 
+#### Ask, review, or contribute?
+
+Use the smallest Analytics Agent workflow that matches the job:
+
+```text
+Need an answer about an existing metric?       → /analytics-query
+Need a health check on existing analytics?     → /analytics-review
+Found a missing or incorrect metric definition? → contribute one governed metric
+```
+
+Contribution is different from asking a question. It changes the shared metric glossary and its certified query, so it belongs in a reviewed PR—not in a chat answer that disappears when the session closes.
+
+Start from a clean local clone of `razorpay/self-serve-analytics`, then run `/analyst:metric-catalog-builder` with no arguments. The skill walks one metric through the current seven-step add-or-modify path:
+
+1. **Bring a metric brief.** Name the metric, product area/domain, description, source table, formula or query, unit, filters, and gotchas. If you cannot name the source and computation yet, use `/analytics-query` to investigate first.
+2. **Choose the discovered domain.** Prefer an existing domain from the skill's picker. Creating a new domain needs explicit owner confirmation; a similar-looking folder is not close enough.
+3. **Review ADD versus MODIFY.** For an existing metric, inspect every old → new field. For a new metric, confirm the glossary location and certified-query location before files are written.
+4. **Require a real query check.** The source table must exist and the query must run in Trino or ClickHouse with `LIMIT 1`. A returned row is GREEN; an empty result needs explicit confirmation; a failed query does not become “documentation only”—fix it before proceeding.
+5. **Keep the diff domain-scoped.** The glossary term and certified query may change, plus the generated merged glossary. Unrelated domain cleanup belongs in another PR.
+6. **Approve the change summary.** Confirm the metric, domain, serving layer, files, and sample value before the skill commits or opens a PR.
+7. **Wait for CI and human review.** A generated PR is a proposal, not a live metric. Merge only after metadata validation passes and the owning reviewer agrees with the definition.
+
+Copy this preflight card before you invoke the skill:
+
+```text
+Metric name:
+Product area / domain:
+What it measures:
+Source table:
+Formula or query:
+Unit:
+Filters:
+Gotchas:
+Owner who can review the definition:
+```
+
+**Stop conditions.** Stop and resolve the gap if the source table is unknown, the query fails, the glossary and certified-query counts do not match, the diff reaches another domain, or no owner can review the meaning. The skill can validate SQL and scope; it cannot decide what the business metric ought to mean.
+
+**Why this path exists.** The single-metric workflow, domain discovery, and scope-containment guardrails shipped in [`self-serve-analytics` #1756](https://github.com/razorpay/self-serve-analytics/pull/1756), [#1760](https://github.com/razorpay/self-serve-analytics/pull/1760), and [#1788](https://github.com/razorpay/self-serve-analytics/pull/1788). Keep implementation detail in that repo-owned skill; use this card to choose the workflow and arrive prepared.
+
 ### Slash
 
 **Surface type.** Razorpay's remote internal AI worker, invoked with `@slash`. It has a knowledge-first mode for understanding and an execution mode for scoped repo work. It is distinct from the Claude Code session running on your machine.
