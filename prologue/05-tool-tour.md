@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-07-14"
+updated: "2026-07-22"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -35,7 +35,7 @@ There are seven tools you'll see named repeatedly. Here's the one-line version o
 | **Compass** | Razorpay's plugin that ships skills, hooks, and MCPs into Claude Code — *not* a tool you open, it's a layer inside Claude Code. |
 | **Slash** | Razorpay's remote AI worker for internal research and bounded repo tasks. Use knowledge-first mode to understand; use execution mode when the repo and result are clear. |
 | **Cursor** | A VS Code-style IDE with AI built in; useful for reading code visually while Claude Code edits it. |
-| **Codex / OpenAI tools** | A secondary coding-agent surface. Not the belt default, but useful when current LiteLLM policy routes routine overflow or second-opinion work there. |
+| **Codex / OpenAI tools** | A secondary coding-agent surface outside Compass. Use it only when current support policy confirms access and routes the task there. |
 
 If you only remember one thing: **Claude Code is the one you live in.** Everything else is an accessory.
 
@@ -131,9 +131,9 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 **What they are:** OpenAI's Codex CLI, GitHub Copilot, Amazon Q, and other coding agents that can inspect or edit a local workspace. They are real builder tools, but they do not load Razorpay's Claude-shaped Compass skills, Blade connector, or pre-ship guardrails by default.
 
-**Why they're here now:** Current usage policy treats Codex as an approved fallback when Claude-family or LiteLLM model limits block routine work. That does not make it the playbook default; it means a Day-1 builder should recognise the name when support says "use Codex for this overflow task."
+**Why they're here now:** You may encounter Codex in older workflows or through a support-approved seat, so you should recognise the boundary. Access is policy-controlled: the shared trial is not a default fallback. When Codex is unavailable, continue with Claude or an enabled GPT route through LiteLLM; builders already provisioned on Claude Team should follow the migration route from support.
 
-**Rule of thumb:** Use Claude Code for belt work, Compass-backed workflows, Blade-aware reviews, and anything you plan to certify. Use Codex for bounded implementation, verification, or a second opinion when the support path explicitly routes you there. If Codex produces code that lands in a Razorpay repo, still bring the result back through Claude Code + Compass checks before PR.
+**Rule of thumb:** Use Claude Code for belt work, Compass-backed workflows, Blade-aware reviews, and anything you plan to certify. If support confirms Codex access for a bounded implementation, verification, or second-opinion task, use it only for that scope. Bring any resulting code back through Claude Code + Compass checks before PR.
 
 If you're curious about the broader comparison, [Appendix A — Tool Atlas](../appendices/A-tool-atlas/README.md) is the durable map of which surface fits which job.
 
@@ -160,7 +160,7 @@ Five minutes now saves you hours of "wait, which tool am I supposed to be in?" l
 - **Cowork is the designer / PM-friendly front door** to the same AI stack, optimised for documents over repos.
 - **Slash is the remote delegation path** — knowledge-first for internal context, execution mode for a bounded repo task.
 - **Cursor** is a graphical IDE you can run Claude Code inside for the best of both worlds.
-- **Codex is a fallback, not the curriculum spine.** Use it when the support path points there; run Compass-backed checks before shipping its output.
+- **Codex is optional, not the default fallback.** Use it only when support confirms access for the task; run Compass-backed checks before shipping its output.
 - The next chapter ([§0.6 — Meet the people](06-people-and-pocs.md)) introduces the roles and forums that own these tools and where to ask when things break.
 
 ---
