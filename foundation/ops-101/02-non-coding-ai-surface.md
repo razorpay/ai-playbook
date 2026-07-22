@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-07-21"
+updated: "2026-07-22"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -102,6 +102,20 @@ If your day is heavy on documents, decks, spreadsheets, and PDFs (and most ops d
 **Limits.** Slash works remotely. It cannot see uncommitted files on your laptop or provide the tight edit-run-debug loop of Claude Code. For repo work, name the repo and success criteria, then review the resulting PR like any other PR; opening one is not proof that the task is done.
 
 The one-line distinction: **Slash is for remote research and delegation. Claude.ai and Cowork are for interactive thinking and document work.** For exact Slash modes and scope syntax, use [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md#slash).
+
+### Pick the lightest research mode that can prove the answer
+
+Slash offers three knowledge-first depths. Put the mode immediately after `@slash`:
+
+| Mode | Use it when... |
+|---|---|
+| `@slash --plan-fast <question>` | A narrow fact should already exist in curated knowledge and you want the quickest lookup. |
+| `@slash --plan <question>` | You need the normal default: curated knowledge plus one round of code evidence. |
+| `@slash --plan-accurate <question>` | A high-stakes or cross-service question needs a deeper multi-repo search and can wait longer. |
+
+Start with `--plan` when you are unsure. Use `--plan-fast` for bounded lookups, not broad flows. If fast mode returns `INSUFFICIENT_CURATED_KNOWLEDGE`, move to `--plan` or `--plan-accurate`; do not keep rewording the prompt until it agrees with you. A deeper mode broadens the evidence search—it does not make the answer automatically true—so check the cited source and its date before acting.
+
+Try it with a real decision: `@slash --plan Which team owns <area>, and which sources support that answer?`
 
 ---
 
