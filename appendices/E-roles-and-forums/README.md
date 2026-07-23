@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "roles", "forums", "skeleton"]
-updated: "2026-06-14"
+updated: "2026-07-23"
 ---
 
 # Appendix E: Roles & Forums
@@ -46,7 +46,7 @@ The current set of named roles, the area each owns, and the forums where the rol
 | Blade design-system leads | Blade component contributions, design system evolution | Design-system channel; Blade contribution PRs | Continuous async |
 | Cross-POD signal forum facilitators | Cross-team patterns, embed coordination, office hours rotation | Cross-POD signal forum | Monthly rotation |
 | Builder Day operations | Builder Day scheduling, logistics, validation gates | Program flagship channel; Builder Day prep channel | Per-event |
-| Claude Enterprise access owner | Provisioning Claude Enterprise seats, audit, admin controls | Access management channel | Continuous async |
+| Claude workspace access owner | Provisioning Enterprise and Team seats, migrations, audit, admin controls | Access management channel | Continuous async |
 | LiteLLM gateway / model billing | LiteLLM gateway owner | Infrastructure channel | Continuous async; monthly cost review |
 | Slash engineering lead | Slash internal AI copilot evolution | Slash engineering channel | Continuous async |
 | Blade connector team | Blade MCP connector maintenance | Design-system channel | Continuous async |

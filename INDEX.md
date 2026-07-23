@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.52 · last reviewed 2026-07-22 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.53 · last reviewed 2026-07-23 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -277,14 +277,14 @@ Find and fix a genuine typo in any public-facing Razorpay doc or open-source rep
 
 | §    | Chapter                                                              | Pillar  | Time   |
 |------|----------------------------------------------------------------------|---------|--------|
-| Y.1  | [The Tool Atlas — Claude Code · Codex · Slash · Claude.ai · Claude Enterprise · Cursor · Copilot](belts/02-yellow/Y01-tool-atlas.md) [drafted] | Context | 30 min |
+| Y.1  | [The Tool Atlas — Claude Code · Codex · Slash · Claude.ai · Claude workspaces · Cursor · Copilot](belts/02-yellow/Y01-tool-atlas.md) [drafted] | Context | 30 min |
 | Y.2  | [When to reach for which tool — a decision tree](belts/02-yellow/Y02-tool-decision-tree.md) [drafted] | Harness | 15 min |
 | Y.3  | [Prompt quality, deep dive — intent · constraints · success criteria](belts/02-yellow/Y03-prompt-quality-deep.md) [drafted] | Prompt  | 40 min |
 | Y.4  | [What Claude can see and what it can't — context 101](belts/02-yellow/Y04-context-101.md) [drafted] | Context | 20 min |
 | Y.5  | [CLAUDE.md primer — your project's rule book](belts/02-yellow/Y05-claude-md-primer.md) [drafted] | Context | 25 min |
 | Y.6  | [Reading unfamiliar code with Claude — the "explain this repo" flow](belts/02-yellow/Y06-reading-code.md) [drafted] | Prompt  | 30 min |
 | Y.7  | [Permissions, hooks, slash commands — staying safe while moving fast](belts/02-yellow/Y07-permissions-and-hooks.md) [drafted] | Harness | 20 min |
-| Y.8  | [LiteLLM and Claude Enterprise — what each is, when it matters](belts/02-yellow/Y08-litellm-and-enterprise.md) [drafted] | Harness | 15 min |
+| Y.8  | [LiteLLM and Claude workspace access — use the route you were provisioned](belts/02-yellow/Y08-litellm-and-enterprise.md) [drafted] | Harness | 15 min |
 | Y.9  | [Figma MCP for non-engineers — design → running code in 20 minutes](belts/02-yellow/Y09-figma-mcp.md) [drafted] | Context | 30 min |
 | Y.10 | [Slack MCP + Google Workspace MCP — the context you already have](belts/02-yellow/Y10-slack-and-gworkspace-mcps.md) [drafted] | Context | 30 min |
 | Y.11 | [Bug hunting with AI — using git history + Slack + the repo to triage](belts/02-yellow/Y11-bug-hunting.md) [drafted] | Prompt  | 30 min |
@@ -493,7 +493,7 @@ The fast decision map for choosing the right AI surface. Includes one-line guida
 | Codex            | OpenAI's coding agent; optional secondary surface when current support guidance confirms access |
 | Slash            | Razorpay's internal AI copilot                        |
 | Claude.ai        | The web chat; good for thinking out loud              |
-| Claude Enterprise| Team plan; SSO, admin controls, audit                 |
+| Claude workspaces| Enterprise for approved hosted work; Team only when separately provisioned |
 | Cursor           | AI-native IDE; still in use for some teams            |
 | GitHub Copilot   | IDE autocomplete; Claude + Codex as agent back-ends   |
 | Cowork           | Desktop mode for non-engineers                        |
@@ -533,7 +533,7 @@ Roles and forums — not named individuals (names rotate; rules don't). Updated 
 | Blade leadership                               | Blade design-system leads |
 | Cross-POD signal forum                         | Forum facilitators        |
 | Builder Day operations                         | Program lead              |
-| Claude Enterprise access                       | TBD                       |
+| Claude workspace access                        | TBD                       |
 | LiteLLM gateway / model billing | LiteLLM gateway owner    |
 | Slash engineering                              | Slash engineering lead    |
 | Blade connector                                | Blade team                |

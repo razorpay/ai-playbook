@@ -14,7 +14,7 @@ next: "belts/yellow/tool-atlas"
 pillar: null
 belt: "yellow"
 tags: ["yellow-belt", "orientation", "certification"]
-updated: "2026-04-27"
+updated: "2026-07-23"
 ---
 
 # Yellow Belt - The First Builds
@@ -47,7 +47,7 @@ If you already use AI tools every day, skim the first two modules and spend your
 
 Yellow Belt proves four things:
 
-1. **Tool judgement.** You know when to use Claude Code, Codex, Claude.ai, Claude Enterprise, Cursor, Copilot, Slash, or a connector surface.
+1. **Tool judgement.** You know when to use Claude Code, Codex, a provisioned Claude workspace, Cursor, Copilot, Slash, or a connector surface.
 2. **Prompt judgement.** You can state intent, constraints, context, and success criteria without turning every prompt into an essay.
 3. **Context judgement.** You can give Claude the right repo files, threads, docs, and design context without leaking sensitive material or flooding the window.
 4. **Shipping judgement.** You can notice a real bug, triage it with AI, propose a small fix, and get the PR reviewed.
@@ -100,7 +100,7 @@ The modules are meant to be read in order the first time. After that, they becom
 | Y.5 | [CLAUDE.md primer](Y05-claude-md-primer.md) | Context | 25 min |
 | Y.6 | [Reading unfamiliar code with Claude](Y06-reading-code.md) | Prompt | 30 min |
 | Y.7 | [Permissions, hooks, slash commands](Y07-permissions-and-hooks.md) | Harness | 20 min |
-| Y.8 | [LiteLLM and Claude Enterprise](Y08-litellm-and-enterprise.md) | Harness | 15 min |
+| Y.8 | [LiteLLM and Claude workspace access](Y08-litellm-and-enterprise.md) | Harness | 15 min |
 | Y.9 | [Figma MCP for non-engineers](Y09-figma-mcp.md) | Context | 30 min |
 | Y.10 | [Slack MCP + Google Workspace MCP](Y10-slack-and-gworkspace-mcps.md) | Context | 30 min |
 | Y.11 | [Bug hunting with AI](Y11-bug-hunting.md) | Prompt | 30 min |
