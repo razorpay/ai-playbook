@@ -14,7 +14,7 @@ next: "belts/yellow/litellm-and-enterprise"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "permissions", "hooks", "slash-commands"]
-updated: "2026-04-27"
+updated: "2026-07-23"
 ---
 
 # Y.7 - Permissions, hooks, slash commands
@@ -174,5 +174,5 @@ You are **RED** if:
 
 ---
 
-**Previous:** [Y.6 Reading unfamiliar code](Y06-reading-code.md) - **Next:** [Y.8 LiteLLM and Claude Enterprise](Y08-litellm-and-enterprise.md)
+**Previous:** [Y.6 Reading unfamiliar code](Y06-reading-code.md) - **Next:** [Y.8 LiteLLM and Claude workspace access](Y08-litellm-and-enterprise.md)
 
