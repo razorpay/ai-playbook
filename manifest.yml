@@ -972,7 +972,7 @@ chapters:
     pillar: null
     belt: "yellow"
     tags: ["yellow-belt", "orientation", "certification"]
-    updated: "2026-04-27"
+    updated: "2026-07-23"
   - slug: "belts/yellow/tool-atlas"
     path: "belts/02-yellow/Y01-tool-atlas.md"
     title: "Tool Atlas in practice"
@@ -1091,10 +1091,10 @@ chapters:
     pillar: "harness"
     belt: "yellow"
     tags: ["yellow-belt", "permissions", "hooks", "slash-commands"]
-    updated: "2026-04-27"
+    updated: "2026-07-23"
   - slug: "belts/yellow/litellm-and-enterprise"
     path: "belts/02-yellow/Y08-litellm-and-enterprise.md"
-    title: "LiteLLM and Claude Enterprise"
+    title: "LiteLLM and Claude workspace access"
     section: "belts"
     track: "yellow"
     status: "drafted"
@@ -1102,13 +1102,13 @@ chapters:
     order: 8
     time_minutes: 15
     audience: "daily-builder"
-    outcome: "Understand the difference between model routing infrastructure and enterprise knowledge surfaces at a daily-builder level."
+    outcome: "Choose the Claude workspace or LiteLLM route you have actually been provisioned for."
     prev: "belts/yellow/permissions-and-hooks"
     next: "belts/yellow/figma-mcp"
     pillar: "harness"
     belt: "yellow"
-    tags: ["yellow-belt", "litellm", "claude-enterprise", "model-routing"]
-    updated: "2026-04-27"
+    tags: ["yellow-belt", "litellm", "claude-workspaces", "claude-team", "model-routing"]
+    updated: "2026-07-23"
   - slug: "belts/yellow/figma-mcp"
     path: "belts/02-yellow/Y09-figma-mcp.md"
     title: "Figma MCP for non-engineers"
@@ -1125,7 +1125,7 @@ chapters:
     pillar: "context"
     belt: "yellow"
     tags: ["yellow-belt", "figma", "mcp", "design-to-code"]
-    updated: "2026-04-27"
+    updated: "2026-07-23"
   - slug: "belts/yellow/slack-and-gworkspace-mcps"
     path: "belts/02-yellow/Y10-slack-and-gworkspace-mcps.md"
     title: "Slack MCP + Google Workspace MCP"
@@ -2706,7 +2706,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "glossary", "reference"]
-    updated: "2026-05-08"
+    updated: "2026-07-23"
   - slug: "appendices/templates"
     path: "appendices/I-templates/README.md"
     title: "Appendix I: Templates"
@@ -2893,7 +2893,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "roles", "forums", "skeleton"]
-    updated: "2026-05-08"
+    updated: "2026-07-23"
   - slug: "appendices/slack-channels"
     path: "appendices/F-slack-channels/README.md"
     title: "Appendix F: Slack Channels & Rules of Engagement"

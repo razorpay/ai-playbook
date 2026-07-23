@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.53 — Claude workspace route clarity (2026-07-23)
+
+Repeated `#ai-help` threads from 2026-07-15 through 2026-07-23 showed selected users moving from an Enterprise/LiteLLM setup to seat-limited Claude Team access, while non-provisioned builders remained on enabled LiteLLM routes. Y.8 still taught a two-part “Enterprise knowledge versus LiteLLM routing” model, which left readers to infer that Team was either a rename or extra quota. It is neither.
+
+**What changed.**
+
+- **Y.8 now teaches the three current access shapes.** A copyable route check keeps existing Enterprise workspace use, separately provisioned Team access, and enabled LiteLLM routes distinct, then routes failures with redacted evidence instead of credential mixing.
+- **Mirrored references aligned.** Yellow Belt navigation, Appendix E ownership, Appendix G definitions, INDEX, the course manifest, and generated curriculum metadata now use the same workspace-access vocabulary.
+- **Version markers bumped.** README and INDEX now report v0.53 / 2026-07-23 for this access-path clarification.
+
 ## v0.52 — Codex fallback-policy alignment (2026-07-22)
 
 On 2026-07-21, `#ai-help` announced that Razorpay's shared Codex trial credits were nearly exhausted, directed builders to Claude or GPT through LiteLLM, and moved already-provisioned heavy Codex users to Claude Team. Appendix D carried the immediate transition, but the tool tour, canonical setup chapter, Tool Atlas, glossary, and Day-1 card still described Codex as an approved model-cap fallback or published its former access path.
