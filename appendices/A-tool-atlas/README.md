@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-22"
+updated: "2026-07-23"
 ---
 
 # Appendix A — Tool Atlas
@@ -167,6 +167,19 @@ For every surface in this atlas, you should be able to answer five questions bef
 **Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named.
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
+
+#### Routing changed; your workflow did not
+
+The SSA engine now prefers its repo-owned Trino CLI for Trino-backed metrics and keeps the same-gateway Trino MCP as an automatic fallback. This is backend routing, not a new PM setup path. Keep using `/analytics-query` and `/analytics-review`; the skill bootstraps the CLI from existing approved credentials when it can and chooses the fallback when it cannot. Do not hand-edit `.env` or `.mcp.json` just to pick a route.
+
+```text
+Ask the metric question normally
+  → the skill resolves the source and gateway
+  → Trino CLI when healthy; same-gateway MCP when setup is unavailable
+  → read-only result and execution receipt
+```
+
+The route never changes the safety contract. Do not switch backends to bypass a rejected write, expired access, timeout, or row cap. If a query is blocked, share the exact question, the route or gateway shown, and the redacted error with support; do not paste credentials or invent a manual configuration.
 
 #### Ask, review, or contribute?
 
