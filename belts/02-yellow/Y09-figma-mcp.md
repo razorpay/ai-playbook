@@ -14,7 +14,7 @@ next: "belts/yellow/slack-and-gworkspace-mcps"
 pillar: "context"
 belt: "yellow"
 tags: ["yellow-belt", "figma", "mcp", "design-to-code"]
-updated: "2026-04-27"
+updated: "2026-07-23"
 ---
 
 # Y.9 - Figma MCP for non-engineers
@@ -176,4 +176,4 @@ You are **RED** if:
 
 ---
 
-**Previous:** [Y.8 LiteLLM and Claude Enterprise](Y08-litellm-and-enterprise.md) - **Next:** [Y.10 Slack and Google Workspace MCPs](Y10-slack-and-gworkspace-mcps.md)
+**Previous:** [Y.8 LiteLLM and Claude workspace access](Y08-litellm-and-enterprise.md) - **Next:** [Y.10 Slack and Google Workspace MCPs](Y10-slack-and-gworkspace-mcps.md)

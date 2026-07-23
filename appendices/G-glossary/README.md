@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "glossary", "reference"]
-updated: "2026-07-22"
+updated: "2026-07-23"
 ---
 
 # Appendix G: Glossary
@@ -65,7 +65,9 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 **Claude Code.** Anthropic's terminal-native coding agent. The program's default coding tool. See [Appendix A — Tool Atlas](../A-tool-atlas/README.md).
 
-**Claude Enterprise.** Anthropic's team plan offering with SSO, admin controls, and audit. See [Y.8](../../belts/02-yellow/Y08-litellm-and-enterprise.md).
+**Claude Enterprise.** Razorpay's org-workspace path for approved hosted chat and knowledge work. It can coexist with separately provisioned Claude Team access and a LiteLLM code route. See [Y.8](../../belts/02-yellow/Y08-litellm-and-enterprise.md).
+
+**Claude Team.** A separately provisioned, seat-limited Anthropic subscription path used for selected Razorpay users. An Enterprise workspace or LiteLLM key does not imply Team access. See [Y.8](../../belts/02-yellow/Y08-litellm-and-enterprise.md).
 
 **Claude.ai.** Anthropic's web chat interface. Useful for thinking out loud and working with text. See [Appendix A — Tool Atlas](../A-tool-atlas/README.md).
 
