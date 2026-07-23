@@ -6,20 +6,20 @@ status: "drafted"
 type: "chapter"
 track: "black"
 order: 9
-time_minutes: 45
+time_minutes: 55
 audience: "platform-builder"
-outcome: "Run prompt evaluations against your shipped skills with the right shape — golden sets for regression, A/B for improvements, named pass criteria — and refuse vibes-only updates."
+outcome: "Run prompt and agent evaluations with golden sets, named pass criteria, outcome-state checks, trajectory checks, and calibrated graders — and refuse vibes-only updates."
 prev: "belts/black/memory-systems"
 next: "belts/black/cost-and-observability"
 pillar: "prompt"
 belt: "black"
-tags: ["black-belt", "prompt-evals", "golden-sets", "a-b-testing"]
-updated: "2026-04-29"
+tags: ["black-belt", "prompt-evals", "agent-evals", "golden-sets", "a-b-testing"]
+updated: "2026-07-23"
 ---
 
 # B.9 — Prompt evals
 
-The discipline that turns "this prompt feels right" into "this prompt produces the right output 92% of the time on the golden set." Black Belt builders ship skills others adopt; the difference between a skill that gets installed and a skill that gets *trusted* is whether updates are evaluated empirically or on vibes alone. This module is the eval-shape vocabulary.
+The discipline that turns "this prompt feels right" into "this system completes the intended task, obeys its guardrails, and stays within its operating budget." Black Belt builders ship skills and agents others adopt; the difference between something that gets installed and something that gets *trusted* is whether updates are evaluated empirically or on vibes alone. This module is the eval-shape vocabulary.
 
 ---
 
@@ -27,6 +27,7 @@ The discipline that turns "this prompt feels right" into "this prompt produces t
 
 - Three eval shapes matter: **golden sets** (regression), **A/B** (improvement comparison), **adversarial** (failure-finding).
 - Every shipped skill that updates over time should have a golden set. Without one, every update is a guess.
+- For an agent, grade the **outcome and trajectory**, not only the final message. A confident "done" is not evidence that the state changed.
 - "Vibes-driven updates" (the team thinks the new prompt is better) is the failure mode this module exists to prevent.
 
 ---
@@ -134,6 +135,58 @@ The fifth step is the discipline. A new prompt that improves the average but reg
 
 ---
 
+## When the prompt is only part of the system: evaluate the agent
+
+A prompt eval can inspect one answer. An agent eval must inspect a **trial**: the task, available tools, tool calls, intermediate outputs, and final state. The transcript tells you what the agent did; the outcome tells you whether the intended state exists.
+
+That distinction catches a dangerous false positive. A ticket-triage agent can say, "Routed to Risk," while the ticket still sits in the general queue. The prose passed. The task failed.
+
+### Build a five-part scorecard
+
+| Layer | Question | Best first grader | Release rule |
+|---|---|---|---|
+| **Outcome** | Does the intended state exist? | Code or state check | Required outcome must pass |
+| **Trajectory** | Were the right tools called with valid arguments and permissions? | Tool-call assertions | Forbidden calls fail the trial |
+| **Guardrails** | Did the run respect policy, safety, scope, and stop conditions? | Deterministic checks first; rubric where needed | A critical breach fails the trial |
+| **Quality** | Is the result useful, correct, and clear for the user? | Rubric-based LLM judge, calibrated by people | Named threshold, not "looks good" |
+| **Efficiency** | Did it finish within the latency, turn, token, and cost budget? | Numeric assertions | Budget breach is visible and bounded |
+
+Do not turn this into a dashboard of ten green averages and call it safety. Outcome and critical guardrails are **gates**: one fabricated action or unauthorised write can fail a trial even when the average score looks healthy.
+
+### Run the agent-eval loop
+
+1. **Choose representative tasks.** Cover the happy path, edge cases, missing inputs, denied permissions, tool failures, and an adversarial case. Use realistic fixtures without copying production secrets into the suite.
+2. **Name the scorecard before implementation.** Define one intended outcome, the hard guardrails, and the quality and efficiency thresholds. If success cannot be stated, the agent is not ready to build.
+3. **Instrument the whole trial.** Capture the input, visible messages, tool names and arguments, tool results, timestamps, cost or token usage, errors, and final environment state. Do not require hidden chain-of-thought; observable actions and state are the evidence.
+4. **Choose the least subjective grader that works.** Use code for state, schema, permission, tool, timeout, and cost checks. Use an LLM judge for qualitative criteria only after people agree on a rubric and calibrate it against labelled examples.
+5. **Run multiple trials and slice the result.** Agents vary between runs. Repeat each task, then inspect pass rates by task type, merchant or user segment, tool path, and failure mode. One blended average can hide a broken slice.
+6. **Start read-only when real state is involved.** Generate shadow traces, run the graders, inspect failures, and only then consider enabling writes through the normal product, security, and compliance review path.
+
+The loop is **scorecard → traces → graders → failures → improved agent → regression suite**. Production failures uncovered during investigation become new test cases, just as adversarial prompt findings join the golden set.
+
+### Copyable agent-eval card
+
+```markdown
+# Agent eval: <workflow>
+Outcome state: <the externally verifiable state that must exist>
+Task slices: <happy path, missing input, denied permission, tool failure, adversarial>
+
+Hard gates:
+- <required state assertion>
+- <forbidden tool, write, or policy breach>
+- <timeout / escalation condition>
+
+Quality rubric: <criteria, scale, passing threshold, labelled calibration examples>
+Efficiency budget: <latency, turns, tokens/cost, retries>
+Trial evidence: <messages, tool calls/results, errors, timestamps, final state>
+Trials per task: <N>
+Release decision: <pass/fail by slice; named owner for accepted trade-offs>
+```
+
+**Five-minute exercise:** take one agent workflow you own and fill only `Outcome state`, one `Hard gate`, and one failure task. If the outcome can be graded only by reading the agent's final answer, you have found the first instrumentation gap.
+
+---
+
 ## What this is not
 
 **Not a substitute for human review.** Evals catch regressions; humans catch direction. A skill update that passes the golden set but introduces a tone the team does not want still requires a human review.
@@ -162,19 +215,27 @@ The fifth step is the discipline. A new prompt that improves the average but reg
 
 **Treating LLM-as-judge as ground truth.** A judging prompt drifts; calibration matters. Fix: human spot-check the judging prompt periodically; the judge's own outputs go in the judge's golden set.
 
+**Grading only the final message.** Fluent prose can claim a task completed when no state changed. Fix: check the final environment state and the tool trajectory.
+
+**Running each agent task once.** One lucky pass hides nondeterminism. Fix: run multiple trials and report the pass rate by slice.
+
+**Using an LLM judge for a deterministic fact.** A judge should not guess whether a record exists or a forbidden tool ran. Fix: use code and state assertions first; reserve model graders for qualitative criteria.
+
+**Averages that hide a hard breach.** A high composite score can mask an unauthorised write or compliance failure. Fix: make critical guardrails release-blocking gates.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — Every shipped skill I author has a golden set; every update runs against it; my A/B pass criteria are numeric; adversarial findings get promoted into the golden set.
-- 🟡 YELLOW — I understand evals but my recent skills have shipped updates against vibes rather than against a golden set.
-- 🔴 RED — I have shipped skill updates without any structured eval.
+- 🟢 GREEN — Every shipped skill has a golden set; every agent has outcome, trajectory, guardrail, quality, and efficiency checks; updates run multiple trials against named thresholds.
+- 🟡 YELLOW — I evaluate final outputs, but I cannot yet prove the agent changed the right state or used tools safely.
+- 🔴 RED — I have shipped skill or agent updates without a structured eval.
 
 ---
 
 ## What you can say after this module
 
-> "I run prompt evals on every shipped-skill update — golden sets for regression, A/B for improvements, adversarial for failure-finding — and I refuse vibes-only updates."
+> "I run golden-set regressions for prompts and outcome-plus-trajectory evals for agents. Hard guardrails gate release, qualitative judges are calibrated, and multiple trials replace vibes."
 
 ---
 
@@ -187,5 +248,5 @@ B.10 (*Cost attribution + observability at scale*) extends G.20's daily-loop obs
 **Further reading**
 
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md)
-- [Anthropic on evaluation](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 - [The v0.12 skill test-cases.md files](../../../skills/) — examples of acceptance-scenario writing
