@@ -8,18 +8,18 @@ track: "black"
 order: 10
 time_minutes: 30
 audience: "platform-builder"
-outcome: "Instrument cost and observability at team and org scale, not just per-session — and identify the patterns that run quietly expensive before they become a finance problem."
+outcome: "Instrument cost and observability at team and org scale, then contain quietly expensive patterns with explicit runtime limits before they become a finance problem."
 prev: "belts/black/prompt-evals"
 next: "belts/black/effort-and-routing"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "cost-attribution", "observability", "scale"]
-updated: "2026-04-29"
+updated: "2026-07-24"
 ---
 
 # B.10 — Cost + observability at scale
 
-Yellow Belt's Y.20 — sorry, Green Belt's [G.20](../../03-green/b-practices/G20-observability-with-ai.md) — covered observability for a single builder triaging a single production-shape issue. B.10 is the same discipline at team and org scale. Where a Green Belt builder asks "why is this session expensive," a Black Belt builder asks "which patterns across our team's invocations consume the most budget, and which ones produce the most value." The answers are different; the instrumentation has to support both.
+Green Belt's [G.20](../../03-green/b-practices/G20-observability-with-ai.md) covered observability for one builder triaging one production-shaped issue. B.10 applies the same discipline at team and org scale. Where a Green Belt builder asks "why is this session expensive?", a Black Belt builder asks "which patterns across our team's invocations consume the most budget, which produce value, and what stops a bad pattern before it becomes a large bill?" The instrumentation and controls have to support all three questions.
 
 ---
 
@@ -28,6 +28,7 @@ Yellow Belt's Y.20 — sorry, Green Belt's [G.20](../../03-green/b-practices/G20
 - Per-session cost (G.20) is the floor; per-team and per-org cost is the ceiling. Both matter; both need separate dashboards.
 - The patterns that run quietly expensive: long-running sessions that should have been multiple short ones, agents with broad capabilities used narrowly, multi-agent workflows running at a multiplier nobody noticed (per B.5).
 - Cost attribution is not finance hygiene; it is a feedback signal that shapes which patterns get adopted.
+- A dashboard explains a spike after it starts. A runtime cost contract — hard limits, complete accounting, alerts, and a tested kill switch — contains it while it is happening.
 
 ---
 
@@ -125,18 +126,52 @@ A Black Belt builder watches for these three and intervenes. A team that does no
 
 ---
 
+## Close the loop with a runtime cost contract
+
+Observability tells you what happened. A runtime cost contract limits what is allowed to happen. Any scheduled, event-triggered, long-running, or multi-agent workflow needs both before it leaves a canary.
+
+Write the contract with the workflow owner and platform reviewer:
+
+| Decision | What must be named before launch |
+|---|---|
+| **Run envelope** | Maximum wall-clock time and maximum turns or tool calls for one run. Either limit can stop the run; one does not substitute for the other. |
+| **Spend envelope** | A per-run ceiling plus an aggregate budget for the team and time window. A cheap run repeated thousands of times is not cheap. |
+| **Throughput envelope** | Maximum trigger rate, concurrent runs, queue depth, and retries. State what gets dropped, delayed, or refused at each limit. |
+| **Context envelope** | The tools, MCP servers, and input sources this workflow actually needs. Do not load every installed connector into every turn. |
+| **Accounting contract** | Usage summed across every model call, turn, tool, and subagent in the run, joined to the gateway ledger through a stable run identifier. |
+| **Alert and stop rules** | The early-warning threshold, the hard-stop threshold, who receives the alert, and what the runtime cancels automatically. |
+| **Kill switch and recovery** | One tested way to stop new triggers, cancel in-flight work, drain the queue, and re-enable through a small canary. |
+
+These controls cover different failure shapes. A turn cap without a wall-clock cap cannot contain slow or stuck turns. A per-run ceiling without a trigger-rate limit cannot contain a volume spike. A spend stop backed by incomplete multi-turn accounting may never fire. Layer the limits rather than betting on one number.
+
+<details>
+<summary>Copy this launch check into the workflow PR or RFC</summary>
+
+- [ ] The owner wrote the per-run wall-clock and turn/tool-call limits.
+- [ ] Per-run spend, aggregate spend, trigger rate, concurrency, queue, and retry limits have explicit values.
+- [ ] The runtime refuses or cancels work at the hard limits; it does not merely log them.
+- [ ] Usage includes all turns, tools, and subagents and reconciles with gateway spend on a canary run.
+- [ ] Only the tools, connectors, and context sources needed for this task are loaded.
+- [ ] Alerts name an owner and arrive before the hard stop.
+- [ ] The team tested the kill switch and a small-canary restart.
+- [ ] The launch review records which quality metric justifies the approved cost envelope (per B.9).
+
+</details>
+
+When spend spikes, use a containment ladder: stop new triggers; cancel or cap active work; reconcile runtime telemetry with the gateway ledger; isolate the driver across volume × duration × context × model/tool fan-out; then re-enable only under a tightened contract and a small canary. Diagnosis comes after containment, not instead of it.
+
+---
+
 ## What instrumentation needs to exist
 
-The signals above require the proxy (per G.23) to log per-call:
+The signals and limits above require the proxy (per G.23) and agent runtime to share a stable run identifier. Log:
 
-- caller team and caller handle (the cost-attribution tag from G.20);
-- skill / agent name (workflow attribution);
-- model and model version (effort-setting attribution; see B.11);
-- input tokens, output tokens, latency;
-- success / failure status, with error type if applicable;
-- multi-agent context (was this a subagent call? if so, parent session?).
+- **At trigger time:** workflow and owner, caller team, trigger source, queue depth, and the active contract version.
+- **For every model or tool call:** run ID, parent run ID if this is a subagent, model and version, input/output/cache usage, latency, status, and error type.
+- **At run end:** cumulative usage across all calls, wall-clock duration, turns, retries, completion or cancellation reason, and whether a limit fired.
+- **At the gateway:** the billed usage for the same run ID, so runtime totals can be reconciled instead of trusted blindly.
 
-The program-pinned plugin's proxy provides most of this by default. The org-scale dashboards aggregate. A Black Belt builder authoring custom agents (per B.4) routes through the proxy explicitly so the signals show up in the right rollups.
+The proxy sees model calls; the runtime sees triggers, queues, tools, and termination. Neither ledger is complete on its own. The org-scale dashboard joins them, and a Black Belt builder tests that a multi-turn canary's cumulative runtime usage matches gateway spend before approving scale-up.
 
 ---
 
@@ -152,13 +187,13 @@ A team lead opens the weekly dashboard and notices Team X's spend has tripled in
 
 The investigation:
 
-- 8x multiplier on a daily call makes the daily report cost ~$N where the lead expected ~$N/8.
+- Eight subagents on every daily call created a recurring multiplier the lead had never approved.
 - The lead's read of the report is a five-minute scan; the cost is paying for a research-quality artefact.
-- The fix: a single agent, not fan-out + reduce. The report's quality slips marginally; the cost drops 8x.
+- The fix: test a single agent against the fan-out version and keep the cheaper shape if it meets the reader's quality bar.
 
 The team lead messages the team. The custom agent author objects: "fan-out finds more signal." The team agrees to A/B (per B.9) (the single-agent version against the fan-out version) for two weeks, with the team lead reading both reports and judging signal quality.
 
-The A/B reveals the single-agent version is sufficient for the lead's actual use. The fan-out version retires. Three weeks later, the team's spend has settled at sustainable.
+The A/B reveals the single-agent version is sufficient for the lead's actual use. The fan-out version retires. Three weeks later, the team's spend has settled at a sustainable level.
 
 This is the loop B.10 is for — observability surfaces the pattern, evals (per B.9) test the proposed change, the team converges on the right shape.
 
@@ -178,19 +213,23 @@ This is the loop B.10 is for — observability surfaces the pattern, evals (per 
 
 **Eval-skip detection turned off.** A skill ship without an eval log is a quiet quality decay. Fix: track and flag.
 
+**Dashboard-only guardrails.** The dashboard alerts after spend moves, but the runtime has no hard wall-clock, throughput, or aggregate-spend limits. Fix: require the runtime cost contract before launch and test that its stop rules actually cancel work.
+
+**Accounting only the last turn.** A multi-turn run looks cheap because the runtime reports one message while the gateway bills the whole run. Fix: sum every turn and subagent, then reconcile a canary against gateway spend.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I instrument and read cost + observability at team and org scale; my dashboards surface outliers, workflow attribution, multi-agent multipliers, and trend lines; I treat cost as a feedback signal, not just finance hygiene.
+- 🟢 GREEN — I instrument and read cost + observability at team and org scale; my dashboards surface outliers, workflow attribution, multi-agent multipliers, and trend lines; every long-running workflow has a tested runtime cost contract.
 - 🟡 YELLOW — I read per-session cost (per G.20) but my team's aggregated spend is opaque to me.
-- 🔴 RED — I have not looked at team or org cost rollups; "we'll find out at finance review" is my baseline.
+- 🔴 RED — I have not looked at team or org cost rollups, or my dashboards observe workflows that have no hard stop; "we'll find out at finance review" is my baseline.
 
 ---
 
 ## What you can say after this module
 
-> "I instrument cost and observability at team and org scale, surface the patterns that run quietly expensive, and use the feedback signal to shape which patterns get adopted across the program."
+> "I instrument cost and observability at team and org scale, surface the patterns that run quietly expensive, and put runtime limits around long-running workflows before they scale."
 
 ---
 
@@ -205,3 +244,5 @@ B.11 (*Effort settings, model routing, fall-backs*) is the per-call tuning layer
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md) — the per-session layer this module extends
 - [G.23 — The LLM proxy](../../03-green/c-guardrails/G23-llm-proxy.md) — the instrumentation layer all this depends on
 - [B.5 — Multi-agent orchestration](../a-platform/B05-multi-agent-orchestration.md) — the multipliers this dashboard surfaces
+- [LiteLLM virtual keys](https://docs.litellm.ai/docs/proxy/virtual_keys) — public reference for proxy budgets, request/token rate limits, and parallel-request limits
+- [Internal long-running-agent cost RCA](https://razorpay.slack.com/archives/C0AGH2H7ZJ5/p1784797678792069) — why complete accounting, bounded runs, scoped tools, and a kill switch belong in one launch contract
