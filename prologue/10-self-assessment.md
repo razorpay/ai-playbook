@@ -14,7 +14,7 @@ next: "prologue/safety-brief"
 pillar: null
 belt: null
 tags: ["orientation", "self-assessment", "belts"]
-updated: "2026-05-29"
+updated: "2026-07-24"
 ---
 
 # 0.10 — Self-assessment: which belt should you start at?
@@ -30,6 +30,26 @@ Start at the first belt whose boss fight you cannot already pass.
 Not the belt that sounds impressive. Not the belt your title suggests. Not the belt your manager hopes the team will reach by quarter-end. The first belt whose evidence you do not yet have.
 
 This keeps the playbook honest. A curious PM may belong at White Belt for coding and already be strong in Ops 101. A staff engineer may skip the software vocabulary and still need Yellow Belt habits around permissions, prompt quality, and AI-assisted PRs in the Razorpay harness.
+
+---
+
+## Belts are not the PM L1–L5 rubric
+
+Razorpay Product also has a [PM-specific AI-proficiency framework](https://razorpay.slack.com/archives/C3GF5LWJK/p1781861706163579). It answers a different question from this page.
+
+| System | Question it answers | Evidence to use |
+|---|---|---|
+| **Playbook belts** | Where should I start learning? | The first boss fight you cannot pass yet. |
+| **PM AI-proficiency L1–L5** | How does the Product Function describe my AI proficiency as a PM? | The criteria in the published PM framework and evidence from your work. |
+
+There is no conversion table. Yellow Belt does not mean L2; Black Belt does not mean L4. Your belt and PM proficiency level can differ without contradiction because one routes learning and the other describes role proficiency.
+
+Use two questions:
+
+1. **Placing yourself in the curriculum?** Use the boss-fight rule on this page.
+2. **Discussing PM AI proficiency?** Use the published L1–L5 criteria. Treat the adoption dashboard as [one input, not the rubric itself](https://razorpay.slack.com/archives/C3GF5LWJK/p1783005081457329).
+
+The published ladder is PM-specific. Do not assume its labels apply unchanged to Design, Engineering, or another function.
 
 ---
 
@@ -79,6 +99,7 @@ That evidence matters even if you never touch a repo.
 ## What you should carry forward
 
 - Start from evidence, not confidence.
+- Keep playbook belts separate from the PM L1–L5 proficiency rubric.
 - Pick the lower belt when in doubt.
 - Ops 101 is a real track with a real boss fight.
 - You can always skip forward after proving the earlier evidence.
