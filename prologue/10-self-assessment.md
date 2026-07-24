@@ -42,7 +42,7 @@ Razorpay Product also has a [PM-specific AI-proficiency framework](https://razor
 | **Playbook belts** | Where should I start learning? | The first boss fight you cannot pass yet. |
 | **PM AI-proficiency L1–L5** | How does the Product Function describe my AI proficiency as a PM? | The criteria in the published PM framework and evidence from your work. |
 
-There is no conversion table. Yellow Belt does not mean L2; Black Belt does not mean L4. Your belt and PM proficiency level can differ without contradiction because one routes learning and the other describes role proficiency.
+Do not invent a conversion table. Yellow Belt does not mean L2; Black Belt does not mean L4. Your belt and PM proficiency level can differ without contradiction because one routes learning and the other describes role proficiency.
 
 Use two questions:
 
