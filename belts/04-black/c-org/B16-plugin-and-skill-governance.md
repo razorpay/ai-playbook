@@ -14,7 +14,7 @@ next: "belts/black/boss-fight-pod-ai-uplift"
 pillar: "governance"
 belt: "black"
 tags: ["black-belt", "governance", "plugin-lifecycle"]
-updated: "2026-07-15"
+updated: "2026-07-24"
 ---
 
 # B.16 — Plugin + skill governance: approval, deprecation, security review
@@ -27,7 +27,7 @@ A platform-builder community without lifecycle governance accumulates orphan plu
 
 ## If you're short on time
 
-- Three governance moves: **approval** (for shared-skill changes and new plugin marketplace entries), **deprecation** (for skills or plugins no team owns anymore), **security review** (for workflows handling sensitive data).
+- Three governance moves: **approval** (through the right repository PR for a shared skill or marketplace entry), **deprecation** (for skills or plugins no team owns anymore), **security review** (for workflows handling sensitive data).
 - Each plugin moves through a lifecycle: **published → adopted → deprecated → removed**. Each transition has a named owner and a written trigger.
 - The discipline is *quiet*. Governance that bites at the wrong moment is a bottleneck; governance that bites at the right moment prevents the platform from drifting.
 
@@ -64,7 +64,7 @@ This is also the module where the Black Belt's role changes most sharply. Throug
    │                      announcement made)              │
    │      ▼                                               │
    │   REMOVED           (deprecation window elapsed;    │
-   │                      plugin removed from channel;    │
+   │                      removed from active discovery;  │
    │                      historical entry archived)     │
    │                                                      │
    └────────────────────────────────────────────────────┘
@@ -78,7 +78,7 @@ Most plugins never reach DEPRECATED. The governance work is for the ones that do
 
 ### What it is
 
-A shared-skill change lands through a normal `razorpay/agent-skills` pull request. The owning team or business function reviews the workflow; DevEx reviews changes that affect repository structure. This scope-sensitive path keeps approval with the people who understand the work without turning every skill into a central-platform queue.
+A standalone shared-skill change lands through a normal [`razorpay/agent-skills`](https://github.com/razorpay/agent-skills) pull request. A plugin or a skill packaged for the Razorpay marketplace lands through a normal [`razorpay/claude-plugins`](https://github.com/razorpay/claude-plugins) pull request, then propagates to the marketplace after merge. In either route, the owning team or business function reviews the workflow; DevEx reviews changes that affect repository structure. This scope-sensitive path keeps approval with the people who understand the work without turning every contribution into a central-platform queue.
 
 The review establishes five basics:
 
@@ -86,13 +86,20 @@ The review establishes five basics:
 - **Bounded scope.** `SKILL.md` says when the skill activates, what it produces, and where it stops.
 - **Repository-native shape.** The contribution uses `SKILL.md` plus optional `references/`, `scripts/`, and `assets/`; it does not invent `pack.yml` or per-skill wrapper docs.
 - **Validation.** Repository checks pass, and any bundled scripts have representative execution evidence.
-- **Install path.** The named skill installs from `razorpay/agent-skills` in a clean environment.
+- **Install path.** A standalone skill installs from `razorpay/agent-skills` in a clean environment; a marketplace entry appears in the Razorpay marketplace after merge.
 
 If the contribution is a plugin or includes an MCP server, the relevant packaging, auth, permission, and error-contract review still applies. A skill PR does not erase the security boundary of the tools it invokes.
 
 ### How it works
 
-A submitter opens the repository PR with the use case, placement, owner, invocation, validation, and non-goals. The owning team reviews normal skill content. DevEx joins when the PR changes repository structure; plugin, MCP, or sensitive-data changes add the reviewers their scope requires. The merged PR is the durable approval record. Share the merged path and install command in `#devex-skills` for discovery.
+Choose the route before opening the PR:
+
+| If you are shipping | Open the PR in | Verify after merge |
+|---|---|---|
+| A standalone shared skill for supported coding agents | `razorpay/agent-skills` | Install the named skill from a clean environment. |
+| A plugin, or a skill packaged for the Razorpay marketplace | `razorpay/claude-plugins` | Confirm the entry propagated to the marketplace and installs from there. |
+
+Whichever route you choose, the PR names the use case, placement, owner, invocation, validation, and non-goals. The owning team reviews normal workflow content. DevEx joins when the PR changes repository structure; plugin, MCP, or sensitive-data changes add the reviewers their scope requires. The merged PR is the durable approval record. Use the [current product-function announcement feed](../../../appendices/F-slack-channels/README.md#product--design-context) for marketplace discovery and updates.
 
 ### What it is not
 
@@ -114,7 +121,7 @@ A submitter opens the repository PR with the use case, placement, owner, invocat
 
 Sometimes a plugin's owner team disbands, transfers ownership, or moves on to a different focus. Sometimes a successor plugin exists and the original is no longer the right surface. Sometimes the plugin's dependencies have moved (a connector class changed; a model the plugin depends on is itself deprecated) and updating is non-trivial.
 
-Deprecation is the named move that says: this plugin is on its way out. Adopters should plan migration. After the deprecation window, the plugin will be removed from the channel.
+Deprecation is the named move that says: this plugin is on its way out. Adopters should plan migration. After the deprecation window, the plugin will be removed from active discovery.
 
 ### How it works
 
@@ -200,7 +207,7 @@ The three moves are not parallel; they compose.
 
 ```
    ┌────────────────────────────────────────────────────┐
-   │   Submitter posts new plugin                         │
+   │   Submitter opens route-appropriate PR               │
    │              │                                       │
    │              ▼                                       │
    │   Approval (Move 1) — has README, owner, tests, etc │
@@ -237,7 +244,7 @@ A redacted shape. Names removed; numbers illustrative.
 >
 > **Trigger.** A successor plugin, `org-status-pack` v1.0, has shipped. The successor handles three additional report shapes that `weekly-status-pack` does not, and the platform-builder community has consensus that the successor replaces the original.
 >
-> **Day 0.** Owner team posts in [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW): "`weekly-status-pack` v1.x is deprecated as of <today>. Successor: `org-status-pack` v1.0. Migration guide: <link to a one-page doc walking the change>. Removal date: <today + 90 days>." The post is pinned. The known adopters (5 PODs) get a direct mention with the migration link.
+> **Day 0.** Owner team publishes an update through the [current product-function announcement feed](../../../appendices/F-slack-channels/README.md#product--design-context): "`weekly-status-pack` v1.x is deprecated as of <today>. Successor: `org-status-pack` v1.0. Migration guide: <link to a one-page doc walking the change>. Removal date: <today + 90 days>." The known adopters (5 PODs) are notified directly with the migration link.
 >
 > **Day 30.** Owner team posts a status update: 3 of 5 known adopters have migrated. The remaining 2 have specific blockers. The blockers are documented; the migration guide is updated to address them.
 >
@@ -269,7 +276,7 @@ The discipline: announcement at day 0, status update at day 30, status update at
 
 The per-move sections each named theirs; a cross-cutting list:
 
-- **Skipping approval because "it's a small plugin."** Plugins do not stay small once adopted. Fix: every plugin entering the channel goes through approval.
+- **Skipping approval because "it's a small plugin."** Plugins do not stay small once adopted. Fix: every plugin entering the marketplace goes through approval in its contribution PR.
 - **Letting plugins ride into the marketplace as personal handles.** The first orphan event surfaces this. Fix: ownership audit; the personal-handle pattern is not approved.
 - **Treating security review as a one-time gate.** Triggers recur. Fix: the lifecycle accommodates re-review.
 - **Deprecation announcements that are vague.** Adopters do not know what to do. Fix: the announcement names the path forward and the dates.
