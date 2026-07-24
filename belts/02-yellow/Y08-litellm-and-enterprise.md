@@ -14,7 +14,7 @@ next: "belts/yellow/figma-mcp"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "litellm", "claude-workspaces", "claude-team", "model-routing"]
-updated: "2026-07-23"
+updated: "2026-07-24"
 ---
 
 # Y.8 - LiteLLM and Claude workspace access
@@ -66,7 +66,7 @@ No. Routing infrastructure is not the knowledge source. It helps manage model ca
 Work through this top to bottom:
 
 1. **Did support explicitly provision Claude Team and send the migration SOP?** Follow that SOP and use the specified Team workspace or subscription route. Do not assume an old Enterprise workspace, Team workspace, and LiteLLM key share access or history.
-2. **No Team provision?** Keep using your existing Enterprise workspace for approved hosted work and terminal Claude Code through the models enabled on your LiteLLM key. Team access is not a prerequisite for the belt.
+2. **No Team provision?** Keep using your existing Enterprise workspace for approved hosted work and terminal Claude Code through the models enabled on your LiteLLM key. Team access is not a prerequisite for the belt. If Desktop credits run out, do not request an extension: current support no longer extends them and routes further work to LiteLLM. Follow [W.5's canonical setup](../01-white/W05-installing-the-stack.md) if your terminal route is not ready.
 3. **Need org knowledge?** Choose an approved workspace or connector that can see that context. A model route alone cannot search Slack, docs, or design files.
 4. **The route changed or fails?** Preserve the exact error, selected model, and surface, remove secrets, then post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not request another plan as a generic quota bypass.
 
@@ -122,6 +122,8 @@ Those are later-belt or platform topics.
 **"I treated a Team invite as extra LiteLLM quota."** They are separate access paths. Use the route support assigned; do not combine credentials or assume budgets transfer.
 
 **"I assumed Enterprise and Team share workspace history."** Do not assume cross-workspace continuity. Verify the destination named in the migration SOP before relying on projects or prior chats.
+
+**"I ran out of Desktop credits and requested more."** Desktop credits are no longer extended. Continue through the LiteLLM route enabled on your key; if that route is not configured, follow W.5 rather than improvising another account or credential.
 
 **"I treated routing errors like prompt errors."** If every prompt fails before reasoning starts, route the model path issue.
 
