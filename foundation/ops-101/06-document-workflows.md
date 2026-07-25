@@ -14,7 +14,7 @@ next: "ops-101/lightweight-agents"
 pillar: null
 belt: null
 tags: ["ops-101", "documents"]
-updated: "2026-04-26"
+updated: "2026-07-25"
 ---
 
 # 0B.6 — Document workflows
@@ -159,6 +159,40 @@ This is the most automatable phase. *Export is mostly formatting.*
 Review each, ship each. The PDF and the slide outline you'll typically tweak; the Slack post and the exec summary usually go untouched.
 
 **Reliability tip.** Don't let AI auto-post anything outbound. The export recipe stops at *files in the project folder*; the human posts. The cost of an auto-posted summary with one wrong claim is too high relative to the seconds saved by skipping the review click.
+
+---
+
+## Workflow card — Migrate a document without losing its evidence
+
+Sometimes the document already exists; the template changed. A spec, RFC, or design proposal now needs the current structure without losing the decisions and sources people already rely on. This is a **conservation task**, not a fresh-draft task.
+
+Use Slash or another connected document agent, but check access before the long run starts: ask it to open both the source and the target template. If either read fails, connect the required workspace or Drive source, or paste the template into the thread. Do not let the agent infer a template it cannot read.
+
+**Copyable request**
+
+> "Duplicate [SOURCE DOCUMENT]. Do not modify the original.
+>
+> Restructure only the duplicate to follow [TARGET TEMPLATE].
+>
+> Rules:
+> - Preserve every source link and supported claim from the original.
+> - Map existing content to the best matching target section; do not silently drop content that does not map cleanly.
+> - Do not invent material to fill an empty section. Mark it `[NEEDS OWNER INPUT]` and state exactly what is missing.
+> - Keep the original document linked in the duplicate's sources.
+>
+> Before finishing, re-open the published duplicate and verify it against both inputs. Return the duplicate link, a source-to-target section map, a list of owner-input gaps, and the validation results."
+
+**Five checks before you share it**
+
+- [ ] The original remains unchanged.
+- [ ] Every required target section exists or carries an explicit owner-input marker.
+- [ ] Every original source link survives in the duplicate.
+- [ ] No unsupported detail was added to make an empty section look complete.
+- [ ] The published duplicate was re-opened and checked, not merely declared finished.
+
+If any box fails, do not share the migration as complete. Fix the gap or name the owner who must close it.
+
+This is a live internal pattern, not a hypothetical prompt: Slash has [published nine project documents while preserving their spec structure](https://razorpay.slack.com/archives/C0A94EJ38NP/p1781507279818589?thread_ts=1781506641.485349) and [migrated an existing AI Docs proposal while preserving 34 sources and passing section validation](https://razorpay.slack.com/archives/C09CG60KLMU/p1784887052481499?thread_ts=1784886439.284629).
 
 ---
 
