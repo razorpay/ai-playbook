@@ -14,7 +14,7 @@ next: "prologue/enablement-stack"
 pillar: null
 belt: null
 tags: ["orientation", "mental-model"]
-updated: "2026-07-07"
+updated: "2026-07-26"
 ---
 
 # 0.3 — The 5-Layer Mental Model of the AI Dev Stack
@@ -145,7 +145,7 @@ Why a centralised gateway and not a provider API directly? Three reasons, all pr
 
 **Migration note.** Until March 2026, Razorpay routed through Google Vertex AI with `gcloud auth application-default login`. That path is retired. If a teammate's notes, an old `~/.bashrc`, or an old wiki page mentions Vertex, `aiplatform.googleapis.com`, `ANTHROPIC_VERTEX_PROJECT_ID`, or `CLAUDE_CODE_USE_VERTEX`, treat it as stale and follow [W.5](../belts/01-white/W05-installing-the-stack.md). Stale Vertex env vars are the single most common cause of `403 PERMISSION_DENIED` errors today.
 
-The one reflex that pays off: **if Claude suddenly stops responding or errors with `401 authentication_error`, your LiteLLM key likely rotated or expired.** Re-running the setup script (`curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash`) re-mints it and writes the new value into `~/.claude/settings.json`. `403 PERMISSION_DENIED` mentioning `aiplatform.googleapis.com` means the opposite — your shell still has Vertex env vars set from the old path; remove them and restart your terminal. See the eight common failure modes in [W.5](../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
+The one reflex that pays off: **if Claude suddenly stops responding or errors with `401 authentication_error`, your LiteLLM key likely rotated or expired.** Re-running the setup script (`curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash`) re-mints it and writes the new value into `~/.claude/settings.json`. `403 PERMISSION_DENIED` mentioning `aiplatform.googleapis.com` means the opposite — your shell still has Vertex env vars set from the old path; remove them and restart your terminal. See the ten common failure modes in [W.5](../belts/01-white/W05-installing-the-stack.md#common-failure-modes).
 
 ### Layer 4 — Compass + Plugins
 
