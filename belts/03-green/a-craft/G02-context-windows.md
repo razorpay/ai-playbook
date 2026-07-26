@@ -6,15 +6,16 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 2
-time_minutes: 20
+updated: 2026-07-26
+time_minutes: 30
 audience: "experienced-builder"
-outcome: "Internalise the context-window constraint and use it to make better decisions about what to load, what to summarise, and what to leave out."
+outcome: "Understand why context windows fill, protect the useful window, and choose when to continue, compact, or hand off to a fresh session."
 prev: "belts/green/three-pillars"
 next: "belts/green/claude-md-real-service"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "context-windows", "constraint"]
-updated: "2026-07-16"
+updated: "2026-07-26"
 ---
 
 # G.2 — Why context windows fill
@@ -25,9 +26,9 @@ Every other Green Belt module — CLAUDE.md design, skills authorship, subagent 
 
 ## If you're short on time
 
-- A context window is a fixed-size scratchpad the agent reads from while answering. Once it is full, older content gets pushed out.
-- Quality drops well before the window is full. By the time you are at 80%, the agent is missing things it read at the start.
-- Every CLAUDE.md, every skill, every connector pull, every "read this file" is a withdrawal from a budget you cannot top up.
+- A context window is a fixed-size scratchpad the agent reads from while answering. As it fills, older detail may be compacted or receive less attention.
+- Quality can drop before the technical limit. Relevant constraints compete with conversation history, broad file reads, logs, and tool output.
+- Every CLAUDE.md, active skill body, connector pull, and "read this file" is a withdrawal from a budget you cannot top up inside the same session.
 
 ---
 
@@ -77,25 +78,63 @@ Each of these is a budget line. Optimising one without seeing the others is how 
 
 ## Why quality drops before the window is full
 
-The agent does not stop working when the window hits 99%. Quality drops well before, because attention is not uniform across the window. Two patterns matter:
+A model's published context capacity is a limit, not a guarantee that every included detail guides every answer equally. Two patterns matter:
 
-- **Recency bias.** Recent content gets more attention. Older content gets less. By turn fifteen of a long session, the CLAUDE.md you read at turn one is still technically "in the window" but barely guiding the response.
+- **Uneven attention.** Earlier details compete with newer instructions and may guide the response less reliably as the session grows.
 - **Noise pressure.** A 200-line `npm install` log dilutes everything around it. The signal-to-noise ratio of the window matters more than the raw size.
 
-The Green Belt habit is to treat the window as 50% useful, not 100% useful, and design for that.
+The Green Belt habit is to budget for relevance, not maximum capacity. A smaller window filled with the right evidence beats a larger one filled with residue.
 
 ---
 
-## What this means for your habits
+## Run a five-minute context audit
 
-Six rules of thumb:
+Context hygiene is a loop, not a heroic cleanup after the agent gets confused. Run this audit before a long research, analysis, or build step. You do not need an extra compression proxy to start.
 
-1. **Front-load constraints.** Important rules belong in CLAUDE.md or in the first few sentences of a prompt, not in a follow-up turn.
-2. **Trim tool output.** When a command's output is verbose, ask the agent to summarise before continuing. Or run with quieter flags.
-3. **Use skills to bundle context.** Skill bodies load on demand. A workflow you use weekly should be in a skill, not pasted into every prompt.
-4. **Retire context that is no longer relevant.** When a file is no longer needed, stop referencing it; the agent will rotate it out of attention.
-5. **Start fresh sessions for unrelated work.** A 90-turn session about authentication is the wrong place to start a styling task. New session, new window.
-6. **Watch for "the agent forgot" moments.** The fix is rarely to remind it; the fix is usually to start a new session with a tighter CLAUDE.md.
+### 1. Inspect the budget
+
+Run `/context`. Sort what you see into three buckets:
+
+- **Startup context:** system instructions, `CLAUDE.md`, enabled plugins, MCP tool definitions, and hooks.
+- **Task inputs:** the brief, files, screenshots, data, and references needed for this outcome.
+- **Session residue:** earlier turns, superseded plans, broad searches, logs, and tool output that helped before but does not help now.
+
+Do not chase a magic utilisation percentage. Ask a better question: **does most of the available attention support the next decision?**
+
+### 2. Remove waste at the source
+
+Trim only what is irrelevant to the task:
+
+- narrow broad file, log, or data reads to the fields and time range you need;
+- move long, reusable procedures out of `CLAUDE.md` and into skills that load when invoked;
+- temporarily disable unused plugins or MCP servers if their definitions dominate startup context;
+- keep safety rules, acceptance criteria, and source links visible. Shorter is not better if it deletes the contract.
+
+### 3. Choose the right reset
+
+| Situation | Action |
+|---|---|
+| The goal is unchanged and the working context is focused | Continue. |
+| The goal is unchanged, but old conversation and tool output dominate | Run `/compact` with a focus such as `Preserve the accepted scope, unresolved decisions, source links, and verification commands.` |
+| The goal has changed, or the next phase needs a different evidence set | Write a handoff and start a fresh session. |
+
+A useful handoff is short and inspectable:
+
+```markdown
+Goal:
+Accepted decisions:
+Evidence and artefact links:
+Open questions:
+Next action and success check:
+```
+
+### 4. Verify the reset
+
+After compaction or a fresh session, run `/context` again. Ask the agent to restate the goal, constraints, unresolved decisions, and success check before it acts. If those changed, restore them from the source artefact rather than from memory.
+
+> **Try it now (five minutes).** Open one active session, run `/context`, name the largest item in each bucket, remove one irrelevant source, then choose **continue**, **compact**, or **handoff**. Record the before/after observation in your work note. The point is a repeatable decision, not a heroic token-savings screenshot.
+
+The `/context` and `/compact` commands are documented in [Claude Code's built-in commands](https://docs.anthropic.com/en/docs/claude-code/interactive-mode#built-in-commands). The lifecycle framing—architect, ingest, consolidate, and forget—comes from [Agentic Context Management](https://arxiv.org/abs/2607.21503v1). For a window-exhaustion error rather than routine hygiene, follow [Appendix D.14](../../../appendices/D-known-issues/README.md).
 
 ---
 
