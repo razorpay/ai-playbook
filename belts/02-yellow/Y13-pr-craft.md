@@ -14,7 +14,7 @@ next: "belts/yellow/staying-current"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "pull-request", "review"]
-updated: "2026-04-27"
+updated: "2026-07-27"
 ---
 
 # Y.13 - PR craft
@@ -30,6 +30,7 @@ Reviewers are busy. A clear PR is an act of respect.
 - Keep the PR small enough to review in minutes.
 - Include what changed, why, how you checked it, and what context informed it.
 - Use staged commits or staged files to keep unrelated changes out.
+- Before merge, verify the owning team's approval and the required checks separately. A review bot's approval does not turn red CI green.
 
 ---
 
@@ -149,6 +150,31 @@ Do not use `git add .` unless you have inspected every changed file. Yellow Belt
 
 ---
 
+## Approval is not merge readiness
+
+A PR can have a useful AI review and still be unsafe to merge. Review approval and automated checks answer different questions:
+
+- **Review asks:** does the change look correct, understandable, and appropriate to the right reviewer?
+- **Checks ask:** did the code pass the repo's tests, build, lint, security, and other automated gates?
+
+A reviewer bot is one source of review evidence. It is not the code owner, and its approval does not override a failed or unfinished check.
+
+Before merging, use this stop/go gate:
+
+```text
+MERGE READINESS
+[ ] The owning team's reviewer has approved or explicitly cleared the merge.
+[ ] Every required check is complete and green.
+[ ] Requested changes and unresolved review threads are closed.
+[ ] I re-read the final diff after the latest commit.
+
+Any unchecked box = stop. Do not merge yet.
+```
+
+If a check is red, open it and read the failing step. Fix and re-run it, or ask the owning team whether the failure is understood and how that repo handles it. Do not infer that a visible merge button makes the failure safe to ignore.
+
+---
+
 ## Review etiquette
 
 - Tag the right reviewer, not the nearest friend.
@@ -177,6 +203,8 @@ I can make the typo/copy fix here. The broader state refactor may need a separat
 
 **"Claude wrote the description and I did not check it."** Read it. Remove invented claims.
 
+**"The review bot approved, so I merged with red CI."** Approval and checks are independent. Stop, get the owning team's clearance, and make every required check green before merge.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
@@ -186,7 +214,8 @@ You are **GREEN** if:
 - your PR title is specific;
 - your description includes triage and checks;
 - the diff is small and intentional;
-- a reviewer path is clear.
+- a reviewer path is clear;
+- the owning-team approval and required checks are both green before merge.
 
 You are **YELLOW** if:
 
