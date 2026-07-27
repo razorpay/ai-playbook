@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-07-22"
+updated: "2026-07-27"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -114,6 +114,8 @@ Slash offers three knowledge-first depths. Put the mode immediately after `@slas
 | `@slash --plan-accurate <question>` | A high-stakes or cross-service question needs a deeper multi-repo search and can wait longer. |
 
 Start with `--plan` when you are unsure. Use `--plan-fast` for bounded lookups, not broad flows. If fast mode returns `INSUFFICIENT_CURATED_KNOWLEDGE`, move to `--plan` or `--plan-accurate`; do not keep rewording the prompt until it agrees with you. A deeper mode broadens the evidence search—it does not make the answer automatically true—so check the cited source and its date before acting.
+
+**Hand off the question, not just the escalation.** Treat a deeper research run as a fresh session: repeat the full question and include the facts or links it needs. A reply such as “try again in research mode” does not carry the parent thread's context into the new run, so the research worker has nothing useful to investigate.
 
 Try it with a real decision: `@slash --plan Which team owns <area>, and which sources support that answer?`
 
