@@ -8,25 +8,26 @@ track: "black"
 order: 6
 time_minutes: 30
 audience: "platform-builder"
-outcome: "Design tool contracts — input schemas, output shapes, error shapes — that compose, scale, and survive version changes without breaking the agents that depend on them."
+outcome: "Design tool contracts — input schemas, output shapes, error shapes, and mutation gates — that compose, scale, and survive version changes without breaking the agents that depend on them."
 prev: "belts/black/multi-agent-orchestration"
 next: "belts/black/quest-publish-an-internal-plugin"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "tool-design", "json-schema", "contracts"]
-updated: "2026-07-15"
+updated: "2026-07-28"
 ---
 
 # B.6 — Tool design
 
-Every tool an agent calls has a contract: how the input is shaped, how the output is shaped, how errors are shaped. B.1 named the layer; this module is the design discipline. Tool contracts are the smallest unit of platform infrastructure a Black Belt builder ships, and they are the easiest one to get wrong.
+Every tool an agent calls has a contract: inputs, outputs, errors, side effects, and evolution. B.1 named the layer; this module is the design discipline. Tool contracts are the smallest unit of platform infrastructure a Black Belt builder ships, and they are the easiest one to get wrong.
 
 ---
 
 ## If you're short on time
 
-- A tool's contract is three things: input schema, output shape, error shape. All three are typed; none is free-form.
+- A tool's core call shape is three things: input schema, output shape, error shape. All three are typed; none is free-form.
 - Outputs are objects, not strings. Errors are typed, not text.
+- Mutating tools preview first, capture human confirmation outside the model, execute once, verify, and return a receipt.
 - Schemas evolve with semantic versioning. Adding fields is safe; renaming fields is breaking.
 
 ---
@@ -52,7 +53,7 @@ Every tool an agent calls has a contract: how the input is shaped, how the outpu
    │      a remediation hint.                        │
    │                                                  │
    │   4. SIDE EFFECTS (documented)                  │
-   │      What writes, what doesn't. Idempotency.   │
+   │      What writes, approval boundary, retry.    │
    │                                                  │
    │   5. VERSIONING                                  │
    │      Backward-compatible additions vs breaking │
@@ -134,6 +135,71 @@ A tool's contract should name its side effects clearly:
 The agent reads the side-effect documentation and decides retry behaviour accordingly. Tools whose side-effect behaviour is undocumented are tools the agent cannot use safely.
 
 A pattern that helps: an `idempotency_key` parameter on non-idempotent tools. The caller supplies a unique key; the tool deduplicates.
+
+### Mutating tools need a human decision boundary
+
+A schema can validate every argument and still permit the wrong action. A **mutating tool** changes something outside the conversation: a dashboard, ticket, document, permission, payment setting, deployment, or database. Treat each mutation as a small transaction with a human decision in the middle:
+
+1. **Preview** — resolve the target and show the exact proposed change, scope, and important side effects. Do not mutate yet.
+2. **Confirm** — ask the human to approve that specific preview. A vague earlier request is not approval for a materially different action.
+3. **Execute** — commit once, using the approved preview and an idempotency key. Do not let the model invent `confirmed: true` in its own tool call.
+4. **Verify** — read the result back from the source system instead of trusting a successful HTTP status alone.
+5. **Receipt** — return what changed, where, who approved it, and how to inspect or reverse it.
+
+The execution host or product UI must enforce confirmation. A sentence in the system prompt is not an approval control; prompt text can be ignored, misread, or injected.
+
+**Prefer separate preview and execute tools.** Do not hide preview and commit behind one overloaded tool with a `dry_run` boolean. Separate tools make the boundary visible in traces, permissions, and tests:
+
+```text
+preview_metric_update({ insight_id, query })
+→ {
+    preview_id: "pv_7h3k",
+    target: "GitHub PR Review Metrics / Auto-approved PRs",
+    before: "returns 0",
+    after: "returns 1",
+    side_effects: ["dashboard value changes for every viewer"],
+    expires_at: "<ISO 8601 expiry>"
+  }
+
+# The UI shows this preview and records an explicit human approval.
+
+execute_metric_update({ preview_id: "pv_7h3k", idempotency_key: "ik_82vb" })
+→ {
+    status: "applied",
+    receipt_id: "rc_91mq",
+    inspect_url: "https://…",
+    rollback_available: true
+  }
+
+verify_metric_update({ receipt_id: "rc_91mq" })
+→ { observed_query: "returns 1", status: "verified" }
+```
+
+The `preview_id` should be opaque, short-lived, bound to the actor and resolved arguments, and single-use after a successful commit. If the target, payload, permissions, or side effects change, invalidate the preview and ask again.
+
+#### Stop/go review card
+
+Before enabling a mutating tool, run this checklist with the PM, designer, and engineer who own the workflow:
+
+- [ ] **Target:** Does the preview name the exact object and environment?
+- [ ] **Diff:** Can a reviewer see the meaningful before/after change?
+- [ ] **Impact:** Does it state who or what will be affected, including irreversible effects?
+- [ ] **Approval:** Is confirmation captured outside model-generated text and bound to this preview?
+- [ ] **Replay safety:** Is execution idempotent, or otherwise protected from retries and double clicks?
+- [ ] **Evidence:** Does the tool read back the result and return an inspectable receipt?
+- [ ] **Recovery:** Is rollback documented, or is the lack of rollback explicit before approval?
+
+**Any unchecked box is a stop signal.** Keep the tool read-only until the contract is complete. For low-risk reversible changes, the card can stay compact. For payments, production data, access, or destructive operations, add the domain's existing approval and audit requirements rather than replacing them.
+
+| Failure | Why it happens | Design response |
+|---|---|---|
+| The agent previews one object and edits another | The target is re-resolved during execution | Bind execution to the opaque preview, not fresh model arguments |
+| The model confirms its own action | Approval is represented as a tool argument | Capture approval in the host/UI and issue a server-side grant |
+| A retry applies the change twice | The commit has no replay protection | Require an idempotency key and make receipts queryable |
+| The API returns success but the product is unchanged | Transport success is mistaken for outcome success | Read back from the source system and compare with the preview |
+| The user approves, then the payload changes | Approval is not tied to a preview version | Expire approval whenever material inputs change |
+
+This contract keeps the model useful without making conversational confidence equivalent to operational authority.
 
 ---
 
@@ -241,7 +307,7 @@ A consumer reading this contract can write a useful agent invocation in five min
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I design tool contracts with typed input schemas, structured output shapes, named error types, documented side effects, and SemVer-disciplined evolution. My tools' consumers can write a useful invocation in five minutes from the contract alone.
+- 🟢 GREEN: I design tool contracts with typed input schemas, structured output shapes, named error types, documented side effects, confirmation gates for mutations, and SemVer-disciplined evolution. My tools' consumers can write a useful invocation in five minutes from the contract alone.
 - 🟡 YELLOW: I understand the layers but my tools have at least one anti-pattern (free-form query, bare-array output, or untyped errors).
 - 🔴 RED — I have shipped tools whose contracts consumers cannot read without reading the implementation.
 
@@ -249,7 +315,7 @@ A consumer reading this contract can write a useful agent invocation in five min
 
 ## What you can say after this module
 
-> "I design tool contracts (input schemas, output shapes, error shapes, side effects, versioning) that compose with the multi-agent patterns from B.5 and survive evolution without breaking consumers."
+> "I design tool contracts (input schemas, output shapes, error shapes, mutation gates, versioning) that compose with the multi-agent patterns from B.5 and survive evolution without breaking consumers."
 
 ---
 
@@ -263,4 +329,5 @@ You have finished Black Belt Part A. Quest B-1 (*Publish a shared skill*) is the
 
 - [JSON Schema](https://json-schema.org/)
 - [Anthropic on tool use](https://docs.claude.com/en/docs/build-with-claude/tool-use/overview)
+- [MCP tools specification — human-in-the-loop controls and confirmation for sensitive operations](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
 - [G.7 — Writing your first SKILL.md](../../03-green/a-craft/G07-writing-your-first-skill.md) — output-shape discipline at the skill level
