@@ -14,7 +14,7 @@ next: "belts/green/daily-loop"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "production-compiler", "skill-pattern", "blade", "repair"]
-updated: "2026-04-29"
+updated: "2026-07-28"
 ---
 
 # G.17 — The production-compiler skill
@@ -29,6 +29,7 @@ The **production-compiler skill** is the canonical Razorpay pattern for repairin
 
 - The production-compiler skill takes AI-generated code that *works* but *does not match* the design system, and rewrites it to use Blade primitives, tokens, and variants — preserving behaviour and removing drift.
 - The skill is a context-pillar tool: it loads the Blade connector, reads the input code, maps to primitives, and emits compliant code. Behaviour is preserved by construction.
+- For experimental UI, validate one user task and capture `keep` / `change` / `drop` evidence before choosing a production route. A convincing demo is not merge evidence.
 - Use it on inherited AI output. Do not use it to "improve" your own clean code; that is over-fitting.
 
 ---
@@ -49,7 +50,45 @@ Your team has a screen built before the design-system connector existed. The scr
 
 ### Pattern 3 — An experiment that you want to ship
 
-You prototyped quickly in AI-Studio or ChatGPT to validate a design idea. The prototype works. To ship it, the production-compiler brings it to compliance.
+You prototyped quickly in Claude Design, AI-Studio, ChatGPT, or a separate UI sandbox to validate a design idea. The prototype works and reviewers can try the interaction rather than infer it from a document. To ship the idea, first freeze what the prototype proved; then use the production-compiler to bring any code you intend to keep to compliance.
+
+---
+
+## Prototype first, production second
+
+A working prototype should reduce uncertainty, not start implementation by stealth. Run this gate before turning experimental output into production code:
+
+1. **Name one question.** Write the user task and the decision the prototype must inform. "Can an operator spot a failing batch and reach the right file?" is testable; "make the dashboard better" is not.
+2. **Build one narrow slice.** Use Claude Design or an approved sandbox with representative, non-sensitive data. Add the states that could change the decision—such as healthy, partial, failed, and loading—not every screen in the backlog.
+3. **Watch the task, not the tour.** Give an intended user or reviewer the task without narrating the interface. Record where they pause, choose the wrong path, or ask for missing context.
+4. **Sort the evidence.** Mark each observation `keep`, `change`, or `drop`. Revise the prototype only where the evidence changes the decision.
+5. **Freeze the handoff.** Capture the accepted behaviour, required states, copy, unresolved questions, and the production source of truth. A smooth demo is not a production contract.
+
+Copy this card before a review:
+
+> **Prototype question:** `<one uncertainty this should resolve>`
+>
+> **User task:** `<what the reviewer should complete without help>`
+>
+> **Boundary:** `<what this prototype deliberately does not prove>`
+>
+> **States to test:** `<happy path + decision-changing edge states>`
+>
+> **Evidence:** `keep: ...` · `change: ...` · `drop: ...`
+>
+> **Production source of truth:** `<Figma frame, validated code input, or not ready>`
+>
+> **Open questions:** `<owner + question, or none>`
+
+Then choose the production route deliberately:
+
+| What the review established | Next move |
+|---|---|
+| The interaction is still changing | Keep it in the sandbox. Run another task-based review; do not open a production PR. |
+| A Figma frame is now the source of truth | Run [G.15's design-intel → production-compiler flow](G15-design-to-code.md). |
+| Experimental code is the owning team's agreed implementation input | Run the production-compiler, read every gap, then verify with the test suite (G.12), daily loop (G.18), and normal PR review. |
+
+The gate passes when the task is completable, the decision-changing states are named, unresolved questions are visible, and the production route is explicit. Until then, the prototype has done useful discovery work—but it has not earned a merge button.
 
 ---
 
@@ -159,13 +198,15 @@ Three reasons the production-compiler is the canonical "repair AI output" skill 
 
 **Not re-running the test suite after the rewrite.** The skill claims to preserve behaviour. Trust but verify. Fix: always re-run tests.
 
+**Promoting a prototype because the demo went well.** A walkthrough can hide missing states and accidental assumptions. Fix: run the task-based review, capture the keep/change/drop evidence, and choose the production route before opening a PR.
+
 **Filing a Blade contribution in the same PR.** Two changes at once. Fix: ship the production-compiler PR first, file the Blade contribution as a follow-up.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I recognise when inherited or experimental code needs the production-compiler, run it, read the gap report, and ship a Blade-compliant PR with confidence.
+- 🟢 GREEN: I validate experimental UI before promotion, recognise when inherited or experimental code needs the production-compiler, read the gap report, and ship a Blade-compliant PR with confidence.
 - 🟡 YELLOW — I have heard of the skill but my instinct on inheriting drift is still to polish by hand.
 - 🔴 RED — My branches still ship with custom `<div>` components and raw colour values.
 
@@ -173,7 +214,7 @@ Three reasons the production-compiler is the canonical "repair AI output" skill 
 
 ## What you can say after this module
 
-> "I run the production-compiler on inherited or experimental AI output to bring it to Blade compliance — and I read the gap report deliberately instead of accepting the rewrite blindly."
+> "I validate an experimental UI before promotion, then run the production-compiler on the agreed input to bring it to Blade compliance — reading the gap report instead of accepting the rewrite blindly."
 
 ---
 
@@ -189,3 +230,6 @@ G.18 (*The daily loop*) opens the harness cluster. After the design-to-code chap
 - [G.15 — Design-to-code](G15-design-to-code.md)
 - [G.16 — Blade deep dive](G16-blade-deep-dive.md)
 - [G.7 — Writing your first SKILL.md](../a-craft/G07-writing-your-first-skill.md)
+- [Internal design launch: Claude prototype → reviewed production handoff](https://razorpay.slack.com/archives/C07KLQKSB6U/p1780551728148209)
+- [Internal design launch: functional React + Blade prototype → five approved PRs](https://razorpay.slack.com/archives/C07KLQKSB6U/p1783333918764849)
+- [Lenny's Newsletter: prototype and production are different leverage rungs](https://www.lennysnewsletter.com/p/how-top-pms-increase-their-leverage)
