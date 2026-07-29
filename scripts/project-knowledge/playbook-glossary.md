@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "glossary", "reference"]
-updated: "2026-05-08"
+updated: "2026-07-23"
 ---
 
 # Appendix G: Glossary
@@ -65,7 +65,9 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 **Claude Code.** Anthropic's terminal-native coding agent. The program's default coding tool. See [Appendix A — Tool Atlas](https://razorpay.github.io/ai-playbook/A-tool-atlas/).
 
-**Claude Enterprise.** Anthropic's team plan offering with SSO, admin controls, and audit. See [Y.8](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y08-litellm-and-enterprise/).
+**Claude Enterprise.** Razorpay's org-workspace path for approved hosted chat and knowledge work. It can coexist with separately provisioned Claude Team access and a LiteLLM code route. See [Y.8](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y08-litellm-and-enterprise/).
+
+**Claude Team.** A separately provisioned, seat-limited Anthropic subscription path used for selected Razorpay users. An Enterprise workspace or LiteLLM key does not imply Team access. See [Y.8](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y08-litellm-and-enterprise/).
 
 **Claude.ai.** Anthropic's web chat interface. Useful for thinking out loud and working with text. See [Appendix A — Tool Atlas](https://razorpay.github.io/ai-playbook/A-tool-atlas/).
 
@@ -73,7 +75,7 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 **Coaching.** Situation-driven, shorter-term, more directive support for a specific situation. Distinct from mentoring. See [C.4 — Mentoring and sponsorship](https://razorpay.github.io/ai-playbook/belts/05-council/C04-mentoring-and-sponsorship/).
 
-**Codex.** OpenAI's coding agent. Available for teams that prefer it. See [Appendix A — Tool Atlas](https://razorpay.github.io/ai-playbook/A-tool-atlas/).
+**Codex.** OpenAI's coding agent. At Razorpay it is an optional secondary surface, not the default quota fallback; use it only when current support guidance confirms access for a bounded task. See [Appendix A — Tool Atlas](https://razorpay.github.io/ai-playbook/A-tool-atlas/).
 
 **Cohort.** A group of builders progressing through a belt or program element together. The Ship-to-Learn cohort is the structured Green Belt path.
 
@@ -259,7 +261,7 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 ## V
 
-**Vertex AI.** Google Cloud's AI platform. The program routes some calls through Vertex via LiteLLM. See [W.6](https://razorpay.github.io/ai-playbook/belts/01-white/W06-llm-gateway/).
+**Vertex AI.** Google Cloud's AI platform. Razorpay routed Claude through Vertex until the March-2026 migration to the LiteLLM gateway; it is no longer in the active model path. If you see Vertex env vars in a teammate's setup, they are stale. See [W.4](https://razorpay.github.io/ai-playbook/belts/01-white/W04-auth-setup/) and [W.6](https://razorpay.github.io/ai-playbook/belts/01-white/W06-llm-gateway/).
 
 ## W
 

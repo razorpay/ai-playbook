@@ -115,9 +115,9 @@ A new user who has the twelve commands and four shortcuts can do most of what Wh
 
 ## When to escalate
 
-If the terminal prints an error you do not understand, copy the full error and ask in the program's primary support channel. Do not retype the error from memory; the exact wording matters.
+If the terminal prints an error you do not understand, copy the full error and ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not retype the error from memory; the exact wording matters.
 
-If you accidentally delete something with `rm`, stop typing. Some recovery is possible if you act quickly, especially through the system's trash mechanism. Reach out to the program's primary support channel before doing anything else.
+If you accidentally delete something with `rm`, stop typing. Some recovery is possible if you act quickly, especially through the system's trash mechanism. Reach out in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) before doing anything else.
 
 ---
 
@@ -197,7 +197,7 @@ The first line is what shows up in `git log --oneline`. Make it useful.
 
 ## When to escalate
 
-If `git pull` produces a merge conflict and you do not know what to do, **stop typing**. Take a screenshot or copy the output, and ask in the program's primary support channel. Bad merge resolutions are how repositories get into states that are hard to recover from.
+If `git pull` produces a merge conflict and you do not know what to do, **stop typing**. Take a screenshot or copy the output, and ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Bad merge resolutions are how repositories get into states that are hard to recover from.
 
 If you see "DETACHED HEAD" in `git status`, you can usually recover with `git checkout <branch-name>`. If you are unsure, ask.
 
@@ -498,6 +498,8 @@ Without the loop, the same answer gets given over and over and the team's contex
 
 **Step 1 — Get access.** [myaccess.microsoft.com](https://myaccess.microsoft.com) → search "Claude AI" → submit → manager approves → wait ~30–40 minutes for Azure AD sync → install Claude Desktop from Self Service → sign into [claude.ai](https://claude.ai) with SSO.
 
+Use Desktop/claude.ai to confirm your enterprise seat and for chat/co-work only. Do **not** treat Desktop as the code path: product announced on 2026-07-07 that Claude Code on Claude Desktop is being disabled, so code work should use the terminal Claude Code + LiteLLM setup below.
+
 **Step 2 — Install Claude Code.** Run this in your terminal, then restart the terminal:
 
 ```bash
@@ -506,17 +508,52 @@ curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
 
 ---
 
-## The five GREEN checks (Quest W-0)
+## PM/product add-ons after you are GREEN
+
+These are not part of Quest W-0. Install them only after Claude Code opens cleanly.
+
+Before installing either add-on, confirm that GitHub opens both [`razorpay/claude-plugins`](https://github.com/razorpay/claude-plugins) and [`razorpay/self-serve-analytics`](https://github.com/razorpay/self-serve-analytics). If either repository says you do not have access, route the request through [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD); setup cannot repair missing repository access.
+
+**PM tracer for the AI Adoption Leaderboard:**
 
 ```bash
-# 1. Setup script printed "Setup complete"
-# 2. Terminal restarted (close window, open new one)
-claude --version    # 3. prints a version
-claude              # 4. opens cleanly
-> hello             # 5. round-trips a reply
+claude marketplace add razorpay-marketplace https://github.com/razorpay/claude-plugins.git  # first time only
+claude marketplace update razorpay-marketplace
+claude plugin install rzp-pm-tracing@razorpay-marketplace
 ```
 
-If any check fails → see Common failures below.
+Restart Claude Code, then run `/tracing-doctor` inside Claude. It checks the tracing pipeline end to end and names the fix for any failed row.
+
+**Agentic Analytics for metric questions:**
+
+```bash
+claude plugin install analytics-agent@razorpay-marketplace
+```
+
+Inside Claude, run `/analytics-setup`, then `/analytics-onboard`. Use `/analytics-query` for metric questions, `/analytics-review` for health reviews, and `/analytics-feedback` to attach a thumbs-up or thumbs-down plus an optional note to the previous answer. This is the replacement path for the old Compass `querying-metrics` skill.
+
+**Prove both add-ons are GREEN.** Installation is not the acceptance criterion. Check both boxes before moving on:
+
+- [ ] Claude Code shows the Analytics Agent commands, including `/analytics-setup`, `/analytics-onboard`, `/analytics-query`, and `/analytics-feedback`.
+- [ ] `/tracing-doctor` reports every row GREEN, with the final row saying `emit + read-back confirmed`.
+
+If either box fails, update the marketplace, restart Claude Code, and rerun the relevant setup or doctor command. Follow the command's exact fix before escalating in `#ai-help`.
+
+Native Windows caveat: the analytics plugin currently assumes a Unix-like surface (`bash`, `python3`, shell-launched connectors, and POSIX locking for tracing). If you are on Windows, do **not** try to hand-port it; ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) for the approved WSL2 or remote Linux path before installing.
+
+---
+
+## Reach GREEN (Quest W-0)
+
+Start Claude Code in a fresh terminal, then ask:
+
+```text
+Run setup-verify.
+```
+
+The report must show overall **GREEN** and ten GREEN rows: Node + pnpm; Claude Code auth; internal npm registry; corporate-proxy certificate; no stale Vertex variables; LiteLLM gateway; Compass plugin; Git + corp SSO; required environment variables; and program health endpoints.
+
+If the skill cannot start, use Common failures below. If a row is YELLOW or RED, apply its one-line fix, re-run that check, then capture a fresh full report.
 
 ---
 
@@ -527,7 +564,7 @@ If any check fails → see Common failures below.
   "env": {
     "ANTHROPIC_BASE_URL": "https://llm-gateway.razorpay.com",
     "ANTHROPIC_CUSTOM_HEADERS": "x-litellm-api-key: Bearer sk-...",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
     "DISABLE_PROMPT_CACHING": "0",
@@ -538,7 +575,7 @@ If any check fails → see Common failures below.
 }
 ```
 
-The setup script writes this for you. Don't hand-edit unless [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) walks you through it.
+The setup script writes this for you. Don't hand-edit unless [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) walks you through it.
 
 ---
 
@@ -546,7 +583,7 @@ The setup script writes this for you. Don't hand-edit unless [`#claude-onboardin
 
 | If you need… | Channel |
 |---|---|
-| Setup, access, troubleshooting | [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) |
+| Setup, access, troubleshooting | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) |
 | Razorpay devstack / local env | [`#devstack-onboarding-support`](https://razorpay.slack.com/archives/C08T27QH5L4) |
 | Cowork desktop app | [`#cowork-help`](https://razorpay.slack.com/archives/C0B0G3NGLP6) |
 | Show what you built / read AI wins | [`#ai-bulletin`](https://razorpay.slack.com/archives/C08NRSW1BUZ) |
@@ -560,24 +597,26 @@ The setup script writes this for you. Don't hand-edit unless [`#claude-onboardin
 | Devex platform (codegen, tests) | [`#developer-experience`](https://razorpay.slack.com/archives/C08DS8AE7T8) |
 | API design / council | [`#api_council`](https://razorpay.slack.com/archives/C0168DC4DCZ) |
 
-Full directory in [Appendix F](https://razorpay.github.io/ai-playbook/F-slack-channels/). When in doubt about which channel to ask in, ask in `#claude-onboarding-support` and let it route.
+Full directory in [Appendix F](https://razorpay.github.io/ai-playbook/F-slack-channels/). When in doubt about which channel to ask in, ask in `#ai-help` and let it route.
 
 ---
 
-## The people to DM
+## Escalation roles — public first
 
-| Role | Current holder | DM when |
+The names below explain ownership; they are not first-contact shortcuts. Start in the public route so the question and fix remain searchable. Contact a role-holder directly only when that channel routes you there.
+
+| Role | Current holder | Start here |
 |---|---|---|
-| Program lead | Bhanu Prakash (`@Bhanu Prakash Rayapati`) | escalating something the channel hasn't resolved |
-| Engineering co-lead | Kaushik Bhat (`@kb`) | tooling, infrastructure, devex platform |
-| Setup script owner | Prafulla Anurag (`@prafulla`) | rerunning setup doesn't fix it |
-| Usage cap / quota | `@RKV` | hit the cap, Vertex-migration weirdness |
-| Design transformation | Saurabh Soni (`@Saurabh Soni`) | design-track-specific friction |
-| Compass plugin (co-owned) | Aravinth P K (`@Aravinth P K`) + Vaibhav Dhir (`@Dhir`) | plugin updates, skill load failures, contribution intent |
-| Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | Blade compliance edge cases |
-| Playbook author | Vaibhav Dhir (`@Dhir`) | a chapter reads wrong, something's missing, stale info to patch |
+| Program lead | Bhanu Prakash (`@Bhanu Prakash Rayapati`) | the relevant public channel; use `#ai-help` if you are unsure or the issue is unresolved |
+| Engineering co-lead | Kaushik Bhat (`@kb`) | `#developer-experience` for tooling, infrastructure, or devex platform questions |
+| Setup script owner | Prafulla Anurag (`@prafulla`) | `#ai-help` with the redacted setup output and what rerunning the script changed |
+| Usage cap / quota | `@RKV` | `#ai-help` with the exact limit error and manager approval for an approved exception |
+| Design transformation | Saurabh Soni (`@Saurabh Soni`) | `#ai-in-design` for design-track friction |
+| Compass plugin (co-owned) | Aravinth P K (`@Aravinth P K`) + Vaibhav Dhir (`@Dhir`) | `#rzp-claude-skills` or `#devex-skills` for plugin updates, skill failures, or contributions |
+| Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | `#design-system` for Blade compliance edge cases |
+| Playbook author | Vaibhav Dhir (`@Dhir`) | `#ai-help` with the stale line and a better source |
 
-For most questions, post in the right channel before DMing. DMs help you; channels help everyone. See [§0.6 — Meet the people](https://razorpay.github.io/ai-playbook/prologue/06-people-and-pocs/).
+Escalation order: post the full redacted context publicly, follow the channel's routing, then DM only if that route explicitly asks you to. See [§0.6 — Meet the people](https://razorpay.github.io/ai-playbook/prologue/06-people-and-pocs/).
 
 ---
 
@@ -585,14 +624,14 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 | Symptom | Fix |
 |---|---|
-| Manager OOO blocks MyAccess approval | post in `#claude-onboarding-support` with `@techit` tagged; admins bulk-approve |
-| "Free Plan" showing on claude.ai after approval | wait 30–40 minutes for Azure AD sync; if past 60 min, re-route in `#claude-onboarding-support` |
+| Manager OOO blocks MyAccess approval | post in `#ai-help` with `@techit` tagged; admins bulk-approve |
+| "Free Plan" showing on claude.ai after approval | wait 30–40 minutes for Azure AD sync; if past 60 min, re-route in `#ai-help` |
 | `403 PERMISSION_DENIED` referencing `aiplatform.googleapis.com` | remove `ANTHROPIC_VERTEX_PROJECT_ID`, `CLAUDE_CODE_USE_VERTEX`, `CLOUD_ML_REGION` from `~/.bashrc`/`~/.zshrc`; re-run setup; restart terminal |
 | `401 authentication_error` after laptop restart | re-run the setup script (re-mints the LiteLLM key) |
-| `429 RESOURCE_EXHAUSTED` on `claude-opus-4-6` | switch to Sonnet — edit `"model": "sonnet[1m]"` in `~/.claude/settings.json` or pass `--model sonnet` |
-| Hit the monthly $100 usage cap | DM `@RKV` or post in `#claude-onboarding-support` with manager approval visible |
+| `exceeded budget for model=claude-opus-4-6` or `claude-opus-4-7` | if the route is enabled, treat this as its model cap: check LiteLLM usage and use a lower-cost enabled route for routine work; do not switch to Opus 4.8 solely from this message |
+| Hit a model-wise or LiteLLM usage limit | trust LiteLLM over claude.ai usage; caps can change centrally; for frontier-model caps, try another enabled LiteLLM route—Claude, GPT, or an approved open-weight model—for routine work; Codex is not the default overflow route; if the total budget is exhausted, another gateway model, open-weight route, or personal Claude Max plan will not bypass it — wait for reset or post in `#ai-help` with manager approval for approved exceptions |
 | Usage missing from LiteLLM dashboard | `unset ANTHROPIC_BASE_URL ANTHROPIC_API_KEY` in current shell; remove persisted overrides from `~/.bashrc`/`~/.zshrc`; restart terminal |
-| Anything else | post in `#claude-onboarding-support` with: command run, redacted output, machine class, what you tried |
+| Anything else | post in `#ai-help` with: command run, redacted output, machine class, what you tried |
 
 ---
 
@@ -609,7 +648,7 @@ For most questions, post in the right channel before DMing. DMs help you; channe
 
 ---
 
-*Last reviewed: 2026-05-13. If anything on this card is stale, ping [`#claude-onboarding-support`](https://razorpay.slack.com/archives/C0ANCMTCJA2) and it gets patched in the next revision.*
+*Last reviewed: 2026-07-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 

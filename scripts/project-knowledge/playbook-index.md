@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.23 · last reviewed 2026-05-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.57 · last reviewed 2026-07-29 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -122,13 +122,13 @@ Belts tell a story of *earned competence*, not self-reported progress. Ramp's L0
 | 🟢 Green  | L2           | Ships across a product repo *and* a greenfield repo. Writes skills others install. |
 | ⚫ Black  | L3           | Contributes to Blade or ships full-stack. Builds plugins / MCPs. Multiplies others. |
 
-> **Why this matters.** The belts aren't decorative — they map to the **certification track** the program is running internally. Earning a belt isn't just internal pride; it's a verifiable artefact with a row in the tracker. The gamification and the business metric are the same metric. See [Appendix L](#appendix-l--certification).
+> **Why this matters.** The belts aren't decorative — they map to the **certification track** the program is running internally. Earning a belt isn't just internal pride; it's a verifiable artefact with a row in the tracker. The gamification and the business metric are the same metric. See [Appendix L](https://razorpay.github.io/ai-playbook/appendices/L-certification/).
 
 ---
 
 ## How the playbook is shaped
 
-Every chapter is written against six design principles: laymen-first plus engineer-respectful, belts earned through quests rather than self-reported, teach the constraint not the trick, the 5-pillar adoption lattice, Prompt × Context × Harness as the technique-tagging axes, knowledge-base-driven development as the operating philosophy, and fintech guardrails as load-bearing. The full principles plus the contribution flow are in [CONTRIBUTING.md](https://razorpay.github.io/ai-playbook/CONTRIBUTING/).
+Every chapter is reviewed against seven principles: laymen-first plus engineer-respectful, belts earned through quests rather than self-reported, teach the constraint not the trick, the 5-pillar adoption lattice, Prompt × Context × Harness as the technique-tagging axes, knowledge-base-driven development as the operating philosophy, and fintech guardrails as load-bearing. The full principles plus the contribution flow are in [CONTRIBUTING.md](https://razorpay.github.io/ai-playbook/CONTRIBUTING/).
 
 ---
 
@@ -143,7 +143,7 @@ Two background concepts that the playbook depends on; each has its own chapter, 
 
 # Table of Contents
 
-**Status markers.** `[drafted]` = readable in v0.22. `[drafted skeleton]` = categorisation and contribution flow committed; entries seed over time. `[planned]` = intentionally visible scaffold, not drafted yet. `[coming]` = referenced future companion material. `[example]` = one worked artefact exists before the full section. The hub hides these markers from rendered titles; they remain in the Markdown source for maintainer use.
+**Status markers.** `[drafted]` = chapter is end-to-end readable. `[drafted skeleton]` = categorisation and contribution flow are committed; specific entries seed over time. `[planned]` = intentionally visible scaffold, not drafted yet. `[coming]` = referenced future companion material. `[example]` = one worked artefact exists before the full section. The hub hides these markers from rendered titles; they remain in the Markdown source for maintainer use.
 
 ## Part 0 — Foundation [drafted]
 
@@ -232,9 +232,9 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 | W.1  | [The File System — paths, extensions, "where am I"](https://razorpay.github.io/ai-playbook/belts/01-white/W01-file-system/) [drafted] | Context        | 20 min |
 | W.2  | [Terminal fluency — 12 commands, 4 shortcuts, 1 mental model](https://razorpay.github.io/ai-playbook/belts/01-white/W02-terminal-fluency/) [drafted] | Harness        | 30 min |
 | W.3  | [Git as save-points — branches, commits, push/pull](https://razorpay.github.io/ai-playbook/belts/01-white/W03-git-as-savepoints/) [drafted] | Harness        | 45 min |
-| W.4  | [Your auth setup — gcloud, Vertex, corp SSO, corporate-proxy cert](https://razorpay.github.io/ai-playbook/belts/01-white/W04-auth-setup/) [drafted] | Harness        | 30 min |
+| W.4  | [Your auth setup — MyAccess, LiteLLM key, SSO, proxy trust](https://razorpay.github.io/ai-playbook/belts/01-white/W04-auth-setup/) [drafted] | Harness        | 20 min |
 | W.5  | [Installing the stack — Node, pnpm, Claude Code, internal npm registry](https://razorpay.github.io/ai-playbook/belts/01-white/W05-installing-the-stack/) [drafted] | Harness       | 40 min |
-| W.6  | [The LLM Gateway — what Vertex does, what you don't need to know](https://razorpay.github.io/ai-playbook/belts/01-white/W06-llm-gateway/) [drafted] | Context        | 15 min |
+| W.6  | [The LLM Gateway — what LiteLLM does, what you need to know](https://razorpay.github.io/ai-playbook/belts/01-white/W06-llm-gateway/) [drafted] | Context        | 15 min |
 | W.7  | [Compass plugin — install, verify, what's inside](https://razorpay.github.io/ai-playbook/belts/01-white/W07-compass-plugin/) [drafted] | Context        | 20 min |
 | W.8  | [GREEN / YELLOW / RED — the 10-point health check and one-line fixes](https://razorpay.github.io/ai-playbook/belts/01-white/W08-green-yellow-red/) [drafted] | Harness        | 20 min |
 | W.9  | [Your first conversation with Claude Code](https://razorpay.github.io/ai-playbook/belts/01-white/W09-first-conversation/) [drafted] | Prompt         | 30 min |
@@ -247,7 +247,7 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 ### Quests (both required)
 
 **🎮 [Quest W-0 — Turn GREEN](https://razorpay.github.io/ai-playbook/belts/01-white/quest-W0-turn-green/) [drafted].**
-Run the setup script (laptop) or the design-track add-on. Then run setup-verify. All 10 checks green. If any RED, follow the one-line fix. If you end YELLOW/RED after one hour, post in the program's primary Slack channel with your setup-verify output.
+Run the W.5 setup flow (laptop or design-track add-on), then invoke `setup-verify` inside Claude Code. Resolve every YELLOW or RED and capture the complete ten-row GREEN report. If a focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted report and what you tried.
 *Success criteria:* setup-verify output screenshot, all checks ✅.
 
 **🎮 [Quest W-1 — The HelloRazorpay commit](https://razorpay.github.io/ai-playbook/belts/01-white/quest-W1-hello-razorpay/) [drafted].**
@@ -282,14 +282,14 @@ Find and fix a genuine typo in any public-facing Razorpay doc or open-source rep
 
 | §    | Chapter                                                              | Pillar  | Time   |
 |------|----------------------------------------------------------------------|---------|--------|
-| Y.1  | [The Tool Atlas — Claude Code · Codex · Slash · Claude.ai · Claude Enterprise · Cursor · Copilot](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y01-tool-atlas/) [drafted] | Context | 30 min |
+| Y.1  | [The Tool Atlas — Claude Code · Codex · Slash · Claude.ai · Claude workspaces · Cursor · Copilot](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y01-tool-atlas/) [drafted] | Context | 30 min |
 | Y.2  | [When to reach for which tool — a decision tree](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y02-tool-decision-tree/) [drafted] | Harness | 15 min |
 | Y.3  | [Prompt quality, deep dive — intent · constraints · success criteria](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y03-prompt-quality-deep/) [drafted] | Prompt  | 40 min |
 | Y.4  | [What Claude can see and what it can't — context 101](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y04-context-101/) [drafted] | Context | 20 min |
 | Y.5  | [CLAUDE.md primer — your project's rule book](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y05-claude-md-primer/) [drafted] | Context | 25 min |
 | Y.6  | [Reading unfamiliar code with Claude — the "explain this repo" flow](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y06-reading-code/) [drafted] | Prompt  | 30 min |
 | Y.7  | [Permissions, hooks, slash commands — staying safe while moving fast](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y07-permissions-and-hooks/) [drafted] | Harness | 20 min |
-| Y.8  | [LiteLLM and Claude Enterprise — what each is, when it matters](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y08-litellm-and-enterprise/) [drafted] | Harness | 15 min |
+| Y.8  | [LiteLLM and Claude workspace access — use the route you were provisioned](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y08-litellm-and-enterprise/) [drafted] | Harness | 15 min |
 | Y.9  | [Figma MCP for non-engineers — design → running code in 20 minutes](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y09-figma-mcp/) [drafted] | Context | 30 min |
 | Y.10 | [Slack MCP + Google Workspace MCP — the context you already have](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y10-slack-and-gworkspace-mcps/) [drafted] | Context | 30 min |
 | Y.11 | [Bug hunting with AI — using git history + Slack + the repo to triage](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y11-bug-hunting/) [drafted] | Prompt  | 30 min |
@@ -367,7 +367,7 @@ The point of this boss fight is *not* the size of the change — it's the *full 
 | §    | Chapter                                                              | Pillar  | Time   |
 |------|----------------------------------------------------------------------|---------|--------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](https://razorpay.github.io/ai-playbook/belts/03-green/c-guardrails/G22-redlines/) [drafted] | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does, why Vertex routes through it](https://razorpay.github.io/ai-playbook/belts/03-green/c-guardrails/G23-llm-proxy/) [drafted] | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](https://razorpay.github.io/ai-playbook/belts/03-green/c-guardrails/G23-llm-proxy/) [drafted] | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](https://razorpay.github.io/ai-playbook/belts/03-green/c-guardrails/G24-pii-pci-rbi/) [drafted] | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — the threats, the mitigations](https://razorpay.github.io/ai-playbook/belts/03-green/c-guardrails/G25-prompt-injection/) [drafted] | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](https://razorpay.github.io/ai-playbook/belts/03-green/c-guardrails/G26-pre-ship-check-skill/) [drafted] | Harness | 20 min |
@@ -381,7 +381,7 @@ Write, commit, and share a SKILL.md that captures one of your team's repeated wo
 *Success criteria:* merged skill, invocation log from ≥1 teammate.
 
 **🎮 [Quest G-2 — The Greenfield cross-over](https://razorpay.github.io/ai-playbook/belts/03-green/b-practices/quest-G2-greenfield-crossover/) [drafted].**
-Pick a greenfield target (an internal tool, a new agent skill pack, a self-serve analytics surface, a plugin) and ship one meaningful change that exercises Part A and Part B together.
+Pick a greenfield target (an internal tool, a new shared skill, a self-serve analytics surface, a plugin) and ship one meaningful change that exercises Part A and Part B together.
 *Success criteria:* merged PR, logged against your tracker row.
 
 ### Boss fight (required to earn Green Belt)
@@ -411,7 +411,7 @@ A real feature on a product repo plus your Quest G-2 greenfield PR. The product-
 | §    | Chapter                                                              | Pillar  |
 |------|----------------------------------------------------------------------|---------|
 | B.1  | [Authoring an internal MCP server — architecture, auth, packaging](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B01-internal-mcp-server/) [drafted] | Harness |
-| B.2  | [Publishing a skill pack — naming, versioning, governance](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B02-skill-pack-publishing/) [drafted] | Context |
+| B.2  | [Publishing a shared skill — placement, validation, review](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B02-skill-pack-publishing/) [drafted] | Context |
 | B.3  | [Building a plugin marketplace entry for Razorpay Cowork](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B03-cowork-plugin-marketplace/) [drafted] | Harness |
 | B.4  | [The Claude Agent SDK — when to write your own agent](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B04-agent-sdk/) [drafted] | Harness |
 | B.5  | [Multi-agent orchestration — patterns that work, patterns that don't](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B05-multi-agent-orchestration/) [drafted] | Harness |
@@ -439,8 +439,8 @@ A real feature on a product repo plus your Quest G-2 greenfield PR. The product-
 
 ### Quests (both required)
 
-**🎮 [Quest B-1 — Publish an internal plugin](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/quest-B1-publish-an-internal-plugin/) [drafted].**
-A skill pack + (optionally) an MCP integration, published so another POD can install it with one command. Mirror the Compass plugin distribution model (version-locked, checksummed, validated) *or* — if the registry is live — publish via `/plugin install`.
+**🎮 [Quest B-1 — Publish a shared skill](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/quest-B1-publish-an-internal-plugin/) [drafted].**
+A repository-native skill, with an MCP dependency only when needed, merged to `razorpay/agent-skills` so another POD can install it with one command.
 *Success criteria:* ≥2 installs from other PODs within a month.
 
 **🎮 [Quest B-2 — Component contribution or full-stack feature](https://razorpay.github.io/ai-playbook/belts/04-black/b-craft/quest-B2-contribution-or-full-stack/) [drafted].**
@@ -459,7 +459,7 @@ Embed with a POD (not your own) for one month. Measure their before/after on a s
 
 > "I am a force multiplier for Razorpay."
 
-**Files:** `belts/04-black/` [drafted] — organised into `a-platform/` (v0.13), `b-craft/` (v0.14), and `c-org/` (v0.15). All three parts drafted; both quests claimable; [Boss Fight B-B](https://razorpay.github.io/ai-playbook/belts/04-black/c-org/boss-fight-BB-pod-ai-uplift/) and the [Black Belt badge](https://razorpay.github.io/ai-playbook/belts/04-black/c-org/badge/) close the belt.
+**Files:** `belts/04-black/` [drafted] — organised into `a-platform/`, `b-craft/`, and `c-org/`. All three parts drafted; both quests claimable; [Boss Fight B-B](https://razorpay.github.io/ai-playbook/belts/04-black/c-org/boss-fight-BB-pod-ai-uplift/) and the [Black Belt badge](https://razorpay.github.io/ai-playbook/belts/04-black/c-org/badge/) close the belt.
 
 ---
 
@@ -488,40 +488,40 @@ Plus a [Council charter template](https://razorpay.github.io/ai-playbook/belts/0
 
 These are the *reference* sections — not belt-gated. Everyone can dip in at any time.
 
-## Appendix A — The Tool Atlas [drafted skeleton]
+## Appendix A — The Tool Atlas [drafted]
 
-The fast decision map for choosing the right AI surface. The v0.5 page is intentionally a table, not the final one-page-per-tool atlas.
+The fast decision map for choosing the right AI surface. Includes one-line guidance per tool and the anti-patterns to avoid.
 
 | Tool             | One-liner                                             |
 |------------------|-------------------------------------------------------|
 | Claude Code      | Terminal-native coding agent; Razorpay's default      |
-| Codex            | OpenAI's coding agent; available for teams that prefer it |
+| Codex            | OpenAI's coding agent; optional secondary surface when current support guidance confirms access |
 | Slash            | Razorpay's internal AI copilot                        |
 | Claude.ai        | The web chat; good for thinking out loud              |
-| Claude Enterprise| Team plan; SSO, admin controls, audit                 |
+| Claude workspaces| Enterprise for approved hosted work; Team only when separately provisioned |
 | Cursor           | AI-native IDE; still in use for some teams            |
 | GitHub Copilot   | IDE autocomplete; Claude + Codex as agent back-ends   |
 | Cowork           | Desktop mode for non-engineers                        |
 
 **File:** [`appendices/A-tool-atlas/README.md`](https://razorpay.github.io/ai-playbook/appendices/A-tool-atlas/).
 
-## Appendix B — Environment Setup + MCP Directory [drafted skeleton]
+## Appendix B — Environment Setup + MCP Directory [drafted]
 
-The Layer 0 setup reference: what must be true before the tools work, what the GREEN/YELLOW/RED support packet should contain, and how to think about MCP connectors safely.
+The Layer 0 setup reference: what must be true before the tools work, what the GREEN/YELLOW/RED support packet should contain, the six-row verification sequence, and how to think about MCP connectors safely.
 
-The v0.5 MCP directory is type-based rather than a full approved-server catalog. It names connector classes, use cases, and guardrails without publishing internal endpoint details.
+The MCP directory is type-based: it names connector classes, use cases, and guardrails without publishing internal endpoint details.
 
 **File:** [`appendices/B-environment-setup/README.md`](https://razorpay.github.io/ai-playbook/appendices/B-environment-setup/).
 
-## Appendix C — Skills Library [drafted skeleton]
+## Appendix C — Skills Library [drafted]
 
 The first reusable-workflow reference: what counts as a skill, current skill categories, and the contribution pattern for turning a repeated recipe into a maintained workflow.
 
 **File:** [`appendices/C-skills-library/README.md`](https://razorpay.github.io/ai-playbook/appendices/C-skills-library/).
 
-## Appendix D — Known Issues + FAQ [drafted skeleton]
+## Appendix D — Known Issues + FAQ [drafted]
 
-A living document. Categorisation and contribution pattern committed; specific entries seed from real operational signal. Categorised by stack layer (Foundation, Compass plugin, design / dashboard, skills / agents, infrastructure). Builders contribute when they hit and solve a gap.
+A living document. Categorised by stack layer (Foundation, Compass plugin, design / dashboard, skills / agents, infrastructure). Layer 0 carries thirteen setup entries, and Layer 3 now carries the recurring context-window exhaustion FAQ promoted from support threads. Other layers densify as builders contribute when they hit and solve a gap.
 
 **File:** [`appendices/D-known-issues/README.md`](https://razorpay.github.io/ai-playbook/appendices/D-known-issues/).
 
@@ -538,8 +538,8 @@ Roles and forums — not named individuals (names rotate; rules don't). Updated 
 | Blade leadership                               | Blade design-system leads |
 | Cross-POD signal forum                         | Forum facilitators        |
 | Builder Day operations                         | Program lead              |
-| Claude Enterprise access                       | TBD                       |
-| LiteLLM proxy / Vertex billing                 | Vertex billing owner      |
+| Claude workspace access                        | TBD                       |
+| LiteLLM gateway / model billing | LiteLLM gateway owner    |
 | Slash engineering                              | Slash engineering lead    |
 | Blade connector                                | Blade team                |
 | Figma connector                                | Figma connector team      |
@@ -548,11 +548,11 @@ Roles and forums — not named individuals (names rotate; rules don't). Updated 
 
 **File:** [`appendices/E-roles-and-forums/README.md`](https://razorpay.github.io/ai-playbook/appendices/E-roles-and-forums/).
 
-## Appendix F — Slack Channels + Rules of Engagement [drafted skeleton]
+## Appendix F — Slack Channels + Rules of Engagement [drafted]
 
-Channel directory pattern, etiquette, escalation paths. Specific channel handles live in the program's onboarding doc; this appendix names the role-language used throughout the playbook.
+A live directory of 20+ named channels organised by purpose (setup, AI community, design, platform/devex, wider product context, exploration), with handles, owners, first-response expectations, and the six rules of engagement.
 
-Six rules of engagement: ask publicly not in DM, post the full output not "it's broken", celebrate merged PRs with the link, never paste regulator-protected data, when you solve a problem contribute to Appendix D, tag the right channel and do not cross-post.
+Six rules: ask publicly not in DM, post the full output not "it's broken", celebrate merged PRs with the link, never paste regulator-protected data, when you solve a problem contribute to Appendix D, tag the right channel and do not cross-post.
 
 **File:** [`appendices/F-slack-channels/README.md`](https://razorpay.github.io/ai-playbook/appendices/F-slack-channels/).
 
@@ -570,6 +570,7 @@ Every acronym, Razorpay-specific term, tool name, role, and concept used in the 
 - [H.4 — Claude Code essentials](https://razorpay.github.io/ai-playbook/appendices/H-reference-cards/H4-claude-code-essentials/) — permission system, slash commands, daily rhythm.
 - [H.5 — Playwright essentials](https://razorpay.github.io/ai-playbook/appendices/H-reference-cards/H5-playwright-essentials/) — everyday commands plus four debugging moves.
 - [H.6 — Minimum-viable-wiki one-pager](https://razorpay.github.io/ai-playbook/appendices/H-reference-cards/H6-mv-wiki-one-pager/) — the four-file shape plus the discipline.
+- [H.7 — Day-1 quick reference](https://razorpay.github.io/ai-playbook/appendices/H-reference-cards/H7-day-1-quick-reference/) — install commands, top channels, contacts, common failures, and pinned URLs for new builders.
 
 **Files:** [`appendices/H-reference-cards/`](https://razorpay.github.io/ai-playbook/appendices/H-reference-cards/) — one `.md` per card.
 
@@ -594,13 +595,13 @@ The public sources the curriculum cites, organised by curriculum location. Each 
 
 **File:** [`appendices/J-reading-list/README.md`](https://razorpay.github.io/ai-playbook/appendices/J-reading-list/).
 
-## Appendix K — Changelog [planned]
+## Appendix K — Changelog [drafted]
 
-Versioning discipline. Every non-trivial change logged with date, author, rationale.
+Versioning discipline. Every non-trivial change logged with date, author, rationale. Lives at [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/) at the repository root rather than under `appendices/K-changelog/` so release tooling and `git log` agree on the artefact.
 
-**File:** `CHANGELOG.md`.
+**File:** [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
-## Appendix L — Certification [drafted skeleton]
+## Appendix L — Certification [drafted]
 
 The *contract* between the playbook and the program's certification track. The playbook is the on-ramp; the tracker is the scoreboard.
 
@@ -628,7 +629,7 @@ The *contract* between the playbook and the program's certification track. The p
 | Name | Role (PM / PD) | POD | Belt | # of PRs merged | Date certified | Mentor |
 |------|----------------|-----|------|-----------------|----------------|--------|
 
-The v0.5 page keeps the quality bar simple: evidence over self-report, small reviewable artefacts, and tracker fields that force proof.
+The page keeps the quality bar simple: evidence over self-report, small reviewable artefacts, and tracker fields that force proof.
 
 **File:** [`appendices/L-certification/README.md`](https://razorpay.github.io/ai-playbook/appendices/L-certification/).
 
@@ -674,4 +675,4 @@ Contributing to the playbook (design principles, production plan, content rules,
 
 ---
 
-*Designed to be a living document. Pull requests welcome. Last reviewed 2026-05-13.*
+*Designed to be a living document. Pull requests welcome. Last reviewed 2026-07-29.*

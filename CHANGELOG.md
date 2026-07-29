@@ -6,6 +6,11 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.57 — Refresh Claude Project knowledge (2026-07-29)
+
+- **Aligned the manifest release header** — replaced its stale v0.22-alpha / 2026-05-12 metadata with the current release and review date.
+- **Regenerated the Playbook Concierge bundle** — refreshed its index, routing spine, glossary, and quick-reference cards from canonical sources so the uploaded Claude Project snapshot no longer mixes May and July guidance.
+
 ## v0.56 — Claude workspace route clarity (2026-07-23)
 
 Repeated `#ai-help` threads from 2026-07-15 through 2026-07-23 showed selected users moving from an Enterprise/LiteLLM setup to seat-limited Claude Team access, while non-provisioned builders remained on enabled LiteLLM routes. Y.8 still taught a two-part “Enterprise knowledge versus LiteLLM routing” model, which left readers to infer that Team was either a rename or extra quota. It is neither.
