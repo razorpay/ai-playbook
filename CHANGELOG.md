@@ -16,8 +16,6 @@ Repeated `#ai-help` threads from 2026-07-15 through 2026-07-23 showed selected u
 - **Mirrored references aligned.** Yellow Belt navigation, Appendix E ownership, Appendix G definitions, INDEX, the course manifest, and generated curriculum metadata now use the same workspace-access vocabulary.
 - **Version markers bumped.** README and INDEX now report v0.56 / 2026-07-23 for this access-path clarification.
 
-## v0.52 — Codex fallback-policy alignment (2026-07-22)
-
 ## v0.55 — Codex fallback-policy alignment (2026-07-22)
 
 On 2026-07-21, `#ai-help` announced that Razorpay's shared Codex trial credits were nearly exhausted, directed builders to Claude or GPT through LiteLLM, and moved already-provisioned heavy Codex users to Claude Team. Appendix D carried the immediate transition, but the tool tour, canonical setup chapter, Tool Atlas, glossary, and Day-1 card still described Codex as an approved model-cap fallback or published its former access path.
