@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.22-alpha, updated 2026-05-12).
+Compact chapter index for the Razorpay AI Playbook (0.57-alpha, updated 2026-07-29).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.22-alpha
-updated: 2026-05-12
+version: 0.57-alpha
+updated: 2026-07-29
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -577,8 +577,8 @@ chapters:
     type: chapter
     audience: everyone
     time_minutes: 3
-    outcome: Understand that the playbook is alive, what v0.6 contains, and what is
-      still coming.
+    outcome: Understand that the playbook is alive, what the current version
+      contains, and what is still coming.
     tags:
       - orientation
       - changelog
@@ -655,14 +655,14 @@ chapters:
     status: drafted
     type: chapter
     audience: new-builder
-    time_minutes: 30
-    outcome: Understand the auth pieces behind Claude Code, Vertex access, Google
-      SSO, gcloud, and corporate certificate trust.
+    time_minutes: 20
+    outcome: Name the auth layers behind Claude Code, recognise which one is
+      failing, and know which fixes are yours vs. the program's.
     tags:
       - white-belt
       - auth
-      - gcloud
-      - vertex
+      - litellm
+      - sso
   - slug: belts/white/installing-the-stack
     title: Installing the stack
     hub_url: https://razorpay.github.io/ai-playbook/belts/white/installing-the-stack/
@@ -691,12 +691,12 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 15
-    outcome: Understand what the model gateway does, what Vertex is responsible for,
-      and what a White Belt reader does not need to debug.
+    outcome: Understand what the LiteLLM gateway does, what Claude Code does, and
+      which failures are yours to debug vs. the gateway's.
     tags:
       - white-belt
       - llm-gateway
-      - vertex
+      - litellm
   - slug: belts/white/compass-plugin
     title: Compass plugin
     hub_url: https://razorpay.github.io/ai-playbook/belts/white/compass-plugin/
@@ -990,7 +990,7 @@ chapters:
       - hooks
       - slash-commands
   - slug: belts/yellow/litellm-and-enterprise
-    title: LiteLLM and Claude Enterprise
+    title: LiteLLM and Claude workspace access
     hub_url: https://razorpay.github.io/ai-playbook/belts/yellow/litellm-and-enterprise/
     section: belts
     track: yellow
@@ -999,12 +999,13 @@ chapters:
     type: chapter
     audience: daily-builder
     time_minutes: 15
-    outcome: Understand the difference between model routing infrastructure and
-      enterprise knowledge surfaces at a daily-builder level.
+    outcome: Choose the Claude workspace or LiteLLM route you have actually been
+      provisioned for.
     tags:
       - yellow-belt
       - litellm
-      - claude-enterprise
+      - claude-workspaces
+      - claude-team
       - model-routing
   - slug: belts/yellow/figma-mcp
     title: Figma MCP for non-engineers
@@ -1659,7 +1660,7 @@ chapters:
       - guardrails
       - safety
   - slug: belts/green/llm-proxy
-    title: The LLM proxy — what LiteLLM does, why Vertex routes through it
+    title: The LLM proxy — what LiteLLM does and why every call routes through it
     hub_url: https://razorpay.github.io/ai-playbook/belts/green/llm-proxy/
     section: belts
     track: green
@@ -1675,7 +1676,6 @@ chapters:
       - green-belt
       - llm-proxy
       - litellm
-      - vertex
       - harness
   - slug: belts/green/pii-pci-rbi
     title: PII, PCI, RBI — the regulators, the reasons, the reflexes
@@ -1852,7 +1852,7 @@ chapters:
       - voice-anchor
       - platform
   - slug: belts/black/skill-pack-publishing
-    title: Publishing a skill pack — naming, versioning, governance
+    title: Publishing a shared skill — placement, validation, review
     hub_url: https://razorpay.github.io/ai-playbook/belts/black/skill-pack-publishing/
     section: belts
     track: black
@@ -1861,11 +1861,12 @@ chapters:
     type: chapter
     audience: platform-builder
     time_minutes: 30
-    outcome: Bundle one or more SKILL.md artefacts into a pack and publish it so
-      other PODs can install, pin, and adopt it.
+    outcome: Publish a reusable skill to razorpay/agent-skills so other teams can
+      discover, install, verify, and maintain it without re-deriving the
+      workflow.
     tags:
       - black-belt
-      - skill-pack
+      - agent-skills
       - publishing
       - governance
   - slug: belts/black/cowork-plugin-marketplace
@@ -1879,7 +1880,8 @@ chapters:
     audience: platform-builder
     time_minutes: 45
     outcome: Publish a plugin to the program's Cowork tenant marketplace so
-      non-engineer teammates can install your skill pack with one click.
+      non-engineer teammates can install the workflow with one click — and
+      understand how that surface differs from the shared skill library.
     tags:
       - black-belt
       - cowork
@@ -1930,14 +1932,15 @@ chapters:
     audience: platform-builder
     time_minutes: 30
     outcome: Design tool contracts — input schemas, output shapes, error shapes —
-      that compose, scale, and survive version changes.
+      that compose, scale, and survive version changes without breaking the
+      agents that depend on them.
     tags:
       - black-belt
       - tool-design
       - json-schema
       - contracts
   - slug: belts/black/quest-publish-an-internal-plugin
-    title: "Quest B-1: Publish an internal plugin"
+    title: "Quest B-1: Publish a shared skill"
     hub_url: https://razorpay.github.io/ai-playbook/belts/black/quest-publish-an-internal-plugin/
     section: belts
     track: black
@@ -1946,12 +1949,13 @@ chapters:
     type: quest
     audience: platform-builder
     time_minutes: 480
-    outcome: Author and publish a skill pack so at least two PODs outside your team
-      install it within a month.
+    outcome: Publish a skill to razorpay/agent-skills so at least two PODs outside
+      your team install it within a month — and capture the cross-POD adoption
+      signal.
     tags:
       - black-belt
       - quest
-      - plugin-publishing
+      - skill-publishing
       - platform
   - slug: belts/black/b-craft
     title: Black Belt Part B — Push the Craft
@@ -2083,8 +2087,9 @@ chapters:
     type: readme
     audience: platform-builder
     time_minutes: 8
-    outcome: Understand the Part C arc and walk it from office hours through
-      governance to the boss fight and the badge.
+    outcome: Understand the Part C arc — the cultural and governance moves that turn
+      an individual platform-builder into a force multiplier for the whole org —
+      and know how to walk it.
     tags:
       - black-belt
       - readme
@@ -2117,8 +2122,9 @@ chapters:
     type: chapter
     audience: platform-builder
     time_minutes: 30
-    outcome: Embed for a week with a POD outside your own and ship with the team
-      rather than for it; produce a written debrief.
+    outcome: Embed for a week with a POD outside your own and ship *with* the team
+      rather than *for* it; produce a written debrief that the next embed
+      inherits.
     tags:
       - black-belt
       - embedded-sprints
@@ -2133,8 +2139,10 @@ chapters:
     type: chapter
     audience: platform-builder
     time_minutes: 45
-    outcome: Write an AI RFC that earns a merge by naming what would change and how
-      to measure whether it worked.
+    outcome: Write an AI RFC that earns a merge — a written proposal that names what
+      would change, the options considered, the recommendation, the
+      cost-and-risk, the rollout plan, the success metric, and the rollback
+      plan.
     tags:
       - black-belt
       - rfc
@@ -2165,8 +2173,8 @@ chapters:
     type: chapter
     audience: platform-builder
     time_minutes: 45
-    outcome: Govern plugin and skill lifecycles cleanly across approval,
-      deprecation, and security review.
+    outcome: Govern shared-skill and plugin lifecycles across scope-sensitive
+      approval, deprecation, and security review.
     tags:
       - black-belt
       - governance
@@ -2181,9 +2189,9 @@ chapters:
     type: boss-fight
     audience: platform-builder
     time_minutes: 1800
-    outcome: Embed with a POD outside your own for a month, intervene with the full
-      Black Belt toolkit, ship a signed-off metric lift and a one-pager case
-      study.
+    outcome: Embed with a POD outside your own for one month; intervene with the
+      full Black Belt toolkit; ship a signed-off metric lift and a one-pager
+      case study contributed back to this playbook.
     tags:
       - black-belt
       - boss-fight
@@ -2198,7 +2206,8 @@ chapters:
     type: badge
     audience: platform-builder
     time_minutes: 5
-    outcome: Claim the Black Belt, the platform-builder community's admission ticket.
+    outcome: Claim the Black Belt — the platform-builder community's admission
+      ticket and the close of the belt curriculum.
     tags:
       - black-belt
       - badge
@@ -2309,7 +2318,9 @@ chapters:
     audience: staff-plus
     time_minutes: 25
     outcome: "Understand what the Council shapes that no quarterly artefact
-      captures: the multi-year direction of the AI program."
+      captures: the program's posture across model generations, regulatory
+      frames, and platform-builder community changes over five-to-ten-year
+      horizons."
     tags:
       - council
       - long-arc
