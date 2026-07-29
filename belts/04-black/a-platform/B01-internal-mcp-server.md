@@ -14,7 +14,7 @@ next: "belts/black/skill-pack-publishing"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "mcp", "voice-anchor", "platform"]
-updated: "2026-04-29"
+updated: "2026-07-29"
 ---
 
 # B.1 — Authoring an internal MCP server
@@ -27,6 +27,7 @@ This is the voice anchor for Black Belt. Where Green Belt taught you to *use* th
 
 - An MCP server is a bounded interface that exposes named tools to an agent. The server is yours; the contract is the consumers'.
 - The three decisions that shape every internal MCP server: **scope** (what tools to expose), **auth** (who can call which tool), and **packaging** (how other PODs install and pin a version).
+- The current protocol core is stateless. Each request carries its own version and client context; application state travels through explicit handles, not a hidden MCP session.
 - Most internal MCP servers fail not because the protocol is hard but because their scope grew unbounded. Decide what the server is *not* for before you decide what it is for.
 
 ---
@@ -44,8 +45,8 @@ This is the voice anchor for Black Belt. Where Green Belt taught you to *use* th
    │                                                  │
    │   2. AUTH                                        │
    │      Who can call which tool?                  │
-   │      How is identity carried (per-call, per   │
-   │      session, per program)?                    │
+   │      How is identity carried (per-request,    │
+   │      per explicit handle, per program)?       │
    │                                                  │
    │   3. PACKAGING                                   │
    │      How does another POD install and pin a    │
@@ -65,6 +66,46 @@ This is the voice anchor for Black Belt. Where Green Belt taught you to *use* th
 ```
 
 The MCP protocol itself is small. The hard problem is the five layers around it: scope, auth, packaging, contracts, observability. A Black Belt builder owns all five.
+
+---
+
+## Build on the current protocol contract
+
+The [2026-07-28 MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) changed the transport model. The protocol core is now **stateless request/response**: there is no `initialize` / `initialized` handshake and no `Mcp-Session-Id`. Every request carries the protocol version, client identity, and client capabilities it needs. An optional `server/discover` call exists for clients that want capabilities up front, but ordinary requests do not depend on it.
+
+Stateless protocol does **not** mean your product must forget everything. If a workflow needs state across calls, return an explicit handle from a tool and require the next tool call to pass it back. The state is now visible in the tool contract instead of hiding inside transport affinity. A PM using your analytics connector should not care which healthy server instance receives the next request.
+
+### The request shape to design for
+
+| Concern | Current contract | What the server author does |
+|---|---|---|
+| Request context | Each request identifies its protocol version and carries client context in `_meta`. | Validate every request independently; do not assume a handshake populated server memory. |
+| Routing | Streamable HTTP sends `Mcp-Method` and `Mcp-Name` headers. | Let gateways route, meter, and apply coarse policy by method/tool, then enforce authorisation again inside the server. Never trust the header as proof of permission. |
+| Mid-call input | Multi Round-Trip Requests (MRTR) return `resultType: "input_required"`; the client retries the original call with `inputResponses`. | Use this for a missing parameter or human confirmation instead of holding a bidirectional stream open. Keep the preview and the eventual mutation visibly separate. |
+| Catalog reads | List and resource responses can publish `ttlMs`, `cacheScope`, and deterministic ordering. | Make tool catalogs stable and cacheable; do not reshuffle equivalent tools on every reconnect and churn the client's prompt cache. |
+| Authorisation metadata | Clients validate the authorisation-server issuer and bind credentials to that issuer. Client ID Metadata Documents (CIMD) replace Dynamic Client Registration (DCR) as the forward path. | Validate `iss`, never reuse credentials across issuers, and treat DCR as migration-only rather than a new dependency. |
+
+The current Tier 1 TypeScript, Python, Go, and C# SDKs implement this contract. Pin a current SDK and use its migration guide rather than recreating the wire protocol from a blog snippet.
+
+### Copyable new-build / migration review card
+
+Use this in the server PR. Any unchecked item blocks release.
+
+```markdown
+## MCP 2026-07-28 transport review
+
+- [ ] Client and server SDKs support protocol version `2026-07-28`.
+- [ ] No request depends on `initialize`, `initialized`, `Mcp-Session-Id`, or sticky routing.
+- [ ] Every request is independently authenticated, authorised, validated, and auditable.
+- [ ] Cross-call application state uses an explicit, scoped, expiring handle.
+- [ ] The gateway routes/meters with `Mcp-Method` and `Mcp-Name`; the server still enforces permission.
+- [ ] Missing input or confirmation uses MRTR, with no side effect before the answer returns.
+- [ ] List results are deterministic and publish an intentional cache policy.
+- [ ] No new dependency uses DCR, Roots, Sampling, Logging, or legacy HTTP+SSE.
+- [ ] Compatibility tests cover one current client and every still-supported older client.
+```
+
+Roots, Sampling, Logging, DCR, and legacy HTTP+SSE have a deprecation window; they did not disappear on release day. That is a migration allowance, not permission to start new work on them. Upgrade consumers deliberately, test the compatibility boundary, then remove the old path when your support window closes.
 
 ---
 
@@ -92,7 +133,7 @@ A useful test: can you write a one-paragraph "what this server is for and what i
 
 Every internal MCP server runs against auth-shaped questions:
 
-- **Caller identity.** Who is calling? Identity comes from the program-pinned plugin (the consumer's team handle propagates to the server) or from per-call auth tokens.
+- **Caller identity.** Who is calling? Identity and client context arrive with each request; the server verifies them against its authorisation boundary rather than inheriting trust from a prior MCP session.
 - **Per-tool authorisation.** Some tools are read-only and broadly safe; others are write-capable and need a tighter authorisation step. The server enforces this; the consumer cannot bypass.
 - **PCI / RBI / regulator-scoped paths.** If any tool reads or writes regulator-protected data, the auth story is stricter than the team's default. This belongs in a separate *gated* tool that requires explicit per-call approval, not a default-on tool that hopes for the best.
 - **Audit trail.** Every call is logged with caller identity, tool name, scope of data accessed. The audit log is the artefact that lets compliance trust the server.
@@ -174,19 +215,25 @@ Three teams adopt it in the first month; ten by the third. The server is small, 
 
 **Treating the server as a one-team artefact.** A server installed by other PODs is now infrastructure; you cannot move fast and break things on it. Fix: treat the server as a contract from the day a second team installs.
 
+**Keeping application state in an MCP session.** The next request lands on another instance and loses its hidden context. Fix: return an explicit scoped handle and make it part of the next tool's input contract.
+
+**Authorising from routing headers alone.** `Mcp-Method` and `Mcp-Name` make gateway policy easier; they do not prove the caller may use the tool. Fix: authenticate and authorise inside the server on every request.
+
+**Upgrading the server without its clients.** The new server passes local tests while an older production client still expects the retired handshake or HTTP+SSE path. Fix: test the support matrix, migrate clients deliberately, and remove compatibility code only after the stated window.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can scope, design, package, and observe an internal MCP server other PODs adopt; my server's contracts are stable across versions; my deprecation story is real.
-- 🟡 YELLOW: I have authored an MCP server but the scope is broad, the auth is informal, or the packaging is ad-hoc.
+- 🟢 GREEN: I can scope, design, package, and observe a stateless internal MCP server other PODs adopt; every request is independently authorised, cross-call state uses explicit handles, contracts are stable across versions, and the deprecation story is real.
+- 🟡 YELLOW: I have authored an MCP server, but it still assumes a hidden session, the scope is broad, the auth is informal, or the packaging is ad-hoc.
 - 🔴 RED — I have not authored an internal MCP server.
 
 ---
 
 ## What you can say after this module
 
-> "I author internal MCP servers with bounded scope, real auth, sound packaging, typed contracts, and observability — not omnibus servers other teams cannot reason about."
+> "I author internal MCP servers on the stateless protocol contract, with bounded scope, per-request auth, explicit state handles, sound packaging, typed contracts, and observability — not omnibus servers other teams cannot reason about."
 
 ---
 
@@ -198,6 +245,7 @@ B.2 (*Publishing a skill pack*) is the immediate complement. An MCP server gives
 
 **Further reading**
 
-- [Anthropic on the Model Context Protocol](https://modelcontextprotocol.io/)
+- [MCP 2026-07-28 specification](https://modelcontextprotocol.io/specification/2026-07-28) — the current protocol contract
+- [MCP release notes: what changed in 2026-07-28](https://blog.modelcontextprotocol.io/posts/2026-07-28/) — migration summary and deprecations
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md)
 - [Yellow Belt Y.9 — Figma MCP for non-engineers](../../02-yellow/Y09-figma-mcp.md) — a consumer-side companion
