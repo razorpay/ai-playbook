@@ -14,14 +14,14 @@ next: "belts/yellow/figma-mcp"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "litellm", "claude-workspaces", "claude-team", "model-routing"]
-updated: "2026-07-24"
+updated: "2026-07-29"
 ---
 
 # Y.8 - LiteLLM and Claude workspace access
 
 Yellow Belt readers do not need to operate model infrastructure. You do need enough vocabulary to stop confusing a Claude workspace plan with the route Claude Code uses to reach a model.
 
-Razorpay currently has more than one Claude access shape. Enterprise workspace access still exists, selected users may be moved to Claude Team, and terminal Claude Code can run through enabled LiteLLM routes. Access to one does not imply access to the others.
+Razorpay currently has more than one Claude access shape. Enterprise workspace access still exists, selected users may be moved to Claude Team, support may direct a builder to a reimbursable Claude Max subscription, and terminal Claude Code can run through enabled LiteLLM routes. Access to one does not imply access to the others.
 
 ---
 
@@ -29,6 +29,7 @@ Razorpay currently has more than one Claude access shape. Enterprise workspace a
 
 - **Claude Enterprise** is an org workspace for approved hosted chat and knowledge work.
 - **Claude Team** is a separately provisioned, seat-limited subscription path. Use it only after support explicitly moves you there.
+- **Claude Max** is a separate subscription path that support may direct you to when Team seats are unavailable. Follow the current purchase-and-reimbursement SOP rather than guessing eligibility or billing steps.
 - **LiteLLM** is the gateway route for the models enabled on your key. It is not a workspace or a knowledge source.
 - Use the route you were provisioned for. A second login is not a second budget.
 
@@ -66,9 +67,10 @@ No. Routing infrastructure is not the knowledge source. It helps manage model ca
 Work through this top to bottom:
 
 1. **Did support explicitly provision Claude Team and send the migration SOP?** Follow that SOP and use the specified Team workspace or subscription route. Do not assume an old Enterprise workspace, Team workspace, and LiteLLM key share access or history.
-2. **No Team provision?** Keep using your existing Enterprise workspace for approved hosted work and terminal Claude Code through the models enabled on your LiteLLM key. Team access is not a prerequisite for the belt. If Desktop credits run out, do not request an extension: current support no longer extends them and routes further work to LiteLLM. Follow [W.5's canonical setup](../01-white/W05-installing-the-stack.md) if your terminal route is not ready.
-3. **Need org knowledge?** Choose an approved workspace or connector that can see that context. A model route alone cannot search Slack, docs, or design files.
-4. **The route changed or fails?** Preserve the exact error, selected model, and surface, remove secrets, then post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not request another plan as a generic quota bypass.
+2. **Did support direct you to Claude Max because Team seats are unavailable?** Follow the current [Claude Max purchase-and-reimbursement SOP](https://docs.google.com/document/d/144s8Hrrvxhya2A4pBkAakgY_SF5PjP3lt13BMemguyk/edit?tab=t.0#heading=h.dfwbdzdi52su). Treat Max as its own subscription route: do not splice its login into your Enterprise workspace or LiteLLM settings, and do not assume it changes a LiteLLM cap.
+3. **No Team or Max direction?** Keep using your existing Enterprise workspace for approved hosted work and terminal Claude Code through the models enabled on your LiteLLM key. Neither Team nor Max is a prerequisite for the belt. If Desktop credits run out, do not request an extension: current support no longer extends them and routes further work to LiteLLM. Follow [W.5's canonical setup](../01-white/W05-installing-the-stack.md) if your terminal route is not ready.
+4. **Need org knowledge?** Choose an approved workspace or connector that can see that context. A model route alone cannot search Slack, docs, or design files.
+5. **The route changed or fails?** Preserve the exact error, selected model, and surface, remove secrets, then post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not request another plan as a generic quota bypass.
 
 The decision is deliberately boring: use the access path assigned to you, then choose the working surface for the task. Boring is good when the alternative is debugging three auth systems at once.
 
@@ -88,7 +90,7 @@ Better sequence:
 2. Summarize the relevant context in five lines.
 3. Open the repo in Claude Code.
 4. Ask Claude Code to locate the component.
-5. Use the code route you were provisioned for—Claude Team if support migrated you there, otherwise an enabled LiteLLM route—to edit, test, and PR.
+5. Use the code route you were given—Claude Team if support migrated you, Claude Max if support sent you its SOP, otherwise an enabled LiteLLM route—to edit, test, and PR.
 
 Do not try to make one surface do all of it.
 
@@ -98,7 +100,7 @@ Do not try to make one surface do all of it.
 
 You should know:
 
-- which Claude workspace plan and code route you were provisioned for;
+- which Claude workspace, subscription, and code route you were provisioned for;
 - which tool is approved for repo edits;
 - which surface is approved for org knowledge search;
 - which setup check verifies your local model path;
@@ -123,6 +125,8 @@ Those are later-belt or platform topics.
 
 **"I assumed Enterprise and Team share workspace history."** Do not assume cross-workspace continuity. Verify the destination named in the migration SOP before relying on projects or prior chats.
 
+**"I treated Claude Max as extra LiteLLM quota."** They are separate access paths. Follow the Max SOP only when support directs you there; a Max subscription does not change the centrally managed cap on your LiteLLM key.
+
 **"I ran out of Desktop credits and requested more."** Desktop credits are no longer extended. Continue through the LiteLLM route enabled on your key; if that route is not configured, follow W.5 rather than improvising another account or credential.
 
 **"I treated routing errors like prompt errors."** If every prompt fails before reasoning starts, route the model path issue.
@@ -138,7 +142,7 @@ Those are later-belt or platform topics.
 You are **GREEN** if:
 
 - you can distinguish model route from knowledge surface;
-- you can name whether your current code route is Claude Team or LiteLLM;
+- you can name whether your current code route is Claude Team, Claude Max, or LiteLLM;
 - you know which surface edits repo files;
 - you can route model-path failures without improvising.
 
