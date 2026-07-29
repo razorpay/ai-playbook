@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 2
-updated: 2026-07-26
+updated: "2026-07-26"
 time_minutes: 30
 audience: "experienced-builder"
 outcome: "Understand why context windows fill, protect the useful window, and choose when to continue, compact, or hand off to a fresh session."
@@ -15,7 +15,6 @@ next: "belts/green/claude-md-real-service"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "context-windows", "constraint"]
-updated: "2026-07-26"
 ---
 
 # G.2 — Why context windows fill
