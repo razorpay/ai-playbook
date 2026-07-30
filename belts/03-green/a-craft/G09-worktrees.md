@@ -14,7 +14,7 @@ next: "belts/green/hooks-and-slash-commands"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "worktrees", "parallelism", "harness"]
-updated: "2026-04-29"
+updated: "2026-07-30"
 ---
 
 # G.9 — Worktrees
@@ -45,7 +45,7 @@ A worktree is a checkout of the same repo at a different path. Git worktrees let
        └── (full checkout)
 ```
 
-Each directory is a real, full working tree. They share the same `.git` storage under the hood (so you do not pay disk for the whole repo four times), but each directory has its own checked-out files, its own branch, its own staging area. An agent in one directory cannot see another directory unless explicitly told.
+Each directory is a real, full working tree. They share the same `.git` storage under the hood (so you do not pay disk for the whole repo four times), but each directory has its own checked-out files and staging area. It normally has its own branch; a read-only verification checkout can use a detached `HEAD`. An agent in one directory cannot see another directory unless explicitly told.
 
 This is the harness shape that lets you parallelise *your own work*: you run three feature branches concurrently, each with an agent that knows only its branch.
 
@@ -61,7 +61,7 @@ You have a feature to build and a bug to fix. They are unrelated. In a single wo
 
 ### Pattern 2: A long-running change you want a fresh agent to verify
 
-You have been deep in a feature branch for a day. You want a fresh agent (no prior conversation context) to review the diff. Spin up a worktree on the same branch, open a fresh Claude Code session there, ask for the review. The fresh agent has zero bias from your day's worth of conversation.
+You have been deep in a feature branch for a day. You want a fresh agent (no prior conversation context) to review the diff. Commit the state you want reviewed, then create a detached worktree at that commit and open a fresh Claude Code session there. The fresh agent has zero bias from your day's worth of conversation, and Git does not have to check out the same branch twice.
 
 ### Pattern 3: Parallel exploration of two design directions
 
@@ -119,9 +119,9 @@ These are the rules that keep parallel agents from corrupting each other's work.
 
 Two Claude Code sessions in the same working directory will edit each other's files, fight over the lockfile, and produce a corrupted state that takes longer to untangle than the parallelism saved. Always: one agent, one directory.
 
-### Rule 2 — Each worktree gets its own branch
+### Rule 2 — Each writable worktree gets its own branch
 
-Two worktrees pointing at the same branch is allowed by Git but a bad idea for parallel work. The branches will diverge, you will not know which is canonical, the merge will be ugly. Rule of thumb: one worktree, one branch.
+Git normally refuses to check out a branch that another worktree already uses. Do not override that protection with `--force`: two writable checkouts of one branch make it unclear which directory owns the branch state. Rule of thumb: one writable worktree, one branch. For a fresh, read-only review of an existing branch, use a detached worktree at that branch's committed tip.
 
 ### Rule 3 — Each agent gets its own CLAUDE.md context
 
@@ -183,11 +183,17 @@ The disk is reclaimed; the branches stay until you delete them.
 
 ## A common pattern: feature + verification worktree
 
-A useful worktree shape on a long feature: one worktree where you build, one worktree on the same branch where a fresh agent verifies. Three steps:
+A useful worktree shape on a long feature: one worktree where you build, one detached worktree where a fresh agent verifies the committed result. Four steps:
 
-1. Build in `../feat-x-build/`. The agent there has the conversation history, the design discussion, the test runs.
-2. When ready for review: `git worktree add ../feat-x-verify feat/x` — same branch, fresh checkout.
-3. Open Claude Code in `../feat-x-verify/`. Ask: "Review the diff between this branch and `main`. Apply the pre-ship-check skill. Report findings." The verification agent has no bias from your build session.
+1. Build in `../feat-x-build/`. The agent there has the conversation history, the design discussion, and the test runs. Commit the state you want reviewed; uncommitted changes are not visible in another worktree.
+2. When ready for review, create a detached checkout at the feature branch's tip:
+
+   ```sh
+   git worktree add --detach ../feat-x-verify feat/x
+   ```
+
+3. Open Claude Code in `../feat-x-verify/`. Ask: "Review the diff between `HEAD` and `main`. Apply the pre-ship-check skill. Report findings; do not modify files." The verification agent has no bias from your build session.
+4. Remove the verification worktree when the review ends. Apply any fixes back in `../feat-x-build/`, where the feature branch remains checked out.
 
 The verification agent is not a subagent (G.8) — it is a peer agent in its own worktree. Both patterns serve "fresh perspective"; worktree-based verification is the right tool when the task requires reading the full repo, not just a brief.
 
