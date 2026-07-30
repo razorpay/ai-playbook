@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-22"
+updated: "2026-07-30"
 ---
 
 # Appendix A — Tool Atlas
@@ -193,7 +193,9 @@ Found a missing or incorrect metric definition? → contribute one governed metr
 
 Contribution is different from asking a question. It changes the shared metric glossary and its certified query, so it belongs in a reviewed PR—not in a chat answer that disappears when the session closes.
 
-Start from a clean local clone of `razorpay/self-serve-analytics`, then run `/analyst:metric-catalog-builder` with no arguments. The skill walks one metric through the current seven-step add-or-modify path:
+> **Temporary stop — 30 July 2026.** Do not start or merge a metric-catalog change with `metric-catalog-builder`. The released builder can produce incorrect YAML while [the correctness fixes in `self-serve-analytics` #1908](https://github.com/razorpay/self-serve-analytics/pull/1908) await review: it can choose the wrong serving layer, strip required `_dist` / `FINAL` syntax, discover domains from a stale list, and miscount glossary-to-query parity. The Analytics Agent `/analytics-update-catalog` route is blocked on the same fix. Normal metric queries and reviews are unaffected; this stop applies only to catalog mutation.
+
+Once the stop is lifted, start from a clean local clone of `razorpay/self-serve-analytics`, then run `/analyst:metric-catalog-builder` with no arguments. The skill walks one metric through the current seven-step add-or-modify path:
 
 1. **Bring a metric brief.** Name the metric, product area/domain, description, source table, formula or query, unit, filters, and gotchas. If you cannot name the source and computation yet, use `/analytics-query` to investigate first.
 2. **Choose the discovered domain.** Prefer an existing domain from the skill's picker. Creating a new domain needs explicit owner confirmation; a similar-looking folder is not close enough.
