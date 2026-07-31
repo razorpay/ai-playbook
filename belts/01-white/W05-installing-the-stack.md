@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-22"
+updated: "2026-07-31"
 ---
 
 # W.5 - Installing the stack
@@ -289,7 +289,7 @@ For the print-this-and-stick-it-on-your-monitor version:
 | Canonical rollout thread | [Step-by-step in `#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) |
 | Pricing reference | [Anthropic pricing docs](https://platform.claude.com/docs/en/about-claude/pricing) |
 
-*Last reviewed: 2026-07-03. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
+*Last reviewed: 2026-07-31. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
 
 > **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the common failure modes onto a single printable card.
 
