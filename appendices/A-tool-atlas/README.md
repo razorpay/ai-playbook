@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-30"
+updated: "2026-07-31"
 ---
 
 # Appendix A — Tool Atlas
@@ -168,18 +168,18 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
 
-#### Routing changed; your workflow did not
+#### Current Trino route: stop on a 401
 
-The SSA engine now prefers its repo-owned Trino CLI for Trino-backed metrics and keeps the same-gateway Trino MCP as an automatic fallback. This is backend routing, not a new PM setup path. Keep using `/analytics-query` and `/analytics-review`; the skill bootstraps the CLI from existing approved credentials when it can and chooses the fallback when it cannot. Do not hand-edit `.env` or `.mcp.json` just to pick a route.
+Analytics Agent still uses the Trino MCP for Trino-backed metrics. The move to the repo-owned Trino CLI is under review in [`claude-plugins` #1075](https://github.com/razorpay/claude-plugins/pull/1075); it is not a released fallback yet. Keep using `/analytics-query` and `/analytics-review`, but do not hand-edit `.env` or `.mcp.json` to select the pending CLI route.
 
 ```text
 Ask the metric question normally
-  → the skill resolves the source and gateway
-  → Trino CLI when healthy; same-gateway MCP when setup is unavailable
-  → read-only result and execution receipt
+  → the skill resolves the source
+  → Trino MCP returns a result? Continue
+  → Trino MCP returns 401? Stop and capture the redacted error
 ```
 
-The route never changes the safety contract. Do not switch backends to bypass a rejected write, expired access, timeout, or row cap. If a query is blocked, share the exact question, the route or gateway shown, and the redacted error with support; do not paste credentials or invent a manual configuration.
+A Trino MCP 401 is a known issue. Add the exact question, route or gateway shown, and redacted error to [the current support thread](https://razorpay.slack.com/archives/C08QZD2GQFB/p1785472728285639); do not paste credentials or add a personal token as a workaround. The pending CLI migration changes transport, not data-access policy, so it must not be used to bypass a rejected write, expired access, timeout, or row cap.
 
 #### Ask, review, or contribute?
 
