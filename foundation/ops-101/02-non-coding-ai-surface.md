@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-07-27"
+updated: "2026-07-31"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -62,7 +62,7 @@ A useful frame: each of the three surfaces is a different *front door* to AI-ass
 - Reading and summarising — paste a long document and ask for a one-pager, or for the bits relevant to a specific question.
 - Brainstorming — "give me twenty ways to frame this," "argue against my thesis."
 
-**Limits.** Claude.ai can't read files on your laptop or in your Drive on its own. It can't post to Slack or open tickets. It can't run automatically while you're away. Whatever you want it to know, you have to paste in or type out. Whatever it produces, you have to copy-paste somewhere to use.
+**Limits.** Without an approved connector enabled, Claude.ai cannot read files on your laptop or in Drive on its own. It sees what you type, paste, or upload. If your workspace exposes an approved connector, Claude.ai can retrieve context from that connected source, but access varies by workspace; confirm the connector is enabled before relying on it. It still cannot run automatically while you're away, and any action outside chat depends on an explicitly approved capability.
 
 That sounds like a lot of limits, and it is — but for the kinds of work most of us do *while sitting at the keyboard*, they don't matter. Claude.ai is a knife. Cowork and Slash are kitchens. The knife is fine for most cooking.
 
