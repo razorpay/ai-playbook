@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 2
-updated: "2026-07-26"
+updated: "2026-08-01"
 time_minutes: 30
 audience: "experienced-builder"
 outcome: "Understand why context windows fill, protect the useful window, and choose when to continue, compact, or hand off to a fresh session."
@@ -88,7 +88,7 @@ The Green Belt habit is to budget for relevance, not maximum capacity. A smaller
 
 ## Run a five-minute context audit
 
-Context hygiene is a loop, not a heroic cleanup after the agent gets confused. Run this audit before a long research, analysis, or build step. You do not need an extra compression proxy to start.
+Context hygiene is a loop, not a heroic cleanup after the agent gets confused. Run this audit before a long research, analysis, or build step; after finishing a plan; or when the agent starts repeating itself. You do not need an extra compression proxy to start.
 
 ### 1. Inspect the budget
 
@@ -100,6 +100,24 @@ Run `/context`. Sort what you see into three buckets:
 
 Do not chase a magic utilisation percentage. Ask a better question: **does most of the available attention support the next decision?**
 
+For a repo task, ask the agent for a grounded inventory rather than an impression:
+
+```text
+Before the next step, inspect the current context.
+
+Return only:
+1. the objective we are still pursuing;
+2. decisions and constraints that remain load-bearing;
+3. files changed and tests run, verified from git and command output;
+4. unresolved questions;
+5. context that is now noise;
+6. the single next action.
+
+Separate verified state from assumptions. Do not edit anything.
+```
+
+If a critical constraint is missing or wrong, re-read its source of truth before continuing.
+
 ### 2. Remove waste at the source
 
 Trim only what is irrelevant to the task:
@@ -109,13 +127,17 @@ Trim only what is irrelevant to the task:
 - temporarily disable unused plugins or MCP servers if their definitions dominate startup context;
 - keep safety rules, acceptance criteria, and source links visible. Shorter is not better if it deletes the contract.
 
+Keep the next fetch smaller than the question: filter by file, time range, error code, or test name; prefer quiet flags and one representative failure over an entire log. Reduce noise at the source before asking the model to summarise it.
+
 ### 3. Choose the right reset
 
-| Situation | Action |
-|---|---|
-| The goal is unchanged and the working context is focused | Continue. |
-| The goal is unchanged, but old conversation and tool output dominate | Run `/compact` with a focus such as `Preserve the accepted scope, unresolved decisions, source links, and verification commands.` |
-| The goal has changed, or the next phase needs a different evidence set | Write a handoff and start a fresh session. |
+| Situation | Action | What to carry forward |
+|---|---|---|
+| The goal is unchanged and the working context is focused | **Continue.** | The next action only. |
+| The goal is unchanged, but old conversation and tool output dominate | **Compact.** Run `/compact` with a focus such as `Preserve the accepted scope, unresolved decisions, source links, and verification commands.` | Save the checkpoint first, then verify that the summary preserved the contract. |
+| The goal has changed, a core constraint was forgotten, or the next phase needs different evidence | **Handoff and restart.** | Open a fresh session with the handoff, then re-read canonical files instead of trusting the summary alone. |
+
+Compaction is lossy by design. Treat its summary as a handoff draft, not a new source of truth. The repo, ticket, design, and test output remain authoritative.
 
 A useful handoff is short and inspectable:
 
@@ -133,57 +155,9 @@ After compaction or a fresh session, run `/context` again. Ask the agent to rest
 
 > **Try it now (five minutes).** Open one active session, run `/context`, name the largest item in each bucket, remove one irrelevant source, then choose **continue**, **compact**, or **handoff**. Record the before/after observation in your work note. The point is a repeatable decision, not a heroic token-savings screenshot.
 
+Output-reduction tools can compress logs, tool responses, and history before they reach the model, but a local proxy also sits on the data path. Do not install one from a demo or public repository by reflex. Confirm the approved setup, data handling, TLS path, and rollback with the platform and security owners first. The audit above is the durable skill; a compression tool does not replace it.
+
 The `/context` and `/compact` commands are documented in [Claude Code's built-in commands](https://docs.anthropic.com/en/docs/claude-code/interactive-mode#built-in-commands). The lifecycle framing—architect, ingest, consolidate, and forget—comes from [Agentic Context Management](https://arxiv.org/abs/2607.21503v1). For a window-exhaustion error rather than routine hygiene, follow [Appendix D.14](../../../appendices/D-known-issues/README.md).
-
----
-
-## The five-minute context checkpoint
-
-Knowing that context is finite is not enough. Run this checkpoint when you finish a plan, switch from investigation to editing, or notice the agent repeating itself.
-
-### 1. Inspect what matters
-
-Ask the agent for a short inventory, grounded in the current repo state:
-
-```text
-Before the next step, inspect the current context.
-
-Return only:
-1. the objective we are still pursuing;
-2. decisions and constraints that remain load-bearing;
-3. files changed and tests run, verified from git and command output;
-4. unresolved questions;
-5. context that is now noise;
-6. the single next action.
-
-Separate verified state from assumptions. Do not edit anything.
-```
-
-Read the result. If a critical constraint is missing or wrong, do not continue on momentum. Re-read the source of truth and correct the checkpoint first.
-
-### 2. Scope the next tool call
-
-Keep the next fetch smaller than the question. Filter by file, time range, error code, or test name. Prefer quiet flags and a representative error over an entire log. For a large repo, inspect the directory map or search results before opening files in bulk.
-
-The rule is simple: **reduce noise at the source before asking the model to summarise it.** A summary of 5,000 irrelevant lines is still a tax on the session.
-
-### 3. Continue, compact, or restart
-
-Use this decision table instead of dragging every session forward by default.
-
-| Signal | Action | What to carry forward |
-|---|---|---|
-| Same objective; constraints are intact; most context is still relevant | **Continue** | The next action only |
-| Same objective; history is noisy; your approved surface supports compaction | **Compact** | Save the checkpoint first, then verify the compacted summary preserved decisions, constraints, changed files, and test state |
-| Objective changed; a core constraint was forgotten; tool output dominates the session | **Restart** | Open a fresh session with the checkpoint, then re-read the canonical files rather than trusting the summary alone |
-
-Compaction is lossy by design. Treat its summary as a handoff draft, not a new source of truth. The repo, ticket, design, and test output remain authoritative.
-
-### 4. Automate only after approval
-
-Output-reduction layers can compress logs, tool responses, and conversation history before they reach the model. They can be useful, but a local proxy also sits on the data path. Do not install one from a demo or public repository by reflex. Confirm the approved setup, data handling, TLS path, and rollback with the platform and security owners first.
-
-The durable skill is the checkpoint above. A compression tool may improve it; it does not replace it.
 
 ---
 
