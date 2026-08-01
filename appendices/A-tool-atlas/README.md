@@ -6,7 +6,7 @@ status: "drafted"
 type: "readme"
 track: "tool-atlas"
 order: 0
-time_minutes: 14
+time_minutes: 16
 audience: "everyone"
 outcome: "Choose the right AI tool surface for the job instead of treating every tool as interchangeable."
 prev: "prologue/tool-tour"
@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-07-31"
+updated: "2026-08-01"
 ---
 
 # Appendix A — Tool Atlas
@@ -32,6 +32,7 @@ updated: "2026-07-31"
 | Claude Design | You are exploring UI, deck, or design concepts with Razorpay design-system context. | Repo edits, Blade compliance gates, or anything that must ship through a PR. |
 | Cowork | You want a guided enterprise assistant with approved connectors and repeatable non-code workflows. | Deep codebase surgery or local build/test loops. |
 | Compass | You need Razorpay-specific skills, hooks, MCPs, and policy-aware workflows inside Claude Code. | One-off general chat. Compass is the overlay, not the conversation surface. |
+| hash (`rzh`) | You need to install or sync certified skills, diagnose local harness health, or inspect MCP and session status on your laptop. | Running agents, managing credentials, or replacing Claude Code or Compass. hash manages local harness state; it is not the assistant. |
 | PM tracer | You want your PM/Product Claude Code usage to count toward the AI Adoption Leaderboard after your setup is GREEN. | Debugging, answering questions, or trying to "game" adoption through token spend. It is instrumentation, not an assistant. |
 | Analytics Agent | You need the standalone Self Serve Analytics path for metric questions, lineage checks, or health reviews. | Native-Windows hand ports, ad-hoc database access, or metric work before the plugin is onboarded. |
 | Slash | You need remote internal research or a bounded repo task: use knowledge-first mode to understand, or execution mode to change code and raise a PR. | Local uncommitted work, an interactive dev loop, or a task whose repo and success criteria are still unclear. |
@@ -135,6 +136,32 @@ For every surface in this atlas, you should be able to answer five questions bef
 **Common failure modes.** Installed but stale — skills loaded from an older version that does not match current conventions. Always confirm version through the verification skill before high-stakes work.
 
 **Belt relevance.** Required from White Belt setup. Becomes the centre of gravity at Green and Black, where builders begin authoring their own skills.
+
+### hash (`rzh`)
+
+**Surface type.** Razorpay's local harness manager for a development laptop. It manages files and health checks around Claude Code; it does not run an agent or replace the Compass plugin.
+
+**Default context.** Its local checkout, the harness files it installed, the certified skill catalog, and the Claude Code and project MCP configuration it can inspect. It keeps its own runtime under `~/.hash/`.
+
+**What it can do.** Link certified skills into Claude Code, diagnose the installation with copyable fixes, probe MCP health, show local session status, open a localhost-only dashboard, and update or uninstall what hash configured.
+
+**What it cannot do.** Run a prompt, act on a remote repo, or manage credentials. Claude Code remains the agent surface; Compass remains the program plugin; hash keeps the local harness around them inspectable.
+
+**Try the setup-to-health loop.** Use this when current enablement asks you to install hash:
+
+```bash
+git clone git@github.com:razorpay/hash.git ~/src/hash
+cd ~/src/hash
+./setup
+rzh --version
+rzh doctor
+```
+
+Do not continue on a red diagnostic. Apply the fix printed beside the failed check, then rerun `rzh doctor`. Once the check is clean, use `rzh status` for the one-screen view, `rzh mcp --probe` for a fresh MCP probe, or `rzh ui` for the local dashboard. The [official guides](https://github.com/razorpay/hash/blob/master/docs/GUIDES.md) carry the detailed contracts.
+
+**Common failure modes.** Typing `hash` instead of `rzh` calls a shell builtin. If `rzh` is not on `PATH`, follow the command path printed by setup or the [troubleshooting guide](https://github.com/razorpay/hash/blob/master/docs/TROUBLESHOOTING.md). A `401` or `403` MCP probe means unauthenticated, not down; authenticate through the approved route rather than editing credentials into config. If existing skill directories block linking, preview `rzh sync --adopt --check` before adopting only byte-identical copies.
+
+**Belt relevance.** Useful from White Belt onward when a cohort or tooling owner requires it. Green and Black builders also use its skill, MCP, and review-depth views; [W.5 remains the canonical Day-1 setup contract](../../belts/01-white/W05-installing-the-stack.md).
 
 ### PM tracer (`rzp-pm-tracing`)
 
@@ -282,6 +309,7 @@ Before you open a tool, run this filter in your head:
 - If the work is "think with me," default to Claude.ai.
 - If the work is visual ideation or a deck draft with design-system context, default to Claude Design.
 - If the work is non-code office workflow on a folder, default to Cowork.
+- If current enablement asks for hash, install it once, run `rzh doctor`, and use `rzh status` or `rzh ui` to inspect the local harness before opening a work session.
 - If the work is PM adoption instrumentation, install the PM tracer after Claude Code is GREEN and verify it with `/tracing-doctor`.
 - If the work is metric or SSA analysis, use Analytics Agent after its setup/onboarding flow instead of the retired `querying-metrics` habit.
 - If the work is internal research, use Slash knowledge-first mode. If it is a bounded remote repo task, give Slash the repo and acceptance criteria in execution mode.
