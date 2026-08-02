@@ -14,7 +14,7 @@ next: "belts/yellow/quest-standup-bot"
 pillar: "meta"
 belt: "yellow"
 tags: ["yellow-belt", "staying-current", "meta"]
-updated: "2026-04-27"
+updated: "2026-08-02"
 ---
 
 # Y.14 - Staying current
@@ -43,38 +43,74 @@ The goal is not to become a tool-news person. The goal is to notice changes that
 
 ## What to follow
 
-Follow:
+Use a simple source hierarchy. Higher rows beat lower ones when they disagree.
 
-- program updates for pinned plugin changes;
-- Claude Code release notes or internal summaries;
-- connector changes for tools you use;
-- repo-specific guidance changes;
-- design-system updates if you work on UI;
-- security or safety guidance changes.
+| Priority | Source | What it can tell you |
+|---|---|---|
+| 1 | **Razorpay source of truth** — the [current channel directory](../../appendices/F-slack-channels/README.md), the relevant owner announcement, and [W.5 for Claude Code setup](../01-white/W05-installing-the-stack.md) | What is supported, available, and safe to use here |
+| 2 | **Owner-authored source** — the official release notes or changelog for one tool you use | What the maker says changed |
+| 3 | **Community source** — one trusted practitioner, newsletter, or digest | What may be worth investigating |
 
-Do not follow every AI newsletter as if it were required reading. Curiosity is good. Obligation should be small.
+Community commentary is a discovery feed, not a setup guide. Follow two or three sources, not twenty.
 
 ---
 
-## Worked example: weekly ten-minute review
+## Turn a signal into a decision
+
+Run one update through this decision tree:
+
+```text
+Is it available on a Razorpay-supported route now?
+  No  -> watch it; do not change setup
+  Yes -> does it change a current task or remove a blocker?
+           No  -> ignore it
+           Yes -> is the workflow approved and testable?
+                     No  -> ask the owner; keep the current path
+                     Yes -> try one bounded task, verify, then adopt or revert
+```
+
+This keeps “a vendor announced it” separate from “I should use it today.” It also gives you permission to ignore most updates. That is the feature, not a failure of curiosity.
+
+Record the decision in five lines:
+
+```markdown
+Signal: <what changed + source link>
+Internal status: <supported / not supported / unclear>
+Workflow change: <before -> after>
+Check: <one bounded task and expected evidence>
+Decision: <adopt / watch / ignore> — review again <date, only if watch>
+```
+
+---
+
+## The weekly ten-minute review
 
 Once a week:
 
 ```text
-1. Check program update channel.
-2. Check plugin or setup version note.
-3. Check one tool changelog relevant to your work.
-4. Write one sentence: "This week I will change..."
-5. Ignore the rest.
+2 min — scan the current internal update source.
+3 min — check the official changelog for one tool you actually use.
+3 min — triage one relevant item with the decision tree.
+2 min — write the five-line record.
 ```
 
-Example note:
+If you choose `adopt`, schedule the bounded check before changing your normal workflow.
 
-```text
-This week I will ask Claude to separate evidence from inference when reading unfamiliar code.
+**Example:** a provider announces a new model, but no current internal source says the route is available. Record `watch`; do not rewrite your setup. When an owner announcement confirms the route, test one representative task and keep the old path until the evidence is better.
+
+**Try it now:** pick one update from the past week and complete the five-line record. At the next weekly review, name one update you adopted and one you deliberately ignored or kept on watch.
+
+Example decision:
+
+```markdown
+Signal: A provider released a new model — <official release link>
+Internal status: not supported
+Workflow change: none yet
+Check: wait for an owner announcement naming the supported route
+Decision: watch — review again next Friday
 ```
 
-That is a better outcome than bookmarking ten posts.
+That is a better outcome than bookmarking ten posts and quietly changing your setup from the eleventh.
 
 ---
 
