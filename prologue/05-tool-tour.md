@@ -8,13 +8,13 @@ track: null
 order: 5
 time_minutes: 5
 audience: "everyone"
-outcome: "Tell Claude Code, Claude.ai, Cowork, Compass, Slash, Cursor, and Codex apart."
+outcome: "Tell Claude Code, Claude.ai, Claude Design, Cowork, Compass, Slash, Cursor, and Codex apart."
 prev: "prologue/enablement-stack"
 next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-07-22"
+updated: "2026-08-02"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -25,12 +25,13 @@ updated: "2026-07-22"
 
 ## If you're short on time
 
-There are seven tools you'll see named repeatedly. Here's the one-line version of each. The rest of the chapter expands them.
+There are eight tools you'll see named repeatedly. Here's the one-line version of each. The rest of the chapter expands them.
 
 | Tool | One-sentence definition |
 |---|---|
 | **Claude Code** | The terminal app you'll type into 80% of the time — the harness for everything else. |
 | **Claude.ai** | The browser chat at `claude.ai`. Fine for thinking out loud; **not** for shipping code. |
+| **Claude Design** | The visual workspace at `claude.ai/design`. Use the Blade project for design exploration; use Claude Code + Blade MCP for repo changes and compliance checks. |
 | **Cowork** | Anthropic's desktop app for non-developers — same AI, wrapped in a folder-and-file UI instead of a terminal. |
 | **Compass** | Razorpay's plugin that ships skills, hooks, and MCPs into Claude Code — *not* a tool you open, it's a layer inside Claude Code. |
 | **Slash** | Razorpay's remote AI worker for internal research and bounded repo tasks. Use knowledge-first mode to understand; use execution mode when the repo and result are clear. |
@@ -66,6 +67,20 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 **When NOT to reach for it:** **When you want to ship code into a Razorpay repo.** Claude.ai has no access to your files, no Blade knowledge, and none of the pre-ship / PR-guardrail skills. Code pasted out of Claude.ai into a repo has a near-perfect record of failing compliance because it doesn't know Blade exists. The failure mode is so common that a dedicated "production-compiler" skill exists specifically to repair Claude.ai / AI-Studio / ChatGPT output when someone has already gone down this path. [Appendix C](../appendices/C-skills-library/README.md) is the first catalogue for those skills.
 
 **Rule of thumb:** Claude.ai is for *talking about* code. Claude Code is for *shipping* code. Don't cross the streams.
+
+---
+
+## Claude Design
+
+**What it is:** A visual design workspace at [claude.ai/design](https://claude.ai/design), separate from Claude Code. Razorpay's Blade design project gives it Blade tokens, components, states, and interaction patterns for design exploration.
+
+**Why you'll use it:** To turn a product idea into a Blade-aware mock-up, compare visual directions, or iterate on a flow before anyone changes the repository.
+
+**The two-step start:** Open Claude Design, select the Blade project, and say what you are exploring and who it is for. Then add: `Use the Blade design system.` Review component choice, states, copy, and flow before sharing the result.
+
+**Boundary:** Claude Design creates visual drafts; it does not make a draft production-ready. If the task moves into a repository, switch to **Claude Code + Blade MCP**, compare against the existing code, and run the required build, visual, and review checks. If a Blade component is missing from the Design project, do not improvise a new system component—flag the gap and verify the supported option.
+
+**Rule of thumb:** Claude Design for the visual direction; Claude Code + Blade MCP for the shippable implementation.
 
 ---
 
@@ -146,6 +161,7 @@ When you read a later chapter that says "run this in Claude Code" or "open this 
 - Open Claude Code in a terminal. Run `claude`. Type a harmless question. See the response.
 - Open Cowork on your desktop (if you've installed it). See the folder-first UI.
 - Open `claude.ai` in a browser tab. Compare.
+- Open `claude.ai/design`, select the Blade project, and compare its canvas with the plain chat.
 - Open the Slash internal URL if you have access. Compare.
 
 Five minutes now saves you hours of "wait, which tool am I supposed to be in?" later.
@@ -157,6 +173,7 @@ Five minutes now saves you hours of "wait, which tool am I supposed to be in?" l
 - **Claude Code is the default.** Everything else is an accessory to it.
 - **Compass is inside Claude Code** — it's not a thing you launch separately.
 - **Claude.ai is for talking about code, not shipping it.** Don't paste its output into a Razorpay PR.
+- **Claude Design is for visual exploration.** Use its Blade project for drafts; move to Claude Code + Blade MCP for repository work.
 - **Cowork is the designer / PM-friendly front door** to the same AI stack, optimised for documents over repos.
 - **Slash is the remote delegation path** — knowledge-first for internal context, execution mode for a bounded repo task.
 - **Cursor** is a graphical IDE you can run Claude Code inside for the best of both worlds.
