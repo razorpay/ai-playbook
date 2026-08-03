@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "black"
 order: 9
-time_minutes: 55
+time_minutes: 65
 audience: "platform-builder"
-outcome: "Run prompt and agent evaluations with golden sets, named pass criteria, outcome-state checks, trajectory checks, and calibrated graders — and refuse vibes-only updates."
+outcome: "Build cold-start golden sets, then run prompt and agent evaluations with named pass criteria, outcome-state checks, trajectory checks, and calibrated graders — and refuse vibes-only updates."
 prev: "belts/black/memory-systems"
 next: "belts/black/cost-and-observability"
 pillar: "prompt"
 belt: "black"
-tags: ["black-belt", "prompt-evals", "agent-evals", "golden-sets", "a-b-testing"]
-updated: "2026-07-23"
+tags: ["black-belt", "prompt-evals", "agent-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
+updated: "2026-08-03"
 ---
 
 # B.9 — Prompt evals
@@ -27,6 +27,7 @@ The discipline that turns "this prompt feels right" into "this system completes 
 
 - Three eval shapes matter: **golden sets** (regression), **A/B** (improvement comparison), **adversarial** (failure-finding).
 - Every shipped skill that updates over time should have a golden set. Without one, every update is a guess.
+- Before production traces exist, build a **cold-start set** from domain expertise: realistic input, expected answer, and one-line grader rule.
 - For an agent, grade the **outcome and trajectory**, not only the final message. A confident "done" is not evidence that the state changed.
 - "Vibes-driven updates" (the team thinks the new prompt is better) is the failure mode this module exists to prevent.
 
@@ -135,6 +136,55 @@ The fifth step is the discipline. A new prompt that improves the average but reg
 
 ---
 
+## No traces yet? Build a cold-start eval set
+
+Production failures are the best raw material for an eval set. On day zero, you do not have any. Do not wait until launch and do not ask a model to invent its own answer key. Use domain expertise to create a temporary specification made of examples.
+
+Each case needs three fields:
+
+| Field | What belongs here | Quality check |
+|---|---|---|
+| **Input** | A realistic request or task, including only context the product will actually receive | Would a real user or system send this? |
+| **Expected answer** | The correct result, decision, or externally verifiable state | Did a domain expert approve it? |
+| **Grader rule** | One sentence stating what must be true for `PASS` | Can two reviewers apply it consistently? |
+
+The expected answer is not always literal prose. It can be a route, schema, state change, refusal, or set of required facts. Use the least subjective representation that fits the task.
+
+### Build the set from floor to ceiling
+
+1. **Name one behaviour.** Write the feature contract in one sentence. “Answer analytics questions” is too broad; “return the approved metric definition and cite its catalog entry” is testable.
+2. **Find the floor.** Write the easiest *genuine* case, not a toy. Run the intended model and tool path. If this fails, narrow the feature before producing more cases.
+3. **Find the ceiling.** Write a case that should sit beyond the current product boundary or model capability. The expected result may be a clean refusal. If every ceiling case passes, the set cannot reveal where the system stops being reliable.
+4. **Fill the middle deliberately.** Vary named difficulty dimensions: missing context, ambiguous terms, longer inputs, conflicting evidence, uncommon user segments, tool failure, or required refusal. Start with the chapter's 20-case baseline. Grow only when a new behaviour slice or failure justifies it.
+5. **Reject ambiguous ground truth.** If two domain experts can defend different answers, clarify the policy or exclude the case. A fuzzy answer key creates a noisy score, not a flexible product.
+6. **Calibrate the grader.** Have people label a small batch independently, compare disagreements, and tighten the rule before automating it. Use code for exact fields, state, and permissions; use a model judge only for qualitative criteria.
+7. **Replace guesses with evidence after launch.** Add real failures and representative traces. Retire synthetic cases that duplicate them or test situations users never encounter. The cold-start set is scaffolding, not a museum.
+
+AI can draft variations between a floor and ceiling. A domain expert still owns the expected answers and approves every case that enters the release gate. Otherwise the system is taking an exam it wrote and marked itself.
+
+### Copyable cold-start seed card
+
+```markdown
+# Cold-start eval: <feature or workflow>
+Behaviour: <one sentence describing what the system must do>
+Domain owner: <role responsible for approving ground truth>
+Difficulty dimensions: <ambiguity, missing context, tool failure, refusal, ...>
+
+| Slice | Input | Expected answer or state | One-line PASS rule | Owner-approved? |
+|---|---|---|---|---|
+| Floor | <easiest genuine case> | <known-good result> | <binary rule> | Yes / No |
+| Middle | <one harder variation> | <known-good result> | <binary rule> | Yes / No |
+| Ceiling | <beyond boundary or capability> | <refusal or known result> | <binary rule> | Yes / No |
+
+Grader calibration: <human-labelled examples and disagreements resolved>
+Initial release threshold: <pass rule by slice; hard gates named separately>
+After launch: <owner and cadence for adding real failures>
+```
+
+**Ten-minute exercise:** fill the three rows only. If you cannot write the expected answer without asking the system under test, stop and find the domain owner. You have discovered a specification gap before it became a production incident.
+
+---
+
 ## When the prompt is only part of the system: evaluate the agent
 
 A prompt eval can inspect one answer. An agent eval must inspect a **trial**: the task, available tools, tool calls, intermediate outputs, and final state. The transcript tells you what the agent did; the outcome tells you whether the intended state exists.
@@ -203,6 +253,10 @@ Release decision: <pass/fail by slice; named owner for accepted trade-offs>
 
 **No golden set.** Every update is a guess. Fix: start with twenty inputs; grow.
 
+**A model generated the cases and approved the answers.** Variety is useful; self-authored ground truth is not. Fix: a domain expert approves every expected answer and grader rule.
+
+**The cold-start set never met production.** Synthetic cases can preserve assumptions users do not share. Fix: add real failures and traces after launch, then retire synthetic duplicates.
+
 **Golden set that never grows.** Failure modes accumulate; the set ages. Fix: every real-world failure mode earns an entry.
 
 **Pass criterion that is "the team thinks it is better."** Vibes are not metrics. Fix: a numeric threshold or a structured head-to-head judgment.
@@ -249,4 +303,6 @@ B.10 (*Cost attribution + observability at scale*) extends G.20's daily-loop obs
 
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md)
 - [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Aakash Gupta with Daniel McKinnon — How to build your first AI eval](https://www.news.aakashg.com/p/how-to-build-your-first-eval)
+- [Razorpay Design Quality Agent — versioned context and regression eval sets](https://github.com/razorpay/claude-plugins/pull/987)
 - [The v0.12 skill test-cases.md files](../../../skills/) — examples of acceptance-scenario writing
