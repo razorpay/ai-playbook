@@ -14,7 +14,7 @@ next: null
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-updated: "2026-07-22"
+updated: "2026-08-03"
 ---
 
 # H.7 — Day-1 quick reference
@@ -177,7 +177,7 @@ Escalation order: post the full redacted context publicly, follow the channel's 
 
 ---
 
-*Last reviewed: 2026-07-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-08-03. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 
