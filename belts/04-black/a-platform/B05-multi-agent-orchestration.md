@@ -8,13 +8,13 @@ track: "black"
 order: 5
 time_minutes: 45
 audience: "platform-builder"
-outcome: "Choose the right multi-agent orchestration pattern for the job, recognise which patterns reliably work, and refuse the patterns that consistently fail."
+outcome: "Choose the right multi-agent orchestration pattern, define its state and failure contract, and refuse patterns that consistently fail."
 prev: "belts/black/agent-sdk"
 next: "belts/black/tool-design"
 pillar: "harness"
 belt: "black"
-tags: ["black-belt", "multi-agent", "orchestration", "patterns"]
-updated: "2026-04-29"
+tags: ["black-belt", "multi-agent", "orchestration", "patterns", "state-management", "error-handling"]
+updated: "2026-08-04"
 ---
 
 # B.5 — Multi-agent orchestration
@@ -28,6 +28,7 @@ G.8 introduced subagents. B.5 is the systems-design layer above subagents: when 
 - Three patterns reliably work: **sequential pipeline**, **fan-out + reduce**, **supervisor + specialists**.
 - Two patterns reliably fail at scale: **agent free-for-all** and **deep recursive delegation**.
 - Pick by job. The wrong pattern is an order of magnitude more expensive than the right one.
+- Before launch, name one state owner and decide what happens when a worker times out, returns invalid output, or cannot finish.
 
 ---
 
@@ -172,6 +173,60 @@ The patterns are not mutually exclusive — a supervisor-with-specialists pipeli
 
 ---
 
+## Before launch: write the execution contract
+
+Choosing a pattern answers **who does the work**. It does not answer **who owns the truth when the work is half done**.
+
+Do not let every agent edit one shared state file. Give one coordinator a durable state record. In a supervisor pattern, that coordinator is the supervisor; in a pipeline, it is the orchestrator between stages. Workers receive bounded inputs and return new, immutable results; the coordinator validates and records them. This keeps one timeout from turning into a mystery about which agent wrote what.
+
+Copy this card before the first run:
+
+```text
+MULTI-AGENT EXECUTION CONTRACT
+
+Goal + passing artefact:
+Pattern + why it fits:
+Coordinator / state owner:
+
+For each worker:
+- bounded input:
+- output shape:
+- allowed tools and mutations:
+- timeout:
+
+Checkpoint after:
+Retry rule:
+Partial-result rule:
+Human approval before:
+Hard stop when:
+```
+
+A useful checkpoint records completed task IDs, validated output references, retry counts, the next task, and the human owner. It should let the coordinator resume without repeating successful work or trusting an unvalidated draft.
+
+### Decide failures before they happen
+
+| Failure | Default response |
+|---|---|
+| Worker times out | Retry once only if the step is safe to repeat; otherwise mark it incomplete. |
+| Worker returns the wrong shape | Reject the output. Ask for one bounded repair; never make the reducer guess missing fields. |
+| Tool denies access or raises a safety boundary | Stop that path and escalate. Do not retry with improvised credentials or a weaker route. |
+| Specialists disagree | Preserve both findings and route the conflict to the coordinator or a human; do not average away the disagreement. |
+| One parallel slice fails | Continue only if the passing artefact explicitly allows partial coverage. Label the missing slice. |
+| A mutating step fails | Stop before another mutation. Reconcile state and get human approval before retrying. |
+
+The model may adapt around a transient tool failure. The workflow still needs deterministic limits: bounded retries, regular checkpoints, and a stop condition. “The agents will figure it out” is not an error contract.
+
+### Ten-minute failure drill
+
+Pick one real workflow with at least three workers. Fill the card, then test these two interruptions on paper:
+
+1. The second worker times out after the first worker has completed successfully.
+2. The final worker returns a plausible answer that does not match its output schema.
+
+For each interruption, point to the checkpoint the coordinator resumes from, the retry budget it consumes, what the final artefact says, and where a human must intervene. If any answer is “restart everything” or “let the reducer infer it,” the contract is not ready.
+
+---
+
 ## Cost considerations
 
 Multi-agent patterns multiply cost. A useful rule of thumb:
@@ -199,6 +254,8 @@ Walk the questions:
 Conclusion: a hybrid. A thin supervisor + four parallel specialists + a reducer. The supervisor reads the PR once; spawns four parallel specialists with tight briefs; receives four structured artefacts; assembles the report.
 
 This is essentially what the `pre-ship-check` and `security-review-subagent` skills together implement. The pattern composes; the chapters that drafted them got the pattern right.
+
+Its execution contract is equally important: the supervisor owns the run record; specialists return findings without editing the PR; each accepted finding is checkpointed. If the security specialist still fails after its bounded retry, the report says security review is incomplete and stops before an approval recommendation. A green-looking report with one missing specialist is not a partial success; it is a mislabelled failure.
 
 ---
 
@@ -228,19 +285,23 @@ This is essentially what the `pre-ship-check` and `security-review-subagent` ski
 
 **Hand-wavy success criteria.** "It worked" is not a success criterion for a 4× cost multi-agent run. Fix: name what the artefact is and what passing looks like before invoking.
 
+**Shared mutable state with no owner.** Two agents update the same record and the reducer cannot reconstruct which value is current. Fix: workers return immutable results; one coordinator validates and writes checkpoints.
+
+**Retrying every error.** Permission failures, malformed outputs, and unsafe mutations are not transient network blips. Fix: define which errors get one bounded retry, which produce a partial artefact, and which stop the run.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I pick the right multi-agent pattern in under five minutes by walking the three questions; I refuse free-for-all and deep recursive delegation; I attribute costs deliberately.
-- 🟡 YELLOW — I understand the patterns but my pattern choice is sometimes "whatever fits in my head" rather than the three-question walk.
-- 🔴 RED — I have invoked multi-agent patterns without thinking through which one is right for the job.
+- 🟢 GREEN — I pick the right pattern in under five minutes, name one state owner, checkpoint accepted outputs, and predefine retry, partial-result, approval, and stop rules.
+- 🟡 YELLOW — I understand the patterns, but state ownership or failure behaviour still lives in my head rather than an execution contract.
+- 🔴 RED — I have launched multi-agent work without deciding which pattern fits or what happens when one worker fails.
 
 ---
 
 ## What you can say after this module
 
-> "I pick the right multi-agent pattern by walking three questions, refuse the two failure-shaped patterns, and watch cost attribution as the multiplier scales. I default down to a single agent when the patterns do not clearly apply."
+> "I pick the right multi-agent pattern, give it one state owner, and define checkpoints, retries, partial results, and stop conditions before launch. I default down to a single agent when the patterns do not clearly apply."
 
 ---
 
@@ -254,4 +315,4 @@ B.6 (*Tool design*) closes Part A. Multi-agent patterns work only as well as the
 
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md)
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md) — cost attribution
-- [Anthropic on multi-agent patterns](https://docs.claude.com/)
+- [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) — delegation, state, checkpoints, retries, and resumable failures
