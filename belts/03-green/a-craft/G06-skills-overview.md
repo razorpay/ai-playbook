@@ -14,7 +14,7 @@ next: "belts/green/writing-your-first-skill"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "skills", "compounding"]
-updated: "2026-04-29"
+updated: "2026-08-04"
 ---
 
 # G.6 — Skills
@@ -28,6 +28,7 @@ CLAUDE.md is per-directory; skills are per-workflow. Where CLAUDE.md tells the a
 - A skill is a frozen workflow. A `SKILL.md` file with frontmatter that names the trigger and a body that names the job, the inputs, and the outputs.
 - Skills compound: write a `pre-ship-check` once, every PR uses it, every Razorpay builder benefits.
 - A clever prompt is not a skill. A repeatable workflow with named inputs, checks, and a useful output probably is.
+- Skills use staged context: every installed skill's name and description load at startup; the body and supporting files load only when needed. Keep the catalogue intentional.
 
 ---
 
@@ -55,9 +56,13 @@ CLAUDE.md is per-directory; skills are per-workflow. Where CLAUDE.md tells the a
    └──────────────────────────────────────────────┘
 ```
 
-Skills are loaded when their trigger fires. An installed skill that never triggers costs nothing — the agent does not pay for skills it does not use. A triggered skill loads its body into the context window for the duration of the task.
+Skills use **progressive disclosure**, with a different context cost at each stage:
 
-This is the budget shape from G.2: skills give you on-demand context, not always-on context.
+1. **Startup index.** The name and description of every installed skill load into the system prompt so the agent can decide what is relevant.
+2. **Triggered body.** When a skill matches the task, the agent reads the full `SKILL.md` into context.
+3. **Supporting files.** References, examples, and scripts are opened only when the workflow needs them.
+
+An installed skill that never triggers avoids the body and supporting-file costs, but not the startup-index cost. One concise description is cheap; a global catalogue full of long descriptions is not free. This is the budget shape from G.2: most skill content is on demand, while discovery metadata is always present.
 
 ---
 
@@ -111,7 +116,28 @@ The program ships skills through the program-pinned plugin (Compass). Three audi
 
 **Personal skills.** A skill you keep in your own working directory for things only you do. These do not need to ship; they need to work for you.
 
-The boundary matters. A team skill might not pass program-library review, and that is fine. A program-library skill is held to a higher bar because every Razorpay builder pays for its presence in the loaded plugin.
+The boundary matters. A team skill might not pass program-library review, and that is fine. A program-library skill is held to a higher bar because every Razorpay builder pays the startup-metadata cost of its presence in the loaded plugin.
+
+---
+
+## Five-minute installed-skill budget check
+
+Do this in a fresh session so old task history does not distort the result.
+
+1. Run `/context` and note the system-prompt share before starting work.
+2. Ask Claude for a read-only inventory:
+
+   ```text
+   List the skills visible to this session. For each one, report its name,
+   description length, source (personal, team, or managed), and file path
+   when known. Mark unknowns; do not guess. Do not edit, move, or uninstall anything.
+   ```
+
+3. Mark personal skills you no longer use and descriptions that are longer than the trigger needs. A description should say **what the skill does and when to use it**; policy detail belongs in the body.
+4. Remove an unused personal skill through the same documented path that installed it, or tighten a description you own. Do not delete team-managed or globally provisioned files. Report those to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted `/context` breakdown and the noisy skill names.
+5. Start another fresh session, run `/context` again, and record the before/after system-prompt share.
+
+This is a catalogue audit, not a token-saving competition. If the total is high but you cannot attribute it to skills, stop guessing and route the evidence; MCP tools, plugins, and other system instructions also consume startup context.
 
 ---
 
@@ -132,7 +158,7 @@ Reading this sketch gives you the shape of every program-library skill. G.7 walk
 
 ## How skills interact with CLAUDE.md
 
-CLAUDE.md is always loaded; skills are on-demand. The two divide labour:
+CLAUDE.md applies whenever its directory scope is active. Skill **metadata** is always indexed; the skill **body** is on demand. The two divide labour:
 
 - **CLAUDE.md** carries rules that apply to *every* session in this directory. Read-replica rule. Currency in minor units. The design-system convention. These rules govern what the agent does *while* it works on anything here.
 - **Skills** carry recipes for *specific* workflows. Pre-ship check. Skill authoring. Design-intel. These recipes activate when the named workflow starts.
@@ -160,7 +186,7 @@ If you find a candidate fits both columns, write it as a skill and reference the
 
 ## Common failure modes
 
-**Skill bloat.** A team writes ten skills in a month, half are actually one-off scripts. Fix: hold the bar from G.6 and Appendix C: repeatable judgement, owned, fresh.
+**Skill bloat.** A team writes ten skills in a month, half are actually one-off scripts, and every description joins the startup index. Fix: hold the bar from G.6 and Appendix C: repeatable judgement, owned, fresh. Keep trigger descriptions concise; move workflow detail into the body.
 
 **Skill rot.** A skill written six months ago references a version of a connector that no longer exists. Fix: every skill has a freshness signal; quarterly review.
 
@@ -170,11 +196,13 @@ If you find a candidate fits both columns, write it as a skill and reference the
 
 **Skills with no off-switch.** A skill that always triggers becomes always-on context — the worst of both worlds. Fix: make the trigger narrow.
 
+**Global skill sprawl.** A centrally managed update adds many skills and fresh sessions start with noticeably less room. Fix: capture the redacted `/context` breakdown and report the managed entries in `#ai-help`; do not fight the manager by deleting provisioned files locally.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can name a workflow my team runs three or more times a month, decide whether it deserves a skill, and explain who would own it.
+- 🟢 GREEN: I can name a workflow my team runs three or more times a month, decide whether it deserves a skill, explain who would own it, and distinguish startup metadata cost from triggered body cost.
 - 🟡 YELLOW — I understand skills in concept but treat them as "something other people write."
 - 🔴 RED — I cannot tell the difference between a clever prompt and a skill.
 
