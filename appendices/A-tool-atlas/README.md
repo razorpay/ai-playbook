@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-01"
+updated: "2026-08-05"
 ---
 
 # Appendix A — Tool Atlas
@@ -207,6 +207,39 @@ Ask the metric question normally
 ```
 
 A Trino MCP 401 is a known issue. Add the exact question, route or gateway shown, and redacted error to [the current support thread](https://razorpay.slack.com/archives/C08QZD2GQFB/p1785472728285639); do not paste credentials or add a personal token as a workaround. The pending CLI migration changes transport, not data-access policy, so it must not be used to bypass a rejected write, expired access, timeout, or row cap.
+
+#### Validate a redesign without changing the source of truth
+
+Some metrics now have two certified Trino queries: the **legacy** table that dashboards use and a rebuilt **redesign** table under validation. Analytics Agent keeps serving legacy by default. When it reports `redesign_pair_available: true`, you can compare both paths without changing the trusted answer.
+
+Use this PM validation loop:
+
+1. **Ask the normal metric question first.** Keep the metric, date range, filters, and breakdowns fixed. Save the legacy value and source table from the receipt.
+2. **Say `compare redesign`.** Analytics Agent runs the registered legacy and redesign queries with the same inputs and presents the values and percentage delta side by side. If it says no redesign pair is registered, stop; do not invent a table swap.
+3. **Read the difference, not just the tick.** A delta above 1% is marked ❌. A smaller delta can still matter for money, counts, or narrow segments. Check that both sides use the same grain, filters, and complete time window.
+4. **Recheck freshness explanations.** Snapshot lag can create a temporary difference even when the computation is correct. Compare the same timestamp after the redesign table refreshes; do not approve a mismatch because “it is probably lag.”
+5. **Record an approve-or-stop decision.** Approve only the metric and window you checked. Attach the comparison receipt and name any accepted, owner-confirmed caveat. One green metric does not approve an entire domain.
+
+`use redesign` is a cross-check, not a cutover. Its answer should remain labelled **under validation**. The final `/ch-promote <domain> --redesign` step belongs to the analytics/data owner after every metric in scope is green; PM validation supplies evidence, not production authority.
+
+Copy this card into the validation thread:
+
+```text
+Metric:
+Date range and filters:
+Legacy table and value:
+Redesign table and value:
+Delta:
+Same grain and complete window? yes / no
+Freshness recheck needed? yes / no
+Known caveat and owner:
+Decision: approve / stop
+Comparison receipt:
+```
+
+**Stop conditions.** Stop if no registered pair exists, either query fails, the grain or filters differ, the date window is incomplete, a freshness explanation is unverified, or the result conflicts with the source-of-truth dashboard. Keep legacy as primary and route the evidence to the metric owner.
+
+**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689).
 
 #### Ask, review, or contribute?
 
