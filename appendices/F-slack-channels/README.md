@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-07-21"
+updated: "2026-08-05"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
@@ -47,7 +47,7 @@ Where builders gather to swap patterns, share wins, and showcase what they've bu
 |---|---|---|---|
 | [`#ai-bulletin`](https://razorpay.slack.com/archives/C08NRSW1BUZ) | Magical AI stories — share what you're doing with AI; learn from each other. The org-wide signal channel for AI wins. Use threads for follow-up questions. | Khilan Haria | Async |
 | [`#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ) | Hacks, ideas, and best practices for getting the most out of AI coding tools. The peer-to-peer craft room for builders shipping with AI daily. | Yash Doshi | Async |
-| [`#ai-coding-experiments`](https://razorpay.slack.com/archives/C0AK3F680GL) | AI coding experiments — try-this-and-see channel for new tools, new prompts, new workflows before they're patterns. | Kaushik Bhat | Async |
+| [`#ai-coding-infra`](https://razorpay.slack.com/archives/C0AK3F680GL) | AI coding infrastructure — model access and routing, usage and cost, and shared AI coding tooling. | Kaushik Bhat | Async |
 | [`#ai-pmm`](https://razorpay.slack.com/archives/C09L2VBR2UD) | AI for PMM and marketing — campaign workflows, content generation, audience analysis. The PM-Marketing-adjacent home. | Vaidehee Prayaag Joshi | Async |
 | [`#product-ai-labs`](https://razorpay.slack.com/archives/C0A7B848RS7) | Product AI Labs pilot — Claude Code + Compass first cohort. Show-and-tell and knowledge sharing for the product team. | Product Spec Reviewer; Aravinth P K for PM-side coordination | Async |
 | [`#pod-velocity-and-ai-working-group`](https://razorpay.slack.com/archives/C084MV74HFS) | The cross-pod working group on velocity + AI. Coordination, decisions, working-group artefacts (tracker in pinned). | Nirvisha Mankad | Per-cadence |
@@ -181,4 +181,4 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 ---
 
-*Last reviewed: 2026-07-21. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
+*Last reviewed: 2026-08-05. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
