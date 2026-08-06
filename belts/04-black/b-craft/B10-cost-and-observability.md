@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "black"
 order: 10
-time_minutes: 30
+time_minutes: 35
 audience: "platform-builder"
-outcome: "Instrument cost and observability at team and org scale, then contain quietly expensive patterns with explicit runtime limits before they become a finance problem."
+outcome: "Instrument cost and outcome observability at team and org scale, preserve identity across multi-turn agents, and contain quietly expensive patterns with explicit runtime limits."
 prev: "belts/black/prompt-evals"
 next: "belts/black/effort-and-routing"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "cost-attribution", "observability", "scale"]
-updated: "2026-07-24"
+updated: "2026-08-06"
 ---
 
 # B.10 — Cost + observability at scale
@@ -29,6 +29,7 @@ Green Belt's [G.20](../../03-green/b-practices/G20-observability-with-ai.md) cov
 - The patterns that run quietly expensive: long-running sessions that should have been multiple short ones, agents with broad capabilities used narrowly, multi-agent workflows running at a multiplier nobody noticed (per B.5).
 - Cost attribution is not finance hygiene; it is a feedback signal that shapes which patterns get adopted.
 - A dashboard explains a spike after it starts. A runtime cost contract — hard limits, complete accounting, alerts, and a tested kill switch — contains it while it is happening.
+- For multi-turn agents, keep **conversation, run, and call identity separate**. Otherwise a working conversation can still be impossible to measure.
 
 ---
 
@@ -175,6 +176,38 @@ The proxy sees model calls; the runtime sees triggers, queues, tools, and termin
 
 ---
 
+## Keep conversation, run, and call identity separate
+
+A stable run ID is enough for one trigger. It is not enough for a multi-turn product agent, where one user goal can span several turns and each turn can contain several model and tool calls.
+
+Use three levels:
+
+| Identity | Lifecycle | What it lets you answer |
+|---|---|---|
+| **Conversation / session ID** | Created once when a goal-bearing conversation starts; reused across every turn until completion, abandonment, or escalation. | Did the conversation complete? Where did users drop off? Did it produce the intended artifact or state? |
+| **Run / trace ID** | New for each turn, retry, or background execution; linked to the conversation ID. | Which attempt failed, timed out, or became expensive? |
+| **Call / span ID** | New for every model or tool call; parented to the run that invoked it. | Which model, tool, or dependency caused the latency, error, or cost? |
+
+For a single-turn workflow, the conversation and run may have the same lifecycle. Keep the fields distinct anyway; the workflow may gain retries or follow-up turns later.
+
+Generate an opaque conversation ID at conversation creation and persist it server-side. Do not substitute an email, merchant ID, or other user identifier: one user can start several unrelated conversations, and identifiers can leak sensitive data into telemetry. A new goal gets a new conversation ID; a follow-up on the same goal keeps the existing one.
+
+<details>
+<summary>Run this identity canary before trusting a conversation funnel</summary>
+
+- [ ] Start one scripted two-turn conversation that makes at least one tool call.
+- [ ] Verify one session contains both turn-level traces under the same opaque conversation ID.
+- [ ] Verify each turn has a unique run ID and the tool call is parented to the correct run.
+- [ ] Record a terminal outcome such as `completed`, `abandoned`, or `escalated`, plus the intended artifact or state check from B.9.
+- [ ] Confirm the session-level view can answer: “Did this conversation reach its intended outcome?”
+- [ ] Start a second goal as the same test user and verify it receives a different conversation ID.
+
+</details>
+
+If every session row contains exactly one turn after this test, the product may still work, but the funnel does not. Fix identity propagation before reporting completion or drop-off rates.
+
+---
+
 ## Worked example — finding a quietly expensive pattern
 
 A team lead opens the weekly dashboard and notices Team X's spend has tripled in three weeks. Walk the questions:
@@ -217,11 +250,15 @@ This is the loop B.10 is for — observability surfaces the pattern, evals (per 
 
 **Accounting only the last turn.** A multi-turn run looks cheap because the runtime reports one message while the gateway bills the whole run. Fix: sum every turn and subagent, then reconcile a canary against gateway spend.
 
+**Generating a new session ID on every turn.** The model can retain the conversation while telemetry fragments it into unrelated rows. Fix: reuse one opaque conversation ID, keep unique run IDs beneath it, and rerun the identity canary before trusting session-level metrics.
+
+**Using a user identifier as the session ID.** Multiple goals collapse into one endless session, and sensitive identifiers enter the telemetry path. Fix: keep user and conversation identity separate.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I instrument and read cost + observability at team and org scale; my dashboards surface outliers, workflow attribution, multi-agent multipliers, and trend lines; every long-running workflow has a tested runtime cost contract.
+- 🟢 GREEN — I instrument and read cost + observability at team and org scale; multi-turn telemetry preserves conversation → run → call identity; every long-running workflow has a tested runtime cost contract.
 - 🟡 YELLOW — I read per-session cost (per G.20) but my team's aggregated spend is opaque to me.
 - 🔴 RED — I have not looked at team or org cost rollups, or my dashboards observe workflows that have no hard stop; "we'll find out at finance review" is my baseline.
 
@@ -229,7 +266,7 @@ This is the loop B.10 is for — observability surfaces the pattern, evals (per 
 
 ## What you can say after this module
 
-> "I instrument cost and observability at team and org scale, surface the patterns that run quietly expensive, and put runtime limits around long-running workflows before they scale."
+> "I instrument cost and observability at team and org scale, preserve conversation → run → call identity, and put runtime limits around long-running workflows before they scale."
 
 ---
 
@@ -245,4 +282,5 @@ B.11 (*Effort settings, model routing, fall-backs*) is the per-call tuning layer
 - [G.23 — The LLM proxy](../../03-green/c-guardrails/G23-llm-proxy.md) — the instrumentation layer all this depends on
 - [B.5 — Multi-agent orchestration](../a-platform/B05-multi-agent-orchestration.md) — the multipliers this dashboard surfaces
 - [LiteLLM virtual keys](https://docs.litellm.ai/docs/proxy/virtual_keys) — public reference for proxy budgets, request/token rate limits, and parallel-request limits
+- [Langfuse Sessions](https://langfuse.com/docs/observability/features/sessions) — grouping related traces with one propagated session ID and evaluating the conversation as a unit
 - [Internal long-running-agent cost RCA](https://razorpay.slack.com/archives/C0AGH2H7ZJ5/p1784797678792069) — why complete accounting, bounded runs, scoped tools, and a kill switch belong in one launch contract
