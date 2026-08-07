@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.57 · last reviewed 2026-07-29 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.58 · last reviewed 2026-08-07 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -62,7 +62,7 @@ Three doors, one source of truth.
 |---|---|---|
 | **Markdown source** | Diff-review, search, hand-edit, contribute back. | The repository root: `foundation/`, `prologue/`, `belts/`, `appendices/`. |
 | **HTML hub** | Browseable navigation, sponsor / new-reader walkthroughs, link-sharing. | `hub/` — generated from the Markdown via Starlight. |
-| **Course skill** | Conversational, paced walk-through with progress tracking. | `skills/playbook-course/` — invoke from Claude Code with "start the playbook," "continue my belt," or "show my progress." |
+| **Skill definitions** | Inspect reusable workflow contracts, guardrails, and output shapes. | `skills/` — reference implementations in this repo, not a current Compass install contract. Confirm the supported runnable distribution in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). |
 
 ---
 

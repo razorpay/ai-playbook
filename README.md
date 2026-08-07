@@ -1,13 +1,13 @@
 # Razorpay Org-Wide AI Playbook
 
-> The operating manual for Razorpay's AI builder program. A belt-progression curriculum, seven runnable Claude Code skills, and a Starlight hub — all built on one Markdown source of truth.
+> The operating manual for Razorpay's AI builder program. A belt-progression curriculum, seven reusable Claude Code skill definitions, and a Starlight hub — all built on one Markdown source of truth.
 
 <p align="center">
   <img src="diagrams/belt-ladder-hero.svg" alt="Foundation → White → Yellow → Green → Black → Council" width="720">
 </p>
 
 <p align="center">
-  <strong>v0.57 alpha</strong> · updated 2026-07-29 · source of truth: Markdown<br>
+  <strong>v0.58 alpha</strong> · updated 2026-08-07 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -27,7 +27,7 @@ The same Markdown layer powers three consumption surfaces. Pick the one that fit
 |---|---|---|
 | **Read on GitHub** | Skimming, linking, and reading in the same place you work. | Start at [INDEX.md](INDEX.md). Every chapter is a flat Markdown file. |
 | **Browse the hub** | The polished web experience with search, sidebar, and progress markers. | The Astro Starlight site under [`hub/`](hub). See *Run the hub* below. |
-| **Walk it with Claude Code** | A paced, conversational track with quest and boss-fight gating. | The [`playbook-course`](skills/playbook-course) skill. Say *"start the playbook"* in Claude Code. |
+| **Inspect a reusable workflow** | Understanding how a bounded skill should behave before it is distributed. | Start in the [Skills Library](appendices/C-skills-library/README.md). The seven reference definitions live under [`skills/`](skills/); confirm the current runnable distribution in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) rather than assuming Compass ships them. |
 
 ## Pick your starting point
 
@@ -37,7 +37,7 @@ The same Markdown layer powers three consumption surfaces. Pick the one that fit
 - **Looking for templates, cards, glossary, or certification policy.** → [Appendices](appendices/).
 - **Senior IC interested in the Council layer.** → [Staff+ Council](belts/05-council/README.md).
 
-If you want a guided walk, open Claude Code in this directory and say *"start the playbook."* The course skill creates a `LEARNER.md` in your working directory and walks the next module.
+If you want a guided walk, use the index or hub today. The repo contains a `playbook-course` reference definition for a stateful Claude Code walk, but it is not currently shipped through Compass; confirm a supported runnable route in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 ## Repository layout
 

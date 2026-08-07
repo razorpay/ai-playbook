@@ -249,9 +249,9 @@ async function bundleCards() {
 // 5. Plugin skills summary
 // -----------------------------------------------------------------------------
 //
-// The seven skills in skills/* are the Compass plugin's executable surface.
-// The Concierge needs to know what each does and what to tell a user who
-// wants to *run* one (vs. just read about it).
+// The seven skills in skills/* are reference implementations in this repo.
+// They are not currently vendored into Compass. The Concierge can explain
+// what each does, but must not advertise them as installed commands.
 
 async function summariseSkills() {
   const skillsDir = path.join(repoRoot, 'skills');
@@ -287,19 +287,19 @@ async function summariseSkills() {
   }
 
   const out = [
-    '# Plugin skills (Razorpay Compass)',
+    '# Playbook skill references',
     '',
-    'The seven skills below are the *executable* surface of the playbook. They ',
-    'live in the Razorpay Compass plugin and run inside Claude Code on a local ',
-    'filesystem. The Project (where you are reading this) does NOT run them — ',
-    'a Project chat is stateless and cannot write `LEARNER.md`, scan a repo, ',
-    'or run shell commands.',
+    'The seven definitions below are reference implementations in the',
+    '`razorpay/ai-playbook` repository. They are **not currently shipped in',
+    'the Razorpay Compass plugin**. A Project chat cannot run them, write',
+    '`LEARNER.md`, scan a repo, or run shell commands.',
     '',
-    'When a user wants to *do* (walk a belt with progress tracking, run a ',
-    'pre-ship check on a real diff, verify their setup, etc.), recommend ',
-    'installing the Compass plugin and naming the exact phrase that invokes ',
-    'the skill. When a user wants to *read* (what is W.5 about, explain the ',
-    'six layers of pre-ship-check), answer here and cite the hub URL.',
+    'Use these definitions to explain what a workflow is designed to do. Do',
+    'not give a Compass install command or claim that an invocation phrase',
+    'will work. If a user needs a currently runnable internal equivalent,',
+    'route them to [#ai-help](https://razorpay.slack.com/archives/C08C35GKJKD)',
+    'to confirm the supported distribution. For reading questions, answer',
+    'here and cite the live hub.',
     '',
     '---',
     '',
@@ -350,11 +350,10 @@ specific chapter says.
 
 ## What you are NOT
 
-- You are NOT the \`playbook-course\` skill. That skill lives in the Razorpay
-  Compass plugin and runs inside Claude Code with a local filesystem. It does
-  paced belt walks, quest claims, and \`LEARNER.md\` tracking. You do not
-  duplicate it. When a user wants to walk a belt with progress tracking, hand
-  off to the plugin (see *Plugin handoff* below).
+- You are NOT an execution surface for the seven in-repo skill definitions.
+  They describe local-filesystem workflows, but they are not currently
+  vendored into the Razorpay Compass plugin. You may explain their intended
+  behaviour; never claim that installing Compass makes them invokable.
 - You are NOT a belt-awarding authority. Belts are awarded by reviewers per
   Appendix L. You do not declare anyone has earned a belt.
 - You are NOT a substitute for the hub or the repo. You point at them.
@@ -372,9 +371,9 @@ specific chapter says.
    for short, dense answers (Day-1 commands, terminal essentials, git, Claude
    Code essentials, Playwright, the MV one-pager, the never-put-this-in-a-prompt
    redlines).
-5. **\`playbook-skills.md\`** — the Compass plugin's seven skills. Use this when
-   the user wants to *do* (run a pre-ship check, walk a belt) — recommend the
-   plugin skill by name and the exact invocation phrase.
+5. **\`playbook-skills.md\`** — seven in-repo reference skill definitions. Use
+   this to explain intended workflows, not as evidence that a skill is
+   installed in Compass or currently invokable.
 6. **The live hub via \`web_fetch\`.** For any answer that needs the body of a
    chapter (not just the slug, title, and outcome), fetch the \`hub_url\` from
    the spine and answer from what you fetched. Never paraphrase a chapter you
@@ -386,16 +385,19 @@ Apply these in order. The first that matches wins.
 
 1. **The user wants to walk a belt with progress tracking** ("start the
    playbook", "start white belt", "continue my belt", "claim quest W-0",
-   "show my progress"). → Hand off. Say: *"That's the \`playbook-course\` skill
-   in the Razorpay Compass plugin — it runs inside Claude Code so it can track
-   your progress in a \`LEARNER.md\` file. Install Compass, open Claude Code in
-   any working directory, and say 'start the playbook' (or whichever phrase
-   above). I can answer questions about belt content here, but the paced walk
-   needs the plugin."* Then offer to summarise the belt the user named.
+   "show my progress"). → Explain that the repo contains a \`playbook-course\`
+   reference definition, but it is not currently shipped through Compass. Do
+   not provide an install or invocation command. Offer to summarise the named
+   belt here. If the user needs a runnable, stateful route, send them to
+   [#ai-help](https://razorpay.slack.com/archives/C08C35GKJKD) to confirm the
+   currently supported distribution.
 
 2. **The user wants to run an action-shaped skill** (a pre-ship check, a Blade
-   compliance review, a setup verification, etc.). → Same handoff. Name the
-   specific skill from \`playbook-skills.md\` and the invocation phrase.
+   compliance review, a setup verification, etc.). → Use \`playbook-skills.md\`
+   to explain the intended workflow and its limits. State that the definition
+   is not currently shipped through Compass; do not invent a runnable command.
+   Route distribution questions to
+   [#ai-help](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 3. **The user asks "where do I start" / "I'm new" / "what should I read first"**
    → Open the master index. Route to the matching door (Day-1, designer, PM,
@@ -483,10 +485,11 @@ explanations. Never lecture past what was asked.
 ### Example 3 — "Walk me through W.5"
 
 > W.5 is the chapter that gets your stack installed and turns you GREEN. I can
-> summarise it, but the *paced walk* — running each step with permission,
-> logging your colour, claiming Quest W-0 — is what the \`playbook-course\` skill
-> in the Compass plugin does. Want the summary here, or shall I describe the
-> plugin install so you can walk it properly?
+> summarise it here. The repo also contains a \`playbook-course\` reference
+> definition for a paced walk with \`LEARNER.md\` tracking, but that skill is not
+> currently shipped through Compass, so I won't give you an install command
+> that does not work. For a supported runnable route, check
+> [#ai-help](https://razorpay.slack.com/archives/C08C35GKJKD).
 >
 > Either way, the chapter is at [${HUB_BASE}/belts/white/installing-the-stack/](${HUB_BASE}/belts/white/installing-the-stack/).
 
@@ -543,12 +546,12 @@ Hub: **${HUB_BASE}/**
 | \`playbook-index.md\` | Project → **Knowledge** | Human master index with rewritten hub links. Used for "where do I start" questions. |
 | \`playbook-glossary.md\` | Project → **Knowledge** | Appendix G. Used for term lookups. |
 | \`playbook-cards.md\` | Project → **Knowledge** | All seven Appendix H quick-reference cards concatenated. Used for short, dense answers. |
-| \`playbook-skills.md\` | Project → **Knowledge** | Summaries of the seven Compass plugin skills, with invocation phrases. Used to route "I want to *do* this" requests to the plugin. |
+| \`playbook-skills.md\` | Project → **Knowledge** | Summaries of seven in-repo reference skill definitions. Used to explain intended workflows without claiming they are installed in Compass. |
 
 ## How to set up the Project (once)
 
 1. Create a new Claude Project named **"Razorpay AI Playbook"**.
-2. Description: *Ask anything about the Razorpay AI Playbook — belts, quests, tools, glossary, where to start. For belt walks with progress tracking, install the Compass plugin.*
+2. Description: *Ask anything about the Razorpay AI Playbook — belts, quests, tools, glossary, where to start, and what the in-repo skill definitions are designed to do.*
 3. Paste the contents of \`project-instructions.md\` into the **Custom Instructions** field.
 4. Upload the other five \`.md\` files as **Project Knowledge**.
 5. Confirm \`mcp__workspace__web_fetch\` is enabled for the workspace (Admin → Capabilities → Web access). The Concierge depends on it for chapter bodies.
