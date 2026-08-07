@@ -6,6 +6,11 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.58 — Correct Playbook Concierge skill routing (2026-08-07)
+
+- **Removed an unavailable Compass handoff** — the Concierge and root navigation no longer tell readers that the seven in-repo playbook skill definitions are installed in Compass or provide invocation guidance for commands Compass does not ship.
+- **Kept the reference workflows useful** — skill summaries now explain intended behaviour while routing current distribution questions to `#ai-help`.
+
 ## v0.57 — Refresh Claude Project knowledge (2026-07-29)
 
 - **Aligned the manifest release header** — replaced its stale v0.22-alpha / 2026-05-12 metadata with the current release and review date.

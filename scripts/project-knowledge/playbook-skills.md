@@ -1,16 +1,16 @@
-# Plugin skills (Razorpay Compass)
+# Playbook skill references
 
-The seven skills below are the *executable* surface of the playbook. They 
-live in the Razorpay Compass plugin and run inside Claude Code on a local 
-filesystem. The Project (where you are reading this) does NOT run them — 
-a Project chat is stateless and cannot write `LEARNER.md`, scan a repo, 
-or run shell commands.
+The seven definitions below are reference implementations in the
+`razorpay/ai-playbook` repository. They are **not currently shipped in
+the Razorpay Compass plugin**. A Project chat cannot run them, write
+`LEARNER.md`, scan a repo, or run shell commands.
 
-When a user wants to *do* (walk a belt with progress tracking, run a 
-pre-ship check on a real diff, verify their setup, etc.), recommend 
-installing the Compass plugin and naming the exact phrase that invokes 
-the skill. When a user wants to *read* (what is W.5 about, explain the 
-six layers of pre-ship-check), answer here and cite the hub URL.
+Use these definitions to explain what a workflow is designed to do. Do
+not give a Compass install command or claim that an invocation phrase
+will work. If a user needs a currently runnable internal equivalent,
+route them to [#ai-help](https://razorpay.slack.com/archives/C08C35GKJKD)
+to confirm the supported distribution. For reading questions, answer
+here and cite the live hub.
 
 ---
 
