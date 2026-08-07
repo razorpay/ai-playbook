@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>v0.58 alpha</strong> · updated 2026-08-07 · source of truth: Markdown<br>
+  <strong>v0.59 alpha</strong> · updated 2026-08-07 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -59,7 +59,7 @@ If you want a guided walk, use the index or hub today. The repo contains a `play
 │                             # J reading · L certification · N methodologies
 ├── case-studies/             # Boss Fight B-B case studies seed here
 │
-├── skills/                  # 7 Claude Code skills (incl. playbook-course)
+├── skills/                  # 7 Claude Code reference definitions
 ├── diagrams/                 # 9 signature SVG diagrams + 2 legacy aliases
 ├── excalidraw/               # 7 hand-drawn companion illustrations
 ├── hub/                      # Astro Starlight source — regenerated from above
@@ -106,21 +106,15 @@ The bot posts a comment on every PR with the preview URL so you can verify the r
 
 Go to [Actions → Deploy to GitHub Pages](https://github.com/razorpay/ai-playbook/actions/workflows/deploy-pages.yml) → **Run workflow** → master.
 
-## Run the course skill
+## Inspect the course-skill reference
 
-In any working directory with Claude Code and the Razorpay Compass plugin loaded:
+The in-repo [`playbook-course`](skills/playbook-course/) definition specifies how a stateful Claude Code walk should pace the curriculum, read `curriculum.json`, and track progress in a local `LEARNER.md`. It is a reference implementation, not a Compass command currently available to learners.
 
-```
-> start the playbook
-> continue my belt
-> show my progress
-```
-
-The skill reads `curriculum.json` (generated from `manifest.yml`) and the chapter Markdown directly, paces the walk, and tracks progress in a local `LEARNER.md`. It records claims at quests and boss fights; it does **not** award belts — that is [Appendix L's reviewer protocol](appendices/L-certification/README.md). Maintainer notes live at [`skills/playbook-course/README.md`](skills/playbook-course/README.md).
+Use the [Master Index](INDEX.md) or [hub](https://razorpay.github.io/ai-playbook/) for a guided reading route today. Maintainers can inspect the [course-skill notes](skills/playbook-course/README.md); confirm any supported runnable distribution in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) before sharing invocation guidance. A future implementation may record quest and boss-fight claims, but belt awards still follow [Appendix L's reviewer protocol](appendices/L-certification/README.md).
 
 ## What's drafted
 
-Foundation, Prologue, all four belts, the Staff+ Council section, twelve appendices, seven Claude Code skills, seven quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Appendices E (Roles & Forums) and F (Slack Channels) ship as living directories where the structure is fixed and named holders refresh quarterly; everything else is drafted end-to-end. The reading order is coherent end-to-end from first commit to Council membership.
+Foundation, Prologue, all four belts, the Staff+ Council section, twelve appendices, seven Claude Code reference definitions, seven quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Appendices E (Roles & Forums) and F (Slack Channels) ship as living directories where the structure is fixed and named holders refresh quarterly; everything else is drafted end-to-end. The reading order is coherent end-to-end from first commit to Council membership.
 
 Version history is in [CHANGELOG.md](CHANGELOG.md). What's coming next is in [ROADMAP.md](ROADMAP.md).
 
