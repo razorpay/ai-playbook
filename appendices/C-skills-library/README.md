@@ -8,13 +8,13 @@ track: "skills-library"
 order: 0
 time_minutes: 16
 audience: "everyone"
-outcome: "Understand what belongs in a reusable skill, see the current shipped skill entries, and know how to contribute back without making the library worse."
+outcome: "Understand what belongs in a reusable skill, inspect the reference definitions, and contribute back without confusing source definitions with distributed commands."
 prev: "appendices/environment-setup"
 next: "appendices/certification"
 pillar: "context"
 belt: "green"
 tags: ["appendix", "skills", "agents", "workflow"]
-updated: "2026-07-02"
+updated: "2026-08-07"
 ---
 
 # Appendix C — Skills Library
@@ -63,9 +63,9 @@ Ops 101 recipes live near this appendix conceptually, even when their first vers
 
 ---
 
-## Current skill entries
+## Reference skill entries
 
-These are the seven reusable skills currently shipped with the playbook. Each is described by the same template the library uses going forward.
+These seven maintained definitions document how reusable playbook workflows should behave. They live in this repository for inspection and contribution; their presence here does not mean an equivalent command is installed in Compass. Before asking a learner to invoke one, confirm the current supported distribution in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 ### Skill: setup-verify
 

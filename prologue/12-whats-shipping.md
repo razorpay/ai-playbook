@@ -14,7 +14,7 @@ next: "belts/white"
 pillar: null
 belt: null
 tags: ["orientation", "changelog"]
-updated: "2026-07-08"
+updated: "2026-08-07"
 ---
 
 # 0.12 — What's shipping this week
@@ -47,7 +47,7 @@ The playbook is drafted end-to-end and hosted as a live site at **[razorpay.gith
 - Black Belt: sixteen modules across Platform, Craft, and Org, both quests, Boss Fight B-B, and the badge.
 - Staff+ Council: six chapters and the charter template.
 - Appendices A through N, with Appendix E kept as a drafted skeleton and Appendix M still planned. The drafted set includes the live Slack channel directory (F), the named role-holder roster (in §0.6), the Day-1 quick reference card (H.7), and the root changelog as Appendix K.
-- Seven Claude Code skills: `playbook-course`, `setup-verify`, `pre-ship-check`, `blade-compliance-reviewer`, `production-compiler`, `design-intel`, `security-review-subagent`.
+- Seven Claude Code reference definitions: `playbook-course`, `setup-verify`, `pre-ship-check`, `blade-compliance-reviewer`, `production-compiler`, `design-intel`, `security-review-subagent`. They document intended workflows; confirm the current runnable distribution in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 - The Astro Starlight hub at **[razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/)**, auto-deployed on every merge to `master` with PR-preview builds.
 - Nine signature SVG diagrams, two legacy SVG aliases, and seven hand-drawn Excalidraw companion illustrations.
 
@@ -66,7 +66,7 @@ The version history lives in [`CHANGELOG.md`](../CHANGELOG.md). What is coming n
 
 When a future version lands, look for three things:
 
-1. **New drafted chapters or new skills.** These are safe to read end-to-end.
+1. **New drafted chapters or reference workflows.** These are safe to read end-to-end.
 2. **Changed safety guidance.** Treat this as required reading.
 3. **New quests, boss fights, or scoring criteria.** These change what counts as evidence.
 
@@ -77,7 +77,7 @@ Everything else is supporting structure.
 ## What you should carry forward
 
 - The playbook is drafted end-to-end and live on a hosted hub; it is not the final playbook. Versions iterate; see [`CHANGELOG.md`](../CHANGELOG.md) for the running log.
-- The Markdown in this repo is the source of truth. The hub at [razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/) and the `playbook-course` skill both render from it.
+- The Markdown in this repo is the source of truth for the hub at [razorpay.github.io/ai-playbook](https://razorpay.github.io/ai-playbook/) and the in-repo `playbook-course` reference definition. A source definition and a runnable distribution are separate contracts.
 - Safety changes (Prologue §0.11, Green Belt Part C) matter more than ordinary wording changes.
 - If you spot something stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the stale line and the better source — staleness is a bug, not a fact of life.
 

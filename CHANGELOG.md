@@ -6,6 +6,11 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.59 — Align reference-skill status (2026-08-07)
+
+- **Removed the remaining unavailable invocation** — the root README no longer tells readers to run `playbook-course` through Compass and instead routes guided reading to the index or hub.
+- **Separated definitions from distribution** — Appendix C and Prologue 0.12 now label the seven in-repo skill directories as reference definitions, not proof of installed commands; current runnable-distribution questions route to `#ai-help`.
+
 ## v0.58 — Correct Playbook Concierge skill routing (2026-08-07)
 
 - **Removed an unavailable Compass handoff** — the Concierge and root navigation no longer tell readers that the seven in-repo playbook skill definitions are installed in Compass or provide invocation guidance for commands Compass does not ship.
