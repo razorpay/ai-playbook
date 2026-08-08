@@ -14,7 +14,7 @@ next: "belts/white/installing-the-stack"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "auth", "litellm", "sso"]
-updated: "2026-06-16"
+updated: "2026-08-08"
 ---
 
 # W.4 - Your auth setup
@@ -139,7 +139,7 @@ If in doubt, redact and ask how much detail is safe.
 
 ## Common failure modes
 
-The full seven are in [W.5](W05-installing-the-stack.md#common-failure-modes). The auth-shaped subset:
+The full ten are in [W.5](W05-installing-the-stack.md#common-failure-modes). The auth-shaped subset:
 
 **"SSO works in browser, but `claude` fails with a 401."** Your LiteLLM key has rotated. Re-run the setup script.
 
