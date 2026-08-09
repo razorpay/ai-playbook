@@ -14,7 +14,7 @@ next: "belts/yellow/staying-current"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "pull-request", "review"]
-updated: "2026-07-27"
+updated: "2026-08-09"
 ---
 
 # Y.13 - PR craft
@@ -30,6 +30,7 @@ Reviewers are busy. A clear PR is an act of respect.
 - Keep the PR small enough to review in minutes.
 - Include what changed, why, how you checked it, and what context informed it.
 - Use staged commits or staged files to keep unrelated changes out.
+- Use `@slash --code-review <full-pr-url>` for an evidence-led second pass, then validate each finding yourself.
 - Before merge, verify the owning team's approval and the required checks separately. A review bot's approval does not turn red CI green.
 
 ---
@@ -150,6 +151,43 @@ Do not use `git add .` unless you have inspected every changed file. Yellow Belt
 
 ---
 
+## Ask Slash for a second pass
+
+Once the intended diff is pushed, Slash can review the remote PR without taking over your local build loop:
+
+```text
+@slash --code-review <full-pr-url>
+```
+
+Use this as a **second-pass review**, not as a merge button. A useful run should point to code evidence: the file and line, why the behaviour is risky or incorrect, and what check would prove a fix. “Looks good” without evidence is feedback, not clearance.
+
+Work through the result in this order:
+
+1. **Pin the reviewed state.** Note the latest commit SHA before requesting review. If the PR changes later, the earlier review describes an older diff.
+2. **Open every finding in context.** Read the surrounding code, linked check, and relevant repo convention. Do not patch from the summary alone.
+3. **Classify the finding.** Mark it `valid`, `invalid — with evidence`, or `needs owning-team judgement`. Severity does not replace verification.
+4. **Fix only validated issues.** Push the smallest correction, then run the repo's normal tests, lint, type checks, or visual checks. Slash's report does not prove that CI passed.
+5. **Record what happened.** Resolve the thread or add a short PR note naming the finding, decision, evidence, and verification. Review should leave the PR easier for a person to trust.
+
+Copy this card into your notes while you triage:
+
+```text
+SLASH REVIEW TRIAGE
+PR: <url>
+REVIEWED COMMIT: <sha>
+FINDING: <file:line + claim>
+DECISION: valid | invalid | needs owner
+EVIDENCE: <code, test, doc, or repo convention>
+ACTION: <fix made, reason rejected, or owner question>
+VERIFICATION: <check + result>
+```
+
+Try it on one low-risk open PR. The exercise is complete when each finding has a decision and evidence—not when every suggestion has been accepted.
+
+**Do not substitute adjacent modes.** The separate `--test` path has repo-specific availability. Use `--code-review` for the general review loop above; use specialised test modes only when current Slash help says the target repo is enabled.
+
+---
+
 ## Approval is not merge readiness
 
 A PR can have a useful AI review and still be unsafe to merge. Review approval and automated checks answer different questions:
@@ -203,6 +241,10 @@ I can make the typo/copy fix here. The broader state refactor may need a separat
 
 **"Claude wrote the description and I did not check it."** Read it. Remove invented claims.
 
+**"Slash found it, so I changed it."** Validate the finding against code and checks first. A confident review can still be wrong or stale.
+
+**"Slash reviewed an earlier commit."** Re-open the final diff. Re-run review only when later changes materially affect the finding.
+
 **"The review bot approved, so I merged with red CI."** Approval and checks are independent. Stop, get the owning team's clearance, and make every required check green before merge.
 
 ---
@@ -234,6 +276,14 @@ You are **RED** if:
 ## What you can say after this module
 
 > "I can make the reviewer's job easy by showing what changed, why, and how I checked it."
+
+---
+
+**Further reading**
+
+- [Current Slash help and `--code-review` invocation](https://razorpay.slack.com/archives/C09CG60KLMU/p1786091867089779) — the supported command and current mode boundary
+- [Completed Slash review and verification receipt](https://razorpay.slack.com/archives/C09CG60KLMU/p1786102438016369) — an internal example that validates findings against code and reports the checks run
+- [GitHub Docs — About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews) — review outcomes and repository review controls
 
 ---
 
