@@ -14,7 +14,7 @@ next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-01"
+updated: "2026-08-09"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -127,10 +127,13 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Spec and tool contracts — builder:** Define inputs, structured outputs, tool side effects, permissions, and stop conditions before implementation.
 - [ ] **Test, eval, and review — owning trio:** Test tools independently, run task-level evals, inspect failures, and close the required product, design, safety, and platform review.
 - [ ] **Shadow before live — PM + builder:** Compare shadow outcomes and traces with the current workflow. Do not call a clean demo a production result.
+- [ ] **Target-surface preflight — owner + builder:** List every launch surface; add or install the agent with least-privilege access; run a representative read-only request in each one; save the response or explicit refusal; and verify required sources, recency, and the no-approval write boundary.
 - [ ] **Release and recovery — owner:** Set the traffic step, go/no-go threshold, rollback trigger, and a tested revert path before increasing exposure.
 - [ ] **Monitor — owner:** Watch outcome quality, failures, latency, cost, and unsafe actions; assign a response owner for every alert.
 
 **Any unchecked box is a stop signal.** Keep the agent in test or shadow mode until the contract is complete. If the platform-fit box fails, take the written gap to the Agent Studio owner before choosing a custom SDK. That review is the fork; a clever local workaround is not.
+
+The target-surface gate is operational, not ceremonial. [A controlled FDE pilot was paused](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1786281955675759) when the agent did not answer its product-channel smoke test because it had not been added to that channel.
 
 Common shortcuts fail predictably:
 
@@ -138,7 +141,7 @@ Common shortcuts fail predictably:
 |---|---|---|
 | Start from a custom SDK because the agent is customer-facing | The governed platform-fit check | Check Agent Studio first; document the unsupported requirement if it cannot fit |
 | Select tools before fixing one outcome | A broad agent with unclear permissions and no useful eval | Freeze one outcome and cohort, then add only the tools that outcome needs |
-| Go live after a clean demo | Distribution failures, tool errors, and tenant-boundary mistakes | Run evals and shadow traffic; inspect traces before exposure |
+| Go live after a clean demo | Distribution failures, tool errors, and tenant-boundary mistakes | Run evals, shadow traffic, and a read-only smoke test in every target surface; inspect traces before exposure |
 | Copy command syntax into long-lived docs | The owning plugin can rename or split commands | Discover current commands from the plugin; keep this release card stable |
 | Monitor latency but not outcomes | A fast agent can still do the wrong thing | Pair runtime signals with task success, safety, and rollback thresholds |
 
