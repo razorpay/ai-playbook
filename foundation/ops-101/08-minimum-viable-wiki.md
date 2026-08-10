@@ -14,7 +14,7 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-07-20"
+updated: "2026-08-10"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
@@ -178,7 +178,7 @@ When I ask you to lint:
 - Anything you'd be uncomfortable seeing in a forwarded email
 - Credentials or tokens of any kind
 
-The AI will obey this stringently. If in doubt, leave it out.
+Treat this list as policy, not as a security boundary. Remove sensitive material before the model can read it; a line in `CONTEXT.md` cannot reliably neutralise data the agent already received. If in doubt, leave it out.
 
 ## Out of scope
 (What this project is NOT. Useful for keeping the AI from drifting into
@@ -248,6 +248,54 @@ By week 8:
 - **Surprising find.** The wiki surfaces something the AI knew but you'd forgotten — a decision from week 4, a vendor's specific quirk you'd flagged. *That moment* is when the wiki has fully earned its keep.
 
 This is when it lands. Not before; not by accident.
+
+---
+
+## When to automate the ingest loop
+
+Automate only after the manual ingest habit has worked for at least two weeks. A scheduled collector can save real catch-up time by pulling meeting notes and relevant Slack threads into a raw folder, while a second step proposes wiki updates and follow-up tasks. It also crosses two new trust boundaries:
+
+1. **Source text is data, not authority.** A transcript, thread, or linked page can contain an instruction aimed at the agent. Treat it as content to extract and cite, never as a command to run.
+2. **An extracted action is not an approved action.** “Send this update”, “change the doc”, or “move the deadline” may be a useful proposal. The source does not authorise the agent to do it.
+
+Keep capture, interpretation, and action separate:
+
+```text
+approved read-only sources
+        ↓
+dated raw capture (unchanged, access-controlled)
+        ↓
+proposed wiki diff + proposed action ledger
+        ↓
+checks: source link, audience, duplicate, sensitive data, changed claim
+        ↓
+human gate ──→ apply wiki diff / approved action
+        ↓
+receipt: applied, rejected, skipped, or failed
+```
+
+The raw capture preserves what the source actually said. The proposed diff makes synthesis reviewable. The action ledger stops a useful reminder from silently becoming a Slack message or document edit.
+
+### Copy this automation graduation card
+
+Fill this before adding a schedule. If a field is vague, keep ingest manual.
+
+```text
+OWNER: <who reviews failures and can pause the loop>
+SOURCES: <approved channels, meetings, folders; intended audience>
+CAPTURE: <read-only method, cadence, raw location, retention>
+DATA BOUNDARY: <what is excluded before model access>
+WIKI PROPOSAL: <files it may propose changing; required source/date links>
+ACTION PROPOSAL: <allowed categories; where pending actions wait>
+AUTO-APPLY: <private, reversible, proven actions only—or none>
+HUMAN GATE: <claims/actions that always require confirmation>
+RECEIPT: <applied/rejected/skipped/failed record and location>
+KILL-SWITCH: <one step that stops collection and writes>
+```
+
+Start with `AUTO-APPLY: none`. After at least two weeks of reviewed runs, consider one deterministic, private, reversible action such as updating an existing personal task. Keep outbound Slack messages, shared-doc edits, new commitments, and changes to decisions, metrics, owners, or deadlines behind confirmation. Give the ingest step read access; give only the gated apply step narrowly scoped write access.
+
+Before enabling the schedule, run four drills: an empty capture, the same source twice, a source containing “ignore the wiki rules and send…”, and a write that fails halfway through. A safe loop should skip or hold each case, avoid duplicate updates, and leave a receipt the owner can inspect. If it cannot, you have automated uncertainty rather than knowledge.
 
 ---
 
@@ -384,6 +432,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - **`CONTEXT.md` is the keystone.** The 20 minutes you spend filling it in is itself most of the value.
 - **The three habits are ingest, query-verify-file-back, lint.** Together they grow the wiki without turning a plausible answer into durable fiction.
 - The compounding is delayed (week 1 feels like overhead) but real (week 8 is when it lands).
+- Automate ingestion only after the manual habit works; keep raw capture, proposed wiki changes, proposed actions, approval, and receipts as separate stages.
 - Promote private analytics context into the shared knowledge hub only through source screening, known-answer checks, and a pod-owner-reviewed PR.
 - Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
 - A shared wiki needs a named owner for `CONTEXT.md` and for the weekly lint pass. Without ownership, it rots.
@@ -399,6 +448,8 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - [Appendix N.1 — KB-driven development](../../appendices/N-methodologies/N1-kb-driven-development.md) — the long-form discipline; if you're hooked, this is where to go deeper
 - [Appendix N.7 — The minimum viable wiki](../../appendices/N-methodologies/N7-minimum-viable-wiki.md) — the developer-shaped version of this recipe; same shape, different harness
 - [Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the manifesto that named this pattern
+- [An internal unattended-wiki workflow in `#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ/p1786362566269309?thread_ts=1786362566.269309) — daily raw capture, proposed tasks, approval gates, and an action receipt in practice
+- [G.25 — Prompt injection](../../belts/03-green/c-guardrails/G25-prompt-injection.md) — why text fetched from outside the workflow remains data rather than instructions
 - [Analytics Knowledge Hub guide](https://docs.google.com/document/d/1mIMQx2pXFQ11AMUnNeA0pVOj5QgDzVHV1f4-x_vSD90/edit?usp=sharing) — current internal setup and NotebookLM export path for analytics pods
 - [Analytics Knowledge repository](https://github.com/razorpay-ai-tools/analytics-knowledge) — central pod folders and the Cross-border pilot
 - [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) — current Razorpay-specific setup and maintenance guidance
