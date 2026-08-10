@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-07-31"
+updated: "2026-08-10"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -127,7 +127,7 @@ Two current PM/Product workflows do **not** belong in the generic "pick any surf
 
 **Analytics Agent** is the recommended surface for Self Serve Analytics metric questions. If the work is *"explain this metric, query this funnel, review this dashboard's health"*, route it through the Analytics Agent plugin instead of asking generic Claude or Slash to guess from partial context. Treat it like a metric co-pilot with SSA context, not a spreadsheet chatbot.
 
-**PM Tracer** is instrumentation. It feeds the AI Adoption Leaderboard by recording applied AI workflow usage: skills, automations, breadth of surfaces, consistency, and shipped output. You do not brainstorm with PM Tracer. You install it once, run the health check, and then let it quietly report whether your real AI work is visible.
+**PM Tracer** is instrumentation. It feeds the AI Adoption Leaderboard with traces that help score applied work, including skill and plugin use, productivity and impact, prompting maturity, consistency, and shipped output. The score no longer rewards using more AI surfaces, so use the smallest set that fits the job instead of tool-hopping for points. You do not brainstorm with PM Tracer. Install it once, run the health check, and then let it quietly report whether your real AI work is visible.
 
 The distinction matters because these two plugins answer different questions:
 
