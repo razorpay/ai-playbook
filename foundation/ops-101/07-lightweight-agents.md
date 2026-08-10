@@ -91,14 +91,18 @@ Fill this before you configure the runtime. If the trigger can deliver twice, mi
 BUSINESS MOMENT: <what should cause one run>
 SOURCE: <system that emits the event or owns the scheduled query>
 MODE: <event | schedule | bounded polling>
-IDENTITY: <event ID or cursor used to prevent duplicate work>
+ACTIVE PATH: <the one trigger currently allowed to produce effects>
+IDENTITY: <business event ID or cursor shared across old and new paths>
 SOURCE SAFETY: <read-only query; no lock or mutation caused by collection>
 BOUND: <maximum records, runtime, calls, and spend per run>
 RECOVERY: <retry/backoff; replay window; alert after final failure>
+CUTOVER: <shadow proof; old-trigger disablement; in-flight replay check>
 POLLING REVIEW: <volume/date that forces a redesign; replacement owner; or n/a>
 ```
 
-Test duplicate delivery and a failed trigger before launch. For a scheduled query, also test an empty window and a window larger than the bound. For an event, test out-of-order delivery. The trigger is ready when the applicable cases produce a receipt or a loud failure, not a duplicate customer action.
+During a trigger migration, **shadow does not mean both paths may act**. Run the new path in observation-only mode or send its output to a test sink. Before enabling its effects, disable the old path and keep one business identity across both paths so an in-flight overlap is deduplicated. If you cannot name the single active path, pause the cutover.
+
+Test duplicate delivery and a failed trigger before launch. For a scheduled query, also test an empty window and a window larger than the bound. For an event, test out-of-order delivery. During a cutover, send one input through both old and new paths: expect one applied receipt and one deduplicated or skipped receipt, never two customer or team actions. The trigger is ready when the applicable cases produce a receipt or a loud failure, not a duplicate action.
 
 ---
 
@@ -325,6 +329,7 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [Product Agent Marketplace — duplicate dispute executions during cron-to-event migration](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786357202255279?thread_ts=1786356982.507259) — 21 merchants were processed by both active paths before the cron path was disabled
 - [Product Agent Marketplace — moving cart recovery from polling to events](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786346248385549?thread_ts=1786345999.831889) — an internal case where the polling-based cart agent locked about 10% of the time
 - [AWS Prescriptive Guidance — publish-subscribe pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/publish-subscribe.html) — an official overview of asynchronous event distribution, trade-offs, and failure modes
 - [AI Daily Digest runtime failure in `#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ/p1784612067110319) — a cloud schedule correctly skipped when its browser bridge and templates existed only on the local device
