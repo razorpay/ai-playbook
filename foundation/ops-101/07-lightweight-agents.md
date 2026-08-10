@@ -6,20 +6,20 @@ status: "drafted"
 type: "chapter"
 track: "ops-101"
 order: 7
-time_minutes: 25
+time_minutes: 30
 audience: "pm-designer-ops"
-outcome: "Recognise when a repeated recipe deserves a configured agent, then make recurring work verifiable."
+outcome: "Recognise when a repeated recipe deserves a configured agent, choose an event or schedule trigger, then make recurring work verifiable."
 prev: "ops-101/document-workflows"
 next: "ops-101/minimum-viable-wiki"
 pillar: null
 belt: null
-tags: ["ops-101", "agents"]
-updated: "2026-07-21"
+tags: ["ops-101", "agents", "event-driven"]
+updated: "2026-08-10"
 ---
 
 # 0B.7 — Lightweight agents (when "automate this for me" earns its keep)
 
-> **⏱ 25 minutes · 👥 PMs, ops, anyone whose recipes are starting to repeat · 🎯 Leaves with:** the line between *recipe* and *agent*, a copyable verified-loop design, three concrete agent patterns you can ship, and the discipline that keeps a configured agent from becoming a small abandoned graveyard.
+> **⏱ 30 minutes · 👥 PMs, ops, anyone whose recipes are starting to repeat · 🎯 Leaves with:** the line between *recipe* and *agent*, a trigger decision, a copyable verified-loop design, three concrete agent patterns you can ship, and the discipline that keeps a configured agent from becoming a small abandoned graveyard.
 
 ---
 
@@ -42,7 +42,7 @@ A lightweight agent is the smallest possible thing that earns the name "agent." 
 - **An output channel.** Where the result goes: a Slack post, an email draft, a doc updated, a ticket created.
 - **An "I'm done" condition.** When does the agent stop? Most lightweight agents run one bounded pass: they fire, produce, check if needed, and finish. Open-ended chains and multi-agent orchestration are Black Belt topics; we're in much simpler territory here.
 
-That's enough for a private, reversible draft. You're not building sophisticated multi-agent orchestration; you're building a tiny program that runs your existing recipe on a clock.
+That's enough for a private, reversible draft. You're not building sophisticated multi-agent orchestration; you're building a tiny program that runs your existing recipe when its trigger fires.
 
 The discipline that makes this work: *every lightweight agent is a recipe that's already proven itself.* You don't write an agent for a workflow you haven't run by hand for two weeks. The "by hand for two weeks" version is what surfaces the edge cases the agent will need to handle.
 
@@ -60,9 +60,51 @@ After those four total weeks, the agent should no longer need supervision on eve
 
 ---
 
-## Choose where the schedule runs
+## Choose the trigger: event or schedule
 
-A schedule runs on a machine, not in the abstract. The machine may be your laptop or a persistent approved runtime. It can use only the files, browser sessions, connectors, credentials, and network routes available there.
+The trigger changes the workload. A polling schedule asks, “What changed since the last run?” even when nothing changed. An event says, “This specific thing changed; handle it.” That difference is small at ten records and expensive at ten thousand.
+
+Use this decision path before reaching for a five-minute cron:
+
+```text
+Does the source already emit a stable event for the business moment you need?
+├─ Yes → Prefer the event. Pass the affected entity ID and event ID to one
+│        bounded run; deduplicate repeated delivery.
+└─ No  → Is the output a periodic snapshot or digest rather than a response
+         to one exact change?
+         ├─ Yes → Use a schedule with a cursor, overlap guard, and cost limit.
+         └─ No  → Can a bounded poll meet the freshness, rate, and cost limits
+                  without mutating or locking the source?
+                  ├─ Yes → Poll a bounded window; back off, deduplicate, and
+                  │        define when volume forces another trigger design.
+                  └─ No  → Keep it manual and ask the source owner for an
+                           event or connector. A faster cron is not a fix.
+```
+
+An abandoned-cart workflow is naturally event-triggered when the checkout system can publish a cart-recovery event. A Friday portfolio digest is naturally scheduled because its job is to summarise a period. Do not make the digest pretend to be real-time, and do not make the cart agent rescan every merchant because the clock rang.
+
+### Copy this trigger contract
+
+Fill this before you configure the runtime. If the trigger can deliver twice, miss a run, or scan more work as adoption grows, the contract should say what happens.
+
+```text
+BUSINESS MOMENT: <what should cause one run>
+SOURCE: <system that emits the event or owns the scheduled query>
+MODE: <event | schedule | bounded polling>
+IDENTITY: <event ID or cursor used to prevent duplicate work>
+SOURCE SAFETY: <read-only query; no lock or mutation caused by collection>
+BOUND: <maximum records, runtime, calls, and spend per run>
+RECOVERY: <retry/backoff; replay window; alert after final failure>
+POLLING REVIEW: <volume/date that forces a redesign; replacement owner; or n/a>
+```
+
+Test duplicate delivery and a failed trigger before launch. For a scheduled query, also test an empty window and a window larger than the bound. For an event, test out-of-order delivery. The trigger is ready when the applicable cases produce a receipt or a loud failure, not a duplicate customer action.
+
+---
+
+## Choose where the agent runs
+
+An agent runs on a machine, not in the abstract. The machine may be your laptop or a persistent approved runtime. It can use only the files, browser sessions, connectors, credentials, and network routes available there.
 
 That boundary is easy to miss when converting a manual recipe. A recipe that works beside you may depend on a local template folder or a signed-in browser. Moving only its prompt to a cloud schedule does not move those dependencies with it. The clock fires; the agent arrives with none of its luggage.
 
@@ -96,7 +138,7 @@ DRY RUN: <proof each dependency was read and the output was delivered>
 FAIL CLOSED: <what posts or records a skipped run when any dependency is missing>
 ```
 
-The last line matters. Missing context must produce a visible skip, not a polished digest built from partial inputs. After the preflight passes, add the schedule and continue with the verified-loop checks below.
+The last line matters. Missing context must produce a visible skip, not a polished digest built from partial inputs. After the preflight passes, configure the trigger and continue with the verified-loop checks below.
 
 ---
 
@@ -107,7 +149,7 @@ A schedule gives you repetition, not reliability. Once a run informs a team deci
 ```text
 trigger → skill → maker → checker → gate → state
    ↑                                           │
-   └────────────── next scheduled run ─────────┘
+   └──────────────── next trigger ─────────────┘
 ```
 
 This is still lightweight. The maker and checker are roles in one workflow, not necessarily separate agents or models.
@@ -142,7 +184,7 @@ FAILURE: <where a failed or skipped run alerts>
 KILL-SWITCH: <how the owner pauses the loop>
 ```
 
-Start with one known-answer run. Then test three uncomfortable cases before turning on the schedule: an empty source, a stale source, and a result that crosses the escalation threshold. A loop that only works on a cheerful Tuesday is still a demo.
+Start with one known-answer run. Then test three uncomfortable cases before turning on the trigger: an empty source, a stale source, and a result that crosses the escalation threshold. A loop that only works on a cheerful Tuesday is still a demo.
 
 Common failure modes:
 
@@ -235,7 +277,7 @@ The honest list, calibrated for the higher autonomy level.
 - Anything that requires real judgement *in the moment*: political tact, escalation calls, emotional intelligence about a situation.
 - Anything where the cost of running too often is high (an agent that fires every minute when you only need it to fire every hour will eat your token budget alive).
 
-The line that holds across this whole chapter: **lightweight agents are for *running your recipe on a clock*, not for *replacing your judgement*.** Cross the line and you've built something that will eventually embarrass you.
+The line that holds across this whole chapter: **lightweight agents are for *running your recipe from a trigger*, not for *replacing your judgement*.** Cross the line and you've built something that will eventually embarrass you.
 
 ---
 
@@ -257,7 +299,7 @@ These are the same disciplines that distinguish good operations from bad operati
 
 ## Connecting back to the boss fight
 
-A lightweight agent is the strongest *measurable* boss-fight artefact in the Ops 101 track: it runs on a clock, it produces evidence each cycle, the time-saved measurement is concrete.
+A lightweight agent is the strongest *measurable* boss-fight artefact in the Ops 101 track: it runs from a trigger, it produces evidence each cycle, the time-saved measurement is concrete.
 
 Three suggestions before committing one as your boss fight:
 
@@ -270,6 +312,7 @@ Three suggestions before committing one as your boss fight:
 ## What you should carry into the next chapter
 
 - A **lightweight agent** is a tested recipe + a trigger + an output channel + a clear "done" condition.
+- Prefer an **event trigger** for one business change and a **schedule** for a periodic snapshot; poll only when the source is safe and the freshness, rate, and cost bounds hold.
 - Team-facing recurring work graduates to a **verified loop**: trigger → skill → maker → checker → gate → state.
 - The conversion path is **manual recipe (2 weeks) → configured agent (2 more weeks of observation) → trusted agent.** Skipping either two-week phase is how graveyards form.
 - Three reusable patterns: morning briefing (scheduled triage), status digest (scheduled generation), new-ticket triage (event-triggered).
@@ -282,6 +325,8 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [Product Agent Marketplace — moving cart recovery from polling to events](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786346248385549?thread_ts=1786345999.831889) — an internal case where the polling-based cart agent locked about 10% of the time
+- [AWS Prescriptive Guidance — publish-subscribe pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/publish-subscribe.html) — an official overview of asynchronous event distribution, trade-offs, and failure modes
 - [AI Daily Digest runtime failure in `#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ/p1784612067110319) — a cloud schedule correctly skipped when its browser bridge and templates existed only on the local device
 - [GitHub Docs — GitHub-hosted runners](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners) — an official example of jobs executing on a separate hosted machine
 - [Product AI Labs — a shipped daily-health loop](https://razorpay.slack.com/archives/C0A7B848RS7/p1782211644575319) — internal example of a scheduled health skill with Slack delivery and durable history
