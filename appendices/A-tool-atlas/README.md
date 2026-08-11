@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-05"
+updated: "2026-08-11"
 ---
 
 # Appendix A — Tool Atlas
@@ -191,7 +191,7 @@ Do not continue on a red diagnostic. Apply the fix printed beside the failed che
 
 **What it cannot do.** Fix missing data-access grants by itself, replace source-of-truth dashboards, or run reliably on native Windows today. The current plugin assumes a Unix-like surface for shell wrappers, `python3`, hooks, and POSIX locking.
 
-**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named.
+**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Running a stale plugin whose bundled metric catalog no longer matches the current definitions. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named.
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
 
@@ -212,6 +212,15 @@ A Trino MCP 401 is a known issue. Add the exact question, route or gateway shown
 
 Some metrics now have two certified Trino queries: the **legacy** table that dashboards use and a rebuilt **redesign** table under validation. Analytics Agent keeps serving legacy by default. When it reports `redesign_pair_available: true`, you can compare both paths without changing the trusted answer.
 
+**Refresh before you validate.** The metric catalog ships inside Analytics Agent, and the Razorpay marketplace is not automatically updated for every installation. A comparison can therefore run without an obvious error while using an old catalog. In Claude Code, choose `/plugin` → **Marketplaces** → **razorpay-marketplace** → **Enable auto-update**. If you keep updates manual, run:
+
+```bash
+claude plugin marketplace update razorpay-marketplace
+claude plugin update analytics-agent@razorpay-marketplace
+```
+
+Restart Claude Code after either route. Do not start the comparison until the refreshed Analytics Agent commands load.
+
 Use this PM validation loop:
 
 1. **Ask the normal metric question first.** Keep the metric, date range, filters, and breakdowns fixed. Save the legacy value and source table from the receipt.
@@ -225,6 +234,7 @@ Use this PM validation loop:
 Copy this card into the validation thread:
 
 ```text
+Plugin refreshed and Claude Code restarted? yes / no
 Metric:
 Date range and filters:
 Legacy table and value:
@@ -237,9 +247,9 @@ Decision: approve / stop
 Comparison receipt:
 ```
 
-**Stop conditions.** Stop if no registered pair exists, either query fails, the grain or filters differ, the date window is incomplete, a freshness explanation is unverified, or the result conflicts with the source-of-truth dashboard. Keep legacy as primary and route the evidence to the metric owner.
+**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the grain or filters differ, the date window is incomplete, a freshness explanation is unverified, or the result conflicts with the source-of-truth dashboard. Keep legacy as primary and route the evidence to the metric owner.
 
-**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689).
+**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the freshness preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429).
 
 #### Ask, review, or contribute?
 
