@@ -8,13 +8,13 @@ track: "ops-101"
 order: 6
 time_minutes: 30
 audience: "pm-designer-ops"
-outcome: "Use AI to research, draft, review, and export documents with less blank-page friction."
+outcome: "Use AI to research, draft, review, and export documents while keeping claims and requirements tied to evidence."
 prev: "ops-101/ticket-automations"
 next: "ops-101/lightweight-agents"
 pillar: null
 belt: null
-tags: ["ops-101", "documents"]
-updated: "2026-07-25"
+tags: ["ops-101", "documents", "agent-specs", "evidence"]
+updated: "2026-08-11"
 ---
 
 # 0B.6 — Document workflows
@@ -76,6 +76,53 @@ The output isn't your draft. It's the *raw material* you'll use to write your dr
 **Reliability tip.** The "no source for this" instruction is doing a lot of work. AI is built to confidently fill gaps, and research syntheses are exactly the kind of artefact where confident gap-filling is dangerous (a wrong claim with a footnote sounds authoritative). Train yourself to scan for any bullet without a link and treat it as suspect.
 
 **The discipline that makes this recipe trustworthy.** Spot-check three to five of the source links every time. Click them. Read the bit the AI cited. Confirm it actually says what the AI claims. *Without spot-checks, the recipe degrades into elegant fiction.* The five-minute spot-check is what keeps the synthesis honest.
+
+---
+
+## Workflow card — Turn customer notes into an agent spec without inventing requirements
+
+Customer-call notes are not yet an agent spec. They mix requirements, examples, capabilities mentioned in passing, and questions nobody answered. Draft straight from that pile and the agent will politely fill the gaps. The resulting document can look precise while quietly committing the team to features, dates, or quality claims the customer never requested.
+
+Use a two-pass workflow instead: **classify the evidence, then draft the spec**. This is a workflow rather than an autonomous agent for a reason: [Anthropic's production guidance](https://www.anthropic.com/engineering/building-effective-agents) recommends starting with the simplest approach and defines workflows as systems that follow predefined paths.
+
+### Pass 1 — Build the evidence ledger
+
+Give the assistant the exact notes or transcript. Ask it to label every proposed requirement as:
+
+- **Confirmed** — stated directly in the source. Include the quote or source location.
+- **Tentative** — a reasonable interpretation that an owner still needs to confirm.
+- **Open** — missing or contradictory information that blocks a reliable spec.
+
+Then close the minimum operating contract: **user and outcome, trigger, channels, systems read and written, permitted actions, human handoff and forbidden actions, pilot cohort, success measure, and intended reader**. If the source does not answer one, keep it open. An empty field is safer than a confident invention.
+
+### Pass 2 — Draft only after the owner answers
+
+**Copyable request**
+
+> "Use only [CUSTOMER NOTES / TRANSCRIPT] as evidence. Do not draft the agent spec yet.
+>
+> First, produce an evidence ledger with four columns: `requirement`, `status` (`confirmed`, `tentative`, or `open`), `source quote or location`, and `owner question`.
+>
+> Check whether the source defines:
+> - the user, business outcome, and event that triggers the agent;
+> - each channel and the systems the agent may read from or write to;
+> - the actions it may take, when it must hand off, and what it must never do;
+> - the pilot cohort, success measures, and evidence the run must return;
+> - the intended reader and document type.
+>
+> Ask me only the questions needed to close those gaps. After I answer, draft the spec. Keep unresolved items in an `Open questions` section. Do not add launch dates, benchmark or accuracy claims, integrations, permissions, or customer commitments that the evidence does not support."
+
+### Five-minute pre-handoff check
+
+- [ ] Every requirement is traceable to the source or an owner's explicit answer.
+- [ ] Tentative interpretations are not written as confirmed commitments.
+- [ ] Trigger, reads, writes, allowed actions, handoff, and forbidden actions are explicit.
+- [ ] Pilot cohort, success measures, and returned evidence are named.
+- [ ] Unsupported dates, performance claims, permissions, and rights-sensitive details remain out.
+
+If a box fails, the document is a question list wearing a spec costume. Close the gap or leave it visibly open; do not smooth it over with prose.
+
+This is a current internal workflow, not a theoretical template. A Forward Deployed Agent [used the same confirmed-versus-open gate before drafting a merchant agent proposal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786422995101429), and the merged Agent Builder lifecycle [starts with writing the spec before create, config, eval, review, and go-live](https://github.com/razorpay/merchant-skills/pull/232). The human still owns the business goal and every commitment. The assistant's job is to expose missing decisions before they become polished fiction.
 
 ---
 
