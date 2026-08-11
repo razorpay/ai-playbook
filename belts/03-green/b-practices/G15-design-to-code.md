@@ -13,8 +13,8 @@ prev: "belts/green/seed-spec"
 next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
-tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect"]
-updated: "2026-07-17"
+tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review"]
+updated: "2026-08-11"
 ---
 
 # G.15 — Design-to-code
@@ -31,6 +31,7 @@ This chapter walks the path end to end with a real worked example.
 - Before generation, lock the frontend/backend contract with the repository owner: authority, request and response shapes, permissions, UI states, and fixtures. Do not let the agent invent the seam.
 - The flow has five named steps. Skipping any one of them produces ad-hoc components that drift from the design system.
 - The boss fight in Part C requires a product-repo PR built through this flow, with Code Connect mappings and Blade-native components — not a pixel-pushed lookalike.
+- Before push, run `/design:copy-review` on the customer-facing words in the diff. Review the findings before applying them, then verify the code and rendered states. Copy review checks the words; it does not replace DQA or a human design review.
 - When the change affects a real journey, run a DQA flow review on the preview before PR. Treat the report as review evidence and a fix list, not as permission to skip human design review.
 
 ---
@@ -203,6 +204,30 @@ The output is a React component file. Every `<Button>` is a Blade `Button`. Ever
 
 The component renders in your local dev (G.18), you preview it on a branch URL (G.19), the design partner reviews. Iterate. The iteration is structural — a wrong variant gets fixed by changing the variant prop, not by adding CSS.
 
+### Copy review — when the change ships words
+
+Once the code renders and before you push, run `/design:copy-review` from the feature branch. The skill reviews customer-facing strings in the diff, named files, or pasted text: buttons, headings, labels, helper text, empty states, toasts, errors, and confirmations. It reports the rule and authority behind each suggestion instead of presenting every preference as design-system law.
+
+Use the repository or diff path whenever possible. Pasted text loses the component slot, call site, placeholders, and quote delimiters that determine whether a rewrite is correct and safe.
+
+#### Copyable pre-push loop
+
+1. Invoke `/design:copy-review` and set the boundary:
+
+   ```text
+   Review the customer-facing copy changed on this branch against the base branch.
+   Report findings first. Do not apply changes yet.
+   ```
+
+2. Confirm that the scope and persona are right. Review each location, current string, suggested string, rule, and authority tier. A house ruling or low-confidence suggestion is a judgement call, not an automatic fix.
+3. Accept only the findings that fit the product intent, then ask the skill to apply those edits. The product or design owner keeps the final say on meaning.
+4. Inspect the resulting diff. Preserve interpolation (`${...}`, JSX expressions, `:name`, or `{$php}`), quote escaping, and JSX spacing exactly; a cleaner sentence that breaks a placeholder is still broken code.
+5. Run the repository's normal lint and tests, then render every changed state. Check that labels still name the control, errors still match the trigger, and dynamic values appear in the right place.
+
+If `/design:copy-review` is unavailable on an existing Design plugin install, run `/plugin marketplace update` and retry. Do not quietly replace the review with a generic rewrite prompt: the useful part is the repository-derived rules, authority tiers, and code-safety pass.
+
+This checklist is the exercise. Run it on one real diff and keep the accepted and rejected findings in the PR notes; no separate quiz is needed.
+
 ### DQA review — when the change is a journey, not a component
 
 After the component renders in preview, ask Design Quality Agent (DQA) to review the journey if the change affects a customer-visible flow, mobile + desktop behaviour, accessibility, or a persona-specific decision. This is review evidence, not generation. The code is already in a branch; DQA is now helping you find the UX holes before a human reviewer has to.
@@ -278,11 +303,17 @@ The combination is what makes design-to-code mechanical. A Razorpay program that
 
 **Not running the daily loop.** Generated code that has not been seen in a real browser is hypothetical code. Fix: always preview on a branch URL.
 
+**Treating copy-review findings as an auto-fix queue.** Some findings encode observed convention or a house ruling rather than a hard requirement. Fix: inspect the rule and authority tier, accept deliberately, and keep the product or design owner in charge of meaning.
+
+**Reviewing only pasted strings when the code is available.** The words look fine in isolation, but the skill cannot see their component slot, dynamic placeholders, or surrounding literal. Fix: review the diff or named files so the code-safety checks have context.
+
+**Stopping after the copy edit.** The sentence improved, but a placeholder, quote delimiter, accessible label, or rendered state broke. Fix: inspect the diff, run normal checks, and render the changed states before push.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, and produce running code that uses Blade primitives end-to-end without fighting the design system.
+- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, and produce running code that uses Blade primitives end-to-end without fighting the design system.
 - 🟡 YELLOW — I can run the flow, but the contract card still has an unconfirmed owner, state, or fixture, or I tend to skip gap-naming and end up with ad-hoc components.
 - 🔴 RED — I have not locked an interface contract or completed a design-to-code session through the connector + Blade + Code Connect path.
 
@@ -307,4 +338,7 @@ G.16 (*Blade deep dive*) is the reference chapter for Blade itself. After this c
 - [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) — a machine-readable way to describe an HTTP API contract
 - [Blade design system docs](https://blade.razorpay.com/)
 - [Figma Code Connect docs](https://www.figma.com/code-connect-docs/)
+- [Design plugin: Copy Review](https://github.com/razorpay/claude-plugins/tree/master/plugins/design#copy-review) — supported command, scope, and the boundary with DQA
+- [Copy-review implementation evidence](https://github.com/razorpay/claude-plugins/pull/1155) — repository-derived rules, authority tiers, safety checks, and validation
+- [WCAG 2.2: Labels or Instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html) — the public accessibility rationale behind reviewing labels and instructions as part of the shipped interface
 - [Appendix C — Skills Library](../../../appendices/C-skills-library/README.md)
