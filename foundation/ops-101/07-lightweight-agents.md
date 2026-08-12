@@ -14,7 +14,7 @@ next: "ops-101/minimum-viable-wiki"
 pillar: null
 belt: null
 tags: ["ops-101", "agents", "event-driven"]
-updated: "2026-08-10"
+updated: "2026-08-12"
 ---
 
 # 0B.7 — Lightweight agents (when "automate this for me" earns its keep)
@@ -103,6 +103,27 @@ POLLING REVIEW: <volume/date that forces a redesign; replacement owner; or n/a>
 During a trigger migration, **shadow does not mean both paths may act**. Run the new path in observation-only mode or send its output to a test sink. Before enabling its effects, disable the old path and keep one business identity across both paths so an in-flight overlap is deduplicated. If you cannot name the single active path, pause the cutover.
 
 Test duplicate delivery and a failed trigger before launch. For a scheduled query, also test an empty window and a window larger than the bound. For an event, test out-of-order delivery. During a cutover, send one input through both old and new paths: expect one applied receipt and one deduplicated or skipped receipt, never two customer or team actions. The trigger is ready when the applicable cases produce a receipt or a loud failure, not a duplicate action.
+
+### Acceptance is not completion
+
+An asynchronous trigger can acknowledge a request before the work finishes. That is useful, but the acknowledgement proves only that the runtime accepted the request. It does **not** prove that every item completed, that a dependency stayed healthy, or that the run stopped within its limits.
+
+If work continues after the trigger responds, add this boundary to the trigger contract:
+
+```text
+ACCEPTED: <response that proves the runtime took responsibility; not “completed”>
+RUN ID: <stable ID returned to the caller and used in logs, retries, and receipts>
+STATUS: <where the owner can see queued | running | partial | completed | failed | cancelled>
+DEADLINE: <maximum wall-clock time; what the runtime cancels at expiry>
+WORK BOUND: <maximum items and concurrency; what is deferred or refused>
+ITEM RESULT: <success/failure recorded per item; no silent skip>
+TERMINAL RECEIPT: <counts, duration, failed-item IDs, retry state, and final reason>
+ALERT: <who hears when the deadline or final retry fails>
+```
+
+For an HTTP-triggered workflow, return an acceptance response with the run ID and status location rather than a success-shaped response that implies completion. The exact transport can vary; the product contract cannot. “Accepted” starts an observable run. A terminal receipt ends it.
+
+Before launch, run one small failure drill: make a dependency exceed its timeout midway through a multi-item batch. The trigger may acknowledge promptly, but the status must remain non-terminal while work continues; the deadline must stop unbounded execution; successful and failed items must both appear in the receipt; and a retry must not repeat completed effects. If the owner has to search raw logs to learn whether item 197 ran, the workflow is not observable enough.
 
 ---
 
@@ -317,6 +338,7 @@ Three suggestions before committing one as your boss fight:
 
 - A **lightweight agent** is a tested recipe + a trigger + an output channel + a clear "done" condition.
 - Prefer an **event trigger** for one business change and a **schedule** for a periodic snapshot; poll only when the source is safe and the freshness, rate, and cost bounds hold.
+- An asynchronous acknowledgement means **accepted, not completed**; return a run ID and status route, enforce time and work bounds, and finish with an itemised terminal receipt.
 - Team-facing recurring work graduates to a **verified loop**: trigger → skill → maker → checker → gate → state.
 - The conversion path is **manual recipe (2 weeks) → configured agent (2 more weeks of observation) → trusted agent.** Skipping either two-week phase is how graveyards form.
 - Three reusable patterns: morning briefing (scheduled triage), status digest (scheduled generation), new-ticket triage (event-triggered).
@@ -329,6 +351,8 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [Product Agent Marketplace — accepted cart-recovery work ran unbounded for 29 minutes](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786538573099029?thread_ts=1786538384.838939) — an internal case where a prompt HTTP response hid ongoing sequential work and a per-item dependency timeout
+- [RFC 9110 §15.3.3 — 202 Accepted](https://datatracker.ietf.org/doc/html/rfc9110#section-15.3.3) — the protocol contract: acceptance is noncommittal, and the response ought to describe status and point to a status monitor
 - [Product Agent Marketplace — duplicate dispute executions during cron-to-event migration](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786357202255279?thread_ts=1786356982.507259) — 21 merchants were processed by both active paths before the cron path was disabled
 - [Product Agent Marketplace — moving cart recovery from polling to events](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786346248385549?thread_ts=1786345999.831889) — an internal case where the polling-based cart agent locked about 10% of the time
 - [AWS Prescriptive Guidance — publish-subscribe pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/publish-subscribe.html) — an official overview of asynchronous event distribution, trade-offs, and failure modes
