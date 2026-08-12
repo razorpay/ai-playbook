@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 3
-time_minutes: 45
+time_minutes: 55
 audience: "experienced-builder"
-outcome: "Write a CLAUDE.md that names what the service is, what matters, and what to avoid — under 200 lines, with WHY beside every rule."
+outcome: "Write a CLAUDE.md that names what the service is, what matters, and what to avoid — under 200 lines, with WHY and a removal path for every load-bearing rule."
 prev: "belts/green/context-windows"
 next: "belts/green/hierarchical-claude-md"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "claude-md", "context-engineering"]
-updated: "2026-04-29"
+updated: "2026-08-12"
 ---
 
 # G.3 — CLAUDE.md for a real service
@@ -27,6 +27,7 @@ A `CLAUDE.md` is the single most leveraged artefact in your context budget. The 
 
 - A good CLAUDE.md answers three questions in plain English: what is this, what matters, what to avoid.
 - Every rule needs a "why" — the reason the rule exists. Without the why, the agent will follow the rule mechanically and break it the first time the situation looks slightly different.
+- Record enough evidence, scope, and removal criteria to update or delete each rule safely later.
 - Keep it under 200 lines. If you go longer, you are doing the work of G.4 (Hierarchical CLAUDE.md) badly.
 
 ---
@@ -191,6 +192,43 @@ This is the single most important shape rule in CLAUDE.md authorship. A rule wit
 
 The "WHY: three of the last six post-mortems were this" line in the currency section is doing the same job as a senior engineer pairing on the change. It transmits the *cost of getting it wrong*, not just the rule.
 
+### Every rule needs an exit
+
+Rules are cheap to add and surprisingly hard to remove. Months later, a reviewer can see the instruction but not the incident, workaround, or decision that created it. Keeping the rule feels safer than deleting it, so `CLAUDE.md` grows even when the codebase has moved on.
+
+Write load-bearing rules as small lifecycle records. Keep the prose natural, but preserve four things:
+
+```markdown
+### Use the read replica for report queries (HARD)
+
+All report queries use `REPORTING_DB_URL`; never fall back to the primary.
+WHY: an accidental reporting write can corrupt payment records.
+EVIDENCE: incident review INC-123; enforced by `tests/db-boundary.test.ts`.
+REVIEW WHEN: the reporting service moves off the payments database.
+```
+
+- **Rule** — the behaviour and its actual scope.
+- **Why** — the failure or constraint it prevents.
+- **Evidence** — an incident, decision, test, owner, or source a reviewer can inspect. Link durable artefacts; do not paste secrets, customer data, or private incident detail into the file.
+- **Review when** — the condition that should trigger an update or deletion. This is more useful than a date alone: a calendar reminder says *look again*; a removal condition says *what may have changed*.
+
+Not every one-line convention needs four labelled fields. Use the full shape for hard rules, surprising exceptions, temporary workarounds, and instructions whose removal could cause harm. The goal is not a larger `CLAUDE.md`; it is a file whose rules can leave without an archaeology project.
+
+#### Run the keep / update / remove review
+
+During the quarterly review, pick the five oldest or most surprising rules and classify each one:
+
+| Decision | Evidence test | Action |
+|---|---|---|
+| **Keep** | The constraint and scope still match reality | Keep it; refresh weak or broken evidence links |
+| **Update** | The risk remains, but the command, owner, path, or scope changed | Edit the rule and its evidence together |
+| **Remove** | The constraint is gone, duplicated by a narrower file, or enforced by code strongly enough that startup context adds no value | Delete it; mention the replacement control in the PR |
+| **Investigate** | Nobody can verify the why or removal condition | Ask the owner; do not preserve or delete it by guesswork |
+
+> **Try it now (ten minutes).** Choose three rules from a real project instruction file. Add evidence and a review condition to one, update one whose scope drifted, and identify one removal candidate. Review the diff with a teammate. The useful output is a justified decision, not three mandatory edits.
+
+A 2026 study of 247,694 instruction lifetimes across 1,867 repositories found that agent instruction files grew 226% over their lifetimes; retaining rationale in comments reduced excess instructions in the study's controlled setting from 211.3% to 1.4%. Treat that result as evidence for preserving rationale, not as a promise that comments alone will clean your repository.
+
 ### "What to avoid" is bounded and concrete
 
 Each "do not" item names the action and the specific cost. Not "follow good security practices" — that is a wish, not a rule. "Do not add new dependencies" with the specific rationale and the specific approval path is actionable.
@@ -224,21 +262,21 @@ A 100-line CLAUDE.md that the agent reads carefully is better than a 400-line CL
 
 **Over-documenting low-stakes conventions.** The route-handler shape rule is a one-line convention. Spending a paragraph on it crowds out the read-replica rule. Fix: name it once, move on.
 
-**Letting it grow.** Every new rule feels worth adding. Three months later, the file is 600 lines and nobody trims it. Fix: a quarterly review where every rule justifies its presence; remove anything that has not earned its line.
+**Letting it grow.** Every new rule feels worth adding. Three months later, the file is 600 lines and nobody trims it. Fix: capture evidence and a review condition when adding load-bearing rules, then run the quarterly keep / update / remove review. If nobody can verify a rule, investigate it instead of keeping or deleting it by reflex.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I can write a CLAUDE.md for any service my team owns, under 200 lines, with WHY beside every rule, in under an hour.
-- 🟡 YELLOW — I have written a CLAUDE.md but it leans on principles instead of named rules. I struggle to write whys.
+- 🟢 GREEN — I can write a CLAUDE.md for any service my team owns, under 200 lines, with WHY beside every rule and a safe removal path for every load-bearing rule.
+- 🟡 YELLOW — I have written a CLAUDE.md but it leans on principles instead of named rules, or its oldest rules have no inspectable evidence or review condition.
 - 🔴 RED — I have not written a CLAUDE.md from scratch.
 
 ---
 
 ## What you can say after this module
 
-> "I can write a CLAUDE.md that compresses my team's tribal knowledge into rules with whys, under 200 lines, that the agent will actually follow."
+> "I can write a CLAUDE.md that compresses my team's tribal knowledge into rules with whys, under 200 lines, and preserves enough evidence to update or remove those rules safely."
 
 ---
 
@@ -252,3 +290,4 @@ G.4 — *Hierarchical CLAUDE.md* — covers what to do when 200 lines is not eno
 
 - [Yellow Belt Y.5 — CLAUDE.md primer](../../02-yellow/Y05-claude-md-primer.md)
 - [Anthropic on agent context engineering](https://code.claude.com/docs/en/best-practices)
+- [Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding](https://arxiv.org/abs/2608.11095v1)
