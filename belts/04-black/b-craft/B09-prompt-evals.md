@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "black"
 order: 9
-time_minutes: 65
+time_minutes: 75
 audience: "platform-builder"
-outcome: "Build cold-start golden sets, then run prompt and agent evaluations with named pass criteria, outcome-state checks, trajectory checks, and calibrated graders — and refuse vibes-only updates."
+outcome: "Build cold-start golden sets, then run prompt and agent evaluations with named pass criteria, outcome-state checks, trajectory checks, language slices, and calibrated graders — and refuse vibes-only updates."
 prev: "belts/black/memory-systems"
 next: "belts/black/cost-and-observability"
 pillar: "prompt"
 belt: "black"
-tags: ["black-belt", "prompt-evals", "agent-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
-updated: "2026-08-03"
+tags: ["black-belt", "prompt-evals", "agent-evals", "multilingual-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
+updated: "2026-08-12"
 ---
 
 # B.9 — Prompt evals
@@ -29,6 +29,7 @@ The discipline that turns "this prompt feels right" into "this system completes 
 - Every shipped skill that updates over time should have a golden set. Without one, every update is a guess.
 - Before production traces exist, build a **cold-start set** from domain expertise: realistic input, expected answer, and one-line grader rule.
 - For an agent, grade the **outcome and trajectory**, not only the final message. A confident "done" is not evidence that the state changed.
+- For a multilingual agent, rerun the **same intent across supported languages** and compare actions, guardrails, handoffs, and outcomes — not fluency alone.
 - "Vibes-driven updates" (the team thinks the new prompt is better) is the failure mode this module exists to prevent.
 
 ---
@@ -214,6 +215,38 @@ Do not turn this into a dashboard of ten green averages and call it safety. Outc
 
 The loop is **scorecard → traces → graders → failures → improved agent → regression suite**. Production failures uncovered during investigation become new test cases, just as adversarial prompt findings join the golden set.
 
+### When the agent supports more than one language
+
+A fluent final answer does not prove that the agent followed the same policy in every language. The same subscription-recovery request might produce a payment link in English, an unnecessary retry in Hindi, and no human handoff in another supported language. The prose can sound fine while the action policy changes underneath it.
+
+Treat language as a required eval slice:
+
+1. **Pair the intent, not just the wording.** Start with one owner-approved task and create natural versions in each supported language. Keep customer state, tool availability, and expected outcome identical. A bilingual reviewer must confirm that the requests carry the same intent; literal translation is not the goal.
+2. **Run the same trial contract.** Use the same model route, tools, permissions, fixture, retry policy, and hard gates. Otherwise a configuration difference can masquerade as a language failure.
+3. **Grade the observable policy.** Compare outcome state, ordered tool calls, arguments, critical guardrails, refusal or handoff, latency, and cost. Do not require identical wording or hidden reasoning.
+4. **Report every language separately.** Record pass rate and failure category by language before showing an overall number. A blended average can hide the exact language that needs work.
+5. **Gate on the weakest supported slice.** A launch claim such as “supports Hindi” needs an owner-approved threshold for Hindi, not an average rescued by English traffic. If a language misses a hard gate, narrow the supported scope or fix and rerun.
+
+Use production language mix to decide how many cases each slice deserves, but keep at least one paired happy path, one refusal or policy boundary, one tool failure, and one human-handoff case for every language advertised to users.
+
+#### Copyable paired-language matrix
+
+```markdown
+# Multilingual agent eval: <workflow>
+Paired intent: <the same user goal and fixture in every row>
+Bilingual reviewer: <role approving semantic equivalence>
+Shared hard gates: <outcome, forbidden action, handoff or refusal>
+
+| Language | Natural test input | Expected outcome | Required / forbidden actions | Handoff or refusal | Pass rate |
+|---|---|---|---|---|---|
+| <language A> | <input> | <state> | <tool policy> | <condition> | <N/N> |
+| <language B> | <equivalent input> | <same state> | <same policy> | <same condition> | <N/N> |
+
+Weakest-slice decision: <ship, narrow scope, or fix and rerun>
+```
+
+**Ten-minute exercise:** duplicate one existing agent-eval case into a second supported language. If you can compare only the final messages, add the missing tool, handoff, or state assertion before running it.
+
 ### Copyable agent-eval card
 
 ```markdown
@@ -271,6 +304,8 @@ Release decision: <pass/fail by slice; named owner for accepted trade-offs>
 
 **Grading only the final message.** Fluent prose can claim a task completed when no state changed. Fix: check the final environment state and the tool trajectory.
 
+**A multilingual score that hides the weakest language.** Overall pass rate can look healthy while one advertised language takes different actions or misses handoffs. Fix: use paired intents, report each language separately, and gate on the weakest supported slice.
+
 **Running each agent task once.** One lucky pass hides nondeterminism. Fix: run multiple trials and report the pass rate by slice.
 
 **Using an LLM judge for a deterministic fact.** A judge should not guess whether a record exists or a forbidden tool ran. Fix: use code and state assertions first; reserve model graders for qualitative criteria.
@@ -303,6 +338,8 @@ B.10 (*Cost attribution + observability at scale*) extends G.20's daily-loop obs
 
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md)
 - [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Mukherjee, Bali & Sitaram — Measuring cross-lingual policy retention in tool-using agents](https://arxiv.org/abs/2608.11110)
+- [Razorpay Agent Studio — subscription-recovery language quality and cohort signal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786424673904999?thread_ts=1786424483.840939)
 - [Aakash Gupta with Daniel McKinnon — How to build your first AI eval](https://www.news.aakashg.com/p/how-to-build-your-first-eval)
 - [Razorpay Design Quality Agent — versioned context and regression eval sets](https://github.com/razorpay/claude-plugins/pull/987)
 - [The v0.12 skill test-cases.md files](../../../skills/) — examples of acceptance-scenario writing
