@@ -14,7 +14,7 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-08-10"
+updated: "2026-08-12"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
@@ -276,6 +276,29 @@ receipt: applied, rejected, skipped, or failed
 
 The raw capture preserves what the source actually said. The proposed diff makes synthesis reviewable. The action ledger stops a useful reminder from silently becoming a Slack message or document edit.
 
+### Preflight a recurring conversation source
+
+Automation starts one step earlier than the schedule: deciding which conversations may become durable source material. This matters when product decisions, merchant feedback, partner discussions, or launch coordination happen in an external chat rather than a tool your wiki can already read. The same boundary supports the [NIST Privacy Framework](https://www.nist.gov/privacy-framework) goal of identifying and managing privacy risk while building useful services.
+
+Razorpay now has an [announced WhatsApp-to-Slack bridge for the DEPA organisation](https://razorpay.slack.com/archives/C3GF5LWJK/p1786513633115819?thread_ts=1786513633.115819). The announcement says it copies only messages sent after the bridge joins a group, creates a Slack channel for the Razorpay participants, and does not reach past history or personal chats. Follow the current owner guidance for setup; this chapter deliberately does not repeat the live number or turn one organisation's rollout into a company-wide default.
+
+Before connecting any recurring conversation source, fill this card:
+
+```text
+SOURCE: <group, meeting series, inbox, or channel>
+APPROVED ROUTE: <current owner guidance for the bridge or connector>
+PARTICIPANTS: <who contributes; who knows new messages become durable>
+CAPTURE WINDOW: <starts when; no-backfill or backfill boundary>
+DESTINATION AUDIENCE: <who can read the captured source>
+EXCLUDE / PAUSE: <data that must not cross; who stops capture>
+SOURCE OWNER: <who reviews access, retention, and failures>
+PROOF: <one known decision that appears with source and date>
+```
+
+The audience check is load-bearing. A source can be appropriate for one working group and still be wrong for a broader wiki. Capture should preserve the source boundary, not quietly widen it. Do not treat a searchable Slack copy as verified knowledge either: it is still raw evidence that must pass the proposal, checks, and human gate below.
+
+**Five-minute exercise:** choose one recurring conversation that currently produces decisions. Fill the card without connecting anything. If you cannot name the approved route, destination audience, or source owner, keep the workflow manual. If you can, test one known decision after capture begins and confirm that pre-connection history remains absent when the route promises no backfill.
+
 ### Copy this automation graduation card
 
 Fill this before adding a schedule. If a field is vague, keep ingest manual.
@@ -432,6 +455,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - **`CONTEXT.md` is the keystone.** The 20 minutes you spend filling it in is itself most of the value.
 - **The three habits are ingest, query-verify-file-back, lint.** Together they grow the wiki without turning a plausible answer into durable fiction.
 - The compounding is delayed (week 1 feels like overhead) but real (week 8 is when it lands).
+- Preflight recurring conversation sources before capture: approved route, informed participants, capture window, destination audience, exclusions, owner, and one known-decision check.
 - Automate ingestion only after the manual habit works; keep raw capture, proposed wiki changes, proposed actions, approval, and receipts as separate stages.
 - Promote private analytics context into the shared knowledge hub only through source screening, known-answer checks, and a pod-owner-reviewed PR.
 - Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
