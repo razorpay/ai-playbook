@@ -14,7 +14,7 @@ next: "belts/black/a-platform"
 pillar: null
 belt: "black"
 tags: ["black-belt", "readme", "platform"]
-updated: "2026-05-07"
+updated: "2026-08-13"
 ---
 
 # ⚫ Black Belt — AI-Native Builder
@@ -54,8 +54,8 @@ Black Belt entry requires nomination by a manager or a Green Belt teammate. Nomi
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
 | B.1  | [Authoring an internal MCP server — architecture, auth, packaging](a-platform/B01-internal-mcp-server.md) | Harness | 60 min |
-| B.2  | [Publishing a skill pack — naming, versioning, governance](a-platform/B02-skill-pack-publishing.md) | Context | 30 min |
-| B.3  | [Building a plugin marketplace entry for Razorpay Cowork](a-platform/B03-cowork-plugin-marketplace.md) | Harness | 45 min |
+| B.2  | [Publishing a shared skill — placement, validation, review](a-platform/B02-skill-pack-publishing.md) | Context | 30 min |
+| B.3  | [Publishing a plugin — package once, prove every surface](a-platform/B03-cowork-plugin-marketplace.md) | Harness | 45 min |
 | B.4  | [The Claude Agent SDK — when to write your own agent](a-platform/B04-agent-sdk.md) | Harness | 45 min |
 | B.5  | [Multi-agent orchestration — patterns that work, patterns that don't](a-platform/B05-multi-agent-orchestration.md) | Harness | 45 min |
 | B.6  | [Tool design — JSON schemas, output shapes, error contracts](a-platform/B06-tool-design.md) | Harness | 30 min |
@@ -84,9 +84,9 @@ Black Belt entry requires nomination by a manager or a Green Belt teammate. Nomi
 
 ## Quests and boss fight
 
-### Quest B-1 — Publish an internal plugin
+### Quest B-1 — Publish a shared skill
 
-[Quest B-1](a-platform/quest-B1-publish-an-internal-plugin.md). Publish a skill pack (and optionally an MCP integration) so another POD can install it with one command. At least two installs from PODs outside your team within a month.
+[Quest B-1](a-platform/quest-B1-publish-an-internal-plugin.md). Publish a repository-native shared skill so another POD can install it with one command. At least two installs from PODs outside your team within a month.
 
 ### Quest B-2 — Component contribution or full-stack feature
 

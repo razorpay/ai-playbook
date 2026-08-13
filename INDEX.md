@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.60 · last reviewed 2026-08-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.61 · last reviewed 2026-08-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -407,7 +407,7 @@ A real feature on a product repo plus your Quest G-2 greenfield PR. The product-
 |------|----------------------------------------------------------------------|---------|
 | B.1  | [Authoring an internal MCP server — architecture, auth, packaging](belts/04-black/a-platform/B01-internal-mcp-server.md) [drafted] | Harness |
 | B.2  | [Publishing a shared skill — placement, validation, review](belts/04-black/a-platform/B02-skill-pack-publishing.md) [drafted] | Context |
-| B.3  | [Building a plugin marketplace entry for Razorpay Cowork](belts/04-black/a-platform/B03-cowork-plugin-marketplace.md) [drafted] | Harness |
+| B.3  | [Publishing a plugin — package once, prove every surface](belts/04-black/a-platform/B03-cowork-plugin-marketplace.md) [drafted] | Harness |
 | B.4  | [The Claude Agent SDK — when to write your own agent](belts/04-black/a-platform/B04-agent-sdk.md) [drafted] | Harness |
 | B.5  | [Multi-agent orchestration — patterns that work, patterns that don't](belts/04-black/a-platform/B05-multi-agent-orchestration.md) [drafted] | Harness |
 | B.6  | [Tool design — JSON schemas, output shapes, error contracts](belts/04-black/a-platform/B06-tool-design.md) [drafted] | Harness |
