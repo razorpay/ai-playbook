@@ -1958,7 +1958,7 @@ chapters:
     pillar: "context"
     belt: "black"
     tags: ["black-belt", "agent-skills", "publishing", "governance"]
-    updated: "2026-07-15"
+    updated: "2026-08-13"
   - slug: "belts/black/cowork-plugin-marketplace"
     path: "belts/04-black/a-platform/B03-cowork-plugin-marketplace.md"
     title: "Building a plugin marketplace entry for Razorpay Cowork"
@@ -2043,7 +2043,7 @@ chapters:
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "quest", "skill-publishing", "platform"]
-    updated: "2026-07-15"
+    updated: "2026-08-13"
   - slug: "belts/black/b-craft"
     path: "belts/04-black/b-craft/README.md"
     title: "Black Belt Part B — Push the Craft"

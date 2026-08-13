@@ -14,7 +14,7 @@ next: "belts/black/cowork-plugin-marketplace"
 pillar: "context"
 belt: "black"
 tags: ["black-belt", "agent-skills", "publishing", "governance"]
-updated: "2026-07-15"
+updated: "2026-08-13"
 ---
 
 # B.2 — Publishing a shared skill
@@ -31,6 +31,7 @@ The unit of contribution is a **skill directory in the shared repository**, not 
 - Keep the required instructions in `SKILL.md`; use `references/`, `scripts/`, and `assets/` only when they earn their keep.
 - Run the repository validation, open a normal PR, and get approval from the owning team. Structural changes also need DevEx review.
 - Prove the merged skill installs with `npx skills add razorpay/agent-skills --skill <skill-name>`.
+- Name the agent clients you actually tested. One successful client proves one client—not universal portability.
 - Do not invent a wrapper pack merely to look platform-shaped. A boring, installable directory beats an elegant diagram nobody can run.
 
 ---
@@ -157,7 +158,34 @@ Do not count “merged” as “published” until a consumer can install it:
 npx skills add razorpay/agent-skills --skill <skill-name>
 ```
 
-For a specific supported agent, add its agent selector. Test from a clean environment or with a teammate who did not author the skill, then run one representative invocation.
+For a specific supported agent, use the selector documented by the current repository or client. Test from a clean environment or with a teammate who did not author the skill, then run one representative invocation.
+
+#### Prove only the compatibility you claim
+
+A shared directory is a distribution path, not proof that every agent will discover and execute the skill the same way. Clients can differ in discovery, context injection, tool access, and script execution. Treat compatibility as a tested claim:
+
+1. **State the claim.** Name one agent, or name every agent included in a cross-agent claim. Do not write “works everywhere.”
+2. **Hold the case constant.** Use the same skill commit, fixture, representative request, expected output, and stop-condition test.
+3. **Start clean.** Install through the client's current documented path; do not rely on the author's existing global skills or configuration.
+4. **Inspect behaviour, not just installation.** Check discovery or activation, output correctness, refusal/stop behaviour, and any scripts, tools, or MCP dependencies.
+5. **Publish the boundary.** Mark each client `pass`, `limited`, or `unsupported`, link the evidence, and explain any limitation. An unsupported client should fail clearly and without a side effect.
+
+Copy this matrix into the PR when you claim support for more than one agent:
+
+```markdown
+## Agent compatibility claim
+
+Skill commit: <SHA>
+Fixture / request: <link or exact text>
+Expected output and stop condition: <link or short description>
+
+| Agent client + version | Clean install + discovery | Output + stop condition | Scripts / tools | Result | Evidence |
+|---|---|---|---|---|---|
+| <client> | pass / fail | pass / fail | pass / limited / n/a | pass / limited / unsupported | <log, screenshot, or test link> |
+| <client> | pass / fail | pass / fail | pass / limited / n/a | pass / limited / unsupported | <log, screenshot, or test link> |
+```
+
+This is a release receipt, not a permanent promise. Record the client version and skill commit so a later regression can be reproduced. If you tested only one client, say so; narrow truth is more useful than broad vibes.
 
 ### 7. Announce and observe adoption
 
@@ -181,6 +209,8 @@ Quest B-1 is the practical test: another POD must be able to install the merged 
 - [ ] Any scripts ran against representative fixtures
 - [ ] Clean install command prepared
 - [ ] Out-of-team consumer can run one representative invocation
+- [ ] Compatibility claim names only tested agent clients
+- [ ] Multi-agent claims include a completed compatibility matrix and evidence
 ```
 
 This checklist is the interactive element: run it before opening the PR, then paste the completed version into the description. No dashboard required.
@@ -200,6 +230,8 @@ This checklist is the interactive element: run it before opening the PR, then pa
 **Central-approval queue by habit.** A normal skill PR waits on a platform team that does not own the workflow. Fix: get the owning team's approval; involve DevEx when the contribution changes repository structure or the documented path requires it.
 
 **No consumer proof.** The author can invoke the skill, but nobody else has tried it. Fix: ask an out-of-team consumer to install and run one representative case before claiming cross-POD adoption.
+
+**Calling one client “cross-agent.”** The skill works in the author's primary harness, so the PR claims portability. Fix: run the same case in every named client and publish the matrix, or narrow the claim to the client you tested.
 
 ---
 
@@ -229,4 +261,5 @@ B.3 covers the different case: packaging a wider plugin surface for Cowork. Firs
 - [`razorpay/agent-skills` contributing guide](https://github.com/razorpay/agent-skills/blob/master/docs/contributing.md) — current structure, validation, and review path.
 - [`razorpay/agent-skills` placement guide](https://github.com/razorpay/agent-skills/blob/master/docs/skill-placement-guide.md) — shared versus team versus business placement.
 - [Merged `agent-skills` PR #2674](https://github.com/razorpay/agent-skills/pull/2674) — a current example of a normal skill-content PR reviewed and merged through the repository workflow.
+- [GitHub Agent Plugins 1.0 announcement](https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/) — current external evidence that compatible clients can discover supported skills from one package; packaging portability still needs behavioural proof.
 - [G.7 — Writing your first SKILL.md](../../03-green/a-craft/G07-writing-your-first-skill.md)
