@@ -1,5 +1,5 @@
 ---
-title: "Building a plugin marketplace entry for Razorpay Cowork"
+title: "Publishing a plugin — package once, prove every surface"
 slug: "belts/black/cowork-plugin-marketplace"
 section: "belts"
 status: "drafted"
@@ -8,188 +8,210 @@ track: "black"
 order: 3
 time_minutes: 45
 audience: "platform-builder"
-outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install the workflow with one click — and understand how that surface differs from the shared skill library."
+outcome: "Publish a plugin through the canonical Razorpay marketplace, then prove each user surface you claim supports it."
 prev: "belts/black/skill-pack-publishing"
 next: "belts/black/agent-sdk"
 pillar: "harness"
 belt: "black"
-tags: ["black-belt", "cowork", "plugin-marketplace", "publishing"]
-updated: "2026-07-15"
+tags: ["black-belt", "plugins", "plugin-marketplace", "publishing", "compatibility"]
+updated: "2026-08-13"
 ---
 
-# B.3 — Building a plugin marketplace entry for Razorpay Cowork
+# B.3 — Publishing a plugin
 
-A shared skill in `razorpay/agent-skills` reaches teammates using supported coding agents. The Cowork plugin marketplace reaches a wider audience: PMs, ops, designers, support — anyone using Cowork as their daily AI surface. This module is about contributing a plugin entry to that marketplace.
+B.2 covered one reusable `SKILL.md`. Use a **plugin** when the workflow also needs agents, hooks, MCP configuration, setup scripts, or settings that should travel together.
+
+At Razorpay, the current source of truth is [`razorpay/claude-plugins`](https://github.com/razorpay/claude-plugins). It publishes marketplace manifests for supported agent clients. A package appearing there proves that the source was listed. It does **not** prove that every surface—including Cowork—can discover, install, configure, and run it.
+
+That last distinction matters to PM and Design audiences. “It is in the marketplace” and “a teammate can use it in Cowork” are two different receipts.
 
 ---
 
 ## If you're short on time
 
-- Cowork is Anthropic's desktop AI app for non-engineers (referenced in §0.5 — Tool Tour). Its plugin marketplace lets teammates install bundles of skills, MCPs, and agents with one click.
-- A Razorpay tenant of Cowork has a curated marketplace; entries to that marketplace go through a governance step.
-- Publishing to the marketplace is what turns "a skill the engineering team uses" into "a skill any teammate can install" — the leverage delta is real.
+- Build a plugin only when a shared skill is too small for the capability.
+- Contribute a repository-native plugin directory; do not invent `pack.yml` or a separate tenant registry.
+- Validate the package, both checked-in marketplace manifests, the real install path, and one representative invocation.
+- Claim a user surface only after testing discovery, installation, invocation, connectors, stop conditions, and user-visible output on that surface.
+- If Cowork proof is missing, say **unverified for Cowork**. A support question is not a deployment strategy.
 
 ---
 
 ## The mental model
 
-```
-   ┌────────────────────────────────────────────────┐
-   │              COWORK PLUGIN MARKETPLACE           │
-   ├────────────────────────────────────────────────┤
-   │                                                  │
-   │   Public Cowork marketplace                     │
-   │           │                                       │
-   │           ▼                                       │
-   │   Razorpay's Cowork tenant marketplace          │
-   │     - curated, governed                         │
-   │     - Razorpay-specific plugins                 │
-   │     - can reuse shared agent-skills workflows  │
-   │                                                  │
-   │   What an entry contains:                       │
-   │     - skill(s)                                  │
-   │     - MCP integrations (optional)               │
-   │     - subagent definitions (optional)           │
-   │     - install metadata + governance review     │
-   │                                                  │
-   └────────────────────────────────────────────────┘
+```text
+Plugin source in razorpay/claude-plugins
+  -> local package validation
+  -> Claude + Codex marketplace entries
+  -> review + merge
+  -> clean install on each claimed client
+  -> representative invocation
+  -> separate surface receipt for Cowork or any non-CLI runtime
 ```
 
-The Cowork marketplace itself is public; Anthropic publishes the platform docs. The program's tenant marketplace is the curated subset of plugins Razorpay teammates see when they open Cowork. A Black Belt builder publishes into the tenant marketplace, not the public one.
+Think in two layers:
+
+1. **Package proof:** does the repository contain a valid, reviewable plugin and list it in the canonical manifests?
+2. **Surface proof:** can the named audience actually discover, install, configure, invoke, and verify it where you promised?
+
+Package proof is necessary. Surface proof is what makes a distribution claim true.
 
 ---
 
-## What a marketplace entry contains
+## Choose the right unit
 
-A plugin entry typically packages:
+```text
+Does the workflow need only instructions and optional scripts/references?
+├─ yes -> publish a shared skill through B.2
+└─ no
+   Does it bundle agents, hooks, MCP config, setup, or settings?
+   ├─ yes -> publish a plugin through this chapter
+   └─ no -> simplify the design before adding a package boundary
+```
 
-- **One or more skills.** Reuse repository-native workflows from B.2 where the runtime supports them.
-- **Optional MCP integrations.** If the plugin needs access to a connector that does not ship with Cowork by default, the entry declares it.
-- **Optional subagent definitions.** Specialist subagents the plugin's skills can spawn (per G.8).
-- **Install metadata.** Name, version, owner, description, what it does, what it does not do.
-- **Governance review record.** The program's review pass that approved the plugin for the tenant marketplace.
-
-The entry is structured (the public Cowork docs name the file shapes); the discipline is what separates a publishable entry from a working-but-rough one.
-
----
-
-## Why publish to the marketplace, not just the shared skill library
-
-Three audiences differ enough to justify both surfaces.
-
-**The shared skill library** reaches teammates using supported coding agents. They install a named skill from `razorpay/agent-skills`, work in repositories, and can inspect the source and PR history.
-
-**The Cowork marketplace** reaches everyone else. PMs who want a "summarise my sprint" skill. Ops who want a "triage incoming tickets" skill. Designers who want a "audit this Figma frame against Blade" skill. They do not run Claude Code; they open Cowork; they click *Install*.
-
-The same underlying workflow can ship to both surfaces — the source may be shared, but the packaging and audience differ. A Black Belt builder who publishes only to the agent-skills library may leave the non-engineer audience unreached. The leverage delta is real when the workflow genuinely fits both surfaces.
+A plugin is not a more prestigious skill. It has a larger failure surface and a larger maintenance contract. Use it because the runtime bundle requires it, not because the launch deck needs a box.
 
 ---
 
-## The governance step
+## Build the repository-native package
 
-Razorpay's tenant marketplace has a governance review. The shape:
+Follow the current contribution guide in `razorpay/claude-plugins`. A typical plugin looks like this:
 
-1. **Submit.** The author submits the plugin entry with `pack.yml`, README, install metadata, and the rationale for marketplace inclusion.
-2. **Scope review.** A program reviewer confirms the plugin's scope is bounded and well-described, mirroring B.1's anti-omnibus discipline.
-3. **Safety review.** A program reviewer confirms the plugin does not bypass redlines, does not grant unscoped capabilities, does not handle regulator-protected data without the right path.
-4. **Quality review.** A program reviewer runs the plugin's test scenarios; the skill bodies pass the SKILL.md anatomy checks.
-5. **Publish.** The reviewer approves; the plugin lands in the tenant marketplace; consumers see it on next refresh.
+```text
+plugins/<plugin-name>/
+├── .claude-plugin/
+│   └── plugin.json       # package metadata
+├── README.md             # setup, use, support
+├── skills/               # optional model-invoked workflows
+├── agents/               # optional specialist agents
+├── hooks/                # optional/required by current repo policy
+├── .mcp.json             # optional placeholders; never secrets
+└── scripts/              # optional setup or deterministic helpers
+```
 
-The review is not bureaucracy — it is the artefact that lets the program promise "every plugin in the marketplace passed safety and scope checks." A plugin that bypasses governance and lands in the marketplace anyway is a plugin that breaks the program's trust contract with non-engineer consumers.
+Repository policy changes faster than a curriculum chapter. Before copying this shape, read the current contribution guide and an active plugin next to yours. In particular, let the platform's convention-loaded files load once; declaring the same hooks twice can turn a working bundle into a red “failed to load” state.
 
----
-
-## What the marketplace entry's README should answer
-
-Non-engineer consumers read a marketplace entry differently than engineers read a CLI install. The README answers, in this order:
-
-1. **What does this plugin do?** Plain English, no jargon. A PM should understand in 30 seconds.
-2. **What does it not do?** Bounded scope; the same anti-omnibus discipline from B.1.
-3. **What connectors does it need?** Cowork shows connector requirements at install time; the README confirms.
-4. **What does success look like?** A worked example from a real teammate. "After install, type 'summarise my last sprint' and get a Markdown summary in 30 seconds."
-5. **Who owns it?** Team handle. Same governance rule as B.2.
-6. **How do I report issues?** A link or a Slack channel. Without this, broken plugins go unfixed.
+Keep credentials out of source control. Commit placeholders and a documented setup path. If a connector is optional, specify what degrades without it. If it is required, fail closed and tell the user what evidence to capture.
 
 ---
 
-## When NOT to publish to the marketplace
+## Publish the package
 
-Three patterns where the shared skill library is the better surface.
+### 1. Search and choose an owner
 
-**Pattern 1.** The plugin is engineering-only. A `release-pipeline-toolkit` plugin has no use for a designer; surfacing it in the marketplace is noise.
+Search the repository for the job, trigger, connector, and audience. Improve an existing plugin when the capability already has an owner. For a new plugin, name the team that will review future changes, answer support questions, and maintain dependent APIs.
 
-**Pattern 2.** The plugin requires repo-shape context that Cowork users do not have. Cowork is folder-first, not repo-first; a plugin that assumes a git checkout fits awkwardly there.
+### 2. Build one representative workflow
 
-**Pattern 3.** The workflow handles regulator-scoped data. Use the approved restricted path and review boundary; do not broaden distribution merely to gain marketplace reach.
+Start with one invocation and one observable output. Include:
+
+- the plugin manifest and README;
+- the skill or agent that performs the job;
+- placeholder-only connector configuration;
+- explicit permissions and stop conditions;
+- setup and failure guidance;
+- a fixture or example that another teammate can repeat.
+
+### 3. Validate locally
+
+From the `claude-plugins` repository root, run the current plugin validation and the tests specific to your package. The contribution guide currently documents:
+
+```bash
+claude plugin validate ./plugins/<plugin-name>
+claude --plugin-dir ./plugins/<plugin-name>
+```
+
+The first command checks package shape. The second starts a local runtime; invoke the representative workflow there and inspect the actual output. Run any plugin-specific tests and repository checks named in the current contribution guide or CI.
+
+### 4. Update the canonical marketplace manifests
+
+The repository currently tracks Claude and Codex marketplace manifests. Add the plugin to both according to the current schema, then run the repository sync checks. The lists, source path, and package version must agree.
+
+Do not add a `pack.yml`, separate registry URL, or guessed tenant identifier. If the canonical repository does not consume an artifact, it is not part of the publishing path.
+
+### 5. Open the PR
+
+The PR should state:
+
+- the repeated workflow and intended audience;
+- why a plugin is needed instead of a shared skill;
+- the owning team;
+- components and permissions added;
+- validation and representative invocation results;
+- the clients and user surfaces actually tested;
+- known unsupported or unverified surfaces.
+
+Get the reviews required by the repository's current ownership and security controls. Treat passing CI as package proof, not automatic user-surface proof.
+
+### 6. Clean-install and invoke
+
+After merge, install from the canonical marketplace on every client named in the launch claim. Start from a clean profile or use a teammate who did not author the plugin. Record the version, install result, invocation, result, and failure behaviour.
+
+### 7. Prove each promised surface
+
+If you want PMs or designers to use the plugin through Cowork, test Cowork separately. A Claude Code receipt does not establish Cowork compatibility. Capture how the user discovers the plugin, how it is enabled, how connectors are authorised, what invocation starts it, and what success or refusal looks like.
+
+If no supported Cowork publication route or owner-approved test exists, stop at the verified marketplace claim. Describe the plugin as available on the clients you tested and **unverified for Cowork**. Do not send business users to reverse-engineer a developer package.
 
 ---
 
-## Worked sketch — publishing a release workflow to Cowork
+## Copyable surface-proof matrix
 
-Following on from B.2: the team has published a `release-pipeline-toolkit` skill to `razorpay/agent-skills`. Should it also go to the Cowork marketplace?
+Run one row for every surface named in the launch message. Paste the completed matrix into the PR or release record.
 
-**Decision.** No. The workflow is engineering-only: it operates on git branches and CI pipelines. The shared skill library is the right surface.
+```markdown
+| Surface | Discover | Install / enable | Invoke | Connector auth | Stop / refusal | User receipt | Result |
+|---|---|---|---|---|---|---|---|
+| Claude Code | <evidence> | <evidence> | <evidence> | <evidence> | <evidence> | <link or redacted artifact> | pass / limited / fail |
+| Codex | <evidence> | <evidence> | <evidence> | <evidence> | <evidence> | <link or redacted artifact> | pass / limited / fail |
+| Cowork | <evidence> | <evidence> | <evidence> | <evidence> | <evidence> | <link or redacted artifact> | pass / limited / unverified |
+```
 
-Now consider a different skill: `weekly-status-summary`. It summarises a team's week from merged PRs and ticket activity. It is useful to engineers, PMs, and engineering managers.
-
-**Decision.** Yes. Publish to the Cowork marketplace.
-
-The marketplace entry's README:
-
-> **What this plugin does.** Generates a weekly status summary for a named team from merged PRs and ticket activity. Outputs a one-page Markdown summary you can edit lightly and share.
->
-> **What it does not do.** Post to messaging platforms by itself. Track individual contributors. Generate forward-looking plans.
->
-> **Connectors needed.** PR system connector and ticketing connector (both bundled with Cowork by default).
->
-> **Worked example.** Type "draft this week's status for team X" — get a Markdown summary in 30 seconds.
->
-> **Owner.** Team handle.
->
-> **Report issues.** Program's primary Slack channel.
-
-The plugin goes through governance review (clean), lands in the tenant marketplace, and PMs across the program install it within a month. The leverage delta is what Black Belt is for.
+Use **pass** only when the whole row works. Use **limited** when the workflow runs but a named capability differs. Use **unverified** when there is no supported test route. Never convert a blank cell into optimism.
 
 ---
 
 ## Common failure modes
 
-**Skipping governance.** Pushing the plugin to the public Cowork marketplace bypasses the program's tenant review. Fix: never; tenant publishing is the path.
+**Inventing a tenant marketplace contract.** The chapter or launch note describes `pack.yml`, one-click deployment, or central approval that the canonical repository does not implement. Fix: use the live repository's package and manifest workflow; mark other surfaces unverified until they have their own proof.
 
-**No README, just install instructions.** Non-engineers cannot evaluate. Fix: the six-question README from §"What the marketplace entry's README should answer".
+**Equating source with availability.** A plugin directory exists, so the team says PMs can use it. Fix: separate package proof from surface proof and complete the matrix.
 
-**Publishing engineering-only plugins to the marketplace.** Noise for non-engineers; clutter for everyone. Fix: keep the workflow in the shared skill library; reserve the marketplace for plugins that pay off across audiences.
+**Testing only the author environment.** Local paths, cached credentials, or already-installed connectors hide a broken install. Fix: use a clean profile or an out-of-team tester after merge.
 
-**Same author for code and review.** Conflict of interest. Fix: a different reviewer per the program's governance rule.
+**Duplicating convention-loaded hooks.** The manifest declares hooks that the client already discovers from the standard location, producing a duplicate-load error. Fix: follow the current repository convention and test a clean install.
 
-**No update path.** A plugin published in v1.0 that has never been updated to v1.1 in two quarters. Fix: maintenance discipline; quarterly review; deprecate or update.
+**Publishing secrets or broad permissions.** A connector file contains real credentials, or a tool gets wider access than the representative workflow needs. Fix: commit placeholders, use approved credential stores, document scopes, and verify refusal behaviour.
 
-**Treating Cowork install metadata as a checkbox.** It is the contract a non-engineer reads. Fix: take the README and the install metadata seriously.
+**Claiming Cowork from a CLI test.** Claude Code or Codex works, so the launch note adds Cowork. Fix: complete the Cowork row or remove the claim.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can publish a plugin to the Razorpay Cowork tenant marketplace, pass governance review, and produce an entry README a non-engineer can evaluate in 30 seconds.
-- 🟡 YELLOW — I have authored shared skills but have not navigated the marketplace publishing flow.
-- 🔴 RED — I do not yet know what the Cowork marketplace is or why it differs from the shared skill library.
+- 🟢 GREEN: the plugin is merged, clean-installed, invoked, and backed by a complete proof row for every claimed surface.
+- 🟡 YELLOW: package validation passes, but one claimed client or surface has a missing or limited receipt.
+- 🔴 RED: the distribution claim depends on fictional artifacts, the author's cached environment, committed credentials, or “it should work.”
 
 ---
 
 ## What you can say after this module
 
-> "I publish plugins to the Razorpay Cowork tenant marketplace, pass governance review, and produce entries non-engineer teammates install with one click."
+> "I publish repository-native plugins and prove each user surface separately. A marketplace entry proves packaging; a complete receipt proves availability."
 
 ---
 
 ## Where to go next
 
-B.4 (*The Claude Agent SDK*) covers the build-vs-install decision at the next layer up. When the shared skill library and marketplace cannot satisfy the workflow, you reach for the SDK and write your own agent.
+If no supported client can host the workflow, continue to B.4 and evaluate a custom agent. If a shared skill can do the job, go back to B.2 and remove the unnecessary package surface.
 
 **Previous:** [← B.2 Publishing a shared skill](B02-skill-pack-publishing.md) · **Next:** [→ B.4 The Claude Agent SDK](B04-agent-sdk.md)
 
 **Further reading**
 
-- [Anthropic's Cowork plugin docs](https://claude.com/) — the public reference for plugin shape
+- [`razorpay/claude-plugins` README](https://github.com/razorpay/claude-plugins#readme) — current marketplace and installation path.
+- [`razorpay/claude-plugins` contribution guide](https://github.com/razorpay/claude-plugins/blob/master/docs/CONTRIBUTING.md) — current package, validation, and review requirements.
+- [2026-08-04 `#ai-help` publication request](https://razorpay.slack.com/archives/C08C35GKJKD/p1785816759045759) — why a repository package and Cowork availability need separate proof.
+- [2026-08-13 `#ai-help` setup request](https://razorpay.slack.com/archives/C08C35GKJKD/p1786587471592669) — current PM-facing demand for an explicit Cowork route.
 - [B.2 — Publishing a shared skill](B02-skill-pack-publishing.md)
-- [Prologue 0.5 — Meet your tools](../../../prologue/05-tool-tour.md) — Cowork in the tool atlas
+- [G.7 — Writing your first SKILL.md](../../03-green/a-craft/G07-writing-your-first-skill.md)

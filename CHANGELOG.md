@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.61 — plugin package and surface proof (2026-08-13)
+
+B.3 described a Razorpay Cowork tenant marketplace, `pack.yml`, one-click installs, and a central governance route that the canonical plugin repository does not implement. Internal support requests asking how to publish or set up Analytics Agent in Cowork show why the distinction matters: a source package in the developer marketplace is not proof that PMs or designers can use it on another surface.
+
+**What changed.**
+
+- **B.3 now follows the canonical repository.** The chapter teaches the current `razorpay/claude-plugins` directory, validation, Claude and Codex manifest, PR, clean-install, and invocation path instead of speculative tenant mechanics.
+- **Surface claims require receipts.** A copyable matrix separates package proof from discovery, enablement, invocation, connector, refusal, and output proof on every named user surface; missing Cowork evidence stays explicitly unverified.
+- **Black Belt navigation aligned.** Part A, the belt overview, INDEX, the course manifest, and generated project knowledge now use the same plugin-publishing contract.
+- **Version markers bumped.** README and INDEX now report v0.61 / 2026-08-13 for this publishing-path correction.
+
 ## v0.60 — evidence-backed agent compatibility claims (2026-08-13)
 
 Shared-skill publishing taught a clean install and one representative invocation, then left authors to infer whether that result applied to other agent clients. Internal builders are already asking whether the same skills work across clients, while the wider ecosystem is standardising cross-client skill discovery. Distribution alone does not prove equivalent behaviour.

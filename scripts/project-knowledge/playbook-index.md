@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.59 · last reviewed 2026-08-07 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.61 · last reviewed 2026-08-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -412,7 +412,7 @@ A real feature on a product repo plus your Quest G-2 greenfield PR. The product-
 |------|----------------------------------------------------------------------|---------|
 | B.1  | [Authoring an internal MCP server — architecture, auth, packaging](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B01-internal-mcp-server/) [drafted] | Harness |
 | B.2  | [Publishing a shared skill — placement, validation, review](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B02-skill-pack-publishing/) [drafted] | Context |
-| B.3  | [Building a plugin marketplace entry for Razorpay Cowork](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B03-cowork-plugin-marketplace/) [drafted] | Harness |
+| B.3  | [Publishing a plugin — package once, prove every surface](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B03-cowork-plugin-marketplace/) [drafted] | Harness |
 | B.4  | [The Claude Agent SDK — when to write your own agent](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B04-agent-sdk/) [drafted] | Harness |
 | B.5  | [Multi-agent orchestration — patterns that work, patterns that don't](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B05-multi-agent-orchestration/) [drafted] | Harness |
 | B.6  | [Tool design — JSON schemas, output shapes, error contracts](https://razorpay.github.io/ai-playbook/belts/04-black/a-platform/B06-tool-design/) [drafted] | Harness |

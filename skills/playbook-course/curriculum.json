@@ -758,12 +758,12 @@
         {
           "slug": "belts/black/cowork-plugin-marketplace",
           "path": "belts/04-black/a-platform/B03-cowork-plugin-marketplace.md",
-          "title": "Building a plugin marketplace entry for Razorpay Cowork",
+          "title": "Publishing a plugin — package once, prove every surface",
           "order": 3,
           "pillar": "harness",
           "time_minutes": 45,
           "audience": "platform-builder",
-          "outcome": "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install your skill pack with one click.",
+          "outcome": "Publish a plugin through the canonical Razorpay marketplace, then prove each user surface you claim supports it.",
           "status": "drafted"
         },
         {

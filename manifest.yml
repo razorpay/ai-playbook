@@ -1901,13 +1901,13 @@ chapters:
     order: 0
     time_minutes: 15
     audience: "platform-builder"
-    outcome: "Understand the Black Belt arc, what is drafted in Part A, and what comes next in Parts B and C."
+    outcome: "Understand the Black Belt arc, walk Parts A, B, and C, claim Quests B-1 and B-2, ship Boss Fight B-B, and earn the badge."
     prev: "belts/green/badge"
     next: "belts/black/a-platform"
     pillar: null
     belt: "black"
     tags: ["black-belt", "readme", "platform"]
-    updated: "2026-04-29"
+    updated: "2026-08-13"
   - slug: "belts/black/a-platform"
     path: "belts/04-black/a-platform/README.md"
     title: "Black Belt Part A — Build the Platform"
@@ -1924,7 +1924,7 @@ chapters:
     pillar: null
     belt: "black"
     tags: ["black-belt", "part-a", "build-the-platform", "readme"]
-    updated: "2026-07-15"
+    updated: "2026-08-13"
   - slug: "belts/black/internal-mcp-server"
     path: "belts/04-black/a-platform/B01-internal-mcp-server.md"
     title: "Authoring an internal MCP server — architecture, auth, packaging"
@@ -1961,7 +1961,7 @@ chapters:
     updated: "2026-08-13"
   - slug: "belts/black/cowork-plugin-marketplace"
     path: "belts/04-black/a-platform/B03-cowork-plugin-marketplace.md"
-    title: "Building a plugin marketplace entry for Razorpay Cowork"
+    title: "Publishing a plugin — package once, prove every surface"
     section: "belts"
     track: "black"
     status: "drafted"
@@ -1969,13 +1969,13 @@ chapters:
     order: 3
     time_minutes: 45
     audience: "platform-builder"
-    outcome: "Publish a plugin to the program's Cowork tenant marketplace so non-engineer teammates can install the workflow with one click — and understand how that surface differs from the shared skill library."
+    outcome: "Publish a plugin through the canonical Razorpay marketplace, then prove each user surface you claim supports it."
     prev: "belts/black/skill-pack-publishing"
     next: "belts/black/agent-sdk"
     pillar: "harness"
     belt: "black"
-    tags: ["black-belt", "cowork", "plugin-marketplace", "publishing"]
-    updated: "2026-07-15"
+    tags: ["black-belt", "plugins", "plugin-marketplace", "publishing", "compatibility"]
+    updated: "2026-08-13"
   - slug: "belts/black/agent-sdk"
     path: "belts/04-black/a-platform/B04-agent-sdk.md"
     title: "The Claude Agent SDK — when to write your own agent"

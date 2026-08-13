@@ -1870,7 +1870,7 @@ chapters:
       - publishing
       - governance
   - slug: belts/black/cowork-plugin-marketplace
-    title: Building a plugin marketplace entry for Razorpay Cowork
+    title: Publishing a plugin — package once, prove every surface
     hub_url: https://razorpay.github.io/ai-playbook/belts/black/cowork-plugin-marketplace/
     section: belts
     track: black
@@ -1879,14 +1879,14 @@ chapters:
     type: chapter
     audience: platform-builder
     time_minutes: 45
-    outcome: Publish a plugin to the program's Cowork tenant marketplace so
-      non-engineer teammates can install the workflow with one click — and
-      understand how that surface differs from the shared skill library.
+    outcome: Publish a plugin through the canonical Razorpay marketplace, then prove
+      each user surface you claim supports it.
     tags:
       - black-belt
-      - cowork
+      - plugins
       - plugin-marketplace
       - publishing
+      - compatibility
   - slug: belts/black/agent-sdk
     title: The Claude Agent SDK — when to write your own agent
     hub_url: https://razorpay.github.io/ai-playbook/belts/black/agent-sdk/

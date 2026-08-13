@@ -251,9 +251,9 @@ This checklist is the interactive element: run it before opening the PR, then pa
 
 ## Where to go next
 
-B.3 covers the different case: packaging a wider plugin surface for Cowork. First prove the workflow as a shared skill. Add plugin machinery only when the audience or capability requires it.
+B.3 covers the different case: packaging agents, hooks, MCP configuration, setup, or settings together. First prove the workflow as a shared skill. Add plugin machinery only when the capability requires it, then prove every user surface you claim supports it.
 
-**Previous:** [← B.1 Authoring an internal MCP server](B01-internal-mcp-server.md) · **Next:** [→ B.3 Cowork plugin marketplace](B03-cowork-plugin-marketplace.md)
+**Previous:** [← B.1 Authoring an internal MCP server](B01-internal-mcp-server.md) · **Next:** [→ B.3 Publishing a plugin](B03-cowork-plugin-marketplace.md)
 
 **Further reading**
 
