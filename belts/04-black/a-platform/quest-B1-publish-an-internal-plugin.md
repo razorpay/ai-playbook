@@ -14,7 +14,7 @@ next: "belts/black/b-craft"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "quest", "skill-publishing", "platform"]
-updated: "2026-07-15"
+updated: "2026-08-13"
 ---
 
 # 🎮 Quest B-1 — Publish a shared skill
@@ -39,6 +39,7 @@ Pick a workflow your team owns and runs three or more times by hand. Author it a
 - A skill installed by your team and one adjacent team that shares your manager — Appendix L's sample-size rule applies; the two installs must be from genuinely outside teams.
 - A skill that fails the repository validation or G.7 anatomy checks.
 - A skill with no clear owner, trigger, usage example, or clean-install proof.
+- A skill described as portable or cross-agent without evidence for every agent named in the claim.
 - A skill that handles regulator-protected data without the right governance path.
 
 ---
@@ -97,9 +98,11 @@ Put required instructions in `SKILL.md`. Follow the repository's current frontma
 
 Run `make test` from the `agent-skills` root and the focused skill reviewer from B.2. Run any bundled scripts against representative fixtures. Cohort feedback comes free, but only after the contribution is shippable.
 
+State the agent compatibility claim before opening the PR. If you name more than one agent, run B.2's compatibility matrix with the same fixture, expected output, and stop condition in every named client. A `limited` or `unsupported` result is acceptable when it is explicit and safe; an untested portability claim is not.
+
 ### Step 6 — Open and merge the pull request (~30 minutes)
 
-Open a normal PR to `razorpay/agent-skills`. State the use case, path decision, owner, invocation, validation, and non-goals. Get approval from the owning team; involve DevEx when the PR changes repository structure. After merge, confirm the real `npx skills add razorpay/agent-skills --skill <skill-name>` command from a clean environment.
+Open a normal PR to `razorpay/agent-skills`. State the use case, path decision, owner, invocation, validation, compatibility claim, and non-goals. Link the matrix evidence when the claim names multiple agents. Get approval from the owning team; involve DevEx when the PR changes repository structure. After merge, confirm the real `npx skills add razorpay/agent-skills --skill <skill-name>` command from a clean environment.
 
 ### Step 7 — Announce (~30 minutes elapsed)
 
@@ -152,6 +155,8 @@ Copy into your tracker or `LEARNER.md`:
 - Merged PR URL: <link>
 - Install command: <command>
 - Owner team: <team-handle>
+- Agent compatibility claim: <tested client(s), or “not claimed beyond <client>”>
+- Compatibility evidence: <matrix link, or single-client clean-install receipt>
 - POD install confirmations (≥2 outside immediate team):
   - <POD-1 handle>, install date <YYYY-MM-DD>, confirmation link
   - <POD-2 handle>, install date <YYYY-MM-DD>, confirmation link
@@ -159,7 +164,7 @@ Copy into your tracker or `LEARNER.md`:
 - Reflection: <one-paragraph or link>
 ```
 
-The merged skill is the artefact. The two install confirmations are the proof of cross-POD adoption. The reflection is the proof of internalisation.
+The merged skill is the artefact. The compatibility receipt proves only the agent boundary it names. The two install confirmations are the proof of cross-POD adoption. The reflection is the proof of internalisation.
 
 ---
 
@@ -173,6 +178,7 @@ The reviewer attests that:
 - the path, frontmatter, and CODEOWNERS route identify an accountable owner;
 - the skill passes repository validation and the SKILL.md anatomy checks;
 - the documented install command works from a clean environment;
+- every agent named in a portability claim has a reproducible compatibility result;
 - the two install confirmations are from genuinely outside teams (not adjacent teams with the same manager);
 - the reflection shows comprehension of the platform-builder loop, not just compliance.
 
@@ -187,6 +193,8 @@ The reviewer attests that:
 **Personal-only ownership.** A skill only its author can review is orphan-ready. Fix: route ownership through the team or function that owns the workflow.
 
 **Testing only in the author's checkout.** If the install path is broken, nobody can adopt regardless of skill quality. Fix: merge through the shared repository, then clean-install the named skill before collecting adoption proof.
+
+**Confusing adoption with portability.** Two PODs can install the same skill through one agent client; that proves reach, not cross-agent behaviour. Fix: keep the adoption receipts and compatibility matrix as separate evidence.
 
 **Treating the announcement as optional.** Without reach, no installs. Fix: post the merged path and install command in `#devex-skills`; offer pairing time.
 

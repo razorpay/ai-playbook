@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.60 — evidence-backed agent compatibility claims (2026-08-13)
+
+Shared-skill publishing taught a clean install and one representative invocation, then left authors to infer whether that result applied to other agent clients. Internal builders are already asking whether the same skills work across clients, while the wider ecosystem is standardising cross-client skill discovery. Distribution alone does not prove equivalent behaviour.
+
+**What changed.**
+
+- **B.2 adds a claim-driven compatibility matrix.** Authors now hold the fixture and expected behaviour constant, test every agent named in the claim, inspect discovery, output, stop conditions, scripts, and tools, and publish `pass`, `limited`, or `unsupported` evidence.
+- **Quest B-1 separates portability from adoption.** Cross-POD install receipts still prove reach; a separate compatibility receipt proves only the tested agent boundary.
+- **Course metadata aligned.** `manifest.yml` carries the refreshed B.2 and Quest B-1 review dates.
+- **Version markers bumped.** README and INDEX now report v0.60 / 2026-08-13 for this publishing-proof update.
+
 ## v0.59 — Align reference-skill status (2026-08-07)
 
 - **Removed the remaining unavailable invocation** — the root README no longer tells readers to run `playbook-course` through Compass and instead routes guided reading to the index or hub.
