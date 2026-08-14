@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "black"
 order: 9
-time_minutes: 75
+time_minutes: 80
 audience: "platform-builder"
-outcome: "Build cold-start golden sets, then run prompt and agent evaluations with named pass criteria, outcome-state checks, trajectory checks, language slices, and calibrated graders — and refuse vibes-only updates."
+outcome: "Build cold-start golden sets, prove the evaluator ran the intended variants and routes, then run prompt and agent evaluations with named pass criteria, outcome-state checks, trajectory checks, language slices, and calibrated graders — and refuse vibes-only updates."
 prev: "belts/black/memory-systems"
 next: "belts/black/cost-and-observability"
 pillar: "prompt"
 belt: "black"
-tags: ["black-belt", "prompt-evals", "agent-evals", "multilingual-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
-updated: "2026-08-12"
+tags: ["black-belt", "prompt-evals", "agent-evals", "eval-integrity", "multilingual-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
+updated: "2026-08-14"
 ---
 
 # B.9 — Prompt evals
@@ -28,6 +28,7 @@ The discipline that turns "this prompt feels right" into "this system completes 
 - Three eval shapes matter: **golden sets** (regression), **A/B** (improvement comparison), **adversarial** (failure-finding).
 - Every shipped skill that updates over time should have a golden set. Without one, every update is a guess.
 - Before production traces exist, build a **cold-start set** from domain expertise: realistic input, expected answer, and one-line grader rule.
+- Before trusting a score, prove the evaluator ran the **intended variant and execution path**. Plant one case the checker must fail.
 - For an agent, grade the **outcome and trajectory**, not only the final message. A confident "done" is not evidence that the state changed.
 - For a multilingual agent, rerun the **same intent across supported languages** and compare actions, guardrails, handoffs, and outcomes — not fluency alone.
 - "Vibes-driven updates" (the team thinks the new prompt is better) is the failure mode this module exists to prevent.
@@ -134,6 +135,42 @@ Five steps that work for any skill.
 **Step 5 — Re-run.** A/B against the baseline. The new version ships if and only if it clears the pass criteria *and* does not regress on any input the old version passed.
 
 The fifth step is the discipline. A new prompt that improves the average but regresses on a specific input is not a release; it is a trade. Trades sometimes ship, but only with the regressing input added to the golden set with a clear "we accepted this trade-off because..." note in the changelog.
+
+---
+
+## Before you score: test the evaluator
+
+A precise score can still describe the wrong experiment. Variant B may silently call variant A, a requested model route may fall back, or a comparison may send both sides through the same data source. The grader can then be perfectly consistent while the release decision is false.
+
+This is not hypothetical. In one Razorpay parity run, a table-name matcher missed `hive.`-prefixed references, so 13 parts of a dashboard query compared redesign against itself and scored "identical." The harness became trustworthy only after it failed whenever a legacy reference survived on the redesign side. [QuoteBench](https://arxiv.org/abs/2608.13547) found the same class at an agent boundary: matched aggregate scores hid 55.4–73.2 percentage points of command-path damage.
+
+### Run an integrity preflight
+
+1. **Name each trial identity.** Record the variant or artifact version, model configuration, prompt or skill hash, fixture, intended tool or command path, and evaluator version. “Candidate” and “control” are labels, not evidence that two different things ran.
+2. **Capture the executed route.** Save observable proof from the run: tool trace, resolved command, model route, source table, build SHA, or final-state receipt. Requested configuration is useful context; executed identity is the evidence.
+3. **Assert required and forbidden coverage.** The candidate route must appear in every candidate trial, and the control or retired route must not. Treat missing route evidence as `BLOCKED`, never as a pass.
+4. **Plant one known-red case.** Deliberately route one fixture to the wrong variant, preserve one forbidden reference, or change one expected field. Confirm that the coverage check or grader fails, then revert the mutation. A release gate that has never gone red is only decorative.
+5. **Score complete trials only.** Report route coverage beside outcome quality. Do not let retries, fallbacks, skipped cases, or missing traces quietly shrink the denominator.
+
+### Copyable evaluator-integrity card
+
+```markdown
+# Evaluator integrity: <workflow>
+Control identity: <version / hash / route>
+Candidate identity: <version / hash / route>
+Executed-route evidence: <trace field, source, command, or receipt>
+
+Required in every candidate trial: <candidate marker>
+Forbidden in every candidate trial: <control / retired marker>
+Known-red mutation: <small reversible defect the checker must catch>
+Known-red result: <expected failing check and observed failure>
+
+Coverage gate: <N/N trials carry valid route evidence>
+Missing or mixed identity: BLOCKED
+Scoring starts only after: <coverage and known-red gates pass>
+```
+
+**Five-minute exercise:** take one A/B or agent eval you own and fill the two identities, one required marker, and one forbidden marker. Then describe the smallest reversible change that must make the evaluator fail. If you cannot, fix the instrumentation before adding more test cases.
 
 ---
 
@@ -298,6 +335,8 @@ Release decision: <pass/fail by slice; named owner for accepted trade-offs>
 
 **A/B without a fixed input list.** Cherry-picking by accident. Fix: golden set as the input list.
 
+**A/B that compared the same route twice.** Matching scores are meaningless when labels differ but executed identity does not. Fix: assert required and forbidden route markers, then prove the gate with a known-red mutation before scoring.
+
 **Skipping evals on "small" updates.** Most regressions ship in updates the team thought were small. Fix: every update runs against the golden set.
 
 **Treating LLM-as-judge as ground truth.** A judging prompt drifts; calibration matters. Fix: human spot-check the judging prompt periodically; the judge's own outputs go in the judge's golden set.
@@ -338,6 +377,8 @@ B.10 (*Cost attribution + observability at scale*) extends G.20's daily-loop obs
 
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md)
 - [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [QuoteBench — How matched scores can hide command-path failures](https://arxiv.org/abs/2608.13547)
+- [Razorpay SSA — evaluator self-comparison caught by a forbidden-path assertion](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786634385695289)
 - [Mukherjee, Bali & Sitaram — Measuring cross-lingual policy retention in tool-using agents](https://arxiv.org/abs/2608.11110)
 - [Razorpay Agent Studio — subscription-recovery language quality and cohort signal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786424673904999?thread_ts=1786424483.840939)
 - [Aakash Gupta with Daniel McKinnon — How to build your first AI eval](https://www.news.aakashg.com/p/how-to-build-your-first-eval)
