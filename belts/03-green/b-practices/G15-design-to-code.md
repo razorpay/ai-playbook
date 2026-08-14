@@ -14,7 +14,7 @@ next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review"]
-updated: "2026-08-11"
+updated: "2026-08-14"
 ---
 
 # G.15 — Design-to-code
@@ -33,6 +33,7 @@ This chapter walks the path end to end with a real worked example.
 - The boss fight in Part C requires a product-repo PR built through this flow, with Code Connect mappings and Blade-native components — not a pixel-pushed lookalike.
 - Before push, run `/design:copy-review` on the customer-facing words in the diff. Review the findings before applying them, then verify the code and rendered states. Copy review checks the words; it does not replace DQA or a human design review.
 - When the change affects a real journey, run a DQA flow review on the preview before PR. Treat the report as review evidence and a fix list, not as permission to skip human design review.
+- Match DQA evidence to the page family. Marketing, pricing, docs, and blog pages need a full-page capture; dashboards, forms, checkouts, and settings keep viewport-based evidence.
 
 ---
 
@@ -232,15 +233,36 @@ This checklist is the exercise. Run it on one real diff and keep the accepted an
 
 After the component renders in preview, ask Design Quality Agent (DQA) to review the journey if the change affects a customer-visible flow, mobile + desktop behaviour, accessibility, or a persona-specific decision. This is review evidence, not generation. The code is already in a branch; DQA is now helping you find the UX holes before a human reviewer has to.
 
+Before asking for a score, name the page family. The capture depth changes with it:
+
+| Page family | Examples | Evidence to require |
+|---|---|---|
+| **Content** | marketing, pricing, docs, blog | One full-page desktop capture that includes the sections below the fold |
+| **Transactional** | dashboard, form, checkout, settings, empty/error state | Viewport captures for the desktop and mobile states that matter to the journey |
+
+This distinction is load-bearing. A viewport capture of a content page can miss most of the designed surface; a full-page capture of a transactional screen can distort a rubric calibrated to what the user sees in one viewport. More pixels are not automatically better evidence.
+
 Use a bounded prompt:
 
 ```text
 Do a design review of <preview-url>.
 Goal: <user goal, e.g. create a Payment Link>.
-Cover: desktop and mobile if available.
+Page family: <content or transactional>.
+Evidence:
+- If content, capture the full desktop page and confirm `capture.full_page: true`.
+- If transactional, cover the relevant desktop and mobile viewports.
 Pause and hand control back to me on login, OTP, payment, or other sensitive steps.
 Return: top 3 fixes, UI/UX score, screens covered, and any persona-specific risk.
 ```
+
+### Check the capture before you trust the score
+
+1. **Open the artefact.** For a content page, confirm that named sections below the hero are visible. For a transactional journey, confirm the report covered the states and viewports you requested.
+2. **Check the receipt.** A content-page run should record `capture.full_page: true`. A tall image alone is not proof that the right capture path ran.
+3. **Reject missing evidence.** Large blank bands, orphan illustrations, or absent sections mean lazy-loaded content was not captured. Run `/plugin update design`, repeat the same review, and inspect the new artefact before discussing scores.
+4. **Label fallback evidence.** Full-page content capture currently falls back to desktop when an iOS device profile is requested. Do not present that desktop artefact as mobile proof; run a separate mobile check for the risky sections.
+
+The artefact check is the exercise: choose one content page and one transactional screen, predict the capture depth for each, then verify the receipts. No capture receipt, no confident score.
 
 What to do with the output:
 
@@ -309,6 +331,10 @@ The combination is what makes design-to-code mechanical. A Razorpay program that
 
 **Stopping after the copy edit.** The sentence improved, but a placeholder, quote delimiter, accessible label, or rendered state broke. Fix: inspect the diff, run normal checks, and render the changed states before push.
 
+**Scoring a content page from the hero viewport.** The report looks precise but never saw the pricing table, comparison sections, FAQs, or footer. Fix: classify the page as content and require a full-page capture receipt before accepting findings.
+
+**Trusting a stitched image with blank sections.** The capture is tall, but lazy-loaded content never rendered before the screenshot was stitched. Fix: update the Design plugin, rerun, and inspect the artefact itself. Do not score whitespace that is really missing evidence.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
@@ -340,5 +366,7 @@ G.16 (*Blade deep dive*) is the reference chapter for Blade itself. After this c
 - [Figma Code Connect docs](https://www.figma.com/code-connect-docs/)
 - [Design plugin: Copy Review](https://github.com/razorpay/claude-plugins/tree/master/plugins/design#copy-review) — supported command, scope, and the boundary with DQA
 - [Copy-review implementation evidence](https://github.com/razorpay/claude-plugins/pull/1155) — repository-derived rules, authority tiers, safety checks, and validation
+- [DQA full-page content capture](https://github.com/razorpay/claude-plugins/pull/1186) — page-family routing, capture receipt, and rubric boundary
+- [DQA lazy-content capture repair](https://github.com/razorpay/claude-plugins/pull/1197) — the live blank-section failure and preheat fix
 - [WCAG 2.2: Labels or Instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html) — the public accessibility rationale behind reviewing labels and instructions as part of the shipped interface
 - [Appendix C — Skills Library](../../../appendices/C-skills-library/README.md)
