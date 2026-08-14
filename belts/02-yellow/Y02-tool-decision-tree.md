@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "yellow"
 order: 2
-time_minutes: 15
+time_minutes: 20
 audience: "daily-builder"
-outcome: "Use a simple decision tree to choose the right AI surface for a task before starting."
+outcome: "Use a simple decision tree to choose the right AI surface, including a reviewable product-spec check, before starting."
 prev: "belts/yellow/tool-atlas"
 next: "belts/yellow/prompt-quality-deep"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "tools", "decision-tree"]
-updated: "2026-04-27"
+updated: "2026-08-14"
 ---
 
 # Y.2 - When to reach for which tool
@@ -55,7 +55,7 @@ The key move is separating **fetch context** from **change files**.
 
 ---
 
-## Worked example: three tasks
+## Worked example: four tasks
 
 ### Task A: "Summarize this product spec"
 
@@ -70,7 +70,39 @@ Constraints: do not invent requirements; call out ambiguity.
 Success criteria: five bullets plus three open questions.
 ```
 
-### Task B: "Find where the dashboard renders this empty state"
+### Task B: "Review this product spec before handoff"
+
+A summary tells you what the spec says. A review asks whether the spec is ready to move. Do not use a generic chat prompt for the second job when the current Compass workflow is available: it checks the product spec through Problem, Solution, Requirements, and Adoption lenses and traces findings to evidence.
+
+First verify Compass using [W.7](../01-white/W07-compass-plugin.md). Then run the review from Claude Code with a file or project directory:
+
+```text
+/compass:review-spec docs/<project-or-spec-path>
+```
+
+Treat the output as a review receipt, not a grade to optimise. Check these fields before acting:
+
+```text
+PRODUCT-SPEC REVIEW RECEIPT
+[ ] Input: the full spec or finished artefact chain, not a summary
+[ ] Confidence: enough source content was available to score
+[ ] Evidence: each important finding cites a spec snippet or gate
+[ ] Requirements: at or above the plugin's Green bar
+[ ] Top gap: one concrete change, with an owner
+[ ] Decision: revise and rerun / ask a human reviewer / stop
+```
+
+Use this loop:
+
+1. **Point at the complete source.** A partial export can produce a confident-looking partial review. If the result is `Unscored` or reports low confidence, repair the input before repairing the prose.
+2. **Inspect the evidence, not just the band.** A Green, Amber, or Red label without traceable snippets is not actionable. Missing evidence stays missing; do not write a claim into the spec merely to earn points.
+3. **Fix the highest-consequence gap.** Requirements below the active plugin's Green bar veto the overall band because the build handoff is not yet testable. Start there before polishing lower-impact wording.
+4. **Rerun on the same input path.** Compare the cited gap and band before and after. Save the receipt beside the normal review notes when the spec moves forward.
+5. **Keep approval human.** Compass can expose gaps and make review faster. It cannot approve product scope, regulatory handling, launch risk, or an owner's decision.
+
+**What this example teaches.** A specialised workflow beats an open-ended prompt when the job has a stable rubric and a review contract. The smallest useful interactive element here is the receipt checklist: it makes a score inspectable without turning the lesson into a second command catalogue.
+
+### Task C: "Find where the dashboard renders this empty state"
 
 Start in Claude Code. The missing context is repo structure.
 
@@ -83,7 +115,7 @@ Constraints: do not edit files.
 Success criteria: list likely files and why each is relevant.
 ```
 
-### Task C: "A teammate mentioned this bug last week"
+### Task D: "A teammate mentioned this bug last week"
 
 Start with the messaging connector. Search for the symptom, component name, and surface name. Bring the useful thread summary into Claude Code later.
 
@@ -126,6 +158,8 @@ Use this context to locate the likely component. Do not edit yet.
 
 **"I kept switching tools and lost the thread."** Write a one-paragraph state note before switching surfaces.
 
+**"Compass gave the spec Green, so I treated it as approved."** A rubric result is review evidence, not authority. Keep the human owner and the normal approval path in the loop.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
@@ -134,6 +168,7 @@ You are **GREEN** if:
 
 - you can use the decision tree without opening Appendix A;
 - you can separate context fetching from file editing;
+- you can distinguish a summary from a rubric-based review and inspect the review evidence;
 - you can write a short handoff summary between tools.
 
 You are **YELLOW** if:
@@ -146,7 +181,16 @@ You are **RED** if:
 
 - you ask tools to act outside their permissions;
 - you cannot tell where context came from;
+- you treat an automated review band as product approval;
 - a task ships without reviewable evidence.
+
+---
+
+## Further reading
+
+- [Compass `review-spec` command](https://github.com/razorpay/claude-plugins/blob/master/plugins/compass/commands/review-spec.md)
+- [Compass product-spec review contract](https://github.com/razorpay/claude-plugins/blob/master/plugins/compass/skills/reviewing-product-specs/SKILL.md)
+- [Compass v2 product-spec workflow](https://github.com/razorpay/claude-plugins/pull/894)
 
 ---
 
