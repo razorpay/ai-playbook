@@ -8,13 +8,13 @@ track: "black"
 order: 4
 time_minutes: 50
 audience: "platform-builder"
-outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; run a governed release lifecycle before a product agent receives traffic."
+outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; run a governed release lifecycle and prove the intended runtime executes before a product agent receives traffic."
 prev: "belts/black/cowork-plugin-marketplace"
 next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-09"
+updated: "2026-08-14"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -127,6 +127,7 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Spec and tool contracts — builder:** Define inputs, structured outputs, tool side effects, permissions, and stop conditions before implementation.
 - [ ] **Test, eval, and review — owning trio:** Test tools independently, run task-level evals, inspect failures, and close the required product, design, safety, and platform review.
 - [ ] **Shadow before live — PM + builder:** Compare shadow outcomes and traces with the current workflow. Do not call a clean demo a production result.
+- [ ] **Live-path canary — builder + owner:** Send one inert or reversible canary through the live traffic configuration. Save the intended and observed runtime identities, required outcome receipt, and proof that no generic or retired fallback executed. Missing or mixed identity is `BLOCKED`.
 - [ ] **Target-surface preflight — owner + builder:** List every launch surface; add or install the agent with least-privilege access; run a representative read-only request in each one; save the response or explicit refusal; and verify required sources, recency, and the no-approval write boundary.
 - [ ] **Release and recovery — owner:** Set the traffic step, go/no-go threshold, rollback trigger, and a tested revert path before increasing exposure.
 - [ ] **Monitor — owner:** Watch outcome quality, failures, latency, cost, and unsafe actions; assign a response owner for every alert.
@@ -135,6 +136,20 @@ The owning plugin is the source of truth for current command names and setup. Th
 
 The target-surface gate is operational, not ceremonial. [A controlled FDE pilot was paused](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1786281955675759) when the agent did not answer its product-channel smoke test because it had not been added to that channel.
 
+Shadow and live traffic can take different dispatch branches. In one August 2026 rollout, three voice workflows passed shadow tests but every live run fell through to a generic coding-agent executor. It had no matching skill, improvised plausible-looking runs, and produced zero customer dials. The [merged repair](https://github.com/razorpay/nexus/pull/501) added explicit live routes and a structural test that fails when a shadow-only workflow has no valid live runtime.
+
+Treat runtime identity as outcome evidence, not observability garnish. A polished response from the wrong executor is a failed canary. Reuse B.9's required-versus-forbidden route check against the live configuration before adding traffic:
+
+```markdown
+# Live-path canary: <workflow>
+Traffic mode: <live configuration on a synthetic test tenant>
+Intended runtime / workflow ID: <expected identity>
+Observed runtime / workflow ID: <trace field or receipt>
+Required outcome evidence: <read result, dry-run receipt, or verified state>
+Forbidden fallback: <generic or retired executor>
+Decision: <GO only when identity and outcome match; otherwise BLOCKED>
+```
+
 Common shortcuts fail predictably:
 
 | Shortcut | What it hides | Correct move |
@@ -142,6 +157,7 @@ Common shortcuts fail predictably:
 | Start from a custom SDK because the agent is customer-facing | The governed platform-fit check | Check Agent Studio first; document the unsupported requirement if it cannot fit |
 | Select tools before fixing one outcome | A broad agent with unclear permissions and no useful eval | Freeze one outcome and cohort, then add only the tools that outcome needs |
 | Go live after a clean demo | Distribution failures, tool errors, and tenant-boundary mistakes | Run evals, shadow traffic, and a read-only smoke test in every target surface; inspect traces before exposure |
+| Treat shadow success as proof of live routing | Live dispatch can select a different executor that returns plausible text without doing the work | Run a live-path canary; require the intended runtime and outcome receipt; fail closed on any fallback |
 | Copy command syntax into long-lived docs | The owning plugin can rename or split commands | Discover current commands from the plugin; keep this release card stable |
 | Monitor latency but not outcomes | A fast agent can still do the wrong thing | Pair runtime signals with task success, safety, and rollback thresholds |
 
@@ -217,15 +233,15 @@ This is real ongoing work. A custom agent is infrastructure. Treat it as such, o
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; I can carry a product agent through spec, review, shadow, release, monitoring, and rollback.
+- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; I can carry a product agent through spec, review, shadow, live-path proof, release, monitoring, and rollback.
 - 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the platform-fit evidence or release gate I would need.
-- 🔴 RED — I would start a custom SDK build because the agent is customer-facing, or send it live without shadow evidence and a tested recovery path.
+- 🔴 RED — I would start a custom SDK build because the agent is customer-facing, or send it live without proving the intended runtime, outcome, and recovery path.
 
 ---
 
 ## What you can say after this module
 
-> "I use the program-pinned plugin for internal interactive work, check Agent Studio first for supported merchant-facing agents, and choose a custom SDK only for a reviewed fit gap. I can prove release readiness with evals, shadow evidence, monitoring, and a tested rollback path."
+> "I use the program-pinned plugin for internal interactive work, check Agent Studio first for supported merchant-facing agents, and choose a custom SDK only for a reviewed fit gap. I can prove release readiness with evals, shadow evidence, a live-path canary, monitoring, and a tested rollback path."
 
 ---
 
@@ -240,6 +256,8 @@ B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you ha
 - [Claude Agent SDK docs](https://docs.claude.com/) — Anthropic's public SDK reference
 - [Agent Studio builder command tree](https://github.com/razorpay/merchant-skills/pull/232) — merged internal lifecycle and owning command source
 - [Agent Studio Agno migration report](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1783421811587019) — live and shadow migration evidence behind the paved-road decision
+- [Nexus PR #501](https://github.com/razorpay/nexus/pull/501) — live-route incident, direct-routing repair, and structural invariant
 - [Agno documentation](https://docs.agno.com/) — official reference for the workflow and agent framework under the current platform path
+- [OWASP — Fail securely](https://owasp.org/www-community/Fail_securely) — the general rule that failed execution should not grant an unintended path
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md) — the subagent pattern this chapter complements
 - [G.23 — The LLM proxy](../../03-green/c-guardrails/G23-llm-proxy.md) — the safety net every custom agent must respect
