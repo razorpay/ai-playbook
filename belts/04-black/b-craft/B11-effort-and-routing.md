@@ -14,7 +14,7 @@ next: "belts/black/quest-contribution-or-full-stack"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "effort-settings", "model-routing", "fall-backs"]
-updated: "2026-07-15"
+updated: "2026-08-18"
 ---
 
 # B.11 — Effort settings, model routing, fall-backs
@@ -27,6 +27,7 @@ The closing module of Part B. Where B.10 measured cost at scale, B.11 is the per
 
 - **Effort settings** tell the model how eagerly to spend tokens on a single call. Higher effort costs more; sometimes pays off, sometimes does not.
 - **Model routing** picks which model handles which call. Different models for different jobs; cost-quality differs across model families.
+- **Automatic routing is a policy under test, not a magic model.** Prove which route actually ran, whether multi-turn sessions behave coherently, and whether quality held before making it a default.
 - **Fall-backs** define what happens when the primary path fails: rate limit, timeout, classifier flag. A clean fall-back beats a noisy retry loop.
 - **Estimate → Execute → Expand.** Start with the minimum route that can reliably do the job. Expand context, model capability, or effort only when verification gives you a reason.
 - The discipline: pick by stakes. A 5x cost increase for a 5% quality lift on a low-stakes call is the wrong trade.
@@ -130,6 +131,51 @@ What it is: which model in the family handles this call. Anthropic's Claude fami
 
 ---
 
+## Evaluate an automatic router before adopting it
+
+Razorpay's LiteLLM gateway now offers `auto-router-0.1` as an opt-in experiment. Instead of pinning one model, a caller requests the router and the gateway assigns each call to a tier from prompt complexity. The current tier-to-model mapping is rollout configuration, not curriculum: it can change without changing the lesson.
+
+The promise is useful — cheaper routes for simple work, stronger routes for harder work — but the router adds a second system to evaluate. A good final answer does not prove the right route ran, and a cheap first turn does not prove a later complex turn escalated correctly.
+
+Test it against a fixed-route control before using it for a repeated workflow:
+
+1. **Choose task slices, not favourite prompts.** Include short factual or formatting work, bounded everyday reasoning, technical multi-part work, and open-ended trade-offs. Add one safety- or policy-shaped case if the workflow can encounter one.
+2. **Set the answer key first.** Reuse B.9's golden set and hard guardrails. Record the fixed route that currently meets the bar; that is the control, not an assumed “best model.”
+3. **Prove the executed route.** For every call, capture the requested router, executed model, route cause or tier when telemetry exposes it, fall-back or retry, latency, token/cost usage, and outcome score. Missing executed-route evidence is `BLOCKED`, not an auto-router pass.
+4. **Test a conversation, not only isolated prompts.** Run a simple → complex → simple sequence in one session. Check whether later turns see enough prior context, whether the complex turn reaches a sufficient route, and whether switching routes destroys useful prompt-cache savings. Do not assume session affinity is enabled.
+5. **Compare by slice and promote narrowly.** Require the same outcome and guardrail bar as the control, then compare latency, cost, route coverage, and failure rate for each slice. Approve the router for the tested workflow and traffic shape — not “all agent calls.”
+
+<details>
+<summary>Copy this auto-router canary into an eval note</summary>
+
+```markdown
+# Auto-router canary: <workflow>
+Control route: <fixed route that currently meets the bar>
+Candidate route: auto-router-0.1
+Golden set / hard gates: <B.9 suite and required pass conditions>
+
+| Task slice / turn | Expected outcome | Requested route | Executed model + cause/tier | Fallback / retry | Cache read/write | Latency | Cost | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| Simple, isolated | <answer or state> | <route> | <telemetry receipt> | <none / path> | <tokens> | <ms> | <amount> | PASS / FAIL |
+| Complex, isolated | <answer or state> | <route> | <telemetry receipt> | <none / path> | <tokens> | <ms> | <amount> | PASS / FAIL |
+| Turn 1: simple | <answer or state> | <route> | <telemetry receipt> | <none / path> | <tokens> | <ms> | <amount> | PASS / FAIL |
+| Turn 2: complex | <answer or state> | <route> | <telemetry receipt> | <none / path> | <tokens> | <ms> | <amount> | PASS / FAIL |
+| Turn 3: simple | <answer or state> | <route> | <telemetry receipt> | <none / path> | <tokens> | <ms> | <amount> | PASS / FAIL |
+
+Route coverage gate: <N/N calls have executed-model evidence>
+Quality and guardrail gate: <threshold; hard failures allowed = 0>
+Latency / cost acceptance: <thresholds versus control, by slice>
+Session and cache decision: <observed behaviour and accepted trade-off>
+Promotion scope: <named workflow, traffic share, owner, rollback trigger>
+Missing or mixed route evidence: BLOCKED
+```
+
+</details>
+
+Start with a canary share, watch B.10's team-level cost and outlier signals, and keep the fixed route as a rollback. An automatic router earns wider traffic through evidence; it does not inherit trust from the models behind it.
+
+---
+
 ## Knob 3 — Fall-backs
 
 What it is: what happens when the primary call fails. Three named failure modes:
@@ -184,6 +230,8 @@ The result is not a promised savings percentage. It is a measured route: cheaper
 
 **Effort tuning without eval.** "We dialled up effort and it feels better" is the vibes-driven update B.9 forbids. Fix: A/B against the golden set.
 
+**Treating the auto-router alias as route evidence.** The request says `auto-router-0.1`, but the executed model, reason, retry, or cache behaviour is absent. Fix: capture per-call routing receipts and block promotion when coverage is incomplete.
+
 **Expanding before evidence asks for it.** The agent reads the whole repo or jumps to the strongest route before trying the bounded path. Fix: name the initial scope, verification check, and expansion trigger on the routing card.
 
 **Forgetting the cost cascade.** A skill that runs 1000x/day with a 2x effort multiplier is paying 1000x more than the team thinks. Fix: B.10's per-team rollup catches this; B.11 is what you do once you find it.
@@ -192,7 +240,7 @@ The result is not a promised savings percentage. It is a measured route: cheaper
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I estimate the task's stakes and minimum evidence, execute the smallest credible route, expand only after a named verification failure, evaluate route changes against the golden set, and surface fall-back failures cleanly.
+- 🟢 GREEN: I estimate the task's stakes and minimum evidence, execute the smallest credible route, expand only after a named verification failure, evaluate fixed and automatic route changes against the golden set with executed-route evidence, and surface fall-back failures cleanly.
 - 🟡 YELLOW — I understand the knobs but my skills default to the highest setting available without evaluation.
 - 🔴 RED — I route by model reputation or habit; I have not defined an acceptance bar or an expansion trigger.
 
@@ -215,6 +263,9 @@ You have finished Black Belt Part B. Quest B-2 (*Component contribution or full-
 - [Anthropic on effort settings](https://platform.claude.com/docs/en/build-with-claude/effort) — current parameter semantics and supported levels
 - [Yin & Feng — *Do AI Agents Know When a Task Is Simple?*](https://arxiv.org/abs/2607.13034v1) — Estimate → Execute → Expand and minimum-sufficient execution
 - [`#ai-help` task-shaped model-routing example (2026-07-15)](https://razorpay.slack.com/archives/C08C35GKJKD/p1784102296404509) — internal fast-lookup, planning, and implementation routes
+- [`#ai-coding-infra` auto-router announcement (2026-08-18)](https://razorpay.slack.com/archives/C0AK3F680GL/p1787050101280929) — current opt-in route and test path
+- [LiteLLM auto-routing](https://docs.litellm.ai/docs/proxy/auto_routing) — classifier, route-cause, session-affinity, and adaptive-pool controls
+- [Ramp — online learning for cost-efficient LLM routing](https://builders.ramp.com/post/thompson-sampling-model-routing) — task-outcome-driven routing rather than a permanent model decree
 - [LiteLLM docs](https://docs.litellm.ai/) — the public routing proxy
 - [G.23 — The LLM proxy](../../03-green/c-guardrails/G23-llm-proxy.md)
 - [B.10 — Cost + observability](B10-cost-and-observability.md) — the dashboards this module's tunings feed
