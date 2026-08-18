@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-13"
+updated: "2026-08-18"
 ---
 
 # Appendix A — Tool Atlas
@@ -208,9 +208,9 @@ Ask the metric question normally
 
 A Trino MCP 401 is a known issue. Add the exact question, route or gateway shown, and redacted error to [the current support thread](https://razorpay.slack.com/archives/C08QZD2GQFB/p1785472728285639); do not paste credentials or add a personal token as a workaround. The pending CLI migration changes transport, not data-access policy, so it must not be used to bypass a rejected write, expired access, timeout, or row cap.
 
-#### Validate a redesign without changing the source of truth
+#### Validate a redesign without cutting over
 
-Some metrics now have two certified Trino queries: the **legacy** table that dashboards use and a rebuilt **redesign** table under validation. Analytics Agent keeps serving legacy by default. When it reports `redesign_pair_available: true`, you can compare both paths without changing the trusted answer.
+Some metrics now have two certified Trino queries: the **legacy** table that dashboards use and a rebuilt **redesign** table under validation. Analytics Agent keeps serving legacy by default. When it reports `redesign_pair_available: true`, you can compare both paths without changing the served answer. **Served does not automatically mean correct**: the legacy query may carry a known definition defect that the redesign is meant to repair.
 
 **Refresh before you validate.** The metric catalog ships inside Analytics Agent, and the Razorpay marketplace is not automatically updated for every installation. A comparison can therefore run without an obvious error while using an old catalog. In Claude Code, choose `/plugin` → **Marketplaces** → **razorpay-marketplace** → **Enable auto-update**. If you keep updates manual, run:
 
@@ -221,13 +221,23 @@ claude plugin update analytics-agent@razorpay-marketplace
 
 Restart Claude Code after either route. Do not start the comparison until the refreshed Analytics Agent commands load.
 
+**Qualify the control before you compare.** A delta tells you that two queries disagree; it does not tell you which query is right. Read the metric definition and both query intents with the domain owner, then classify the legacy path:
+
+| Legacy baseline | How to use it |
+|---|---|
+| **Fit** | Its population, grain, filters, and time semantics match the approved metric intent. Use it as the comparison control. |
+| **Caveated** | It has an owner-confirmed limitation with a known effect. Record the caveat and expected direction or range before comparing. |
+| **Invalid** | It contradicts the approved intent—for example, it counts successful attempts when the metric is meant to count all attempts. Keep it as the served reference, but do not make the redesign reproduce the defect. Validate both paths against an independent anchor and stop for owner review. |
+
+If the metric intent, domain owner, or legacy classification is missing, stop. More decimal places will not repair an undefined control.
+
 Use this PM validation loop:
 
-1. **Ask the normal metric question first.** Keep the metric, date range, filters, and breakdowns fixed. Save the legacy value and source table from the receipt.
+1. **Ask the normal metric question first.** Keep the metric, date range, filters, and breakdowns fixed. Save the legacy value and source table from the receipt, then record the approved intent and the legacy classification above.
 2. **Say `compare redesign`.** Analytics Agent runs the registered legacy and redesign queries with the same inputs and presents the values and percentage delta side by side. If it says no redesign pair is registered, stop; do not invent a table swap.
-3. **Read the difference, not just the tick.** A delta above 1% is marked ❌. A smaller delta can still matter for money, counts, or narrow segments. Check that both sides use the same grain, filters, and complete time window.
+3. **Read the difference, not just the tick.** A delta above 1% is marked ❌, but that is an investigation flag—not proof that redesign lost. A smaller delta can still matter for money, counts, or narrow segments. Check that both sides use the same grain, filters, complete time window, and business population. If legacy is caveated or invalid, compare the result with an owner-approved independent anchor such as a governed definition plus a raw-event count.
 4. **Trace freshness to the producer.** A current timestamp on the final table may prove only that a downstream copy ran. Follow the metric receipt back through the serving table to the table or job that actually produces the data. Compare the latest successful producer run or source partition with the serving-table refresh; do not approve a mismatch because the final table looks current.
-5. **Record an approve-or-stop decision.** Approve only the metric and window you checked. Attach the comparison receipt and name any accepted, owner-confirmed caveat. One green metric does not approve an entire domain.
+5. **Record an approve-or-stop decision.** Approve only the metric and window you checked. Attach the comparison receipt, baseline classification, independent anchor when needed, and any accepted owner-confirmed caveat. If redesign intentionally corrects legacy semantics, record the old defect and the owner's approval instead of demanding parity. One green metric does not approve an entire domain.
 
 `use redesign` is a cross-check, not a cutover. Its answer should remain labelled **under validation**. The final `/ch-promote <domain> --redesign` step belongs to the analytics/data owner after every metric in scope is green; PM validation supplies evidence, not production authority.
 
@@ -236,6 +246,12 @@ Copy this card into the validation thread:
 ```text
 Plugin refreshed and Claude Code restarted? yes / no
 Metric:
+Approved metric intent and population:
+Domain owner:
+Legacy baseline: fit / caveated / invalid
+Known legacy caveat or defect:
+Expected delta direction or range:
+Independent anchor (required if legacy is invalid):
 Date range and filters:
 Legacy table and value:
 Redesign table and value:
@@ -251,9 +267,9 @@ Decision: approve / stop
 Comparison receipt:
 ```
 
-**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the grain or filters differ, the date window is incomplete, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, a freshness explanation is unverified, or the result conflicts with the source-of-truth dashboard. Keep legacy as primary and route the evidence to the metric owner.
+**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the metric intent or domain owner is unknown, the legacy baseline is unclassified, an invalid legacy baseline has no independent anchor, the grain or filters differ, the date window is incomplete, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, a freshness explanation is unverified, or the result conflicts with an owner-approved source of truth. Keep legacy as primary and route the evidence to the metric owner.
 
-**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). Freshness belongs to the producing data, not the newest copy timestamp.
+**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). On 17 August, [a Mid Market pair showed the control itself can be wrong](https://razorpay.slack.com/archives/C0A98PQTJH4/p1797520898391909): legacy counted only successful attempts while redesign counted all intended attempts. Freshness belongs to the producing data, and correctness belongs to the approved metric intent—not whichever query shipped first.
 
 #### Ask, review, or contribute?
 
