@@ -14,7 +14,7 @@ next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-14"
+updated: "2026-08-19"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -124,6 +124,7 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Outcome and owner — PM:** Name one merchant outcome, one success metric, the affected cohort, and the team that will own the agent after launch.
 - [ ] **Platform fit — PM + Agent Studio owner:** Confirm the trigger, tenant boundary, connectors, and interaction fit the supported platform. Record any exception instead of silently coding around it.
 - [ ] **Interaction and control — designer:** Design the empty, loading, success, failure, approval, and recovery states. Put human confirmation around consequential actions.
+- [ ] **Recipient preference — PM + builder:** For every outbound contact, name the canonical preference authority and its scope; check it immediately before each attempt; persist stop requests received during the interaction; and save blocked-recipient, allowed-recipient, and unavailable-state canaries. An unreadable preference is `BLOCKED`, not permission to continue.
 - [ ] **Spec and tool contracts — builder:** Define inputs, structured outputs, tool side effects, permissions, and stop conditions before implementation.
 - [ ] **Test, eval, and review — owning trio:** Test tools independently, run task-level evals, inspect failures, and close the required product, design, safety, and platform review.
 - [ ] **Shadow before live — PM + builder:** Compare shadow outcomes and traces with the current workflow. Do not call a clean demo a production result.
@@ -135,6 +136,22 @@ The owning plugin is the source of truth for current command names and setup. Th
 **Any unchecked box is a stop signal.** Keep the agent in test or shadow mode until the contract is complete. If the platform-fit box fails, take the written gap to the Agent Studio owner before choosing a custom SDK. That review is the fork; a clever local workaround is not.
 
 The target-surface gate is operational, not ceremonial. [A controlled FDE pilot was paused](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1786281955675759) when the agent did not answer its product-channel smoke test because it had not been added to that channel.
+
+Outbound agents need a recipient-level gate as well. A campaign-level switch or a vendor-local blocklist cannot prove that one person is still eligible for contact across shared workflows. Eligibility can also change after a job is queued, so check the canonical preference source immediately before every call or message. If the lookup is unavailable or ambiguous, do not contact the recipient.
+
+In August 2026, [a customer asked to stop payment-recovery and cart-abandonment calls](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787135991070149?thread_ts=1787135646.036689). The incident review found no persistent cross-workflow opt-out store and no pre-dial per-number check. Prove the behavioural contract without waiting for a specific storage design:
+
+```markdown
+# Recipient-preference canary: <workflow and channel>
+Preference authority / scope: <source; recipient, channel, and workflow coverage>
+Blocked test recipient: <synthetic or approved test identity>
+Blocked result: <no contact attempt + trace reason>
+Allowed test recipient: <synthetic or approved test identity>
+Allowed result: <expected contact attempt + trace reason>
+In-interaction stop request: <write-back receipt; next attempt remains blocked>
+Unavailable-state result: <BLOCKED; no contact attempted>
+Decision: <GO only when all four results match; otherwise BLOCKED>
+```
 
 Shadow and live traffic can take different dispatch branches. In one August 2026 rollout, three voice workflows passed shadow tests but every live run fell through to a generic coding-agent executor. It had no matching skill, improvised plausible-looking runs, and produced zero customer dials. The [merged repair](https://github.com/razorpay/nexus/pull/501) added explicit live routes and a structural test that fails when a shadow-only workflow has no valid live runtime.
 
@@ -158,6 +175,7 @@ Common shortcuts fail predictably:
 | Select tools before fixing one outcome | A broad agent with unclear permissions and no useful eval | Freeze one outcome and cohort, then add only the tools that outcome needs |
 | Go live after a clean demo | Distribution failures, tool errors, and tenant-boundary mistakes | Run evals, shadow traffic, and a read-only smoke test in every target surface; inspect traces before exposure |
 | Treat shadow success as proof of live routing | Live dispatch can select a different executor that returns plausible text without doing the work | Run a live-path canary; require the intended runtime and outcome receipt; fail closed on any fallback |
+| Check recipient preference only when a campaign starts | A queued contact can become ineligible before execution, or one workflow can miss a preference recorded by another | Re-check the canonical source immediately before every attempt; fail closed when it cannot answer |
 | Copy command syntax into long-lived docs | The owning plugin can rename or split commands | Discover current commands from the plugin; keep this release card stable |
 | Monitor latency but not outcomes | A fast agent can still do the wrong thing | Pair runtime signals with task success, safety, and rollback thresholds |
 
@@ -257,6 +275,8 @@ B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you ha
 - [Agent Studio builder command tree](https://github.com/razorpay/merchant-skills/pull/232) — merged internal lifecycle and owning command source
 - [Agent Studio Agno migration report](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1783421811587019) — live and shadow migration evidence behind the paved-road decision
 - [Nexus PR #501](https://github.com/razorpay/nexus/pull/501) — live-route incident, direct-routing repair, and structural invariant
+- [Nexus PR #403](https://github.com/razorpay/nexus/pull/403) — open workflow-agnostic suppression-store design and fail-closed contract
+- [TRAI — Telecom Commercial Communications Customer Preference Regulations, 2018](https://www.trai.gov.in/sites/default/files/2024-09/RegulationUcc19072018.pdf) — official customer-preference framework for commercial communications
 - [Agno documentation](https://docs.agno.com/) — official reference for the workflow and agent framework under the current platform path
 - [OWASP — Fail securely](https://owasp.org/www-community/Fail_securely) — the general rule that failed execution should not grant an unintended path
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md) — the subagent pattern this chapter complements
