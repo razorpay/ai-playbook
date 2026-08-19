@@ -53,8 +53,8 @@ Anthropic-side support that isn't here yet.
 ## File sizes (this build)
 
 - `project-instructions.md` — 9.3 KB
-- `playbook-spine.md` — 88.4 KB
+- `playbook-spine.md` — 88.3 KB
 - `playbook-index.md` — 59.7 KB
 - `playbook-glossary.md` — 24.3 KB
-- `playbook-cards.md` — 32.8 KB
+- `playbook-cards.md` — 33.1 KB
 - `playbook-skills.md` — 5.1 KB
