@@ -6,6 +6,19 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.63 — Concierge quick-card link integrity (2026-08-19)
+
+The Concierge quick-card bundle rewrote parent-directory Markdown links by dropping `..` segments instead of resolving them from each card. That produced wrong hub paths for appendix pages, left H.4's H.3 reference as a missing local file, and sent every “Up to Appendix H” link to the bundle's build notes.
+
+**What changed.**
+
+- **Canonical hub routing.** The bundle generator now resolves local card links from their source files and uses each matching `manifest.yml` slug rather than deriving public URLs from repository folder names.
+- **Source-only fallback and failure gate.** Repository files without hub routes now link to their GitHub source; links that escape the repository or point at a missing target fail the build instead of shipping silently.
+- **Bundle regenerated.** `playbook-cards.md` now sends H.3, Appendix H, Appendix F, Appendix I, and Appendix N references to their real destinations.
+- **Version markers bumped.** README and INDEX now report v0.63 / 2026-08-19 for the Concierge link-integrity correction.
+
+---
+
 ## v0.62 — frontend/backend responsibility and evidence (2026-08-30)
 
 Tech 101 said backend does the “actual work,” frontend always lives on the user's device, almost every nasty bug lives at their seam, and a refresh can localise a defect by 50%. Those absolutes give beginners a false ownership and diagnosis model.
