@@ -6,6 +6,19 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.62 — Concierge quick-card link integrity (2026-08-19)
+
+The Concierge quick-card bundle rewrote parent-directory Markdown links by dropping `..` segments instead of resolving them from each card. That produced wrong hub paths for appendix pages, left H.4's H.3 reference as a missing local file, and sent every “Up to Appendix H” link to the bundle's build notes.
+
+**What changed.**
+
+- **Canonical hub routing.** The bundle generator now resolves local card links from their source files and uses each matching `manifest.yml` slug rather than deriving public URLs from repository folder names.
+- **Source-only fallback and failure gate.** Repository files without hub routes now link to their GitHub source; links that escape the repository or point at a missing target fail the build instead of shipping silently.
+- **Bundle regenerated.** `playbook-cards.md` now sends H.3, Appendix H, Appendix F, Appendix I, and Appendix N references to their real destinations.
+- **Version markers bumped.** README and INDEX now report v0.62 / 2026-08-19 for the Concierge link-integrity correction.
+
+---
+
 ## v0.61 — plugin package and surface proof (2026-08-13)
 
 B.3 described a Razorpay Cowork tenant marketplace, `pack.yml`, one-click installs, and a central governance route that the canonical plugin repository does not implement. Internal support requests asking how to publish or set up Analytics Agent in Cowork show why the distinction matters: a source package in the developer marketplace is not proof that PMs or designers can use it on another surface.

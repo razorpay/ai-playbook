@@ -9,7 +9,7 @@ corresponding hub URL when you do.
 
 # H.1 — Never put this in a prompt
 
-> **Printable card · Companion to [§0.11 — The safety brief](https://razorpay.github.io/ai-playbook/prologue/11-safety-brief/).** Keep the shape. Strip the identity.
+> **Printable card · Companion to [§0.11 — The safety brief](https://razorpay.github.io/ai-playbook/prologue/safety-brief/).** Keep the shape. Strip the identity.
 
 ---
 
@@ -67,13 +67,13 @@ Do not hide it. Stop, copy the prompt link or session reference if available, an
 
 **Remember:** strip the identity, keep the shape.
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [§0.11 The safety brief](https://razorpay.github.io/ai-playbook/prologue/11-safety-brief/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [§0.11 The safety brief](https://razorpay.github.io/ai-playbook/prologue/safety-brief/)
 
 ---
 
 # H.2 — Terminal essentials
 
-> **Printable card · Companion to [W.2 — Terminal fluency](https://razorpay.github.io/ai-playbook/belts/01-white/W02-terminal-fluency/).** The twelve commands and four shortcuts you actually need.
+> **Printable card · Companion to [W.2 — Terminal fluency](https://razorpay.github.io/ai-playbook/belts/white/terminal-fluency/).** The twelve commands and four shortcuts you actually need.
 
 ---
 
@@ -133,13 +133,13 @@ If you accidentally delete something with `rm`, stop typing. Some recovery is po
 
 **Remember:** the twelve commands plus the four shortcuts cover everything you need to ship your first PR.
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [W.2 — Terminal fluency](https://razorpay.github.io/ai-playbook/belts/01-white/W02-terminal-fluency/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [W.2 — Terminal fluency](https://razorpay.github.io/ai-playbook/belts/white/terminal-fluency/)
 
 ---
 
 # H.3 — Git essentials
 
-> **Printable card · Companion to [W.3 — Git as save-points](https://razorpay.github.io/ai-playbook/belts/01-white/W03-git-as-savepoints/).** The everyday commands plus the four recovery moves.
+> **Printable card · Companion to [W.3 — Git as save-points](https://razorpay.github.io/ai-playbook/belts/white/git-as-savepoints/).** The everyday commands plus the four recovery moves.
 
 ---
 
@@ -215,13 +215,13 @@ If you see "DETACHED HEAD" in `git status`, you can usually recover with `git ch
 
 **Remember:** `git status` is free. Run it whenever you are unsure.
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [W.3 — Git as save-points](https://razorpay.github.io/ai-playbook/belts/01-white/W03-git-as-savepoints/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [W.3 — Git as save-points](https://razorpay.github.io/ai-playbook/belts/white/git-as-savepoints/)
 
 ---
 
 # H.4 — Claude Code essentials
 
-> **Printable card · Companion to [W.7](https://razorpay.github.io/ai-playbook/belts/01-white/W07-compass-plugin/), [W.11](https://razorpay.github.io/ai-playbook/belts/01-white/W11-permission-system/), [Y.7](https://razorpay.github.io/ai-playbook/belts/02-yellow/Y07-permissions-and-hooks/), and [G.10](https://razorpay.github.io/ai-playbook/belts/03-green/a-craft/G10-hooks-and-slash-commands/).** The keyboard rhythm of working with Claude Code.
+> **Printable card · Companion to [W.7](https://razorpay.github.io/ai-playbook/belts/white/compass-plugin/), [W.11](https://razorpay.github.io/ai-playbook/belts/white/permission-system/), [Y.7](https://razorpay.github.io/ai-playbook/belts/yellow/permissions-and-hooks/), and [G.10](https://razorpay.github.io/ai-playbook/belts/green/hooks-and-slash-commands/).** The keyboard rhythm of working with Claude Code.
 
 ---
 
@@ -235,7 +235,7 @@ Every time Claude Code wants to do something that affects your environment (run 
 | **n** | No, stop this action | When the proposed action looks wrong |
 | **a** | Yes, and always say yes to this kind of action | For trusted, repetitive actions only |
 
-The trap: pressing `a` too often. The permission system protects you; an "always yes" is a small piece of trust permanently given. See [W.11](https://razorpay.github.io/ai-playbook/belts/01-white/W11-permission-system/) for the discipline.
+The trap: pressing `a` too often. The permission system protects you; an "always yes" is a small piece of trust permanently given. See [W.11](https://razorpay.github.io/ai-playbook/belts/white/permission-system/) for the discipline.
 
 ---
 
@@ -256,7 +256,7 @@ Custom slash commands defined in your project's CLAUDE.md or by installed plugin
 
 ## The setup colour check
 
-Every White Belt module ends with a colour question. The full skill is [`setup-verify`](https://razorpay.github.io/ai-playbook/skills/setup-verify/), but the underlying framing:
+Every White Belt module ends with a colour question. The full skill is [`setup-verify`](https://github.com/razorpay/ai-playbook/blob/master/skills/setup-verify/README.md), but the underlying framing:
 
 | Colour | What it means |
 |---|---|
@@ -276,7 +276,7 @@ A typical day with Claude Code as a White or Yellow Belt:
 2. **Start a session.** Describe what you want to do in plain English. Be specific about success criteria.
 3. **Watch the permission prompts.** Each `y` is a decision; each `a` is a small piece of trust.
 4. **Inspect changes before commit.** `git status` and `git diff` are how you verify what Claude actually did.
-5. **Commit with a useful message.** The commit message is what your team reads later. See [H.3 — Git essentials](H3-git-essentials.md).
+5. **Commit with a useful message.** The commit message is what your team reads later. See [H.3 — Git essentials](https://razorpay.github.io/ai-playbook/appendices/reference-cards/git-essentials/).
 
 ---
 
@@ -294,23 +294,23 @@ A typical day with Claude Code as a White or Yellow Belt:
 
 ## What this card is not
 
-**Not a Claude Code manual.** The full reference is in the Anthropic docs and in [W.7](https://razorpay.github.io/ai-playbook/belts/01-white/W07-compass-plugin/).
+**Not a Claude Code manual.** The full reference is in the Anthropic docs and in [W.7](https://razorpay.github.io/ai-playbook/belts/white/compass-plugin/).
 
 **Not a substitute for the chapters.** W.7, W.11, Y.7, and G.10 cover the patterns this card lists at the level of why they work.
 
-**Not a permission to always say yes.** The "always" option (`a`) is a tool; using it for everything defeats the safety the permission system provides. See [§0.11 The safety brief](https://razorpay.github.io/ai-playbook/prologue/11-safety-brief/).
+**Not a permission to always say yes.** The "always" option (`a`) is a tool; using it for everything defeats the safety the permission system provides. See [§0.11 The safety brief](https://razorpay.github.io/ai-playbook/prologue/safety-brief/).
 
 ---
 
 **Remember:** every `a` is permanent for the session. Use it sparingly.
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [W.7](https://razorpay.github.io/ai-playbook/belts/01-white/W07-compass-plugin/), [W.11](https://razorpay.github.io/ai-playbook/belts/01-white/W11-permission-system/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [W.7](https://razorpay.github.io/ai-playbook/belts/white/compass-plugin/), [W.11](https://razorpay.github.io/ai-playbook/belts/white/permission-system/)
 
 ---
 
 # H.5 — Playwright essentials
 
-> **Printable card · Companion to [G.12 — E2E testing with Playwright + Claude Code](https://razorpay.github.io/ai-playbook/belts/03-green/b-practices/G12-playwright-and-claude-code/).** The everyday commands plus four debugging moves.
+> **Printable card · Companion to [G.12 — E2E testing with Playwright + Claude Code](https://razorpay.github.io/ai-playbook/belts/green/playwright-and-claude-code/).** The everyday commands plus four debugging moves.
 
 ---
 
@@ -378,7 +378,7 @@ Why: role and label locators survive CSS refactors. Class-name locators do not.
 
 ## The seed pattern
 
-For tests that need authenticated state, use `tests/seed.spec.ts` (see [G.14](https://razorpay.github.io/ai-playbook/belts/03-green/b-practices/G14-tests-seed-spec/)). The seed pre-establishes state once; downstream tests skip the setup. This saves 10,000 tokens of agent context per test run.
+For tests that need authenticated state, use `tests/seed.spec.ts` (see [G.14](https://razorpay.github.io/ai-playbook/belts/green/seed-spec/)). The seed pre-establishes state once; downstream tests skip the setup. This saves 10,000 tokens of agent context per test run.
 
 ---
 
@@ -386,7 +386,7 @@ For tests that need authenticated state, use `tests/seed.spec.ts` (see [G.14](ht
 
 **Not a Playwright manual.** The full Playwright docs are at [playwright.dev](https://playwright.dev). This card covers what you actually need for G.12.
 
-**Not a substitute for the chapter.** [G.12](https://razorpay.github.io/ai-playbook/belts/03-green/b-practices/G12-playwright-and-claude-code/) covers the patterns at the level of why they work. [G.13](https://razorpay.github.io/ai-playbook/belts/03-green/b-practices/G13-playwright-skill-pattern/) covers using a skill to author tests one-shot.
+**Not a substitute for the chapter.** [G.12](https://razorpay.github.io/ai-playbook/belts/green/playwright-and-claude-code/) covers the patterns at the level of why they work. [G.13](https://razorpay.github.io/ai-playbook/belts/green/playwright-skill-pattern/) covers using a skill to author tests one-shot.
 
 **Not the right tool for unit tests.** Playwright is for end-to-end tests against a running app. For unit tests, use the project's unit testing framework.
 
@@ -394,13 +394,13 @@ For tests that need authenticated state, use `tests/seed.spec.ts` (see [G.14](ht
 
 **Remember:** when a test is failing, run with `--headed` or `--ui` first. Most questions resolve when you can see the browser.
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [G.12 — E2E testing](https://razorpay.github.io/ai-playbook/belts/03-green/b-practices/G12-playwright-and-claude-code/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [G.12 — E2E testing](https://razorpay.github.io/ai-playbook/belts/green/playwright-and-claude-code/)
 
 ---
 
 # H.6 — Minimum viable wiki one-pager
 
-> **Printable card · Companion to [§0.7 — Operating Principles](https://razorpay.github.io/ai-playbook/prologue/07-operating-principles/) and [N.7 — The minimum viable wiki](https://razorpay.github.io/ai-playbook/N-methodologies/N7-minimum-viable-wiki/).** The four files plus the discipline.
+> **Printable card · Companion to [§0.7 — Operating Principles](https://razorpay.github.io/ai-playbook/prologue/operating-principles/) and [N.7 — The minimum viable wiki](https://razorpay.github.io/ai-playbook/appendices/methodologies/minimum-viable-wiki/).** The four files plus the discipline.
 
 ---
 
@@ -416,7 +416,7 @@ A minimum viable wiki has exactly four files plus a `kb/` directory.
 | `CLAUDE.md` | Wiki-specific Claude Code context | < 60 lines |
 | `kb/` | Topic deep-dives, one file per topic | Each file 100-300 lines |
 
-The full template is in [Appendix I — Minimum viable wiki seed](https://razorpay.github.io/ai-playbook/I-templates/minimum-viable-wiki-seed/).
+The full template is in [Appendix I — Minimum viable wiki seed](https://razorpay.github.io/ai-playbook/appendices/templates/mv-wiki-seed/).
 
 ---
 
@@ -476,7 +476,7 @@ Without the loop, the same answer gets given over and over and the team's contex
 
 **Not a documentation system.** Confluence, Notion, internal wikis serve broader content with more structure. The minimum viable wiki is project-shaped and Markdown-based.
 
-**Not a substitute for the chapter.** [§0.7](https://razorpay.github.io/ai-playbook/prologue/07-operating-principles/) covers the operating philosophy. [N.7](https://razorpay.github.io/ai-playbook/N-methodologies/N7-minimum-viable-wiki/) covers the deeper treatment.
+**Not a substitute for the chapter.** [§0.7](https://razorpay.github.io/ai-playbook/prologue/operating-principles/) covers the operating philosophy. [N.7](https://razorpay.github.io/ai-playbook/appendices/methodologies/minimum-viable-wiki/) covers the deeper treatment.
 
 **Not exhaustive.** The four files cover the working core. Some projects grow to need more (an architecture-decisions directory, a runbooks directory). Grow when the need is real.
 
@@ -484,13 +484,13 @@ Without the loop, the same answer gets given over and over and the team's contex
 
 **Remember:** four files. Append-only log. Schema as gate. kb/ entries when a question is asked twice.
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [§0.7](https://razorpay.github.io/ai-playbook/prologue/07-operating-principles/) · [Template](https://razorpay.github.io/ai-playbook/I-templates/minimum-viable-wiki-seed/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [§0.7](https://razorpay.github.io/ai-playbook/prologue/operating-principles/) · [Template](https://razorpay.github.io/ai-playbook/appendices/templates/mv-wiki-seed/)
 
 ---
 
 # H.7 — Day-1 quick reference
 
-> **Print this. Pin it.** The one page that gets a new builder unstuck. Companion to [W.5 — Installing the stack](https://razorpay.github.io/ai-playbook/belts/01-white/W05-installing-the-stack/), [Quest W-0 — Turn GREEN](https://razorpay.github.io/ai-playbook/belts/01-white/quest-W0-turn-green/), [Appendix F — Slack Channels](https://razorpay.github.io/ai-playbook/F-slack-channels/), and [§0.6 — Meet the people](https://razorpay.github.io/ai-playbook/prologue/06-people-and-pocs/). When this card disagrees with those chapters, those chapters win.
+> **Print this. Pin it.** The one page that gets a new builder unstuck. Companion to [W.5 — Installing the stack](https://razorpay.github.io/ai-playbook/belts/white/installing-the-stack/), [Quest W-0 — Turn GREEN](https://razorpay.github.io/ai-playbook/belts/white/quest-turn-green/), [Appendix F — Slack Channels](https://razorpay.github.io/ai-playbook/appendices/slack-channels/), and [§0.6 — Meet the people](https://razorpay.github.io/ai-playbook/prologue/roles-and-forums/). When this card disagrees with those chapters, those chapters win.
 
 ---
 
@@ -597,7 +597,7 @@ The setup script writes this for you. Don't hand-edit unless [`#ai-help`](https:
 | Devex platform (codegen, tests) | [`#developer-experience`](https://razorpay.slack.com/archives/C08DS8AE7T8) |
 | API design / council | [`#api_council`](https://razorpay.slack.com/archives/C0168DC4DCZ) |
 
-Full directory in [Appendix F](https://razorpay.github.io/ai-playbook/F-slack-channels/). When in doubt about which channel to ask in, ask in `#ai-help` and let it route.
+Full directory in [Appendix F](https://razorpay.github.io/ai-playbook/appendices/slack-channels/). When in doubt about which channel to ask in, ask in `#ai-help` and let it route.
 
 ---
 
@@ -616,7 +616,7 @@ The names below explain ownership; they are not first-contact shortcuts. Start i
 | Blade design-system leads | Saurabh Soni + Varun Achar (`@Varun Achar`) | `#design-system` for Blade compliance edge cases |
 | Playbook author | Vaibhav Dhir (`@Dhir`) | `#ai-help` with the stale line and a better source |
 
-Escalation order: post the full redacted context publicly, follow the channel's routing, then DM only if that route explicitly asks you to. See [§0.6 — Meet the people](https://razorpay.github.io/ai-playbook/prologue/06-people-and-pocs/).
+Escalation order: post the full redacted context publicly, follow the channel's routing, then DM only if that route explicitly asks you to. See [§0.6 — Meet the people](https://razorpay.github.io/ai-playbook/prologue/roles-and-forums/).
 
 ---
 
@@ -648,8 +648,8 @@ Escalation order: post the full redacted context publicly, follow the channel's 
 
 ---
 
-*Last reviewed: 2026-07-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-08-03. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 
-**Up to:** [↑ Appendix H](README.md) · **Companion:** [W.5](https://razorpay.github.io/ai-playbook/belts/01-white/W05-installing-the-stack/), [Quest W-0](https://razorpay.github.io/ai-playbook/belts/01-white/quest-W0-turn-green/), [Appendix F](https://razorpay.github.io/ai-playbook/F-slack-channels/), [§0.6 Meet the people](https://razorpay.github.io/ai-playbook/prologue/06-people-and-pocs/)
+**Up to:** [↑ Appendix H](https://razorpay.github.io/ai-playbook/appendices/reference-cards/) · **Companion:** [W.5](https://razorpay.github.io/ai-playbook/belts/white/installing-the-stack/), [Quest W-0](https://razorpay.github.io/ai-playbook/belts/white/quest-turn-green/), [Appendix F](https://razorpay.github.io/ai-playbook/appendices/slack-channels/), [§0.6 Meet the people](https://razorpay.github.io/ai-playbook/prologue/roles-and-forums/)

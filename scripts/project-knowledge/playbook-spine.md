@@ -1811,8 +1811,8 @@ chapters:
     type: readme
     audience: platform-builder
     time_minutes: 15
-    outcome: Understand the Black Belt arc, what is drafted in Part A, and what
-      comes next in Parts B and C.
+    outcome: Understand the Black Belt arc, walk Parts A, B, and C, claim Quests B-1
+      and B-2, ship Boss Fight B-B, and earn the badge.
     tags:
       - black-belt
       - readme
