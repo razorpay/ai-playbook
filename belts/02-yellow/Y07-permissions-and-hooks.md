@@ -14,7 +14,7 @@ next: "belts/yellow/litellm-and-enterprise"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "permissions", "hooks", "slash-commands"]
-updated: "2026-07-23"
+updated: "2026-08-20"
 ---
 
 # Y.7 - Permissions, hooks, slash commands
@@ -110,26 +110,30 @@ Use them when the workflow is established. Do not use them to avoid understandin
 
 ---
 
-## Worked example: pre-PR flow
+## Worked example: verify a pre-PR workflow
 
-Before opening a PR, run the approved pre-PR workflow if available:
-
-```text
-/pre-pr-sanity
-```
-
-Expected output shape:
+Before opening a PR, discover the workflows this session actually has:
 
 ```text
-Branch: yellow/fix-empty-state
-Changed files: 2
-Generated files: none
-Tests run: targeted check passed
-Risk notes: visual copy change, screenshot recommended
-PR description draft: ready
+/help
 ```
 
-If the command reports unrelated files, stop and inspect before pushing.
+Look for an installed workflow whose description says it reviews a branch or diff before PR. The exact name depends on the plugin and repository you loaded. An old command in notes is not proof that your current session supports it.
+
+If `/help` does not list a suitable workflow, do not guess a command name. Follow the manual PR flow in [Y.13](Y13-pr-craft.md) instead.
+
+Before acting on any workflow result, use this review point:
+
+```text
+PRE-PR WORKFLOW REVIEW
+[ ] The command appeared in /help before I ran it.
+[ ] Changed files match the change I intended.
+[ ] Checks name what actually ran and what did not run.
+[ ] Risk notes match the diff, not a generic template.
+[ ] I inspected git status and git diff myself.
+```
+
+If any box is unclear or the workflow reports unrelated files, stop and inspect before pushing.
 
 ---
 
