@@ -225,7 +225,7 @@ Use this PM validation loop:
 
 1. **Ask the normal metric question first.** Keep the metric, date range, filters, and breakdowns fixed. Save the legacy value and source table from the receipt.
 2. **Say `compare redesign`.** Analytics Agent runs the registered legacy and redesign queries with the same inputs and presents the values and percentage delta side by side. If it says no redesign pair is registered, stop; do not invent a table swap.
-3. **Read the difference, not just the tick.** A delta above 1% is marked ❌. A smaller delta can still matter for money, counts, or narrow segments. Check that both sides use the same grain, filters, and complete time window.
+3. **Read the difference, then challenge the shared definition.** A delta above 1% is marked ❌. A smaller delta can still matter for money, counts, or narrow segments. Check that both sides use the same grain, filters, and complete time window. Then inspect the business rule both queries share: field semantics, numerator and denominator windows, and mutable states. Parity proves that two implementations agree; it cannot prove that their shared definition is correct.
 4. **Trace freshness to the producer.** A current timestamp on the final table may prove only that a downstream copy ran. Follow the metric receipt back through the serving table to the table or job that actually produces the data. Compare the latest successful producer run or source partition with the serving-table refresh; do not approve a mismatch because the final table looks current.
 5. **Record an approve-or-stop decision.** Approve only the metric and window you checked. Attach the comparison receipt and name any accepted, owner-confirmed caveat. One green metric does not approve an entire domain.
 
@@ -241,6 +241,9 @@ Legacy table and value:
 Redesign table and value:
 Delta:
 Same grain and complete window? yes / no
+Shared business definition checked? yes / no
+Field semantics or time-window risk:
+Metric owner who confirmed the definition:
 Freshness recheck needed? yes / no
 Producing table or job:
 Latest producer timestamp:
@@ -251,9 +254,9 @@ Decision: approve / stop
 Comparison receipt:
 ```
 
-**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the grain or filters differ, the date window is incomplete, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, a freshness explanation is unverified, or the result conflicts with the source-of-truth dashboard. Keep legacy as primary and route the evidence to the metric owner.
+**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the grain or filters differ, the date window is incomplete, the shared business definition is unverified, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, a freshness explanation is unverified, or the result conflicts with the source-of-truth dashboard. Keep legacy as primary and route the evidence to the metric owner.
 
-**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). Freshness belongs to the producing data, not the newest copy timestamp.
+**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed one freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). A 20 August payments validation exposed the semantic trap: [eight of nine metrics using the same incorrect mutable-status rule passed parity because both paths shared the bug](https://razorpay.slack.com/archives/C0A98PQTJH4/p1787236692190489). Freshness belongs to the producing data, and parity belongs alongside an independent check of the metric's meaning.
 
 #### Ask, review, or contribute?
 
