@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-13"
+updated: "2026-08-20"
 ---
 
 # Appendix A — Tool Atlas
@@ -313,6 +313,35 @@ Owner who can review the definition:
 **What it cannot do.** Inspect your local uncommitted state, provide a tight localhost edit-run-debug loop, or turn an opened PR into verified work. Claude Code remains the local belt path; Slash is the remote delegation path.
 
 **Common failure modes.** Executing before the problem is understood. Omitting the repo scope. Assuming a remote run sees local changes. Treating the generated PR as reviewed. Fix the first with knowledge-first mode; fix the rest with explicit scope and normal review evidence.
+
+#### Close the loop with the task receipt
+
+Slash finishes with more than an answer. Its footer reports the job cost, model, duration, Discover ID, execution-log link, and a rating prompt. Do not treat that footer as decoration: it is the receipt for deciding whether this task shape was useful enough to repeat.
+
+Read it in this order:
+
+1. **Outcome first.** Did the response answer the named question or produce the requested artifact? Check its important claims or diff before judging the run successful.
+2. **Time and cost second.** Was the result worth the reported duration and cost? There is no universal “good” number. Compare repeated tasks of the same shape, not unrelated work or model names in isolation.
+3. **Trace when surprised.** If the answer is unsupported, the run is unexpectedly slow or expensive, or the task fails, open the execution logs. Record the Discover ID when routing a follow-up so the run remains identifiable.
+4. **Change one thing before retrying.** Narrow the question, source window, repo set, or success criterion. If the task needed understanding before action, move to `--plan` / `--discover`. Do not rerun the same broad request and hope the receipt becomes cheaper by optimism.
+
+Copy this card into your work note or task thread:
+
+```text
+SLASH TASK RECEIPT
+Task and mode:
+Scope (repos, sources, or time window):
+Useful outcome:
+Evidence checked:
+Job cost / duration / model:
+Discover ID / execution logs:
+Decision: accept | clarify | rerun narrower | stop
+One change before another run:
+```
+
+The cost is not a quality score. A slow investigation can still be valuable; a cheap wrong answer is still wrong. Use the rating prompt to record outcome quality, but keep verification separate.
+
+**Further reading:** [B.10 — Cost + observability at scale](../../belts/04-black/b-craft/B10-cost-and-observability.md) explains the wider outcome, cost, and trace model; the [OpenTelemetry generative-AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) show why model operations and usage belong in inspectable traces.
 
 **Belt relevance.** Useful at every belt for research and scoping; useful from Yellow onward for bounded remote repo tasks. It complements rather than replaces the Claude Code + Compass belt workflow.
 
