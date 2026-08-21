@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.65 — Concierge bundle release alignment (2026-08-21)
+
+The Playbook Concierge bundle still identified itself as v0.59 / 2026-08-07 even though its generated index already carried the v0.62 release marker. Its generator also described seven upload files where the bundle actually contains one Custom Instructions file and five Project Knowledge files.
+
+**What changed.**
+
+- **Release metadata aligned.** `manifest.yml` now carries v0.65 / 2026-08-21, and regenerating the bundle gives its spine, instructions, and README the same release identity as the playbook.
+- **Refresh contract clarified.** The generator and bundle README now distinguish the one Custom Instructions file from the five Project Knowledge files instead of conflating them as six uploads.
+- **Version markers bumped.** README and INDEX now report v0.65 / 2026-08-21 for the Concierge metadata correction.
+
+---
+
 ## v0.64 — supported White Belt setup evidence (2026-08-22)
 
 White Belt still required learners to invoke `setup-verify` and prove a pinned Compass version even after v0.59 established that the seven in-repo skill directories are reference definitions, not proof of commands installed through Compass. Current GitHub code searches also find no `setup-verify` distribution in `razorpay/claude-plugins` or `razorpay/agent-skills`.
