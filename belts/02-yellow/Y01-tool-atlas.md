@@ -14,7 +14,7 @@ next: "belts/yellow/tool-decision-tree"
 pillar: "context"
 belt: "yellow"
 tags: ["yellow-belt", "tools", "tool-atlas"]
-updated: "2026-05-13"
+updated: "2026-08-21"
 ---
 
 > **The reference atlas lives in [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md).** This chapter is the practice version: three worked decisions you walk through to internalise *how* to choose, not *what* the options are. Read both — Appendix A is the table; this chapter is the muscle memory.
@@ -61,9 +61,9 @@ Four surfaces, each doing what it's best at. No single surface "owns" the loop.
 
 The job: your skip-level asked for a digest of what design has shipped in the last month. You want the summary on their desk by tomorrow morning.
 
-**Bad instinct.** Open Claude Code and ask it to read Slack.
+**Bad instinct.** Open a repo in Claude Code just because it can call the Slack connector.
 
-**Why it fails.** Claude Code is a repo tool. It doesn't read Slack natively, and even if you stitched a connector in, the working-directory context is the wrong frame for this task. You're writing a digest, not editing code.
+**Why it fails.** With an approved Slack connector configured, Claude Code can retrieve messages. The issue is task fit: repo context, file editing, and the command surface add nothing to a pure digest. Start in the connected non-coding surface and keep the harness narrow.
 
 **The right sequence.**
 
