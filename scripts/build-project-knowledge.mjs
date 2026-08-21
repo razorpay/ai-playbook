@@ -21,8 +21,8 @@
 //   npm install     # one-time, picks up yaml
 //   npm run build-project-knowledge
 //
-// Output: scripts/project-knowledge/ — a directory containing the seven files
-// that get uploaded to the Project, plus a README explaining where each goes
+// Output: scripts/project-knowledge/ — a directory containing six Project files
+// (one custom-instructions file and five knowledge files), plus a README explaining where each goes
 // (project instructions vs. project knowledge).
 //
 // Re-run after any merge that touches manifest.yml, slugs.yml, INDEX.md, the
@@ -585,7 +585,8 @@ Re-run \`npm run build-project-knowledge\` after any merge that touches:
 - \`skills/*/SKILL.md\`
 - The drafted-belt set in \`manifest.yml\` (so the Concierge stops claiming planned belts are drafted)
 
-Then re-upload the six files to the Project (replace the existing knowledge).
+Then replace the Custom Instructions with \`project-instructions.md\` and re-upload
+the five Project Knowledge files.
 A future GitHub Action can automate the build; the upload step needs
 Anthropic-side support that isn't here yet.
 
