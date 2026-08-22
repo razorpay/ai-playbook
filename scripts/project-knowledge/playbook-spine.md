@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.63-alpha, updated 2026-08-21).
+Compact chapter index for the Razorpay AI Playbook (0.64-alpha, updated 2026-08-22).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.63-alpha
-updated: 2026-08-21
+version: 0.64-alpha
+updated: 2026-08-22
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -673,8 +673,8 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 40
-    outcome: Install and verify the White Belt tool stack without drifting away from
-      the program-pinned setup path.
+    outcome: Install and verify the White Belt tool stack through the supported
+      setup path and a direct, copyable evidence gate.
     tags:
       - white-belt
       - setup
@@ -707,8 +707,8 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 20
-    outcome: Understand what the program-pinned plugin is for, how to verify it, and
-      how to avoid stale-plugin drift.
+    outcome: Distinguish plugin source from installed runtime state, verify the
+      commands you actually have, and route missing commands without guessing.
     tags:
       - white-belt
       - plugin
@@ -723,12 +723,12 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 20
-    outcome: Run the 10-point health check, interpret colour honestly, and route
-      setup failures without wasting a cohort day.
+    outcome: Run the supported manual setup gate, interpret colour honestly, and
+      route failures without depending on an undistributed command.
     tags:
       - white-belt
       - health-check
-      - setup-verify
+      - setup
   - slug: belts/white/first-conversation
     title: Your first conversation with Claude Code
     hub_url: https://razorpay.github.io/ai-playbook/belts/white/first-conversation/
@@ -803,12 +803,12 @@ chapters:
     type: quest
     audience: new-builder
     time_minutes: 60
-    outcome: Run setup verification, reach all-GREEN status, and capture evidence
-      that the local environment is ready.
+    outcome: Run the supported manual setup gate, reach all-GREEN status, and
+      capture evidence that the local environment is ready.
     tags:
       - white-belt
       - quest
-      - setup-verify
+      - setup
       - evidence
   - slug: belts/white/quest-hello-razorpay
     title: "Quest W-1: The HelloRazorpay commit"

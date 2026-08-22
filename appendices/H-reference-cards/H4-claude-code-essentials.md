@@ -14,7 +14,7 @@ next: "appendices/reference-cards/playwright-essentials"
 pillar: "harness"
 belt: null
 tags: ["appendix", "reference-card", "claude-code"]
-updated: "2026-05-08"
+updated: "2026-08-22"
 ---
 
 # H.4 — Claude Code essentials
@@ -54,7 +54,7 @@ Custom slash commands defined in your project's CLAUDE.md or by installed plugin
 
 ## The setup colour check
 
-Every White Belt module ends with a colour question. The full skill is [`setup-verify`](../../skills/setup-verify/README.md), but the underlying framing:
+Every White Belt module ends with a colour question. W.5 and W.8 provide the current manual setup gate; the underlying framing is:
 
 | Colour | What it means |
 |---|---|
@@ -62,7 +62,7 @@ Every White Belt module ends with a colour question. The full skill is [`setup-v
 | **YELLOW** | Things work, but with caveats worth fixing. |
 | **RED** | Something is broken. Quest W-0 not yet claimable. |
 
-When in doubt, run setup-verify. It is faster than guessing.
+When in doubt, run the direct checks in [W.5](../../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove). The in-repo [`setup-verify`](../../skills/setup-verify/README.md) definition is a broader reference, not proof of an installed command.
 
 ---
 

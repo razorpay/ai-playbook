@@ -8,24 +8,24 @@ track: "white"
 order: 90
 time_minutes: 60
 audience: "new-builder"
-outcome: "Run setup verification, reach all-GREEN status, and capture evidence that the local environment is ready."
+outcome: "Run the supported manual setup gate, reach all-GREEN status, and capture evidence that the local environment is ready."
 prev: "belts/white/first-pr"
 next: "belts/white/quest-hello-razorpay"
 pillar: "harness"
 belt: "white"
-tags: ["white-belt", "quest", "setup-verify", "evidence"]
-updated: "2026-07-20"
+tags: ["white-belt", "quest", "setup", "evidence"]
+updated: "2026-08-22"
 ---
 
 # Quest W-0 - Turn GREEN
 
-> **Win condition:** setup verification shows all required White Belt checks GREEN, and the evidence is captured in a form a reviewer can inspect.
+> **Win condition:** all seven checks in the supported White Belt setup gate are GREEN, and the evidence is captured in a form a reviewer can inspect.
 
-Quest W-0 is the gate. It happens before the sandbox PR because a broken environment makes every later failure ambiguous.
+Quest W-0 happens before the sandbox PR because a broken environment makes every later failure ambiguous.
 
 ![The first-day map — fresh laptop, setup, verify, fix, GREEN](../../excalidraw/white-belt-turn-green-journey.svg)
 
-The detours on the map (cert not trusted, plugin checksum mismatch, stale Vertex env vars) are the *common* shapes — landing on one is normal, not a failure. The one-line fix is named beside each.
+The detours on the map—certificate trust, gateway configuration, stale Vertex variables—are common. Landing on one is normal; hiding it is not.
 
 ---
 
@@ -35,57 +35,47 @@ Complete or skim:
 
 - [W.4 Your auth setup](W04-auth-setup.md) — MyAccess + manager approval.
 - [W.5 Installing the stack](W05-installing-the-stack.md) — the canonical setup script. **Do W.5 first; this quest verifies what W.5 set up.**
-- [W.7 Compass plugin](W07-compass-plugin.md)
-- [W.8 GREEN / YELLOW / RED](W08-green-yellow-red.md)
+- [W.7 Compass plugin](W07-compass-plugin.md) — how to distinguish source from commands available in your session.
+- [W.8 GREEN / YELLOW / RED](W08-green-yellow-red.md) — the evidence contract and colour rules.
 
-Quest W-0 uses the shipped [`setup-verify`](../../skills/setup-verify/README.md) skill. Its ten-check report is the evidence contract. A five-command smoke test can tell you whether Claude opens, but it does not check the registry, certificate, plugin checksum, Git/SSO, required environment variables, or program endpoints.
+The playbook keeps a ten-check `setup-verify` reference definition under [`skills/`](../../skills/setup-verify/README.md), but that repository directory is not proof of an installed command. This quest uses the direct checks every learner can run.
 
 ---
 
 ## The task
 
-Run the full ten-check report, resolve every YELLOW or RED, and capture the final GREEN output.
+Run the seven-check manual gate, resolve every YELLOW or RED, and capture the final GREEN table.
 
 ### Step 1 — Start from a fresh terminal
 
-Close the terminal window where you ran W.5 and open a new one. Then start Claude Code:
+Close the terminal where you ran W.5 and open a new one. Run the copyable block under [W.5 — What setup verification should prove](W05-installing-the-stack.md#what-setup-verification-should-prove).
 
-```bash
-claude
-```
+The checks cover Git, Node, pnpm, Claude Code, the LiteLLM gateway setting, retired Vertex variables, and a live prompt round-trip.
 
-If `claude` is not found, re-run the W.5 setup script, open another fresh terminal, and retry. If the agent opens, continue.
+### Step 2 — Record each result
 
-### Step 2 — Invoke the skill
+Copy the table from [W.8](W08-green-yellow-red.md#worked-example) into your tracker note. Paste only the minimum redacted evidence needed to prove each row. Never paste a LiteLLM key, custom-header value, token, or unrelated environment output.
 
-Inside Claude Code, ask:
-
-```text
-Run setup-verify.
-```
-
-Wait for the complete report. It must include an overall colour and ten rows covering Node + pnpm, Claude Code auth, the internal npm registry, corporate-proxy trust, stale Vertex variables, the LiteLLM gateway, Compass, Git + corp SSO, required environment variables, and program health endpoints.
-
-### Step 3 — Fix, re-run, then capture GREEN
+### Step 3 — Fix, rerun, then capture GREEN
 
 For each non-GREEN row:
 
-1. apply the named one-line fix yourself; `setup-verify` diagnoses but does not modify your environment;
-2. ask Claude Code to re-run that check (for example, `Re-run setup-verify check 7`);
-3. once the targeted check passes, run the full `setup-verify` report again.
+1. use the matching fix in [W.5](W05-installing-the-stack.md#common-failure-modes) or [Appendix D](../../appendices/D-known-issues/README.md);
+2. rerun the failed command after the repair and terminal restart, if required;
+3. refresh the complete seven-row table.
 
-Capture the ten-row GREEN report. If any RED persists after one focused repair attempt, post the full redacted report in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the fix you tried.
+If any RED persists after one focused repair, post the redacted failed command and output in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the fix you tried.
 
-### If the skill cannot start
+### If a check cannot start
 
-Use the symptom to reach the right fix; do not replace the ten-check report with a partial manual pass:
+Use the symptom to reach the right fix:
 
 - `zsh: command not found: claude` → follow [D.8](../../appendices/D-known-issues/README.md#d8--command-not-found-claude-after-install-status-fixed), restart the terminal, and retry.
 - An in-session `/login` prompt → follow that SSO flow. Do not run `claude /login` from the shell; see [D.11](../../appendices/D-known-issues/README.md#d11--unknown-skill-login-after-running-claude-login-status-fixed) if you already saw `Unknown skill: login`.
 - `403 PERMISSION_DENIED` mentioning `aiplatform.googleapis.com` → remove stale Vertex variables via [D.3](../../appendices/D-known-issues/README.md#d3--403-permission_denied-referencing-aiplatformgoogleapiscom-status-fixed), restart the terminal, and retry.
-- A skill-not-found error after Claude opens → follow the Compass repair in [W.7](W07-compass-plugin.md), then retry `setup-verify`.
+- A plugin command is missing after Claude opens → use `/help`, then follow [W.7](W07-compass-plugin.md). Do not block W-0 on a reference-only command.
 
-**You are GREEN for Quest W-0 only when the full `setup-verify` report shows all ten checks GREEN.**
+**You are GREEN for Quest W-0 only when all seven manual checks show GREEN on your machine.**
 
 ---
 
@@ -100,11 +90,21 @@ Builder handle:
 Date:
 Machine class:
 Setup route:
-Plugin version:
-Verification result: GREEN / YELLOW / RED
+
+| Check | Evidence | Colour |
+|---|---|---|
+| Git | | |
+| Node | | |
+| pnpm | | |
+| Claude Code | | |
+| LiteLLM configuration | | |
+| Retired Vertex configuration | | |
+| Prompt round-trip | | |
+
+Overall: GREEN / YELLOW / RED
 Screenshot or log link:
 Reviewer: self-attested / reviewer handle
-Follow-up needed:
+Repair note, if any:
 ```
 
 For W-0, self-attestation is acceptable if the cohort rules allow it. The screenshot or log must still exist.
@@ -115,19 +115,18 @@ For W-0, self-attestation is acceptable if the cohort rules allow it. The screen
 
 This counts:
 
-- all required checks GREEN;
-- screenshot or redacted log attached;
-- plugin version visible or recorded;
-- date recorded;
-- any repair notes captured if the first run was not GREEN.
+- all seven checks GREEN;
+- a screenshot or redacted log attached;
+- date and machine class recorded;
+- repair notes captured if the first run was not GREEN.
 
 This does not count:
 
 - "It worked on my machine" with no evidence;
-- nine GREEN checks and one YELLOW;
+- six GREEN checks and one YELLOW;
 - a screenshot that hides which checks ran;
-- a verification run from a different machine;
-- a teammate's output reused as yours.
+- a report from a different machine;
+- waiting for an undistributed reference command instead of running the manual gate.
 
 ---
 
@@ -144,7 +143,7 @@ Redacted output:
 What I tried:
 ```
 
-If you are RED, skip the extra attempts and route immediately. RED is a stop sign.
+If you are RED, skip extra experiments and route immediately. RED is a stop sign.
 
 ---
 
@@ -152,11 +151,10 @@ If you are RED, skip the extra attempts and route immediately. RED is a stop sig
 
 You pass Quest W-0 when:
 
-- verification result is GREEN;
-- evidence template is filled;
-- screenshot or redacted log exists;
-- plugin version is recorded;
-- no private material is included in the evidence.
+- the seven-row result is GREEN;
+- the evidence template is filled;
+- a screenshot or redacted log exists;
+- no private material is included.
 
 ---
 
@@ -166,9 +164,8 @@ You pass Quest W-0 when:
 
 That is the unlock for Quest W-1.
 
-> **Pin this for the rest of the week.** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) is the single-page card with every command, channel, and contact you'll need over your first week. Bookmark it now so you don't search later.
+> **Pin this for the rest of the week.** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) is the single-page card with the setup gate, channels, and common failure modes.
 
 ---
 
 **Previous:** [W.12 Your first PR](W12-first-pr.md) - **Next:** [Quest W-1 HelloRazorpay commit](quest-W1-hello-razorpay.md)
-

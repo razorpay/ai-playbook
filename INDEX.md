@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.63 · last reviewed 2026-08-21 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.64 · last reviewed 2026-08-22 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -218,7 +218,7 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 > **Prerequisite.** A Razorpay laptop and your Google SSO. (If "what's a terminal?" still feels foreign, do Part 0 first.)
 > **Time budget.** 4–6 hours, spread over a week.
 > **Ramp L-level.** L0 → L1.
-> **Canonical setup artefacts.** A one-command setup script (laptop), a design-track add-on, the setup-verify health check, and a plugin-version verification script. Every module ends with "what colour are you?"
+> **Canonical setup artefacts.** A one-command setup script, a direct seven-check evidence gate, and documented add-on install routes. Every module ends with "what colour are you?"
 
 ### Modules
 
@@ -230,8 +230,8 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 | W.4  | [Your auth setup — MyAccess, LiteLLM key, SSO, proxy trust](belts/01-white/W04-auth-setup.md) [drafted] | Harness        | 20 min |
 | W.5  | [Installing the stack — Node, pnpm, Claude Code, internal npm registry](belts/01-white/W05-installing-the-stack.md) [drafted] | Harness       | 40 min |
 | W.6  | [The LLM Gateway — what LiteLLM does, what you need to know](belts/01-white/W06-llm-gateway.md) [drafted] | Context        | 15 min |
-| W.7  | [Compass plugin — install, verify, what's inside](belts/01-white/W07-compass-plugin.md) [drafted] | Context        | 20 min |
-| W.8  | [GREEN / YELLOW / RED — the 10-point health check and one-line fixes](belts/01-white/W08-green-yellow-red.md) [drafted] | Harness        | 20 min |
+| W.7  | [Compass plugin — source, distribution, and runtime proof](belts/01-white/W07-compass-plugin.md) [drafted] | Context        | 20 min |
+| W.8  | [GREEN / YELLOW / RED — the supported manual setup gate](belts/01-white/W08-green-yellow-red.md) [drafted] | Harness        | 20 min |
 | W.9  | [Your first conversation with Claude Code](belts/01-white/W09-first-conversation.md) [drafted] | Prompt         | 30 min |
 | W.10 | [Prompt quality 101 — "make it better" vs "find all auth handlers"](belts/01-white/W10-prompt-quality-101.md) [drafted] | Prompt         | 20 min |
 | W.11 | [The permission system — y / n / a, and why auto-yes is a trap](belts/01-white/W11-permission-system.md) [drafted] | Harness        | 15 min |
@@ -242,8 +242,8 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 ### Quests (both required)
 
 **🎮 [Quest W-0 — Turn GREEN](belts/01-white/quest-W0-turn-green.md) [drafted].**
-Run the W.5 setup flow (laptop or design-track add-on), then invoke `setup-verify` inside Claude Code. Resolve every YELLOW or RED and capture the complete ten-row GREEN report. If a focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted report and what you tried.
-*Success criteria:* setup-verify output screenshot, all checks ✅.
+Run the W.5 setup flow, then capture the direct seven-check gate: Git, Node, pnpm, Claude Code, LiteLLM configuration, no retired Vertex configuration, and a prompt round-trip. Resolve every YELLOW or RED; if one focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted failed command and what you tried.
+*Success criteria:* seven-row evidence table, all checks ✅.
 
 **🎮 [Quest W-1 — The HelloRazorpay commit](belts/01-white/quest-W1-hello-razorpay.md) [drafted].**
 Clone an assigned sandbox repo. Create a branch. Change one line in a README. Commit, push, open a PR. Close it.

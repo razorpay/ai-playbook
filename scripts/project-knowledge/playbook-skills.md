@@ -52,6 +52,6 @@ Source: `skills/security-review-subagent/SKILL.md` in razorpay/ai-playbook.
 
 ## setup-verify
 
-Runs the 10-point environment health check the playbook uses to gate White Belt's Quest W-0. Produces GREEN / YELLOW / RED status per check with one-line fixes for any non-green result. Activate when the user runs the setup script, finishes onboarding, or asks "am I set up correctly".
+Runs a 10-point reference environment health check and produces GREEN / YELLOW / RED status per check with one-line fixes for any non-green result. Activate when the command is distributed in the current session and the user asks for broader setup diagnosis.
 
 Source: `skills/setup-verify/SKILL.md` in razorpay/ai-playbook.

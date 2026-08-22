@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "glossary", "reference"]
-updated: "2026-07-23"
+updated: "2026-08-22"
 ---
 
 # Appendix G: Glossary
@@ -125,7 +125,7 @@ The glossary is meant to be useful as a reference, not as a substitute for the c
 
 **Green Belt.** The third belt. Team velocity. Engineers around AI rather than just using it. Authors skills, runs subagents, ships across surfaces. See the [Green Belt overview](../../belts/03-green/README.md).
 
-**GREEN / YELLOW / RED.** A 10-point health check for setup readiness. Used at White Belt and as a self-check pattern across modules. See [W.8](../../belts/01-white/W08-green-yellow-red.md).
+**GREEN / YELLOW / RED.** The readiness language used across the playbook. White Belt applies it through a seven-check manual setup gate; later modules reuse it as a self-check pattern. See [W.8](../../belts/01-white/W08-green-yellow-red.md).
 
 **Grandmaster.** *See Staff+ Council.*
 
