@@ -6,6 +6,20 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.64 — supported White Belt setup evidence (2026-08-22)
+
+White Belt still required learners to invoke `setup-verify` and prove a pinned Compass version even after v0.59 established that the seven in-repo skill directories are reference definitions, not proof of commands installed through Compass. Current GitHub code searches also find no `setup-verify` distribution in `razorpay/claude-plugins` or `razorpay/agent-skills`.
+
+**What changed.**
+
+- **Quest W-0 is directly runnable.** W.5, W.8, Quest W-0, and H.7 now use a seven-check manual gate for Git, Node, pnpm, Claude Code, LiteLLM configuration, retired Vertex state, and a prompt round-trip.
+- **Plugin evidence is explicit.** W.7 now teaches learners to distinguish a repository definition, a supported distribution, and commands discovered in the current session through `/help`.
+- **Reference contract retained.** The broader ten-check `setup-verify` directory remains reviewable source material without being presented as an installed prerequisite.
+- **Navigation and evidence aligned.** INDEX, the first-day diagram, course metadata, and generated Concierge material use the same supported setup contract.
+- **Version markers bumped.** README and INDEX now report v0.64 / 2026-08-22.
+
+---
+
 ## v0.63 — Concierge quick-card link integrity (2026-08-19)
 
 The Concierge quick-card bundle rewrote parent-directory Markdown links by dropping `..` segments instead of resolving them from each card. That produced wrong hub paths for appendix pages, left H.4's H.3 reference as a missing local file, and sent every “Up to Appendix H” link to the bundle's build notes.

@@ -256,7 +256,7 @@ Custom slash commands defined in your project's CLAUDE.md or by installed plugin
 
 ## The setup colour check
 
-Every White Belt module ends with a colour question. The full skill is [`setup-verify`](https://github.com/razorpay/ai-playbook/blob/master/skills/setup-verify/README.md), but the underlying framing:
+Every White Belt module ends with a colour question. W.5 and W.8 provide the current manual setup gate; the underlying framing is:
 
 | Colour | What it means |
 |---|---|
@@ -264,7 +264,7 @@ Every White Belt module ends with a colour question. The full skill is [`setup-v
 | **YELLOW** | Things work, but with caveats worth fixing. |
 | **RED** | Something is broken. Quest W-0 not yet claimable. |
 
-When in doubt, run setup-verify. It is faster than guessing.
+When in doubt, run the direct checks in [W.5](https://razorpay.github.io/ai-playbook/belts/white/installing-the-stack/#what-setup-verification-should-prove). The in-repo [`setup-verify`](https://github.com/razorpay/ai-playbook/blob/master/skills/setup-verify/README.md) definition is a broader reference, not proof of an installed command.
 
 ---
 
@@ -545,15 +545,29 @@ Native Windows caveat: the analytics plugin currently assumes a Unix-like surfac
 
 ## Reach GREEN (Quest W-0)
 
-Start Claude Code in a fresh terminal, then ask:
+Run the supported manual gate in a fresh terminal:
 
-```text
-Run setup-verify.
+```bash
+git --version
+node --version
+pnpm --version
+claude --version
+grep -F '"ANTHROPIC_BASE_URL": "https://llm-gateway.razorpay.com"' ~/.claude/settings.json
+
+if env | grep -Eq '^(ANTHROPIC_VERTEX_PROJECT_ID|CLAUDE_CODE_USE_VERTEX|CLOUD_ML_REGION)=' \
+  || grep -Eq 'ANTHROPIC_VERTEX_PROJECT_ID|CLAUDE_CODE_USE_VERTEX|CLOUD_ML_REGION' ~/.bashrc ~/.zshrc 2>/dev/null; then
+  echo "RED: retired Vertex configuration found"
+else
+  echo "GREEN: no retired Vertex configuration found"
+fi
+
+claude
+# Inside Claude, type: hello
 ```
 
-The report must show overall **GREEN** and ten GREEN rows: Node + pnpm; Claude Code auth; internal npm registry; corporate-proxy certificate; no stale Vertex variables; LiteLLM gateway; Compass plugin; Git + corp SSO; required environment variables; and program health endpoints.
+Capture seven GREEN rows: Git, Node, pnpm, Claude Code, the LiteLLM setting, no retired Vertex configuration, and a reply to `hello`.
 
-If the skill cannot start, use Common failures below. If a row is YELLOW or RED, apply its one-line fix, re-run that check, then capture a fresh full report.
+The in-repo `setup-verify` directory is a reference definition, not proof of an installed command. If a row is YELLOW or RED, use Common failures below, apply one focused fix, rerun that check, then refresh the complete evidence table in [Quest W-0](https://razorpay.github.io/ai-playbook/belts/white/quest-turn-green/).
 
 ---
 
@@ -648,7 +662,7 @@ Escalation order: post the full redacted context publicly, follow the channel's 
 
 ---
 
-*Last reviewed: 2026-08-03. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-08-22. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 

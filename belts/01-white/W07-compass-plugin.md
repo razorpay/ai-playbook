@@ -8,105 +8,89 @@ track: "white"
 order: 7
 time_minutes: 20
 audience: "new-builder"
-outcome: "Understand what the program-pinned plugin is for, how to verify it, and how to avoid stale-plugin drift."
+outcome: "Distinguish plugin source from installed runtime state, verify the commands you actually have, and route missing commands without guessing."
 prev: "belts/white/llm-gateway"
 next: "belts/white/green-yellow-red"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "plugin", "compass"]
-updated: "2026-04-27"
+updated: "2026-08-22"
 ---
 
 # W.7 - Compass plugin
 
-The plugin is the program's way of packaging local guidance, commands, and checks into the place builders actually work. You can think of it as a small layer of shared muscle memory.
+A plugin packages shared guidance, commands, hooks, or connectors into the place builders work. Think of it as reusable team muscle memory—not proof that every documented workflow is installed on your machine.
 
-White Belt does not require you to author plugins. It requires you to install the program-pinned plugin, verify the version, and understand why stale plugin state creates confusing failures.
+White Belt does not require you to author plugins. It requires you to separate three things that are easy to blur:
+
+```text
+Playbook or repository definition  -> what a workflow is meant to do
+Supported distribution             -> where maintainers currently publish it
+Your Claude Code session            -> what you can invoke right now
+```
+
+The seven directories under this playbook's [`skills/`](../../skills/) folder are **reference definitions**. Their presence in GitHub does not mean Compass or another marketplace ships equivalent commands. The runtime is the evidence.
 
 ---
 
 ## If you're short on time
 
-- The plugin packages program-approved workflows so every learner does not reinvent them.
-- Version matters. A stale plugin can make the right command behave like the wrong command.
-- If plugin verification fails, repair the plugin before debugging the module you were trying to complete.
+- Use `/help` inside Claude Code to discover commands available in the current session.
+- A command documented in a repository but absent from `/help` is not installed evidence.
+- Do not copy a skill folder or guess an old command name. Use the chapter's manual workflow or confirm the current supported distribution in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
 ---
 
-## The mental model
+## Worked example: prove the command before using it
 
-```text
-Playbook explains the practice
-Plugin packages the repeatable steps
-Verification proves your local copy matches the program path
+Suppose a chapter or teammate tells you to run a plugin command.
+
+1. Start Claude Code in the same environment and repository where you plan to work.
+2. Run `/help`.
+3. Search the displayed commands for the exact command or namespace.
+4. If it appears, open its help text before giving it real input.
+5. If it does not appear, stop. Check the plugin's current install instructions or ask in `#ai-help` with the missing command and the redacted `/help` result.
+
+Capture a small receipt:
+
+```markdown
+Expected command:
+Visible in `/help`: yes / no
+Plugin or marketplace source, if known:
+Session restarted after install/update: yes / no
+Next action:
 ```
 
-The playbook is the source of learning. The plugin is the operational helper. Do not confuse them. If the plugin changes, the playbook should eventually describe the new behaviour; if the playbook changes, the plugin may need a matching update.
+This receipt is more useful than asking Claude which version it thinks is active. Claude is an assistant, not the plugin registry.
 
 ---
 
-## What is inside the plugin, conceptually
+## Source is not distribution
 
-A program-pinned plugin can include:
+A workflow can exist in source without being runnable in your session. Common states include:
 
-- setup verification commands;
-- repo orientation helpers;
-- pre-PR sanity checks;
-- design-track helpers;
-- safe prompt recipes;
-- links to local playbook routes;
-- version metadata.
+| State | What it proves | What it does not prove |
+|---|---|---|
+| A `SKILL.md` exists in a repository | The workflow has a reviewable definition | Your client installed or discovered it |
+| A marketplace contains a plugin | A package is published | Your local copy is current or enabled |
+| The command appears in `/help` | Your current session discovered it | Its connectors and permissions will succeed |
+| A representative invocation succeeds | That input worked on that surface | Every client or repository behaves the same |
 
-The exact contents can change by release. White Belt only cares that your local plugin matches the pinned release for this cohort or self-paced run.
-
----
-
-## Worked example
-
-Run the plugin verification command from the program setup path. The output should answer:
-
-```text
-Plugin installed: yes
-Plugin version: matches pinned version
-Required commands available: yes
-Configured model path: expected
-Setup verification available: yes
-```
-
-If your output has a version mismatch, do not proceed to Quest W-0 yet. Repair plugin state first.
-
-Ask Claude Code a scoped question:
-
-```text
-Which program plugin version is active? Do not make changes.
-```
-
-If Claude cannot tell, that is okay. The verification command is the source of truth. Claude is an assistant, not the plugin registry.
-
----
-
-## Stale plugin symptoms
-
-| Symptom | Why it matters |
-|---|---|
-| A command named in the playbook is missing | Plugin may be old or not installed. |
-| Verification output shape differs from the module | Plugin and playbook may be out of sync. |
-| A teammate's output has extra checks | You may be on different plugin versions. |
-| The setup command succeeds but Quest W-0 cannot run | Setup installed tools but not the plugin layer. |
-
-Treat stale plugin as a root cause, not as a side note.
+That boundary matters on Day 1. Debugging an absent command as if it were a broken setup wastes time and encourages unsupported manual copies.
 
 ---
 
 ## Common failure modes
 
-**"I installed Claude Code, so I assumed the plugin exists."** Tool install and plugin install are different.
+**"The folder exists in GitHub, so I assumed the command exists."** Source is reviewable intent. `/help` is local discovery evidence.
 
-**"I copied a plugin folder manually."** Manual copying can hide version drift. Use the approved installer or update path.
+**"I copied a plugin folder manually."** Manual copying hides provenance and update state. Remove the guesswork and return to the approved install route.
 
-**"The plugin works in one repo but not another."** You may be confusing global plugin state with repo-local config. Capture both paths and ask for help.
+**"The plugin works in one repo but not another."** Capture the client, repository, install scope, and `/help` result from both sessions. Global and project-local state can differ.
 
-**"The command name changed."** Follow the current pinned version. Do not keep old command names alive in cohort notes.
+**"The command name changed."** Do not preserve an old name in personal notes. Follow current plugin documentation or use the manual chapter workflow.
+
+**"I installed or updated it, but nothing changed."** Restart Claude Code, then check `/help` again before escalating.
 
 ---
 
@@ -114,30 +98,28 @@ Treat stale plugin as a root cause, not as a side note.
 
 You are **GREEN** if:
 
-- plugin verification says installed;
-- version matches the pinned release;
-- setup verification is available;
-- you understand that plugin repair comes before module debugging.
+- you can distinguish a reference definition from a supported distribution;
+- `/help` proves whether the command you need is available;
+- you know the manual or support route when it is absent.
 
 You are **YELLOW** if:
 
-- plugin exists but version differs;
-- one expected command is missing;
-- output shape differs from the playbook.
+- a required command is absent after a documented install and restart;
+- the plugin appears installed but its expected namespace does not;
+- behaviour differs between two sessions and you have not isolated why.
 
 You are **RED** if:
 
-- plugin installation fails;
-- repair fails;
-- you are relying on a manually copied plugin.
+- the approved installation fails;
+- a command requests permissions or data outside its documented boundary;
+- you are about to copy unverified plugin files or credentials by hand.
 
 ---
 
 ## What you can say after this module
 
-> "I can verify the program plugin and recognize stale-plugin drift."
+> "I can prove what my current session has instead of treating a repository folder as an installed command."
 
 ---
 
 **Previous:** [W.6 The LLM Gateway](W06-llm-gateway.md) - **Next:** [W.8 GREEN / YELLOW / RED](W08-green-yellow-red.md)
-

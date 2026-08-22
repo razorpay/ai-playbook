@@ -1,9 +1,11 @@
 ---
 name: setup-verify
-description: Runs the 10-point environment health check the playbook uses to gate White Belt's Quest W-0. Produces GREEN / YELLOW / RED status per check with one-line fixes for any non-green result. Activate when the user runs the setup script, finishes onboarding, or asks "am I set up correctly".
+description: Runs a 10-point reference environment health check and produces GREEN / YELLOW / RED status per check with one-line fixes for any non-green result. Activate when the command is distributed in the current session and the user asks for broader setup diagnosis.
 ---
 
 # setup-verify
+
+> This source definition is not current distribution evidence. White Belt Quest W-0 uses the direct seven-check gate in W.5 and W.8; do not tell a learner to wait for this command when `/help` does not list it.
 
 ## Triggers
 
@@ -33,7 +35,7 @@ The skill does not modify the user's environment. It diagnoses. The user runs th
 
 The skill has two modes.
 
-- **Default mode.** Runs all ten checks. Used by Quest W-0 and by any "am I set up" prompt.
+- **Default mode.** Runs all ten checks for broader diagnosis after the skill is confirmed available in the current session.
 - **Single-check mode.** Runs a named check only. Used when the user knows which check is failing and wants to re-verify after a fix attempt. The user names the check by its number or short name (for example, "re-run check 7" or "re-verify Compass plugin").
 
 ## When to refuse
@@ -46,7 +48,7 @@ The skill has two modes.
 
 See `output-shape.md` for the structured format. The summary form:
 
-- A header line naming the overall colour and the cohort-relevant context (e.g., "Overall: RED — Quest W-0 not yet claimable").
+- A header line naming the overall colour and the number of warnings or blockers.
 - A per-check table showing each check's status and the specific signal.
 - A "What to fix first" section listing the RED checks (then YELLOW), each with the one-line fix from `one-line-fixes.md`.
 - A footer line naming when to escalate ("Post this report in #ai-help if any RED check persists after one hour").
@@ -61,5 +63,5 @@ See `output-shape.md` for the structured format. The summary form:
 ## External references
 
 - [W.4 — Your auth setup](../../belts/01-white/W04-auth-setup.md), [W.5 — Installing the stack](../../belts/01-white/W05-installing-the-stack.md), [W.6 — The LLM Gateway](../../belts/01-white/W06-llm-gateway.md), [W.7 — Compass plugin](../../belts/01-white/W07-compass-plugin.md), [W.8 — GREEN / YELLOW / RED](../../belts/01-white/W08-green-yellow-red.md). The White Belt chapters that produce the environment this skill verifies.
-- [Quest W-0 — Turn GREEN](../../belts/01-white/quest-W0-turn-green.md). The quest this skill gates.
+- [Quest W-0 — Turn GREEN](../../belts/01-white/quest-W0-turn-green.md). The direct manual gate this skill may supplement but does not replace.
 - [Appendix B — Environment Setup](../../appendices/B-environment-setup/README.md). The reader-facing reference for the same material.
