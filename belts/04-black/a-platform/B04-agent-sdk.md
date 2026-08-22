@@ -14,7 +14,7 @@ next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-19"
+updated: "2026-08-22"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -45,10 +45,10 @@ The default answer at every belt up to here has been: *use the program-pinned pl
    │   Default for internal interactive work.        │
    │   Skills, MCPs, slash commands, hooks.          │
    │                                                  │
-   │   Cowork plugin marketplace                     │
+   │   Repository-native plugin publishing (B.3)     │
    │           │                                       │
    │           ▼                                       │
-   │   Non-engineer adoption surface (B.3).         │
+   │   Package once; prove every claimed surface.   │
    │                                                  │
    │   Agent Studio                                  │
    │           │                                       │
@@ -211,9 +211,9 @@ Conclusion: leave the internal plugin, then check Agent Studio before writing a 
 
 Counter-example: same team is considering a "summarise our team's status weekly" tool. Walk the four-case test:
 
-- All four cases come back no. The program-pinned plugin (with a custom skill or a Cowork marketplace plugin per B.3) covers it.
+- All four cases come back no. The program-pinned plugin covers it, either with a custom skill or—when the capability needs a bundle—a repository-native plugin per B.3.
 
-Conclusion: do not reach for the SDK. The skill / pack / marketplace path is correct.
+Conclusion: do not reach for the SDK. Use the shared-skill or plugin-publishing path, and claim Cowork only after completing B.3's surface proof.
 
 ---
 
@@ -267,7 +267,7 @@ This is real ongoing work. A custom agent is infrastructure. Treat it as such, o
 
 B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you have multiple agents (custom or vendored) running in concert, what patterns work and what patterns do not.
 
-**Previous:** [← B.3 Cowork plugin marketplace](B03-cowork-plugin-marketplace.md) · **Next:** [→ B.5 Multi-agent orchestration](B05-multi-agent-orchestration.md)
+**Previous:** [← B.3 Publishing a plugin](B03-cowork-plugin-marketplace.md) · **Next:** [→ B.5 Multi-agent orchestration](B05-multi-agent-orchestration.md)
 
 **Further reading**
 
