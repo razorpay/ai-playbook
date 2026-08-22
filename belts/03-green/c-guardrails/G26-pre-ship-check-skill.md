@@ -29,6 +29,7 @@ The skill is described at the contract level (matches G.13 / G.17 treatment): wh
 
 - Pre-ship-check is a six-layer gate: redlines, design system, tests, PR craft, prompt-craft trace, and behaviour preservation.
 - A clean pass means all six layers green. A flagged layer surfaces the specific issue with line references; you fix and re-run.
+- For a repeated edit across many files, extend Layer 6 with set-level proof: intended scope, explicit exclusions, zero forbidden forms remaining, and collision scans.
 - The skill never auto-fixes. It surfaces; you decide. The boss fight requires a clean pass at PR time.
 
 > **Reference definition, not an install receipt.** The workflow definition lives at [`skills/pre-ship-check/`](../../../skills/pre-ship-check/), but that directory does not prove the skill is loaded in your current Claude Code distribution. Check `/skills` and `/help` before invoking it. If it is unavailable, apply the same six-layer checklist manually; ask [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) which runnable distribution is currently supported. The chapter describes the policy; the reference definition packages it.
@@ -163,6 +164,36 @@ Cross-checks the diff against the PR description: does the diff change behaviour
 
 The layer is the program's defence against scope-creep PRs that lose reviewer signal.
 
+### Large mechanical changes: prove the set, not a sample
+
+A repeated edit can be easy to describe and hard to verify. Reading ten examples from a 600-site change proves that ten examples look right; it does not prove that every intended site changed or every lookalike stayed untouched. For a large AI-assisted transformation, extend Layer 6 with four set-level proofs:
+
+1. **Scope proof.** Name how you enumerated the target set. Record the expected, changed, and intentionally unchanged file or occurrence counts; explain any gap.
+2. **Transform proof.** Show the exact before/after rule and inspect representative diffs from each semantic shape, not just the first file.
+3. **Negative proof.** Search the target set for the old form that must disappear. Record the command or query and the zero-result receipt; "the agent says it finished" is not a result.
+4. **Hazard proof.** Name forms that look similar but must survive—identifiers, comments, strings, qualified names, aliases, timestamps, generated files, or domain-specific exceptions—and scan the changed set for collisions.
+
+Run the repository's normal tests as well. These proofs answer whether the transformation covered the right set; tests answer whether the resulting system still behaves correctly. You need both.
+
+On 22 August 2026, [`self-serve-analytics` #2183](https://github.com/razorpay/self-serve-analytics/pull/2183) applied one date-semantics transform at 630 sites across 156 files. Its receipt named timestamp fields, identifiers, comments, and rolling bounds that must remain unchanged, proved that no forbidden form remained in the target set, and scanned qualified-column and alias hazards. The reusable lesson is not the SQL expression. It is the proof shape.
+
+Copy this card before asking an agent to run a large repetitive edit:
+
+```text
+MECHANICAL TRANSFORMATION RECEIPT
+INTENT: <one semantic change>
+TARGET SET: <enumeration rule>
+EXPECTED / CHANGED / UNCHANGED: <counts + explanation>
+BEFORE -> AFTER: <exact rule>
+MUST DISAPPEAR: <forbidden form + zero-result evidence>
+MUST SURVIVE: <semantic exclusions + evidence>
+HAZARD SCANS: <lookalikes checked + result>
+TESTS: <repo checks + result>
+HUMAN REVIEW: <semantic shapes sampled + reviewer>
+
+Any unexplained count or failed proof = Layer 6 RED.
+```
+
 ---
 
 ## Reading the report
@@ -231,6 +262,8 @@ The builder reads the flags, fixes Layer 2 (token swap, two minutes) and Layer 3
 
 **Assuming the skill catches everything.** It catches the structured shapes; it does not catch judgement. Fix: a clean pre-ship-check is necessary, not sufficient. Reviewer still reads the diff.
 
+**Spot-checking a repetitive diff.** Twenty clean examples can hide one systematic over-match or a missed file family. Fix: add scope, negative, and hazard proofs; stop on any unexplained count.
+
 **Treating Layer 5 as theatrical.** The prompt-craft trace is the layer that distinguishes Green Belt PRs from "this could have been written by anyone, anywhere." Fix: the layer is real signal; do not write the description backward to fit it.
 
 **Running the check at the very end.** A PR that has been mid-build for two days and applies pre-ship-check for the first time on the morning of merge is asking for trouble. Fix: check mid-build, not just at end-of-build.
@@ -264,3 +297,5 @@ G.27 (*The Blade-compliance reviewer skill*) is the file-granularity complement.
 - [Appendix C — Skills Library](../../../appendices/C-skills-library/README.md) — the pre-ship-check entry
 - [Yellow Belt Y.13 — PR craft](../../02-yellow/Y13-pr-craft.md)
 - [G.12 — Playwright + Claude Code](../b-practices/G12-playwright-and-claude-code.md)
+- [`self-serve-analytics` #2183](https://github.com/razorpay/self-serve-analytics/pull/2183) — the internal set-level proof example
+- [Anthropic — Claude Code best practices](https://code.claude.com/docs/en/best-practices) — give the agent verifiable success criteria
