@@ -146,7 +146,7 @@ The skill computes an overall status from the ten checks:
 - **YELLOW.** One or more checks are YELLOW; none are RED.
 - **RED.** One or more checks are RED.
 
-Quest W-0 requires GREEN overall. A YELLOW overall is acceptable for everyday work but should be resolved before the user moves to a structured cohort (Ship-to-Learn or a belt cohort) where the YELLOW pattern compounds.
+This ten-check reference report is supplementary. Quest W-0 uses the seven direct checks in W.5 and W.8. A YELLOW here is acceptable for everyday work but should still be resolved before it compounds in a structured cohort.
 
 ---
 
