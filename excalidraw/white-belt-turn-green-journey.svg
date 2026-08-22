@@ -57,7 +57,7 @@
   <path d="M 640.0,266.2 L 636.7,273.0 L 636.3,275.4 L 630.6,281.6 L 628.9,285.2" fill="none" stroke="#1F2937" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M 640.0,266.2 L 642.8,269.7 L 644.7,277.6 L 647.3,279.9 L 650.9,285.3" fill="none" stroke="#1F2937" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M 640.0,266.2 L 641.4,270.2 L 644.9,275.0 L 649.5,281.1 L 651.4,286.2" fill="none" stroke="#1F2937" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="640" y="180" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="13" font-weight="600" fill="#1F2937" text-anchor="middle">setup-verify</text>
+  <text x="640" y="180" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="13" font-weight="600" fill="#1F2937" text-anchor="middle">manual checks</text>
   <text x="640" y="198" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="13" font-weight="600" fill="#1F2937" text-anchor="middle">first run</text>
   <circle cx="920.0" cy="380.0" r="14.0" fill="#FFFFFF" stroke="none"/>
   <path d="M 934.7,383.0 L 932.7,385.0 L 932.0,387.3 L 930.1,388.9 L 928.3,390.4 L 926.9,392.7 L 924.1,392.2 L 922.1,393.9 L 919.6,395.1 L 917.1,394.3 L 914.7,393.5 L 913.0,391.5 L 911.1,390.1 L 908.2,389.4 L 907.7,386.7 L 907.8,384.1 L 906.8,382.0 L 905.4,379.6 L 905.9,377.2 L 907.3,375.0 L 907.8,372.5 L 908.8,370.1 L 910.8,368.5 L 912.9,367.0 L 915.7,367.4 L 917.9,366.4 L 920.3,366.9 L 922.9,365.6 L 925.4,366.1 L 927.8,367.2 L 928.8,370.1 L 930.9,371.3 L 932.2,373.4 L 933.9,375.3 L 933.9,377.9 L 934.4,380.4 L 933.8,382.8" fill="none" stroke="#1F2937" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"/>
@@ -132,9 +132,9 @@
   <path d="M 760.0,540.0 L 738.9,540.0 L 714.8,540.4 L 692.0,541.2 L 670.1,540.8 L 649.9,539.8 L 626.3,540.8 L 605.1,539.4 L 582.0,540.5 L 560.6,540.3" fill="none" stroke="#1F2937" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M 560.0,540.0 L 559.2,520.3 L 558.6,500.1 L 559.7,479.9 L 560.0,459.3" fill="none" stroke="#1F2937" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M 560.0,540.0 L 559.1,521.4 L 559.6,500.6 L 559.7,479.3 L 559.7,459.9" fill="none" stroke="#1F2937" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="660" y="482" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="13" font-weight="700" fill="#EF4444" text-anchor="middle">checksum mismatch</text>
-  <text x="660" y="502" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="12" font-weight="500" fill="#1F2937" text-anchor="middle">re-download the</text>
-  <text x="660" y="518" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="12" font-weight="500" fill="#1F2937" text-anchor="middle">plugin from registry</text>
+  <text x="660" y="482" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="13" font-weight="700" fill="#EF4444" text-anchor="middle">gateway mismatch</text>
+  <text x="660" y="502" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="12" font-weight="500" fill="#1F2937" text-anchor="middle">rerun the supported</text>
+  <text x="660" y="518" font-family='"Caveat", "Indie Flower", "Comic Sans MS", "Marker Felt", "Bradley Hand", sans-serif' font-size="12" font-weight="500" fill="#1F2937" text-anchor="middle">setup script</text>
   <path d="M 640.0,394.0 L 645.2,410.9 L 650.5,427.8 L 654.8,443.3 L 659.8,459.9" fill="none" stroke="#6B7280" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
   <rect x="760.0" y="460.0" width="200.0" height="80.0" fill="#EF4444" fill-opacity="0.06" stroke="none"/>
   <path d="M 760.0,460.0 L 782.1,460.7 L 805.8,459.7 L 825.9,458.7 L 849.7,459.6 L 871.3,461.4 L 894.4,460.7 L 915.0,459.1 L 938.2,458.5 L 959.4,459.6" fill="none" stroke="#1F2937" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>

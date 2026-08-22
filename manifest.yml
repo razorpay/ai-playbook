@@ -1,5 +1,5 @@
-version: "0.63-alpha"
-updated: "2026-08-21"
+version: "0.64-alpha"
+updated: "2026-08-22"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -530,7 +530,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "enablement", "leadership"]
-    updated: "2026-04-26"
+    updated: "2026-08-22"
   - slug: "prologue/tool-tour"
     path: "prologue/05-tool-tour.md"
     title: "Meet your tools"
@@ -762,13 +762,13 @@ chapters:
     order: 5
     time_minutes: 40
     audience: "new-builder"
-    outcome: "Install and verify the White Belt tool stack without drifting away from the program-pinned setup path."
+    outcome: "Install and verify the White Belt tool stack through the supported setup path and a direct, copyable evidence gate."
     prev: "belts/white/auth-setup"
     next: "belts/white/llm-gateway"
     pillar: "harness"
     belt: "white"
     tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-    updated: "2026-07-20"
+    updated: "2026-08-22"
   - slug: "belts/white/llm-gateway"
     path: "belts/01-white/W06-llm-gateway.md"
     title: "The LLM Gateway"
@@ -796,13 +796,13 @@ chapters:
     order: 7
     time_minutes: 20
     audience: "new-builder"
-    outcome: "Understand what the program-pinned plugin is for, how to verify it, and how to avoid stale-plugin drift."
+    outcome: "Distinguish plugin source from installed runtime state, verify the commands you actually have, and route missing commands without guessing."
     prev: "belts/white/llm-gateway"
     next: "belts/white/green-yellow-red"
     pillar: "context"
     belt: "white"
     tags: ["white-belt", "plugin", "compass"]
-    updated: "2026-04-27"
+    updated: "2026-08-22"
   - slug: "belts/white/green-yellow-red"
     path: "belts/01-white/W08-green-yellow-red.md"
     title: "GREEN / YELLOW / RED"
@@ -813,13 +813,13 @@ chapters:
     order: 8
     time_minutes: 20
     audience: "new-builder"
-    outcome: "Run the 10-point health check, interpret colour honestly, and route setup failures without wasting a cohort day."
+    outcome: "Run the supported manual setup gate, interpret colour honestly, and route failures without depending on an undistributed command."
     prev: "belts/white/compass-plugin"
     next: "belts/white/first-conversation"
     pillar: "harness"
     belt: "white"
-    tags: ["white-belt", "health-check", "setup-verify"]
-    updated: "2026-07-20"
+    tags: ["white-belt", "health-check", "setup"]
+    updated: "2026-08-22"
   - slug: "belts/white/first-conversation"
     path: "belts/01-white/W09-first-conversation.md"
     title: "Your first conversation with Claude Code"
@@ -898,13 +898,13 @@ chapters:
     order: 90
     time_minutes: 60
     audience: "new-builder"
-    outcome: "Run setup verification, reach all-GREEN status, and capture evidence that the local environment is ready."
+    outcome: "Run the supported manual setup gate, reach all-GREEN status, and capture evidence that the local environment is ready."
     prev: "belts/white/first-pr"
     next: "belts/white/quest-hello-razorpay"
     pillar: "harness"
     belt: "white"
-    tags: ["white-belt", "quest", "setup-verify", "evidence"]
-    updated: "2026-07-20"
+    tags: ["white-belt", "quest", "setup", "evidence"]
+    updated: "2026-08-22"
   - slug: "belts/white/quest-hello-razorpay"
     path: "belts/01-white/quest-W1-hello-razorpay.md"
     title: "Quest W-1: The HelloRazorpay commit"
@@ -2706,7 +2706,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "glossary", "reference"]
-    updated: "2026-07-23"
+    updated: "2026-08-22"
   - slug: "appendices/templates"
     path: "appendices/I-templates/README.md"
     title: "Appendix I: Templates"
@@ -2978,7 +2978,7 @@ chapters:
     pillar: "harness"
     belt: null
     tags: ["appendix", "reference-card", "claude-code"]
-    updated: "2026-05-08"
+    updated: "2026-08-22"
   - slug: "appendices/reference-cards/playwright-essentials"
     path: "appendices/H-reference-cards/H5-playwright-essentials.md"
     title: "H.5 — Playwright essentials"
@@ -3029,6 +3029,6 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-    updated: "2026-07-20"
+    updated: "2026-08-22"
 
 planned_sections: []

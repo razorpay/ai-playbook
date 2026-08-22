@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.63 · last reviewed 2026-08-21 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.64 · last reviewed 2026-08-22 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -223,7 +223,7 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 > **Prerequisite.** A Razorpay laptop and your Google SSO. (If "what's a terminal?" still feels foreign, do Part 0 first.)
 > **Time budget.** 4–6 hours, spread over a week.
 > **Ramp L-level.** L0 → L1.
-> **Canonical setup artefacts.** A one-command setup script (laptop), a design-track add-on, the setup-verify health check, and a plugin-version verification script. Every module ends with "what colour are you?"
+> **Canonical setup artefacts.** A one-command setup script, a direct seven-check evidence gate, and documented add-on install routes. Every module ends with "what colour are you?"
 
 ### Modules
 
@@ -235,8 +235,8 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 | W.4  | [Your auth setup — MyAccess, LiteLLM key, SSO, proxy trust](https://razorpay.github.io/ai-playbook/belts/01-white/W04-auth-setup/) [drafted] | Harness        | 20 min |
 | W.5  | [Installing the stack — Node, pnpm, Claude Code, internal npm registry](https://razorpay.github.io/ai-playbook/belts/01-white/W05-installing-the-stack/) [drafted] | Harness       | 40 min |
 | W.6  | [The LLM Gateway — what LiteLLM does, what you need to know](https://razorpay.github.io/ai-playbook/belts/01-white/W06-llm-gateway/) [drafted] | Context        | 15 min |
-| W.7  | [Compass plugin — install, verify, what's inside](https://razorpay.github.io/ai-playbook/belts/01-white/W07-compass-plugin/) [drafted] | Context        | 20 min |
-| W.8  | [GREEN / YELLOW / RED — the 10-point health check and one-line fixes](https://razorpay.github.io/ai-playbook/belts/01-white/W08-green-yellow-red/) [drafted] | Harness        | 20 min |
+| W.7  | [Compass plugin — source, distribution, and runtime proof](https://razorpay.github.io/ai-playbook/belts/01-white/W07-compass-plugin/) [drafted] | Context        | 20 min |
+| W.8  | [GREEN / YELLOW / RED — the supported manual setup gate](https://razorpay.github.io/ai-playbook/belts/01-white/W08-green-yellow-red/) [drafted] | Harness        | 20 min |
 | W.9  | [Your first conversation with Claude Code](https://razorpay.github.io/ai-playbook/belts/01-white/W09-first-conversation/) [drafted] | Prompt         | 30 min |
 | W.10 | [Prompt quality 101 — "make it better" vs "find all auth handlers"](https://razorpay.github.io/ai-playbook/belts/01-white/W10-prompt-quality-101/) [drafted] | Prompt         | 20 min |
 | W.11 | [The permission system — y / n / a, and why auto-yes is a trap](https://razorpay.github.io/ai-playbook/belts/01-white/W11-permission-system/) [drafted] | Harness        | 15 min |
@@ -247,8 +247,8 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 ### Quests (both required)
 
 **🎮 [Quest W-0 — Turn GREEN](https://razorpay.github.io/ai-playbook/belts/01-white/quest-W0-turn-green/) [drafted].**
-Run the W.5 setup flow (laptop or design-track add-on), then invoke `setup-verify` inside Claude Code. Resolve every YELLOW or RED and capture the complete ten-row GREEN report. If a focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted report and what you tried.
-*Success criteria:* setup-verify output screenshot, all checks ✅.
+Run the W.5 setup flow, then capture the direct seven-check gate: Git, Node, pnpm, Claude Code, LiteLLM configuration, no retired Vertex configuration, and a prompt round-trip. Resolve every YELLOW or RED; if one focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted failed command and what you tried.
+*Success criteria:* seven-row evidence table, all checks ✅.
 
 **🎮 [Quest W-1 — The HelloRazorpay commit](https://razorpay.github.io/ai-playbook/belts/01-white/quest-W1-hello-razorpay/) [drafted].**
 Clone an assigned sandbox repo. Create a branch. Change one line in a README. Commit, push, open a PR. Close it.
