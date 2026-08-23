@@ -14,7 +14,7 @@ next: "belts/black/skill-pack-publishing"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "mcp", "voice-anchor", "platform"]
-updated: "2026-07-29"
+updated: "2026-08-23"
 ---
 
 # B.1 — Authoring an internal MCP server
@@ -26,7 +26,7 @@ This is the voice anchor for Black Belt. Where Green Belt taught you to *use* th
 ## If you're short on time
 
 - An MCP server is a bounded interface that exposes named tools to an agent. The server is yours; the contract is the consumers'.
-- The three decisions that shape every internal MCP server: **scope** (what tools to expose), **auth** (who can call which tool), and **packaging** (how other PODs install and pin a version).
+- The three decisions that shape every internal MCP server: **scope** (what tools to expose), **auth** (who can call which tool), and **packaging** (how another builder discovers, configures, and updates it on a supported host).
 - The current protocol core is stateless. Each request carries its own version and client context; application state travels through explicit handles, not a hidden MCP session.
 - Most internal MCP servers fail not because the protocol is hard but because their scope grew unbounded. Decide what the server is *not* for before you decide what it is for.
 
@@ -49,9 +49,9 @@ This is the voice anchor for Black Belt. Where Green Belt taught you to *use* th
    │      per explicit handle, per program)?       │
    │                                                  │
    │   3. PACKAGING                                   │
-   │      How does another POD install and pin a    │
-   │      version? What is the upgrade path? What   │
-   │      breaks them when it changes?              │
+   │      Which supported host loads it? How does  │
+   │      another POD install, configure, and      │
+   │      update it? What breaks when it changes?  │
    │                                                  │
    │   4. CONTRACTS                                   │
    │      Tool input schemas, output shapes, error  │
@@ -144,19 +144,41 @@ The trap: assuming the program-pinned plugin's proxy handles all auth concerns. 
 
 ## Layer 3 — Packaging
 
-The packaging decision is what separates a server you and three teammates use from a server every Razorpay POD installs. Three components.
+The packaging decision is what separates a server you and three teammates use from a server another POD can adopt. Start with the host. An MCP server does not become installable merely because its process runs; the consuming agent surface needs a supported configuration and distribution path.
 
 ### Component 1 — Versioning
 
-Semantic versioning. A breaking change to a tool's input or output shape bumps major; a backward-compatible addition bumps minor; a bug fix bumps patch. Consumers pin the major version.
+Use semantic versioning for the package that carries the server configuration. A breaking change to a tool's input or output shape bumps major; a backward-compatible addition bumps minor; a bug fix bumps patch. In the Razorpay plugin marketplace, update the version in `.claude-plugin/plugin.json` with each release.
 
 ### Component 2 — Distribution
 
-Internal MCP servers ship through the program-pinned distribution channel — a checksummed package that consumers install via a known command. Mirror the Compass plugin pattern: a single pinned link, a verification skill that confirms the install, an audit trail.
+For Claude Code and the repository's other declared plugin hosts, use the canonical [`razorpay/claude-plugins`](https://github.com/razorpay/claude-plugins) path. Contribute a repository-native plugin directory with its manifest, documentation, and `.mcp.json` when the plugin needs MCP servers. Configuration contains placeholders, never credentials. The normal delivery path is a pull request; after merge, consumers install the plugin through the marketplace instructions maintained by that repository.
+
+Do not invent a standalone checksummed bundle, registry, pinned link, or “standard install command” that the repository does not consume. If the server must reach another host, prove that host's separate package and installation contract before claiming availability there. A plugin merged for one host is not evidence that every agent surface can load it.
 
 ### Component 3 — Upgrade story
 
-When a consumer upgrades, what breaks? The answer should be: "nothing, unless they pinned to a major version we deprecated, in which case they got a deprecation warning two minor versions ago." This is the contract that lets other PODs adopt without fear.
+When a consumer upgrades, what breaks? Name the supported client versions, configuration changes, tool-contract changes, deprecation window, and rollback path. Test an upgrade from the oldest supported installed version instead of promising that “nothing breaks.” The evidence is a clean install plus an upgrade receipt on each claimed host.
+
+### Copyable distribution receipt
+
+Use this in the publishing PR. An unchecked host stays **unverified** in release notes.
+
+```text
+MCP DISTRIBUTION RECEIPT
+
+Plugin / version:
+Owning team:
+Claimed host:
+Repository path and manifest:
+Credential-free MCP config checked? yes / no
+Clean marketplace install passed? yes / no
+Representative tool call passed? yes / no
+Upgrade from oldest supported version passed? yes / no
+Failure / uninstall / rollback path tested? yes / no
+User-visible evidence:
+Verdict: verified / unverified
+```
 
 ---
 
@@ -191,7 +213,7 @@ A real internal MCP server might look like:
 - **Name.** `team-tickets`. Owned by a specific team. Versioned as `1.x`.
 - **Scope.** Read-only access to the team's ticket store. Three tools: `list_open_tickets`, `get_ticket_detail`, `search_tickets_by_text`. Explicitly does not: write tickets, modify status, send notifications.
 - **Auth.** Caller identity propagates from the program-pinned plugin. Per-tool: all three are read-only and broadly authorised; if a future tool adds a write capability, it goes in a gated `team-tickets-write` companion server.
-- **Packaging.** Distributed via the program's pinned channel; consumers install with the standard install command. Pinned to `1.x`.
+- **Packaging.** Published as a versioned plugin in `razorpay/claude-plugins`, with a credential-free `.mcp.json`, installation guidance, and clean-install plus upgrade receipts for each claimed host.
 - **Contracts.** `list_open_tickets(filter)` returns `{ tickets: [{id, title, status, owner, age_days}, …] }`. `get_ticket_detail(id)` returns a typed Ticket object. `search_tickets_by_text(query, limit)` returns the same shape as `list_open_tickets`. Errors are typed: `unauthorised`, `not_found`, `rate_limited`, `query_too_broad`.
 - **Observability.** Standard per-call logging plus a quarterly "who is using this server" report.
 
@@ -205,7 +227,9 @@ Three teams adopt it in the first month; ten by the third. The server is small, 
 
 **Skipping auth design.** "Everyone in the program can read everything." Real for some tools; not for tools that touch regulator-scoped data. Fix: design the auth layer per-tool from day one.
 
-**No packaging plan.** "We'll figure out distribution when other teams ask." Then nobody asks because nobody knows. Fix: distribute via the pinned channel from day one.
+**No packaging plan.** "We'll figure out distribution when other teams ask." Then nobody asks because nobody knows. Fix: choose the supported host and repository path before launch, then prove install, invocation, upgrade, and rollback there.
+
+**Inventing a distribution channel.** A design names a checksummed bundle, private registry, or standard command that no canonical repository consumes. Fix: use the repository-native plugin path, or mark the host unverified until its owner supplies and tests a real route.
 
 **Free-form output.** A tool that returns a Markdown blob looks friendly but composes badly. Fix: structured outputs; consumers Markdown-format on their side.
 
@@ -225,7 +249,7 @@ Three teams adopt it in the first month; ten by the third. The server is small, 
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can scope, design, package, and observe a stateless internal MCP server other PODs adopt; every request is independently authorised, cross-call state uses explicit handles, contracts are stable across versions, and the deprecation story is real.
+- 🟢 GREEN: I can scope, design, package, and observe a stateless internal MCP server other PODs adopt; every request is independently authorised, cross-call state uses explicit handles, and each claimed host has install, invocation, upgrade, and rollback evidence.
 - 🟡 YELLOW: I have authored an MCP server, but it still assumes a hidden session, the scope is broad, the auth is informal, or the packaging is ad-hoc.
 - 🔴 RED — I have not authored an internal MCP server.
 
@@ -233,7 +257,7 @@ Three teams adopt it in the first month; ten by the third. The server is small, 
 
 ## What you can say after this module
 
-> "I author internal MCP servers on the stateless protocol contract, with bounded scope, per-request auth, explicit state handles, sound packaging, typed contracts, and observability — not omnibus servers other teams cannot reason about."
+> "I author internal MCP servers on the stateless protocol contract, with bounded scope, per-request auth, explicit state handles, repository-native packaging, typed contracts, and per-host distribution evidence — not omnibus servers other teams cannot reason about."
 
 ---
 
@@ -247,5 +271,6 @@ B.2 (*Publishing a skill pack*) is the immediate complement. An MCP server gives
 
 - [MCP 2026-07-28 specification](https://modelcontextprotocol.io/specification/2026-07-28) — the current protocol contract
 - [MCP release notes: what changed in 2026-07-28](https://blog.modelcontextprotocol.io/posts/2026-07-28/) — migration summary and deprecations
+- [`razorpay/claude-plugins` contribution guide](https://github.com/razorpay/claude-plugins/blob/master/docs/CONTRIBUTING.md) — current plugin structure, MCP configuration, validation, and publishing path
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md)
 - [Yellow Belt Y.9 — Figma MCP for non-engineers](../../02-yellow/Y09-figma-mcp.md) — a consumer-side companion
