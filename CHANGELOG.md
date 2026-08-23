@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.65 — runtime command discovery in Prologue (2026-08-23)
+
+The two Prologue pages that define Compass still presented `setup-verify` and `pre-ship-check` as installed slash-command examples, even though the repository's distribution status says its in-repo skill definitions do not prove equivalent runtime commands and neither command is present in the current Compass distribution.
+
+**What changed.**
+
+- **Runtime inventory is authoritative.** Prologue 0.3 and 0.5 now send learners to `/help` for the commands exposed by their installed plugins.
+- **Reference and distribution are separated.** The orientation path no longer turns the names of reference-only playbook skills into promises about installed slash commands.
+- **Version markers bumped.** README, INDEX, and the manifest now report v0.65 / 2026-08-23.
+
+---
+
 ## v0.64 — supported White Belt setup evidence (2026-08-22)
 
 White Belt still required learners to invoke `setup-verify` and prove a pinned Compass version even after v0.59 established that the seven in-repo skill directories are reference definitions, not proof of commands installed through Compass. Current GitHub code searches also find no `setup-verify` distribution in `razorpay/claude-plugins` or `razorpay/agent-skills`.
