@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.66 — runtime command discovery in Prologue (2026-08-23)
+
+The two Prologue pages that define Compass still presented `setup-verify` and `pre-ship-check` as installed slash-command examples, even though the repository's distribution status says its in-repo skill definitions do not prove equivalent runtime commands and neither command is present in the current Compass distribution.
+
+**What changed.**
+
+- **Runtime inventory is authoritative.** Prologue 0.3 and 0.5 now send learners to `/help` for the commands exposed by their installed plugins.
+- **Reference and distribution are separated.** The orientation path no longer turns the names of reference-only playbook skills into promises about installed slash commands.
+- **Version markers bumped.** README, INDEX, and the manifest now report v0.66 / 2026-08-23.
+
+---
+
 ## v0.65 — Concierge bundle release alignment (2026-08-21)
 
 The Playbook Concierge bundle still identified itself as v0.59 / 2026-08-07 even though its generated index already carried the v0.62 release marker. Its generator also described seven upload files where the bundle actually contains one Custom Instructions file and five Project Knowledge files.
