@@ -105,7 +105,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 - **Skills**: structured Markdown instructions for Razorpay-native tasks; [Appendix C](../appendices/C-skills-library/README.md) catalogues the reference patterns separately from current runtime availability.
 - **Subagents** — smaller specialist Claudes that the main Claude can delegate to (e.g. a Blade reviewer agent).
 - **Hooks**: scripts that auto-fire at pre-commit, pre-PR, or other Claude Code lifecycle moments.
-- **Slash commands** — typed shortcuts like `/setup-verify` or `/pre-ship-check` that trigger skills.
+- **Slash commands** — typed shortcuts exposed by the plugins currently installed. Run `/help` to see the live inventory, and invoke a named shortcut only when it appears there.
 - **MCP servers**: Model Context Protocol servers that let Claude talk to Blade, Figma, Slack, DevRev, etc.
 
 **Why it matters:** Compass is how supported Razorpay context and workflows reach Claude Code. What is available depends on the version you installed; a skill definition in this repository is not proof that Compass distributes the same command. The [origin-story chapter](02-bd1-bd2-origin.md) explains why the program pins plugin versions.
