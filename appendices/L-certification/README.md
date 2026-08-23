@@ -14,7 +14,7 @@ next: "appendices/reference-cards"
 pillar: null
 belt: null
 tags: ["appendix", "certification", "belts", "program"]
-updated: "2026-04-27"
+updated: "2026-08-23"
 ---
 
 # Appendix L — Certification
@@ -101,9 +101,13 @@ Avoid fields that invite theatre: confidence score, self-rated proficiency, or "
 
 Belts do not expire. Skills, plugins, conventions, and connectors do.
 
-**The rule.** Once a year, every belt holder revalidates that the evidence underlying their belt would still pass review against current tooling. For most builders, this is a fifteen-minute exercise: re-run the verification skill, confirm at least one recent PR or skill contribution that uses the current pinned plugin, log the date.
+**The rule.** Once a year, every belt holder revalidates that the evidence underlying their belt would still pass review against current tooling. For most builders, this is a fifteen-minute exercise:
 
-**Why this matters.** A builder who earned Green Belt against tooling that is no longer pinned can be invisibly out of date. Recertification keeps the belt's signal honest without invalidating the work that earned it.
+1. **Re-run the current evidence gate.** For White Belt, use the seven direct checks in [W.5](../../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove) and [Quest W-0](../../belts/01-white/quest-W0-turn-green.md). Do not require `setup-verify` unless `/help` confirms it is available in the builder's current session. For higher belts, use the required evidence named in that belt's current quest and boss-fight pages.
+2. **Prove one recent use of the supported route.** Link a recent PR or skill contribution that uses the tool or plugin route currently supported for that task. If the route depends on a Claude Code skill, use `/help` as runtime evidence; an in-repo skill directory is a reference definition, not an install receipt.
+3. **Log the receipt.** Add the evidence links and revalidation date to the tracker. The reviewer checks the route and the result, not a historical plugin version string.
+
+**Why this matters.** A builder who earned Green Belt against tooling that is no longer supported can be invisibly out of date. Recertification keeps the belt's signal honest without invalidating the work that earned it.
 
 **What changes a belt.** Nothing in normal recertification. If a belt holder cannot produce any current evidence, the program lead works with them on a small refresh task; the belt holds while the refresh happens.
 
