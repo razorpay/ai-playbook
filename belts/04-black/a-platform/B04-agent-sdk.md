@@ -8,13 +8,13 @@ track: "black"
 order: 4
 time_minutes: 50
 audience: "platform-builder"
-outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; run a governed release lifecycle and prove the intended runtime executes before a product agent receives traffic."
+outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; define a safe user-facing configuration contract; and prove the intended runtime executes before a product agent receives traffic."
 prev: "belts/black/cowork-plugin-marketplace"
 next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-22"
+updated: "2026-08-24"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -134,6 +134,45 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Monitor — owner:** Watch outcome quality, failures, latency, cost, and unsafe actions; assign a response owner for every alert.
 
 **Any unchecked box is a stop signal.** Keep the agent in test or shadow mode until the contract is complete. If the platform-fit box fails, take the written gap to the Agent Studio owner before choosing a custom SDK. That review is the fork; a clever local workaround is not.
+
+### Make tuning a product contract, not a bag of knobs
+
+Agent Studio can render install and settings controls from a builder-defined configuration schema. The platform owns consistent rendering and validation; the owning PM, designer, and builder still own **what each setting means** and whether the agent actually obeys it. This split is deliberate: the [Product Design launch](https://razorpay.slack.com/archives/C07KLQKSB6U/p1787518405395499) assigns product decisions to PMs, the configuration experience to designers, and the schema-to-runtime path to builders. The current dashboard implementation supplies [typed fields](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/services/agent-config-schema-types.ts), validation, and an [explicit unsupported-field state](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/__tests__/agent-config-field-states.test.tsx) rather than silently guessing.
+
+Expose a setting only when it represents a real user decision: scope, time range, threshold, notification behaviour, or another choice that changes the promised outcome. Keep model IDs, prompt fragments, retry counts, and internal routing out of the merchant surface unless that user genuinely owns the operational trade-off. Configuration is not an admin-panel clearance sale.
+
+For every exposed setting, fill this card before building the form:
+
+```markdown
+# Agent setting: <user-facing name>
+User decision: <what outcome or trade-off this controls>
+Owner: <who approves the default and future changes>
+Field key / type: <stable key; supported type>
+Label / help: <plain-language instruction; no implementation jargon>
+Control / bounds: <options, min/max, or accepted format>
+Default + reason: <safe useful behaviour before any edit>
+Invalid / missing / unknown: <block, restore default, or ask; never guess silently>
+Access / sensitivity: <who may view or change it; what must not be stored>
+Version / migration: <what happens to previously saved values>
+Behaviour proof: <eval slice or trace showing the agent used the value>
+```
+
+Then ship the configuration surface as one contract:
+
+1. **PM — choose the decisions.** Remove any field that does not change a user outcome or a meaningful trade-off. Approve the default, bounds, and fallback behaviour.
+2. **Designer — map meaning to a supported control.** Use the simplest Blade control that matches the decision, then design first install, revisit, invalid input, save success, save failure, and restored-value states. Labels and errors must remain useful without the schema open beside them.
+3. **Builder — keep one source of truth.** Version the schema with the agent, pass validated values into runtime configuration, and reject unsupported field types explicitly. Do not hard-code a second form that can drift from the schema.
+4. **Owning trio — prove UI and behaviour together.** Run the state matrix below. A form that saves successfully while the agent ignores the value is still broken.
+
+| Test | Required proof |
+|---|---|
+| Install without edits | Safe defaults render, save, and produce the default behaviour |
+| Representative value plus every boundary | Saved values survive reload; the run trace or eval shows the intended behaviour change |
+| Invalid, missing, and unsupported value/type | The surface blocks or explains the state; runtime does not guess or broaden access |
+| Upgrade from a previously saved configuration | Values migrate deliberately or the user is asked to decide again |
+| Save or runtime dependency failure | The old valid configuration remains intact and the user gets a recoverable next step |
+
+Do not declare the configuration ready because the schema renders. Release it when the same value survives **render → save → reload → run**, and the resulting trace or eval proves the promised behaviour.
 
 The target-surface gate is operational, not ceremonial. [A controlled FDE pilot was paused](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1786281955675759) when the agent did not answer its product-channel smoke test because it had not been added to that channel.
 
@@ -273,11 +312,14 @@ B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you ha
 
 - [Claude Agent SDK docs](https://docs.claude.com/) — Anthropic's public SDK reference
 - [Agent Studio builder command tree](https://github.com/razorpay/merchant-skills/pull/232) — merged internal lifecycle and owning command source
+- [Agent Studio configuration-surface launch](https://razorpay.slack.com/archives/C07KLQKSB6U/p1787518405395499) — Product, Design, and builder ownership for tuning controls
+- [Dashboard configuration schema](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/services/agent-config-schema-types.ts) and [field-state tests](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/__tests__/agent-config-field-states.test.tsx) — current typed controls, validation, and unsupported-field handling
 - [Agent Studio Agno migration report](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1783421811587019) — live and shadow migration evidence behind the paved-road decision
 - [Nexus PR #501](https://github.com/razorpay/nexus/pull/501) — live-route incident, direct-routing repair, and structural invariant
 - [Nexus PR #403](https://github.com/razorpay/nexus/pull/403) — open workflow-agnostic suppression-store design and fail-closed contract
 - [TRAI — Telecom Commercial Communications Customer Preference Regulations, 2018](https://www.trai.gov.in/sites/default/files/2024-09/RegulationUcc19072018.pdf) — official customer-preference framework for commercial communications
 - [Agno documentation](https://docs.agno.com/) — official reference for the workflow and agent framework under the current platform path
 - [OWASP — Fail securely](https://owasp.org/www-community/Fail_securely) — the general rule that failed execution should not grant an unintended path
+- [W3C — Validating input](https://www.w3.org/WAI/tutorials/forms/validation/) — durable guidance for constraints and recoverable errors
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md) — the subagent pattern this chapter complements
 - [G.23 — The LLM proxy](../../03-green/c-guardrails/G23-llm-proxy.md) — the safety net every custom agent must respect
