@@ -8,18 +8,18 @@ track: "green"
 order: 26
 time_minutes: 20
 audience: "experienced-builder"
-outcome: "Run the pre-ship-check skill before every PR, read the six-layer report, and fix what it surfaces — without working around the gate."
+outcome: "Apply the six-layer pre-ship contract before every PR, using a supported loaded skill or the manual checklist, and fix what it surfaces."
 prev: "belts/green/prompt-injection"
 next: "belts/green/blade-compliance-skill"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "pre-ship-check", "skill-pattern", "guardrail"]
-updated: "2026-04-29"
+updated: "2026-08-24"
 ---
 
 # G.26 — The pre-ship-check skill
 
-The canonical Razorpay-shipped skill that runs before every PR. Six layers of structured review that catch the most common drift before reviewer time gets spent on it. The Boss Fight in Part C explicitly requires a clean pre-ship-check pass; this chapter teaches what each layer checks and how to read the report.
+This chapter defines a six-layer pre-ship review contract that catches common drift before reviewer time gets spent on it. The Boss Fight in Part C requires a clean pass; use a supported loaded skill when your runtime exposes one, or apply the same checklist manually.
 
 The skill is described at the contract level (matches G.13 / G.17 treatment): what it triggers on, what it does, what it refuses, what it produces. The skill's internal implementation is downstream of this chapter.
 
@@ -31,7 +31,7 @@ The skill is described at the contract level (matches G.13 / G.17 treatment): wh
 - A clean pass means all six layers green. A flagged layer surfaces the specific issue with line references; you fix and re-run.
 - The skill never auto-fixes. It surfaces; you decide. The boss fight requires a clean pass at PR time.
 
-> **Where this lives.** The skill is at [`skills/pre-ship-check/`](../../../skills/pre-ship-check/). The chapter describes the policy; the skill applies it. Both are the contract.
+> **Where this lives.** The reference definition is at [`skills/pre-ship-check/`](../../../skills/pre-ship-check/). The chapter describes the policy; the directory shows one implementation contract. Its presence in this repository does not prove that Compass installs it. Run `/help` to inspect your current runtime.
 
 ---
 
@@ -77,13 +77,13 @@ The skill is described at the contract level (matches G.13 / G.17 treatment): wh
 
 </details>
 
-A passing PR has all six layers green. The boss fight requires a clean run; v0.11 cohort calibration uses the report shape consistently across teams.
+A passing PR has all six layers green. The boss fight requires a clean run or manual review with the same report shape so reviewers get consistent evidence across teams.
 
 ---
 
 ## The contract
 
-**Trigger phrases.** "Run pre-ship-check on this branch", "check before review", "is this ready to ship", "/pre-ship-check" (the slash command).
+**Reference trigger phrases.** "Run pre-ship-check on this branch", "check before review", "is this ready to ship". These describe intended skill behaviour; they are not a promise that a slash command is installed.
 
 **Bounded job.** Inspect the diff against the base branch through six layers; produce a structured report with one section per layer; mark each layer GREEN / YELLOW / RED with a one-paragraph rationale per non-GREEN finding.
 
@@ -217,7 +217,7 @@ The builder reads the flags, fixes Layer 2 (token swap, two minutes) and Layer 3
 
 **Not a substitute for human review.** The pre-ship-check is the *pre-* in pre-ship-check. The reviewer comes after. A clean pre-ship-check makes the reviewer's job possible; it does not replace the reviewer.
 
-**Not optional.** The boss fight in Part C requires a clean pass. The program's PR-merge convention treats a flagged pre-ship-check as a blocker.
+**Not optional for the boss fight.** Part C requires a clean six-layer pass. A flagged review blocks belt evidence until the finding is fixed or an allowed YELLOW is documented.
 
 ---
 
@@ -231,7 +231,7 @@ The builder reads the flags, fixes Layer 2 (token swap, two minutes) and Layer 3
 
 **Treating Layer 5 as theatrical.** The prompt-craft trace is the layer that distinguishes Green Belt PRs from "this could have been written by anyone, anywhere." Fix: the layer is real signal; do not write the description backward to fit it.
 
-**Running the skill at the very end.** A PR that has been mid-build for two days and runs pre-ship-check for the first time on the morning of merge is asking for trouble. Fix: run mid-build, not just at end-of-build.
+**Running the review at the very end.** A PR that has been mid-build for two days and applies the six layers for the first time on the morning of merge is asking for trouble. Fix: review mid-build, not just at end-of-build.
 
 **Ignoring YELLOW findings.** YELLOW means "small fix"; ignored YELLOWs accumulate into next-quarter's calibration retro. Fix: address them.
 
@@ -239,15 +239,15 @@ The builder reads the flags, fixes Layer 2 (token swap, two minutes) and Layer 3
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I run pre-ship-check on every PR, read all six layers, and ship only when all six are GREEN; I have not worked around a flag this quarter.
+- 🟢 GREEN: I apply the pre-ship contract on every PR, read all six layers, and ship only when all six are GREEN; I have not worked around a flag this quarter.
 - 🟡 YELLOW — I run the skill but sometimes ship with a YELLOW unaddressed.
-- 🔴 RED — I have not run pre-ship-check on a real PR or have shipped past a RED flag.
+- 🔴 RED — I have not applied the six-layer review on a real PR or have shipped past a RED flag.
 
 ---
 
 ## What you can say after this module
 
-> "I run pre-ship-check before every PR, read all six layers, fix what is flagged, and ship only when all six are GREEN. I never work around the gate; the gate is what makes my reviewer's job possible."
+> "I apply the six-layer pre-ship review before every PR, fix what is flagged, and ship only when all six are GREEN. I never work around the gate; the gate is what makes my reviewer's job possible."
 
 ---
 

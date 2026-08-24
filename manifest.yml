@@ -1,5 +1,5 @@
-version: "0.65-alpha"
-updated: "2026-08-23"
+version: "0.66-alpha"
+updated: "2026-08-24"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -496,7 +496,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "builder-day"]
-    updated: "2026-04-26"
+    updated: "2026-08-24"
   - slug: "prologue/mental-model"
     path: "prologue/03-mental-model.md"
     title: "The 5-Layer Mental Model of the AI Dev Stack"
@@ -513,7 +513,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "mental-model"]
-    updated: "2026-04-26"
+    updated: "2026-08-24"
   - slug: "prologue/enablement-stack"
     path: "prologue/04-enablement-stack.md"
     title: "The Enablement Stack"
@@ -564,7 +564,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "support", "directory"]
-    updated: "2026-05-13"
+    updated: "2026-08-24"
   - slug: "prologue/operating-principles"
     path: "prologue/07-operating-principles.md"
     title: "Operating Principles"
@@ -785,7 +785,7 @@ chapters:
     pillar: "context"
     belt: "white"
     tags: ["white-belt", "llm-gateway", "litellm"]
-    updated: "2026-06-16"
+    updated: "2026-08-24"
   - slug: "belts/white/compass-plugin"
     path: "belts/01-white/W07-compass-plugin.md"
     title: "Compass plugin"
@@ -1261,7 +1261,7 @@ chapters:
     pillar: "harness"
     belt: "yellow"
     tags: ["yellow-belt", "boss-fight"]
-    updated: "2026-04-27"
+    updated: "2026-08-24"
   - slug: "belts/yellow/badge"
     path: "belts/02-yellow/badge.md"
     title: "Yellow Belt badge template"
@@ -1414,7 +1414,7 @@ chapters:
     pillar: "context"
     belt: "green"
     tags: ["green-belt", "skills", "compounding"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/writing-your-first-skill"
     path: "belts/03-green/a-craft/G07-writing-your-first-skill.md"
     title: "Writing your first SKILL.md — the anatomy, naming, discipline"
@@ -1431,7 +1431,7 @@ chapters:
     pillar: "context"
     belt: "green"
     tags: ["green-belt", "skill-authorship", "skill-md", "anatomy"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/subagents"
     path: "belts/03-green/a-craft/G08-subagents.md"
     title: "Subagents — when to delegate, how to pass intent cleanly"
@@ -1448,7 +1448,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "subagents", "delegation", "harness"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/worktrees"
     path: "belts/03-green/a-craft/G09-worktrees.md"
     title: "Worktrees — running 3-5 Claude instances in parallel, safely"
@@ -1465,7 +1465,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "worktrees", "parallelism", "harness"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/hooks-and-slash-commands"
     path: "belts/03-green/a-craft/G10-hooks-and-slash-commands.md"
     title: "Hooks + slash commands — when to automate the pre-flight"
@@ -1482,7 +1482,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "hooks", "slash-commands", "automation", "harness"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/advanced-prompting"
     path: "belts/03-green/a-craft/G11-advanced-prompting.md"
     title: "Advanced prompting — goals, constraints, worked examples"
@@ -1805,7 +1805,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "prompt-injection", "output-classifiers", "security"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/pre-ship-check-skill"
     path: "belts/03-green/c-guardrails/G26-pre-ship-check-skill.md"
     title: "The pre-ship-check skill — 6-layer gate before every PR"
@@ -1816,13 +1816,13 @@ chapters:
     order: 26
     time_minutes: 20
     audience: "experienced-builder"
-    outcome: "Run the pre-ship-check skill before every PR, read the six-layer report, and fix what it surfaces — without working around the gate."
+    outcome: "Apply the six-layer pre-ship contract before every PR, using a supported loaded skill or the manual checklist, and fix what it surfaces."
     prev: "belts/green/prompt-injection"
     next: "belts/green/blade-compliance-skill"
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "pre-ship-check", "skill-pattern", "guardrail"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/blade-compliance-skill"
     path: "belts/03-green/c-guardrails/G27-blade-compliance-skill.md"
     title: "The Blade-compliance reviewer skill — file-granularity checks"
@@ -1873,7 +1873,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "boss-fight", "double-ship", "capstone"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/badge"
     path: "belts/03-green/c-guardrails/badge.md"
     title: "Green Belt badge template"
@@ -2009,7 +2009,7 @@ chapters:
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "multi-agent", "orchestration", "patterns"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/black/tool-design"
     path: "belts/04-black/a-platform/B06-tool-design.md"
     title: "Tool design — JSON schemas, output shapes, error contracts"
@@ -2451,7 +2451,7 @@ chapters:
     pillar: "harness"
     belt: null
     tags: ["appendix", "tools", "harness"]
-    updated: "2026-04-27"
+    updated: "2026-08-24"
   - slug: "appendices/environment-setup"
     path: "appendices/B-environment-setup/README.md"
     title: "Appendix B: Environment Setup"
@@ -2485,7 +2485,7 @@ chapters:
     pillar: "context"
     belt: "green"
     tags: ["appendix", "skills", "agents", "workflow"]
-    updated: "2026-08-07"
+    updated: "2026-08-24"
   - slug: "appendices/certification"
     path: "appendices/L-certification/README.md"
     title: "Appendix L: Certification"

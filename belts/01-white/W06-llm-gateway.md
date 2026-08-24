@@ -14,7 +14,7 @@ next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-18"
+updated: "2026-08-24"
 ---
 
 # W.6 - The LLM Gateway
@@ -98,7 +98,7 @@ Then ask a small reasoning question that does not require private context:
 In one paragraph, explain what a pull request is to a first-time builder.
 ```
 
-- **Both work** → harness and gateway are alive. Trust the verification skill and move on.
+- **Both work** → harness and gateway are alive. Record the two successful probes and move on.
 - **First works, second fails** → the harness is alive but the gateway request failed. Read the short error: `401` usually means key issue; `403` means either stale Vertex env vars *when the error mentions `aiplatform.googleapis.com`* or missing model access *when it says your key can only access another model list*; `429` means quota or rate limit; a timeout needs routing. See [W.5 common failure modes](W05-installing-the-stack.md#common-failure-modes).
 - **Both fail** → likely local setup. Re-verify W.5.
 

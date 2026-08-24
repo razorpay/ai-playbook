@@ -14,7 +14,7 @@ next: "belts/yellow/badge"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "boss-fight"]
-updated: "2026-06-16"
+updated: "2026-08-24"
 ---
 
 # 🏁 Yellow Belt Boss Fight — Find a bug in your area and fix it
@@ -172,7 +172,7 @@ So that nobody talks themselves out of the gate:
 
 **"Claude kept proposing fixes that touched ten files."** Your prompt was probably too vague. Restart with a tighter symptom statement and a narrower file scope. Ask Claude explicitly: *"What is the smallest possible fix?"*
 
-**"I can't reproduce the bug locally."** Two possibilities. Either your local environment isn't quite the same as production (run setup-verify again to be sure), or the bug is environmental (a race condition, a data-shape thing) and you're now in much harder territory. Either escalate to the surface owner before going further, or pick a different, more reproducible bug.
+**"I can't reproduce the bug locally."** Two possibilities. Either your local environment is not quite the same as production (rerun the direct [W.5 readiness checks](../01-white/W05-installing-the-stack.md#step-5--run-the-supported-readiness-gate) and compare the relevant config), or the bug is environmental (a race condition, a data-shape thing) and you are now in much harder territory. Either escalate to the surface owner before going further, or pick a different, more reproducible bug.
 
 **"The PR sat unreviewed for three days."** Tag a specific reviewer in the team's Slack channel with a one-line context. The repo's owners are busy; a polite poke is normal. If still no movement, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — someone there will know how to escalate.
 

@@ -1,6 +1,6 @@
 # security-review-subagent — Maintainer README
 
-> **What this is.** Maintainer-facing notes for `skills/security-review-subagent/`. The Razorpay-shipped per-PR security pass that spawns a fresh-context subagent with a canonical brief.
+> **What this is.** Maintainer-facing notes for the per-PR security-review reference definition under `skills/security-review-subagent/`. A supported distributor may package it; this directory alone does not prove installation.
 
 ---
 

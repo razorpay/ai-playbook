@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.65-alpha, updated 2026-08-23).
+Compact chapter index for the Razorpay AI Playbook (0.66-alpha, updated 2026-08-24).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.65-alpha
-updated: 2026-08-23
+version: 0.66-alpha
+updated: 2026-08-24
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -1725,8 +1725,8 @@ chapters:
     type: chapter
     audience: experienced-builder
     time_minutes: 20
-    outcome: Run the pre-ship-check skill before every PR, read the six-layer
-      report, and fix what it surfaces — without working around the gate.
+    outcome: Apply the six-layer pre-ship contract before every PR, using a
+      supported loaded skill or the manual checklist, and fix what it surfaces.
     tags:
       - green-belt
       - pre-ship-check

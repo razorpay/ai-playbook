@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.65 · last reviewed 2026-08-23 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.66 · last reviewed 2026-08-24 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -604,7 +604,7 @@ The *contract* between the playbook and the program's certification track. The p
 
 | Belt earned → | Evidence required                                                |
 |---------------|------------------------------------------------------------------|
-| ⚪ White       | setup-verify all-green + closed practice PR                      |
+| ⚪ White       | W.5 readiness checks all-green + closed practice PR              |
 | 🟡 Yellow      | One PR raised in any Razorpay org repo (merged or under review)  |
 | 🟢 Green       | Two merged PRs (one product repo + one greenfield) + pre-ship-check pass |
 | ⚫ Black       | Green criteria + (component contribution OR backend change shipped) |

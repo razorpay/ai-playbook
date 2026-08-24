@@ -6,6 +6,20 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.66 — runtime skill claims across the learning path (2026-08-24)
+
+White Belt now uses direct readiness checks and treats the playbook's in-repo skill directories as reference definitions, but orientation, support, Tool Atlas, and Green Belt pages still presented `setup-verify` and `pre-ship-check` as commands or workflows shipped by Compass.
+
+**What changed.**
+
+- **Runtime discovery stays authoritative.** The Tool Atlas and Green Belt now send readers to `/help` and the installed plugin source before relying on a command name.
+- **Reference workflows stay useful without claiming distribution.** G.6, G.10, and G.26 retain pre-ship examples and the six-layer gate while separating definition, adoption, and supported installation; the Green boss fight now provides the same manual fallback.
+- **Skill source labels match that boundary.** The pre-ship, Blade-compliance, security-review, and course examples now describe reference definitions rather than calling themselves Razorpay-shipped runtime components.
+- **Setup evidence stays directly runnable.** Prologue support guidance, W.6, and the Yellow boss fight now point to copyable W.5 probes and full failing-command output instead of an undistributed verifier.
+- **Version markers bumped.** README, INDEX, manifest, and generated Concierge material now report v0.66 / 2026-08-24.
+
+---
+
 ## v0.65 — runtime command discovery in Prologue (2026-08-23)
 
 The two Prologue pages that define Compass still presented `setup-verify` and `pre-ship-check` as installed slash-command examples, even though the repository's distribution status says its in-repo skill definitions do not prove equivalent runtime commands and neither command is present in the current Compass distribution.

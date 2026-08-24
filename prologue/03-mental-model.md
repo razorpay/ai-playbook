@@ -14,7 +14,7 @@ next: "prologue/enablement-stack"
 pillar: null
 belt: null
 tags: ["orientation", "mental-model"]
-updated: "2026-08-23"
+updated: "2026-08-24"
 ---
 
 # 0.3 — The 5-Layer Mental Model of the AI Dev Stack
@@ -199,7 +199,7 @@ Remember the previous chapter: **Layer 0 is setup.** The thing that has to work 
 - Is the Compass plugin installed and version-matched? (Layer 4)
 - Can you run `claude` without errors? (Layer 5)
 
-The setup-verify skill (your first boss fight at White Belt) checks each of these and tells you exactly which layer is red. It's the diagnostic doctor for the whole stack. Chapter W-0 is literally titled "Turn GREEN" because GREEN = all five layers alive.
+Quest W-0 checks each layer through the direct, copyable probes in [W.5](../belts/01-white/W05-installing-the-stack.md#step-5--run-the-supported-readiness-gate). Run those checks in order; the first failed check tells you which layer is red. Chapter W-0 is literally titled "Turn GREEN" because GREEN = all five layers alive.
 
 ---
 

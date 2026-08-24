@@ -14,7 +14,7 @@ next: "belts/black/tool-design"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "multi-agent", "orchestration", "patterns", "state-management", "error-handling"]
-updated: "2026-08-04"
+updated: "2026-08-24"
 ---
 
 # B.5 — Multi-agent orchestration
@@ -117,7 +117,7 @@ A splitter divides the work into independent slices; N parallel subagents proces
 
 A main agent owns the conversation. When it needs deep work in a specialist domain, it spawns a subagent with a tight brief (per G.8). Specialists return structured findings; the main agent integrates and decides.
 
-**When this works:** complex tasks where a generalist cannot hold the depth in context. The boss-fight review pattern (`pre-ship-check`, `blade-compliance-reviewer`, `security-review-subagent` shipped together) is a real-world supervisor-plus-specialists shape.
+**When this works:** complex tasks where a generalist cannot hold the depth in context. The playbook's `pre-ship-check`, `blade-compliance-reviewer`, and `security-review-subagent` reference definitions show this supervisor-plus-specialists shape without implying that one runtime distributes all three.
 
 **Why it works:** the main agent has the conversation; the specialists have the deep context; each pays only the budget it needs. The main agent's context never bloats with the specialists' working notes.
 
