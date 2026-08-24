@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-07-21"
+updated: "2026-08-24"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -294,6 +294,24 @@ Problems with skill invocation, MCP server timeouts, agent loops, subagent hando
 
 **References.** [Appendix A — Codex tool boundary](../A-tool-atlas/README.md#codex--non-claude-coding-tools), [`#ai-help` shared-credit response 2026-07-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1784138113141539), [`#ai-help` repeated cap response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784188055043859), [`#ai-help` no-increase response 2026-07-16](https://razorpay.slack.com/archives/C08C35GKJKD/p1784199699971349), [`#ai-help` Codex trial-exhaustion transition 2026-07-21](https://razorpay.slack.com/archives/C08C35GKJKD/p1784639125179399).
 
+### D.16 — Claude Team or Max still uses the LiteLLM route after migration (status: fixed)
+
+**Symptom.** Support provisioned Claude Team or directed you to Claude Max, but a fresh Claude Code session still reports `llm-gateway.razorpay.com`, a LiteLLM virtual key, or a LiteLLM model-cap error. A Team-only model may also stay unavailable even though you accepted the invite.
+
+**Diagnosis.** Your Claude Code settings still contain the old LiteLLM provider overrides. Signing into the new subscription does not remove them, so the terminal keeps sending requests through the previous gateway route. This diagnosis applies only after support has explicitly migrated you; LiteLLM remains the correct route for everyone else.
+
+**Fix.**
+
+1. Confirm that support provisioned Team or Max and sent you the current [migration SOP](https://aidocs.razorpay.com/app/d/doc_4xaelfvzhp2aih33). If not, keep the LiteLLM setup and ask in `#ai-help` rather than changing providers.
+2. Close active Claude Code sessions. Follow the SOP to remove the legacy LiteLLM and Anthropic provider overrides it names from `~/.claude/settings.json`. Do not delete unrelated plugin, hook, or permission settings, and never paste the whole file into Slack.
+3. Restart Claude Code and complete the login route in the SOP.
+4. Verify a fresh session no longer reports the LiteLLM gateway before diagnosing the problem as a Team/Max model outage.
+5. If it still uses LiteLLM, post the redacted provider/error line, the surface you used, and confirmation that you completed the SOP in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
+
+Do not use this fix to escape a LiteLLM quota. Team and Max are separately provisioned routes, not self-serve fallbacks.
+
+**References.** [Y.8 — choose your current route](../../belts/02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route), [`#ai-help` repeated fix 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783585949420119), [`#ai-help` repeated fix and SOP 2026-08-19](https://razorpay.slack.com/archives/C08C35GKJKD/p1787157472458179), [`#ai-help` successful retry 2026-08-24](https://razorpay.slack.com/archives/C08C35GKJKD/p1787566520269499).
+
 ---
 
 ## Layer 4 — Infrastructure (devstack)
@@ -350,4 +368,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-07-21. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-08-24. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
