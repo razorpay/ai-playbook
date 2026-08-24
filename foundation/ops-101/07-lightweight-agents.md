@@ -14,7 +14,7 @@ next: "ops-101/minimum-viable-wiki"
 pillar: null
 belt: null
 tags: ["ops-101", "agents", "event-driven"]
-updated: "2026-08-12"
+updated: "2026-08-24"
 ---
 
 # 0B.7 — Lightweight agents (when "automate this for me" earns its keep)
@@ -72,7 +72,8 @@ Does the source already emit a stable event for the business moment you need?
 │        bounded run; deduplicate repeated delivery.
 └─ No  → Is the output a periodic snapshot or digest rather than a response
          to one exact change?
-         ├─ Yes → Use a schedule with a cursor, overlap guard, and cost limit.
+         ├─ Yes → Use a schedule with a cursor, maximum catch-up age,
+         │        overlap guard, and cost limit.
          └─ No  → Can a bounded poll meet the freshness, rate, and cost limits
                   without mutating or locking the source?
                   ├─ Yes → Poll a bounded window; back off, deduplicate, and
@@ -94,7 +95,8 @@ MODE: <event | schedule | bounded polling>
 ACTIVE PATH: <the one trigger currently allowed to produce effects>
 IDENTITY: <business event ID or cursor shared across old and new paths>
 SOURCE SAFETY: <read-only query; no lock or mutation caused by collection>
-BOUND: <maximum records, runtime, calls, and spend per run>
+CATCH-UP: <maximum cursor age or replay window; clamp/hold rule; alert>
+BOUND: <maximum source-window width/item age, records, runtime, calls, and spend>
 RECOVERY: <retry/backoff; replay window; alert after final failure>
 CUTOVER: <shadow proof; old-trigger disablement; in-flight replay check>
 POLLING REVIEW: <volume/date that forces a redesign; replacement owner; or n/a>
@@ -102,7 +104,20 @@ POLLING REVIEW: <volume/date that forces a redesign; replacement owner; or n/a>
 
 During a trigger migration, **shadow does not mean both paths may act**. Run the new path in observation-only mode or send its output to a test sink. Before enabling its effects, disable the old path and keep one business identity across both paths so an in-flight overlap is deduplicated. If you cannot name the single active path, pause the cutover.
 
-Test duplicate delivery and a failed trigger before launch. For a scheduled query, also test an empty window and a window larger than the bound. For an event, test out-of-order delivery. During a cutover, send one input through both old and new paths: expect one applied receipt and one deduplicated or skipped receipt, never two customer or team actions. The trigger is ready when the applicable cases produce a receipt or a loud failure, not a duplicate action.
+A cursor can be technically valid and still be wrong for today's business moment. If a five-minute schedule resumes from a cursor that is weeks old, every query can look internally consistent while the agent works through the wrong historical cohort. That failure reached customers in one internal workflow: a stale watermark replayed old orders for four days and produced about 1,400 calls while the intended cohort was skipped.
+
+Use two independent bounds. At the trigger, set a **maximum catch-up age**: if the cursor is older, either clamp to a current trailing window or hold the run and alert. At the source or skill, set the largest window and oldest item the business action may accept. The second bound stops an explicit timestamp, future refactor, or bad caller from bypassing the first. Never silently replay an old backlog into customer or team actions.
+
+Before launch, run this four-state catch-up drill:
+
+| State | Expected proof |
+|---|---|
+| Current cursor | Returns the expected delta |
+| Missing cursor | Uses the documented safe default |
+| Cursor older than the catch-up limit | Clamps or holds, alerts, and produces no old side effects |
+| Explicit oversized window | The source-level bound trims or rejects it; no old side effects |
+
+Also test duplicate delivery and a failed trigger; for an event, test out-of-order delivery. During a cutover, send one input through both old and new paths: expect one applied receipt and one deduplicated or skipped receipt, never two customer or team actions. The trigger is ready when the applicable cases produce a receipt or a loud failure, not a duplicate action.
 
 ### Acceptance is not completion
 
@@ -337,7 +352,7 @@ Three suggestions before committing one as your boss fight:
 ## What you should carry into the next chapter
 
 - A **lightweight agent** is a tested recipe + a trigger + an output channel + a clear "done" condition.
-- Prefer an **event trigger** for one business change and a **schedule** for a periodic snapshot; poll only when the source is safe and the freshness, rate, and cost bounds hold.
+- Prefer an **event trigger** for one business change and a **schedule** for a periodic snapshot; poll only when the source is safe and the freshness, catch-up age, rate, and cost bounds hold.
 - An asynchronous acknowledgement means **accepted, not completed**; return a run ID and status route, enforce time and work bounds, and finish with an itemised terminal receipt.
 - Team-facing recurring work graduates to a **verified loop**: trigger → skill → maker → checker → gate → state.
 - The conversion path is **manual recipe (2 weeks) → configured agent (2 more weeks of observation) → trusted agent.** Skipping either two-week phase is how graveyards form.
@@ -351,6 +366,9 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [Product Agent Marketplace — a stale watermark replayed the wrong customer cohort](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787553481977089?thread_ts=1787552517.288369&cid=C0A94EJ38NP) — the internal incident behind the maximum catch-up age and source-level window guard
+- [`agent-marketplace-service` #352 — clamp stale last-execution watermarks](https://github.com/razorpay/agent-marketplace-service/pull/352) — the shared resume-path guard, alert, and current/recent/missing/stale cursor tests
+- [`agent-marketplace-service` #353 — cap the feedback order-window width](https://github.com/razorpay/agent-marketplace-service/pull/353) — the independent skill-level bound that refuses an oversized historical range
 - [Product Agent Marketplace — accepted cart-recovery work ran unbounded for 29 minutes](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786538573099029?thread_ts=1786538384.838939) — an internal case where a prompt HTTP response hid ongoing sequential work and a per-item dependency timeout
 - [RFC 9110 §15.3.3 — 202 Accepted](https://datatracker.ietf.org/doc/html/rfc9110#section-15.3.3) — the protocol contract: acceptance is noncommittal, and the response ought to describe status and point to a status monitor
 - [Product Agent Marketplace — duplicate dispute executions during cron-to-event migration](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786357202255279?thread_ts=1786356982.507259) — 21 merchants were processed by both active paths before the cron path was disabled
