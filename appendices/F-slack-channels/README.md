@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-08-05"
+updated: "2026-08-25"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
@@ -118,7 +118,7 @@ The program's primary channels stay useful when the etiquette is followed. Six r
 
 **1. Ask publicly, not in DM.** A question asked in the right public channel becomes searchable for the next person who hits the same problem. A question asked in DM helps you and dies. Resist the DM impulse; post publicly. The cost to you is brief; the benefit to the next person is real.
 
-**2. Post the full output, not "it's broken".** When something fails, the diagnostic information is what enables a quick answer. Post the command you ran, the full error message, the relevant config (with secrets redacted), and what you have already tried. "Setup-verify is failing" is unhelpful; the actual setup-verify output is helpful.
+**2. Post the full output, not "it's broken".** When something fails, the diagnostic information is what enables a quick answer. Post the command you ran, the full error message, the relevant config (with secrets redacted), and what you have already tried. "Claude is failing" is unhelpful; "I ran `<command>` and got `<exact error>`; here is the redacted config and what I tried" is helpful.
 
 **3. Celebrate merged PRs with the link.** The celebrations channel works when wins are visible. Post the PR link, name what shipped, and tag the team if relevant. A celebrations channel of vague humble-brags is worse than no channel; the link is the discipline.
 
@@ -181,4 +181,4 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 ---
 
-*Last reviewed: 2026-08-05. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
+*Last reviewed: 2026-08-25. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
