@@ -8,13 +8,13 @@ track: "black"
 order: 4
 time_minutes: 50
 audience: "platform-builder"
-outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; define a safe user-facing configuration contract; and prove the intended runtime executes before a product agent receives traffic."
+outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; define safe configuration and merchant-knowledge contracts; and prove the intended runtime executes without crossing tenant boundaries."
 prev: "belts/black/cowork-plugin-marketplace"
 next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-24"
+updated: "2026-08-25"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -125,6 +125,7 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Platform fit — PM + Agent Studio owner:** Confirm the trigger, tenant boundary, connectors, and interaction fit the supported platform. Record any exception instead of silently coding around it.
 - [ ] **Interaction and control — designer:** Design the empty, loading, success, failure, approval, and recovery states. Put human confirmation around consequential actions.
 - [ ] **Recipient preference — PM + builder:** For every outbound contact, name the canonical preference authority and its scope; check it immediately before each attempt; persist stop requests received during the interaction; and save blocked-recipient, allowed-recipient, and unavailable-state canaries. An unreadable preference is `BLOCKED`, not permission to continue.
+- [ ] **Merchant knowledge — PM + builder:** For a shared agent, name the canonical merchant identity and knowledge authority; bind storage and retrieval to the server-derived identity; deny missing or mismatched context; and save allowed, cross-merchant-denied, and missing-identity canaries.
 - [ ] **Spec and tool contracts — builder:** Define inputs, structured outputs, tool side effects, permissions, and stop conditions before implementation.
 - [ ] **Test, eval, and review — owning trio:** Test tools independently, run task-level evals, inspect failures, and close the required product, design, safety, and platform review.
 - [ ] **Shadow before live — PM + builder:** Compare shadow outcomes and traces with the current workflow. Do not call a clean demo a production result.
@@ -174,6 +175,40 @@ Then ship the configuration surface as one contract:
 
 Do not declare the configuration ready because the schema renders. Release it when the same value survives **render → save → reload → run**, and the resulting trace or eval proves the promised behaviour.
 
+### Bind knowledge to the merchant, not the conversation
+
+A shared agent can have one skill and many merchants, but it cannot have one unscoped pool of merchant knowledge. In August 2026, [Review Collector reached this boundary](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787632755071319): one agent served 6+ merchants, its first merchant-specific knowledge base held 15 documents, and no per-merchant isolation existed before the next merchant joined. The platform owner put isolation next on the roadmap.
+
+This is an authorisation contract, not a prompt-writing problem. A merchant name in the prompt or vendor session metadata does not constrain a global search index. The trusted path is:
+
+> authenticated request → server-derived merchant identity → authorised resource set → retrieval → response and source receipt
+
+The same binding must hold across every channel and vendor. If voice, chat, and WhatsApp each keep their own merchant mapping, one missed update can reopen the boundary.
+
+Define the resource contract before choosing a vector store or vendor override:
+
+```markdown
+# Merchant-knowledge contract: <shared agent / skill>
+Canonical merchant identity: <server-derived claim; never model- or user-supplied>
+Knowledge authority: <platform-owned source and named owner>
+Resource scope: <merchant ID + approved agent/skill + document set/version>
+Binding point: <where identity filters storage and every retrieval call>
+Missing / mismatched identity: <BLOCK before retrieval; no global fallback>
+Channel coverage: <voice, chat, WhatsApp, and any other caller>
+Retrieval receipt: <merchant scope, source IDs/versions, decision, timestamp; no document body>
+Revocation / deletion: <how a removed document stops appearing everywhere>
+```
+
+Then prove the boundary with synthetic marker documents. Do not use one merchant's production content as another merchant's security test.
+
+| Canary | Expected behaviour | Evidence to save |
+|---|---|---|
+| Merchant A asks for a fact present only in A's synthetic document | Answer from A's document | Authenticated merchant scope plus A's source ID/version |
+| Merchant B asks the same question | No A result; give the designed no-answer or handoff | B scope, empty/allowed result, and proof that no A source ID was retrieved |
+| Identity is missing, mismatched, or forged in user text | Block before retrieval; never fall back to a shared index | Denial reason and zero retrieval calls |
+
+Run all three cases through every supported channel. A positive Merchant A answer proves relevance; the negative cases prove isolation. Release only when both are true.
+
 The target-surface gate is operational, not ceremonial. [A controlled FDE pilot was paused](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1786281955675759) when the agent did not answer its product-channel smoke test because it had not been added to that channel.
 
 Outbound agents need a recipient-level gate as well. A campaign-level switch or a vendor-local blocklist cannot prove that one person is still eligible for contact across shared workflows. Eligibility can also change after a job is queued, so check the canonical preference source immediately before every call or message. If the lookup is unavailable or ambiguous, do not contact the recipient.
@@ -214,6 +249,8 @@ Common shortcuts fail predictably:
 | Select tools before fixing one outcome | A broad agent with unclear permissions and no useful eval | Freeze one outcome and cohort, then add only the tools that outcome needs |
 | Go live after a clean demo | Distribution failures, tool errors, and tenant-boundary mistakes | Run evals, shadow traffic, and a read-only smoke test in every target surface; inspect traces before exposure |
 | Treat shadow success as proof of live routing | Live dispatch can select a different executor that returns plausible text without doing the work | Run a live-path canary; require the intended runtime and outcome receipt; fail closed on any fallback |
+| Put the merchant name in the prompt and search a shared knowledge pool | User text can be forged, and the retriever can still return another merchant's sources | Derive merchant identity from authenticated server context and filter before retrieval |
+| Test only that the intended merchant gets an answer | Relevance can pass while cross-merchant isolation is broken | Pair every positive knowledge canary with cross-merchant and missing-identity negatives |
 | Check recipient preference only when a campaign starts | A queued contact can become ineligible before execution, or one workflow can miss a preference recorded by another | Re-check the canonical source immediately before every attempt; fail closed when it cannot answer |
 | Copy command syntax into long-lived docs | The owning plugin can rename or split commands | Discover current commands from the plugin; keep this release card stable |
 | Monitor latency but not outcomes | A fast agent can still do the wrong thing | Pair runtime signals with task success, safety, and rollback thresholds |
@@ -290,15 +327,15 @@ This is real ongoing work. A custom agent is infrastructure. Treat it as such, o
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; I can carry a product agent through spec, review, shadow, live-path proof, release, monitoring, and rollback.
-- 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the platform-fit evidence or release gate I would need.
-- 🔴 RED — I would start a custom SDK build because the agent is customer-facing, or send it live without proving the intended runtime, outcome, and recovery path.
+- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; I can prove a shared agent retrieves only the authenticated merchant's knowledge before release.
+- 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the platform-fit, knowledge-isolation, or release evidence I would need.
+- 🔴 RED — I would trust a merchant label in a prompt, test only the happy path, or send an agent live without proving the intended runtime and tenant boundary.
 
 ---
 
 ## What you can say after this module
 
-> "I use the program-pinned plugin for internal interactive work, check Agent Studio first for supported merchant-facing agents, and choose a custom SDK only for a reviewed fit gap. I can prove release readiness with evals, shadow evidence, a live-path canary, monitoring, and a tested rollback path."
+> "I use the program-pinned plugin for internal interactive work, check Agent Studio first for supported merchant-facing agents, and choose a custom SDK only for a reviewed fit gap. For shared agents, I bind knowledge retrieval to authenticated merchant context and prove both access and isolation before release."
 
 ---
 
@@ -314,6 +351,8 @@ B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you ha
 - [Agent Studio builder command tree](https://github.com/razorpay/merchant-skills/pull/232) — merged internal lifecycle and owning command source
 - [Agent Studio configuration-surface launch](https://razorpay.slack.com/archives/C07KLQKSB6U/p1787518405395499) — Product, Design, and builder ownership for tuning controls
 - [Dashboard configuration schema](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/services/agent-config-schema-types.ts) and [field-state tests](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/__tests__/agent-config-field-states.test.tsx) — current typed controls, validation, and unsupported-field handling
+- [Agent Studio merchant-knowledge isolation proposal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787632755071319) — the current shared-agent boundary and platform roadmap signal
+- [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) and [IDOR prevention guidance](https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html) — deny-by-default checks and resource lookups scoped to the authorised dataset
 - [Agent Studio Agno migration report](https://razorpay.slack.com/archives/C0AR58A9Z8D/p1783421811587019) — live and shadow migration evidence behind the paved-road decision
 - [Nexus PR #501](https://github.com/razorpay/nexus/pull/501) — live-route incident, direct-routing repair, and structural invariant
 - [Nexus PR #403](https://github.com/razorpay/nexus/pull/403) — open workflow-agnostic suppression-store design and fail-closed contract
