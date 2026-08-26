@@ -14,7 +14,7 @@ next: "prologue/whats-shipping"
 pillar: null
 belt: null
 tags: ["security", "safety"]
-updated: "2026-06-16"
+updated: "2026-08-26"
 ---
 
 # 0.11 — The safety brief (what never goes into a prompt)
@@ -81,6 +81,14 @@ The answer is nuanced and important.
 
 Connectors are an *approved* path for AI to read data within their permission scope. They run inside Razorpay's auth boundary. They don't expose data outside what your account already has access to. Reading customer support tickets through the ticketing connector is *operationally equivalent* to you reading them yourself: same data, same access, just routed through an AI assistant.
 
+Approval applies to the supported connector and setup path, not to every screen that happens to say “authorise.” Before you select **Allow**, run this 30-second consent preflight:
+
+- [ ] **Identity:** Does the app and provider shown match the connector named by the setup instructions?
+- [ ] **Intent:** Did a setup step you started open this screen? An unprompted request or unexplained token rotation is a stop signal.
+- [ ] **Scope:** Do the requested read, write, direct-message, or admin permissions match the task and the setup instructions?
+
+If any answer is **no** or **unknown**, do not authorise. Capture the app name or ID, the requested scopes, and the setup step that opened the screen, then ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Never include the token itself.
+
 What's *not* okay:
 
 - *Copying* the connector-read data and pasting it elsewhere: into a public AI surface, into an external prompt, into a personal note that leaves the corporate boundary.
@@ -143,7 +151,7 @@ This is the pattern. Strip the identity, keep the shape. The AI's reasoning work
 
 - **Four redlines:** customer PII, money-handling, credentials/tokens/keys, internal-only confidential data. Memorise.
 - **Strip first, then prompt.** The AI's reasoning rarely needs the specific values; it needs the shape.
-- **Connectors are an approved path** for reading internal data; the redlines apply to *exfiltrating* that data elsewhere, not to using it in-place.
+- **Approved connectors are an approved path** for reading internal data. Verify identity, intent, and scope before authorising; once connected, the redlines apply to *exfiltrating* data elsewhere, not to using it in-place.
 - **When in doubt, default to caution.** The cost of paranoia is small; the cost of an incident is large.
 - **Most of what you do is fine.** The redlines are narrow. Don't let this chapter make you afraid to use AI; let it make you *unembarrassed* about asking before pasting.
 - The next chapter ([§0.12 — What's shipping this week](12-whats-shipping.md)) closes the Prologue with the program's recent changelog — you'll know what's new before you start.
