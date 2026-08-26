@@ -6,7 +6,7 @@ status: "drafted"
 type: "readme"
 track: "tool-atlas"
 order: 0
-time_minutes: 16
+time_minutes: 18
 audience: "everyone"
 outcome: "Choose the right AI tool surface for the job instead of treating every tool as interchangeable."
 prev: "prologue/tool-tour"
@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-20"
+updated: "2026-08-26"
 ---
 
 # Appendix A — Tool Atlas
@@ -321,14 +321,36 @@ Owner who can review the definition:
 
 **What it can see.** Approved internal data and the remote repo or repos selected for the task. It cannot see uncommitted files on your laptop, and public-web access is not a safe default assumption.
 
-**What it can do.** Research an internal flow, gather context before implementation, invoke approved skills/plugins, implement a scoped change, and raise a PR. Choose the mode explicitly:
+**What it can do.** Research an internal flow, gather context before implementation, invoke approved skills/plugins, implement a scoped change, and raise a PR. Put the mode immediately after `@slash` and choose the smallest depth that can support the decision:
 
-- Knowledge first: `@slash --plan <query>` (or `--discover`) when you need to understand a flow, owner, or code path before changing anything.
-- Execute: `@slash repo:<repo-name> <task>` (or `repos:<repo-a>,<repo-b>`) when the job and expected result are already clear.
+| Need | Invocation | Search depth |
+|---|---|---|
+| A quick owner, repo, or known-fact lookup | `@slash --plan-fast <query>` | Curated knowledge only. Fastest, but not enough for a high-consequence conclusion. |
+| A flow or policy explained with direct support | `@slash --plan <query>` or `@slash --discover <query>` | Curated knowledge plus one code-evidence round. This is the default. |
+| A cross-service architecture, disputed fact, root cause, or claim that something does not exist | `@slash --plan-accurate <query>` | Deep multi-repo search. Slowest and most thorough. |
+| A bounded implementation whose repo and acceptance criteria are already known | `@slash repo:<repo-name> <task>` or `@slash repos:<repo-a>,<repo-b> <task>` | Execution mode. Review the resulting PR normally. |
+
+**Try the evidence-depth check.** Before sending a knowledge-first query, finish this sentence: “I will use the answer to ___.” Then choose the receipt the decision needs:
+
+| If the answer will… | Require this receipt |
+|---|---|
+| orient you, without triggering a decision | the named curated source and its date; |
+| shape a spec, workflow, or owner handoff | the source-of-truth system plus a direct document, code, or configuration citation; |
+| diagnose a failure or assert absence | the direct error or runtime record, the authoritative registration/configuration source, and the boundaries of every search. |
+
+For the last case, make the evidence contract explicit:
+
+```text
+@slash --plan-accurate <question>. Before concluding that anything is absent,
+query its authoritative source directly, name every surface searched, and label
+unqueried or inaccessible sources UNKNOWN.
+```
+
+Zero hits in one repo or log store prove only that the search returned zero hits. They do not prove “never registered,” “does not exist,” or “did not run.” If Slash cannot query the authoritative source, stop at `UNKNOWN` and ask for that source instead of turning missing evidence into a root cause.
 
 **What it cannot do.** Inspect your local uncommitted state, provide a tight localhost edit-run-debug loop, or turn an opened PR into verified work. Claude Code remains the local belt path; Slash is the remote delegation path.
 
-**Common failure modes.** Executing before the problem is understood. Omitting the repo scope. Assuming a remote run sees local changes. Treating the generated PR as reviewed. Fix the first with knowledge-first mode; fix the rest with explicit scope and normal review evidence.
+**Common failure modes.** Using fast mode for a cross-service or high-consequence claim. Treating zero search hits as proof of absence. Executing before the problem is understood. Omitting the repo scope. Assuming a remote run sees local changes. Treating the generated PR as reviewed. Match depth to the decision, preserve `UNKNOWN` when the source of truth is unavailable, and keep execution behind explicit scope and normal review evidence.
 
 #### Close the loop with the task receipt
 
