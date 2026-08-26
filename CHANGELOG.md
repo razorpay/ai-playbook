@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.67 — provisioned model routes in gateway guidance (2026-08-26)
+
+W.6 and G.23 still described LiteLLM as the route for every Claude Code or approved model call. Support now provisions some builders on separate Claude Team or Claude Max subscription paths, and Y.8 already treats those paths as distinct from LiteLLM.
+
+**What changed.**
+
+- **Gateway guidance is route-specific.** W.5 and W.6 now apply LiteLLM setup, dashboard, budget, and error advice only when it is the builder's provisioned route, and send migrated readers to Y.8's existing route chooser.
+- **The proxy lesson keeps its safety contract without claiming universality.** G.23 and its Green Belt references scope proxy mechanics to the LiteLLM gateway and custom-agent paths while retaining the ban on personal provider-key bypasses.
+- **Version markers bumped.** README, INDEX, manifest, course curriculum, and generated Concierge material now report v0.67 / 2026-08-26.
+
+---
+
 ## v0.66 — runtime skill claims across the learning path (2026-08-24)
 
 White Belt now uses direct readiness checks and treats the playbook's in-repo skill directories as reference definitions, but orientation, support, Tool Atlas, and Green Belt pages still presented `setup-verify` and `pre-ship-check` as commands or workflows shipped by Compass.

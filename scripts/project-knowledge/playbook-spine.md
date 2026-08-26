@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.66-alpha, updated 2026-08-24).
+Compact chapter index for the Razorpay AI Playbook (0.67-alpha, updated 2026-08-26).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.66-alpha
-updated: 2026-08-24
+version: 0.67-alpha
+updated: 2026-08-26
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -691,8 +691,8 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 15
-    outcome: Understand what the LiteLLM gateway does, what Claude Code does, and
-      which failures are yours to debug vs. the gateway's.
+    outcome: Understand what the LiteLLM gateway does when it is your provisioned
+      route, and which failures are yours to debug vs. the gateway's.
     tags:
       - white-belt
       - llm-gateway
@@ -1660,7 +1660,7 @@ chapters:
       - guardrails
       - safety
   - slug: belts/green/llm-proxy
-    title: The LLM proxy — what LiteLLM does and why every call routes through it
+    title: The LLM proxy — what LiteLLM does on the gateway route
     hub_url: https://razorpay.github.io/ai-playbook/belts/green/llm-proxy/
     section: belts
     track: green
@@ -1669,8 +1669,8 @@ chapters:
     type: chapter
     audience: experienced-builder
     time_minutes: 25
-    outcome: Understand why every model call routes through a proxy, what LiteLLM
-      gives you that direct calls do not, and how to debug when the proxy is the
+    outcome: Understand what LiteLLM gives the provisioned gateway route, why custom
+      agents must not bypass it, and how to debug when the proxy is the
       friction.
     tags:
       - green-belt

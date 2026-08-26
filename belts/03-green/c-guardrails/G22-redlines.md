@@ -14,7 +14,7 @@ next: "belts/green/llm-proxy"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "redlines", "voice-anchor", "guardrails", "safety"]
-updated: "2026-04-29"
+updated: "2026-08-26"
 ---
 
 # G.22 — The redlines
@@ -104,7 +104,7 @@ The reflex takes three seconds. It is the cheapest piece of safety in the whole 
 
 The reflex is the *first* line of defence. The other lines:
 
-- **The LLM proxy (G.23).** Every approved model call routes through a proxy that can scan, log, and gate. The proxy catches what the reflex misses.
+- **The LLM proxy (G.23).** On the LiteLLM gateway and custom-agent paths, approved calls route through a proxy that can scan, log, and gate. The proxy catches what the reflex misses; separately provisioned subscription routes remain managed paths, not personal-key bypasses.
 - **Output classifiers (G.25).** Even if a prompt passes through, the output is scanned for shapes that should not have been generated in response to a given input.
 - **The pre-ship-check skill (G.26).** Before a PR ships, the skill scans the diff for redline shapes that survived earlier layers.
 - **Code review.** A human reviewer is the last line.

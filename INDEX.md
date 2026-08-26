@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.66 · last reviewed 2026-08-24 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.67 · last reviewed 2026-08-26 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -362,7 +362,7 @@ The point of this boss fight is *not* the size of the change — it's the *full 
 | §    | Chapter                                                              | Pillar  | Time   |
 |------|----------------------------------------------------------------------|---------|--------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](belts/03-green/c-guardrails/G22-redlines.md) [drafted] | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](belts/03-green/c-guardrails/G23-llm-proxy.md) [drafted] | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does on the gateway route](belts/03-green/c-guardrails/G23-llm-proxy.md) [drafted] | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](belts/03-green/c-guardrails/G24-pii-pci-rbi.md) [drafted] | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — the threats, the mitigations](belts/03-green/c-guardrails/G25-prompt-injection.md) [drafted] | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](belts/03-green/c-guardrails/G26-pre-ship-check-skill.md) [drafted] | Harness | 20 min |
