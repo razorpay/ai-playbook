@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-18"
+updated: "2026-08-27"
 ---
 
 # Appendix A — Tool Atlas
@@ -236,7 +236,7 @@ Use this PM validation loop:
 1. **Ask the normal metric question first.** Keep the metric, date range, filters, and breakdowns fixed. Save the legacy value and source table from the receipt, then record the approved intent and the legacy classification above.
 2. **Say `compare redesign`.** Analytics Agent runs the registered legacy and redesign queries with the same inputs and presents the values and percentage delta side by side. If it says no redesign pair is registered, stop; do not invent a table swap.
 3. **Read the difference, not just the tick.** A delta above 1% is marked ❌, but that is an investigation flag—not proof that redesign lost. A smaller delta can still matter for money, counts, or narrow segments. Check that both sides use the same grain, filters, complete time window, and business population. If legacy is caveated or invalid, compare the result with an owner-approved independent anchor such as a governed definition plus a raw-event count.
-4. **Trace freshness to the producer.** A current timestamp on the final table may prove only that a downstream copy ran. Follow the metric receipt back through the serving table to the table or job that actually produces the data. Compare the latest successful producer run or source partition with the serving-table refresh; do not approve a mismatch because the final table looks current.
+4. **Trace freshness and coverage to the producer.** A current timestamp on the final table may prove only that a downstream copy ran. Follow the metric receipt back through the serving table to the table or job that actually produces the data. Confirm that its available partitions cover the full consumer and comparison window—not only the latest day. Then compare at least one value distribution or decision-critical segment. Matching row counts can still hide wrong values after a join.
 5. **Record an approve-or-stop decision.** Approve only the metric and window you checked. Attach the comparison receipt, baseline classification, independent anchor when needed, and any accepted owner-confirmed caveat. If redesign intentionally corrects legacy semantics, record the old defect and the owner's approval instead of demanding parity. One green metric does not approve an entire domain.
 
 `use redesign` is a cross-check, not a cutover. Its answer should remain labelled **under validation**. The final `/ch-promote <domain> --redesign` step belongs to the analytics/data owner after every metric in scope is green; PM validation supplies evidence, not production authority.
@@ -261,15 +261,17 @@ Freshness recheck needed? yes / no
 Producing table or job:
 Latest producer timestamp:
 Latest serving-table timestamp:
+Producer coverage / required consumer window:
+Value-distribution or decision-critical segment check:
 Refresh owner:
 Known caveat and owner:
 Decision: approve / stop
 Comparison receipt:
 ```
 
-**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the metric intent or domain owner is unknown, the legacy baseline is unclassified, an invalid legacy baseline has no independent anchor, the grain or filters differ, the date window is incomplete, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, a freshness explanation is unverified, or the result conflicts with an owner-approved source of truth. Keep legacy as primary and route the evidence to the metric owner.
+**Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the metric intent or domain owner is unknown, the legacy baseline is unclassified, an invalid legacy baseline has no independent anchor, the grain or filters differ, the date window is incomplete, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, producer coverage is shorter than the consumer window, matching row counts have no value-distribution or segment check, a freshness explanation is unverified, or the result conflicts with an owner-approved source of truth. Keep legacy as primary and route the evidence to the metric owner.
 
-**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). On 17 August, [a Mid Market pair showed the control itself can be wrong](https://razorpay.slack.com/archives/C0A98PQTJH4/p1797520898391909): legacy counted only successful attempts while redesign counted all intended attempts. Freshness belongs to the producing data, and correctness belongs to the approved metric intent—not whichever query shipped first.
+**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). On 17 August, [a Mid Market pair showed the control itself can be wrong](https://razorpay.slack.com/archives/C0A98PQTJH4/p1797520898391909): legacy counted only successful attempts while redesign counted all intended attempts. On 27 August, [`self-serve-analytics` #2239](https://github.com/razorpay/self-serve-analytics/pull/2239) proved a one-day producer was feeding 30-day consumers: per-day row counts matched while a derived value silently changed. A same-day [`#ai-help` recovery](https://razorpay.slack.com/archives/C08C35GKJKD/p1787816521545829) restored the latest date but stamped 13 backfilled days into two partitions. The repository now guards the producer window with a custom test—the same assertion pattern documented in [dbt data tests](https://docs.getdbt.com/docs/build/data-tests). Freshness belongs to the producing data, coverage belongs to the full consumer window, and correctness belongs to the approved metric intent—not whichever query shipped first.
 
 #### Ask, review, or contribute?
 
