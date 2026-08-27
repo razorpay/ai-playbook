@@ -8,29 +8,29 @@ track: "green"
 order: 24
 time_minutes: 30
 audience: "experienced-builder"
-outcome: "Recognise data that falls under PII, PCI, or RBI scope; understand why each regulator cares; develop the reflexes that keep regulator-protected data out of AI-assisted work."
+outcome: "Recognise data that falls under PII, PCI, or RBI scope; understand why each rule set matters; develop the reflexes that keep protected data out of AI-assisted work."
 prev: "belts/green/llm-proxy"
 next: "belts/green/prompt-injection"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "compliance", "pii", "pci", "rbi", "regulators"]
-updated: "2026-04-29"
+updated: "2026-08-27"
 ---
 
 # G.24 — PII, PCI, RBI
 
-The redlines from G.22 are operational; this chapter is the *why*. Three named regulator surfaces shape Razorpay's data discipline: **PII** (personal data privacy law, broadly scoped), **PCI** (the payment card industry data security standard, narrowly scoped to card data), and **RBI** (the Reserve Bank of India, with overlapping but distinct rules for Indian financial-services data). A Green Belt builder knows what each one cares about, why, and what reflex it produces.
+The redlines from G.22 are operational; this chapter is the *why*. Three compliance surfaces shape Razorpay's data discipline: **PII** (a data category governed by privacy laws), **PCI DSS** (the payment industry's security standard for payment account data), and **RBI** (the Reserve Bank of India, with overlapping but distinct rules for Indian financial-services data). A Green Belt builder knows what each surface covers, why it matters, and what reflex it produces.
 
-This chapter is not a substitute for the program's compliance training; it is the operational vocabulary so a builder can read a PR description, a CLAUDE.md, or a prompt and spot a regulator-shaped concern.
+This chapter is not a substitute for the program's compliance training; it is the operational vocabulary so a builder can read a PR description, a CLAUDE.md, or a prompt and spot a compliance concern.
 
 ---
 
 ## If you're short on time
 
 - **PII** is broadly scoped: any data that identifies a person. Names, emails, phone, IDs, addresses. Scope varies by region; the program's policy carries the canonical list.
-- **PCI** is narrowly scoped: card data: primary account numbers (PANs), CVVs, expiry, magnetic stripe data. The reflex: card data does not transit our systems unredacted, ever.
+- **PCI DSS** is an industry security standard for payment account data and the environments that can affect its security. The reflex: card data does not enter prompts or leave approved PCI-scoped paths unredacted.
 - **RBI** is jurisdiction-scoped: rules specific to financial services in India. Overlaps with PII; adds rules around KYC, transaction reporting, and data localisation.
-- The reflex is "if a regulator names this, treat it as a hard redline regardless of how convenient the workaround would be."
+- If a compliance rule protects the data, treat it as a hard redline regardless of how convenient the workaround would be.
 
 ---
 
@@ -38,7 +38,7 @@ This chapter is not a substitute for the program's compliance training; it is th
 
 ```
    ┌────────────────────────────────────────────────┐
-   │              REGULATOR SURFACES                  │
+   │              COMPLIANCE SURFACES                 │
    ├────────────────────────────────────────────────┤
    │                                                  │
    │   PII (broad)                                    │
@@ -50,7 +50,8 @@ This chapter is not a substitute for the program's compliance training; it is th
    │       lookups off-channel                        │
    │                                                  │
    │   PCI (narrow)                                   │
-   │   ├── what it is: card data (PAN, CVV, expiry)  │
+   │   ├── what it is: payment account data          │
+   │   │   (cardholder data + sensitive auth data)   │
    │   ├── why: payment-industry standard; scope     │
    │   │   reduction is the architecture's job        │
    │   └── reflex: card data does not appear in       │
@@ -87,9 +88,9 @@ The three surfaces overlap. A KYC document includes PII; a card transaction incl
 
 ---
 
-## PCI — the narrow surface
+## PCI DSS — the narrow surface
 
-**What it is.** Cardholder data: primary account numbers (PANs: what most people call "card numbers"), card verification values (CVVs), expiry dates, magnetic-stripe data, and a small set of related fields. The Payment Card Industry Data Security Standard (PCI DSS) is the named regulation.
+**What it is.** The Payment Card Industry Data Security Standard (PCI DSS) is an industry security standard for payment account data and the environments that can affect its security. It distinguishes **cardholder data** — the primary account number (PAN), plus fields such as cardholder name, expiry date, or service code when stored with it — from **sensitive authentication data**, such as full track data, card verification codes or values, and PINs. This chapter's operational redline treats both groups as card data.
 
 **Why it matters.** Card data theft is a payment-industry foundational risk. The standard exists because the cost of breach is borne by everyone in the ecosystem, so the rules are non-negotiable for anyone who touches card data.
 
@@ -132,9 +133,9 @@ A builder writing a Green-Belt-grade feature on this flow needs to know where ea
 A Green Belt builder, before sending any prompt that might involve real-world data:
 
 1. **Is there real-world data in this prompt?** If no, ship it. If yes, continue.
-2. **What category does it fall in?** PII (broad)? PCI (card)? RBI (India financial-services)?
+2. **What category does it fall in?** PII (broad)? PCI DSS (payment account data)? RBI (India financial services)?
 3. **Is the prompt the right place for this data?** Almost always: no. Synthetic / redacted / off-channel.
-4. **If the prompt really needs the data, is the work in regulator scope?** If yes, the work is reviewed differently; consult the program lead off-channel before continuing.
+4. **If the prompt really needs the data, is the work in compliance scope?** If yes, the work is reviewed differently; consult the program lead off-channel before continuing.
 5. **Does the proxy / pre-ship-check / output classifier catch this if I miss it?** Probably, but the reflex is the cheap front line and earns the builder's right to do this work at all.
 
 The whole sequence takes ten seconds. A builder who does it consistently is the kind of builder a compliance team trusts. A builder who does it occasionally is the kind of builder a compliance team has to monitor.
@@ -145,7 +146,7 @@ The whole sequence takes ten seconds. A builder who does it consistently is the 
 
 Razorpay operates beyond India; other regulators apply. PCI is global. PII rules vary (GDPR in Europe, CCPA in California, others elsewhere). RBI is India-specific; other countries have their own central-bank or financial-services regulators.
 
-The Green Belt builder's reflex is the same shape regardless of jurisdiction: treat regulator-scoped data as a hard redline, default to redaction, escalate when uncertain. The specifics live in the program's compliance training, not in this chapter.
+The Green Belt builder's reflex is the same shape regardless of jurisdiction: treat compliance-scoped data as a hard redline, default to redaction, escalate when uncertain. The specifics live in the program's compliance training, not in this chapter.
 
 ---
 
@@ -167,27 +168,27 @@ The Green Belt builder's reflex is the same shape regardless of jurisdiction: tr
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can name what falls under PII, PCI, and RBI scope; I run the reflex sequence on every prompt that might touch real-world data; I escalate cleanly when uncertain.
-- 🟡 YELLOW — I understand the regulators in concept but my reflex is partial; I rely on the proxy as a backstop more than I should.
-- 🔴 RED — I cannot tell which regulator surface a piece of data belongs to.
+- 🟢 GREEN: I can name what falls under PII, PCI DSS, and RBI scope; I run the reflex sequence on every prompt that might touch real-world data; I escalate cleanly when uncertain.
+- 🟡 YELLOW — I understand the compliance surfaces in concept but my reflex is partial; I rely on the proxy as a backstop more than I should.
+- 🔴 RED — I cannot tell which compliance surface a piece of data belongs to.
 
 ---
 
 ## What you can say after this module
 
-> "I recognise data that falls under PII, PCI, or RBI scope, I redact regulator-protected data before it touches a prompt, and I escalate to the program lead when I am uncertain rather than guessing."
+> "I recognise data that falls under PII, PCI DSS, or RBI scope, I redact protected data before it touches a prompt, and I escalate to the program lead when I am uncertain rather than guessing."
 
 ---
 
 ## Where to go next
 
-G.25 (*Prompt injection + output classifiers*) covers the threat side of the same surface: what attackers do to *cause* regulator-protected data to leak, and what classifiers do to catch it.
+G.25 (*Prompt injection + output classifiers*) covers the threat side of the same surface: what attackers do to *cause* protected data to leak, and what classifiers do to catch it.
 
 **Previous:** [← G.23 The LLM proxy](G23-llm-proxy.md) · **Next:** [→ G.25 Prompt injection](G25-prompt-injection.md)
 
 **Further reading**
 
 - [Appendix H — Reference Cards](../../../appendices/H-reference-cards/README.md) — the canonical redline cards
-- [PCI DSS overview](https://www.pcisecuritystandards.org/) — the public standard
+- [PCI DSS overview](https://www.pcisecuritystandards.org/standards/pci-dss/) — the PCI Security Standards Council's scope and intended-audience summary
 - [RBI public circulars](https://www.rbi.org.in/) — the Indian regulator's public guidance
 - [Prologue 0.11 — The safety brief](../../../prologue/11-safety-brief.md)
