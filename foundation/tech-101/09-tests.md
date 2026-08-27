@@ -14,18 +14,18 @@ next: "tech-101/shape-of-a-software-org"
 pillar: null
 belt: null
 tags: ["software-basics", "testing"]
-updated: "2026-04-26"
+updated: "2026-08-27"
 ---
 
 # 0A.9 — Tests (what they are, why they exist)
 
-> **⏱ 8 minutes · 👥 Anyone curious · 🎯 Leaves with:** the right mental picture for *why a green test suite is the single biggest predictor of how fast a team can actually ship*.
+> **⏱ 8 minutes · 👥 Anyone curious · 🎯 Leaves with:** the right mental picture for *why a maintained test suite is strong evidence that a team can ship safely and quickly*.
 
 ---
 
 ## The one-paragraph answer
 
-A **test** is code that checks other code. You write a small program that says *"given input X, the system should produce output Y,"* the test runs whenever the codebase changes, and if Y stops being what comes out, the test fails — loudly, before anyone gets to use the broken version. A team's collection of tests is its **test suite**. A team with a strong test suite ships fast and breaks rarely; a team without one ships slowly and breaks often. *Tests are the technical artefact most directly responsible for whether a team feels confident or terrified to deploy.*
+A **test** is code that checks other code. You write a small program that says *"given input X, the system should produce output Y,"* the test runs whenever the codebase changes, and if Y stops being what comes out, the test fails — loudly, before anyone gets to use the broken version. A team's collection of tests is its **test suite**. A strong suite makes changes safer and faster because known expectations are checked automatically. It is evidence, not a guarantee: the suite can check only the behaviours it contains.
 
 ---
 
@@ -33,7 +33,7 @@ A **test** is code that checks other code. You write a small program that says *
 
 In chapter 0A.8 we traced the journey from a merged PR to users seeing the change. Step three of that journey was *test*. We said the build runs the test suite, and a failing test fails the build, and a failing build doesn't deploy. That's true and important. But it doesn't explain *why* tests get to be the gate.
 
-This chapter is the why. You won't write tests yourself unless you become an engineer (and even then, AI now writes most of them) but you'll hear about tests every day. Whether a team is "well-tested" or "not well-tested" is the single most-used shorthand for "is this code base safe to change."
+This chapter is the why. You may not write tests yourself unless you become an engineer, but you will hear about them every day. Whether a team is "well-tested" or "not well-tested" is common shorthand for how safely its codebase can change.
 
 ---
 
@@ -49,7 +49,7 @@ test("add returns the sum of two numbers", () => {
 
 In words: *the test is named "add returns the sum of two numbers." When run, it calls `add(2, 2)`. It expects the result to be `4`. If the result is `4`, the test passes. If anything else, the test fails.*
 
-A real-world test suite has hundreds or thousands of these, each checking a different small claim about how the code should behave. The suite as a whole is run automatically: on every PR, on every build, on every deploy. A new bug almost always shows up as *a previously-passing test that's now failing*. That signal is what makes tests valuable.
+A real-world test suite has hundreds or thousands of these, each checking a different small claim about how the code should behave. The suite as a whole is run automatically: on every PR, on every build, or before every deploy. When a change breaks a behaviour the suite already covers, a previously passing test should fail. That early signal is what makes tests valuable.
 
 You don't need to read code to read this chapter. The shape is what matters: *given input, expect output, run automatically*. Tests are the codified version of "I'd hoped this would work."
 
@@ -69,15 +69,15 @@ A healthy test suite has all three, in roughly a triangle: many unit tests at th
 
 ---
 
-## Why a green test suite is the *thing* that matters
+## Why a strong test suite matters
 
-Most engineers will tell you, if asked honestly, that the difference between *terrified* deploys and *confident* deploys is whether the team has a strong test suite. The reasoning isn't subtle:
+A maintained test suite is one of the clearest differences between a risky deploy and a routine one. The reasoning is straightforward:
 
 **Without tests**, every change is a guess. You change one file and pray nothing else breaks. The only way to know the system still works is to manually check, by hand, every behaviour you can think of. You can't think of all of them. You miss things. Things break. Customers find them.
 
-**With tests**, every change runs the suite. The thousand things you might have broken are checked automatically. If you broke any of them, the suite fails, you fix it, you re-run. By the time the change reaches users, *every codified expectation about how the system should behave* has been verified.
+**With tests**, every change runs the suite. The codified expectations are checked automatically. If one fails, you investigate, fix the code or the expectation, and rerun. A green result means those checks passed; it does not say anything about behaviour the suite never tested.
 
-The compounding is the part that makes test suites enormous. A team that writes a test every time they fix a bug grows a suite that catches that bug *forever after*. The same bug never makes it past the suite again. A team that doesn't write that test fixes the same bug three or four times over the course of a year, each time wondering if they've seen this before.
+The compounding is the part that makes test suites powerful. A team that writes a regression test when it fixes a bug keeps an executable record of the failure. If the same behaviour breaks again and the test remains trustworthy, the suite should catch it. Without that test, the team may rediscover the same bug later with only human memory to help.
 
 There's a famous practitioner's saying: *the test suite is the team's institutional memory of "things that have hurt us."* It's a defensible claim. *"What broke last time?"* is the most-asked question in any engineering org; the answer either lives in the test suite (where it's automatic) or in someone's head (where it eventually leaves).
 
@@ -91,29 +91,29 @@ When a team admits they don't have tests, what they're really admitting is one o
 - **They wrote tests once but stopped when the suite became inconvenient.** A neglected test suite gradually becomes a *failing* test suite — tests that nobody bothers to keep green because the signal got too noisy. A failing test suite is worse than no tests, because it teaches the team that the suite isn't trustworthy.
 - **They wrote tests at the wrong layer.** Some teams have hundreds of unit tests but no integration tests, and break constantly at the seams. Some have only E2E tests and nothing finer-grained, and pay for it in slow CI.
 
-The healthiest teams have a *believed-in* test suite. The signal is true. Everyone knows that when the suite is green, the change is safe to ship. When the suite is red, *something is actually broken*. That belief, once established, is worth a lot. A team that *believes* its tests can deploy ten times a day; a team that doesn't can deploy once a week.
+The healthiest teams have a *trusted* test suite: failures are investigated, flaky checks are repaired, and important behaviours are represented. Green means no known check failed, so the team can combine that result with review, staged rollout, and monitoring. Red means the team stops to understand whether the product, the test, or the environment is wrong. The value comes from acting on the signal, not believing it blindly.
 
 ---
 
 ## What AI changed
 
-Tests used to be a tax: boring code, written under duress, that nobody enjoyed writing. AI changed the economics.
+AI coding tools reduce the effort of drafting tests, especially when the expected behaviour and repository conventions are clear. They do not remove the reasoning work.
 
-Modern AI coding tools (Claude Code among them) write tests *very well*. Given a function, given the surrounding code, given a description of what the function should do, AI produces a near-complete unit test in seconds. Integration tests follow the same pattern. E2E tests are slower for AI to write (they involve more orchestration) but Playwright + Claude Code is, today, the most efficient way most teams write E2E tests they actually maintain.
+Given a function, surrounding code, and a precise behaviour, an AI tool can draft unit, integration, or end-to-end tests quickly. The draft can still assert the implementation instead of the requirement, miss a risky boundary, invent fixtures, or pass without proving the intended outcome. A human must define the behaviour, review the assertions, run the test, and inspect failures.
 
-The practical implication: *the cost of writing tests is no longer the bottleneck.* The bottleneck is now the *discipline* of writing them. Whether you get a test added every time a bug is found is a culture question, not a productivity one. AI removed the labour; the habit is what's left.
+The practical implication: use AI for the first draft, not the final verdict. Ask it to identify behaviours and edge cases, choose the right test layer, and produce a test that fails before the fix and passes after it. Then review whether the assertions prove the requirement rather than merely exercise the code.
 
-For non-engineers reading this: when you hear *"this team has good test coverage,"* what's increasingly meant is *"this team has internalised the discipline of asking AI to write tests alongside fixes."* The technique part is solved; the habit part is the differentiator.
+For non-engineers, *"this team has good test coverage"* should prompt a follow-up: *which important behaviours and risk boundaries do the tests cover?* How the first draft was produced matters less than whether the finished tests are meaningful and trusted.
 
 ---
 
 ## What "test coverage" actually means
 
-You'll hear the phrase **test coverage** — usually expressed as a percentage. It refers to the fraction of the codebase that's exercised by the test suite when it runs. *"This service has 80% coverage"* means roughly four-fifths of its lines of code are hit by at least one test.
+You'll hear the phrase **test coverage** — usually expressed as a percentage. It reports how much instrumented code ran during the suite. A tool may report lines, statements, functions, or branches, so first ask which measure is being quoted. *"This service has 80% line coverage"* means roughly four-fifths of its instrumented lines ran at least once; it does not mean 80% of its behaviour is correct.
 
-Coverage is a useful metric and a misleading one. Useful: a project with 5% coverage is genuinely undertested; a project with 80% is genuinely well-tested. Misleading: a project with 100% coverage might still have terrible tests (every line is run, but no claims are checked); a project with 60% coverage in the *right* places might be more reliable than one with 95% in the wrong places.
+Coverage is useful for finding code the suite never reaches and for spotting sudden drops. It is misleading when treated as a quality score. A project with 100% line coverage might still have weak assertions, while a project with a lower percentage might test its highest-risk behaviours more effectively.
 
-The mental model: coverage is necessary but not sufficient. *"What's the coverage?"* is the wrong question. *"Are the tests checking what would actually break us if it broke?"* is the right one. Coverage is a proxy; the proxy is sometimes wrong.
+The mental model: coverage describes **execution breadth**, not **test quality**. Ask both *"what ran?"* and *"what important claim did the test prove?"* The percentage can guide investigation; it cannot replace it.
 
 ---
 
@@ -134,9 +134,9 @@ For these, teams use other layers: staged rollouts, observability, beta testing,
 
 - **A test is code that checks other code.** Given input, expect output, run automatically.
 - **Three kinds: unit, integration, end-to-end.** Different speed/scope trade-offs; healthy suites have all three.
-- **A green test suite is the single biggest predictor of fast, confident shipping.** A red or absent suite is the single biggest predictor of fragility.
-- **AI changed the cost of writing tests, not the value of having them.** The discipline of *adding tests* is now the differentiator, not the labour.
-- **Coverage is a proxy.** Useful at extremes, misleading in the middle. *"Are tests checking what would break us?"* is the better question.
+- **A maintained test suite is strong evidence, not a safety guarantee.** Green means the codified checks passed; review, rollout, and monitoring still matter.
+- **AI speeds up the first draft, not the judgement.** Humans still define expected behaviour, review assertions, run the tests, and inspect failures.
+- **Coverage measures execution breadth, not quality.** Ask what ran and what important claim the test proved.
 - The next chapter ([0A.10 — Shape of a software org](10-shape-of-a-software-org.md)) closes Tech 101 with the cast (engineers, designers, PMs, ops, SRE, QA) and how they interact to make all of this work.
 
 ---
