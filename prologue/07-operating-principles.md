@@ -14,7 +14,7 @@ next: "prologue/how-to-read"
 pillar: null
 belt: null
 tags: ["orientation", "knowledge-base"]
-updated: "2026-07-19"
+updated: "2026-08-28"
 ---
 
 # 0.7 — Operating Principles (knowledge-base-driven development)
@@ -51,13 +51,13 @@ You don't need to install any of these to earn any belt at Razorpay. You need to
 
 ### gstack
 
-Garry Tan's framework (the YC president, ~80K stars on GitHub) is built around the idea that **a single builder with the right roles encoded as prompts ships like a team**. About twenty specialist skills install into your Claude Code's skills folder: `/office-hours`, `/plan-eng-review`, `/design-consultation`, `/qa`, `/ship`, `/retro`, etc. — each summoned by a slash command. They sequence the work as **Think → Plan → Build → Review → Test → Ship → Reflect**. Crucially, the framework ships with **GBrain**, a persistent knowledge base exposed as an MCP server, and a `/learn` skill that compounds project-specific patterns across sessions. *"gstack is a process, not a collection of tools."* The KB is what makes the process compound.
+Garry Tan's framework is built around the idea that **a single builder with the right roles encoded as prompts ships like a team**. Its specialist skills install into your Claude Code's skills folder: `/office-hours`, `/plan-eng-review`, `/design-consultation`, `/qa`, `/ship`, `/retro`, etc. — each summoned by a slash command. They sequence the work as **Think → Plan → Build → Review → Test → Ship → Reflect**. Crucially, the framework ships with **GBrain**, a persistent knowledge base exposed as an MCP server, and a `/learn` skill that compounds project-specific patterns across sessions. *"gstack is a process, not a collection of tools."* The KB is what makes the process compound.
 
 [gstack on GitHub](https://github.com/garrytan/gstack)
 
 ### Get Shit Done (GSD)
 
-TÂCHES's framework (~57K stars, shipping a release every few days) takes a more structural approach. It materialises the knowledge base as a **`.planning/` directory** in your repo: `PROJECT.md` (vision), `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md` for cross-session memory, per-phase `CONTEXT.md` files, and XML-structured plans sized to fit a single fresh context window. Subagents run in **"waves"** — independent plans run in parallel each with their own 200K-token windows; dependent ones serialise. The explicit thesis is solving **"context rot"** — the quality degradation that happens when a single Claude session fills its context with old conversation. *"Claude Code is powerful. GSD makes it reliable."* The reliability comes from the persistent `.planning/` files, not from clever prompts.
+TÂCHES's framework takes a more structural approach. It materialises the knowledge base as a **`.planning/` directory** in your repo: `PROJECT.md` (vision), `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md` for cross-session memory, per-phase `CONTEXT.md` files, and XML-structured plans sized to fit a single fresh context window. Subagents run in **"waves"** — independent plans run in parallel each with their own 200K-token windows; dependent ones serialise. The explicit thesis is solving **"context rot"** — the quality degradation that happens when a single Claude session fills its context with old conversation. *"Claude Code is powerful. GSD makes it reliable."* The reliability comes from the persistent `.planning/` files, not from clever prompts.
 
 [GSD on GitHub](https://github.com/gsd-build/get-shit-done)
 
