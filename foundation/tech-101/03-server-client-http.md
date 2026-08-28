@@ -14,7 +14,7 @@ next: "tech-101/databases"
 pillar: null
 belt: null
 tags: ["software-basics", "http"]
-updated: "2026-04-26"
+updated: "2026-08-28"
 ---
 
 # 0A.3 — What is a server? What is a client? What is HTTP?
@@ -97,7 +97,7 @@ An HTTP **request** has three meaningful parts:
 
 An HTTP **response** has three meaningful parts:
 
-- **A status code.** A three-digit number telling you, at a glance, what happened. **2xx** = success (`200 OK` is the famous one). **3xx** = redirect ("the answer is over there"). **4xx** = you, the client, asked badly (`404 Not Found`, `401 Unauthorized`, `403 Forbidden`). **5xx** = the server messed up (`500 Internal Server Error`, `503 Service Unavailable`). Memorise the *families*, not the codes — they cover 95% of the conversations you'll need to have.
+- **A status code.** A three-digit number that classifies the outcome. `2xx` means the request succeeded, `3xx` redirects, `4xx` means the request could not be fulfilled as sent, and `5xx` means the server could not complete an apparently valid request. The family narrows where to investigate; it does not assign blame.
 - **Headers.** Bits of metadata about the response. Mostly you can ignore them; occasionally one matters.
 - **A body.** The actual answer. Usually JSON (we'll meet JSON in chapter 0A.5) or HTML (the language of webpages).
 
@@ -107,15 +107,25 @@ When you load any webpage, your browser is sending dozens of HTTP requests behin
 
 ## Status codes, in plain English
 
-You'll hear status codes used as shorthand in incident channels and in error messages. The five families, with the mental model:
+You'll hear status codes used as shorthand in incident channels and in error messages. There are five standard families:
 
-- **`2xx` — "I did it."** Most often `200 OK`. Things worked.
-- **`3xx` — "Look over there."** Redirects. The browser follows them automatically; you rarely see them as a user.
-- **`4xx` — "You asked wrong."** The client (you, your app) sent something the server didn't accept. `404` = "no such thing here." `401` = "you're not logged in." `403` = "you're logged in but not allowed." `400` = "your request was malformed."
-- **`5xx` — "I messed up."** The server tried, but failed. `500` is the generic "something went wrong on our end." `503` = "I'm overloaded, try again."
-- **Anything weirder than that.** Almost always either a proxy in the middle (a server-in-front-of-the-server) or someone returning the wrong code on purpose. Don't worry about it for now.
+- **`1xx` — "Keep going."** The request is still in progress. Browsers and apps usually handle these responses without showing them to you.
+- **`2xx` — "Completed."** Most often `200 OK`. The server accepted and completed the request, though you still need to check that the returned result is the one you expected.
+- **`3xx` — "Look over there."** The client needs to follow another location or use a cached response. Browsers often handle this automatically.
+- **`4xx` — "This request cannot be fulfilled as sent."** Read the exact code and response before choosing a fix. `400` points to an invalid request, `401` to missing or invalid authentication, `403` to a request the server understood but will not permit, `404` to a resource that is absent or not disclosed, and `429` to too many requests. A `4xx` does **not** prove that the user made a mistake: an expired token, changed permission, stale client, or rate limit can all produce one.
+- **`5xx` — "The server could not complete this apparently valid request."** `500` is the generic unexpected-failure response; `503` usually means the service is unavailable. The cause may sit in the application, a dependency, a proxy, or overloaded infrastructure. The family tells you where to start, not which team to blame.
 
-When the dashboard is misbehaving and an engineer asks "what status code did you see?", they're asking which family it was in. *4xx versus 5xx tells them whose fault it likely is*, and that's most of the diagnostic value of the question.
+When the dashboard is misbehaving and an engineer asks for the status code, give them a small evidence receipt:
+
+```text
+Operation: <what you clicked or requested>
+Status: <exact HTTP status>
+Response: <exact non-secret error text>
+Time + scope: <time and timezone; only you or multiple users?>
+Retry: <not tried / same result / different result>
+```
+
+That receipt separates authentication, permission, rate-limit, application, and dependency failures much faster than “it threw a 4xx.” Status codes are routing clues, not a courtroom verdict.
 
 ---
 
@@ -131,7 +141,7 @@ You open your phone. You tap your bank app. Here's roughly what happens, with na
 
 That whole conversation happened in under a second. It happens every single time you open the app. Multiply by every user; that's the load on the server.
 
-If anything in that chain fails (token expired, server overloaded, network hiccup, database hung) you see one of the symptoms you've grown up with: *"please try again," "session expired," "we couldn't load your balance."* Each of those is a slightly different failure mode. The error code in the response body tells the engineer exactly which.
+If anything in that chain fails (token expired, server overloaded, network hiccup, database hung) you see one of the symptoms you've grown up with: *"please try again," "session expired," "we couldn't load your balance."* The HTTP status and any non-secret response text narrow the search, but they may be generic or missing. Capture them with the operation, time, scope, and retry result; engineers combine that evidence with logs and traces to identify the cause.
 
 ---
 
@@ -140,7 +150,7 @@ If anything in that chain fails (token expired, server overloaded, network hiccu
 - **Client = asker. Server = answerer.** One conversation, two roles. Always.
 - **The server is a computer in a data centre, listening, serving thousands of clients at once.** Your phone is a client; somebody's laptop running `npm run dev` is briefly a server too.
 - **HTTP is the language they speak.** Method + URL + (sometimes) body in the request; status code + headers + body in the response.
-- **Status codes come in families.** 2xx success, 3xx redirect, 4xx your-fault, 5xx my-fault. Knowing the family is most of the diagnostic value.
+- **Status codes come in five families.** `1xx` in progress, `2xx` completed, `3xx` redirect, `4xx` request not fulfilled as sent, `5xx` server could not complete an apparently valid request. The family starts the investigation; the exact code, response, operation, time, and scope make it useful.
 - **JSON is the most common shape of response bodies.** We'll meet it properly in chapter 0A.5.
 - The next chapter ([0A.4 — Databases](04-databases.md)) is the place inside the server where all the *facts* live — the world's most important spreadsheet.
 
@@ -149,6 +159,7 @@ If anything in that chain fails (token expired, server overloaded, network hiccu
 **Previous:** [← 0A.2 Frontend vs backend](02-frontend-vs-backend.md) · **Next:** [→ 0A.4 Databases](04-databases.md)
 
 **Further reading**
+- [RFC 9110 — HTTP Semantics, status codes](https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes) — the protocol definitions behind the five response families
 - [MDN — Overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview) — Mozilla's authoritative plain-language reference
 - [Julia Evans — How HTTP works](https://wizardzines.com/zines/http/) — paid zine, the most readable thing on the topic
 - [What is a Server? — Cloudflare's primer](https://www.cloudflare.com/learning/cloud/what-is-a-server/) — short, friendly, with diagrams
