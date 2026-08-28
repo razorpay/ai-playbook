@@ -159,7 +159,7 @@ If anything in that chain fails (token expired, server overloaded, network hiccu
 **Previous:** [← 0A.2 Frontend vs backend](02-frontend-vs-backend.md) · **Next:** [→ 0A.4 Databases](04-databases.md)
 
 **Further reading**
-- [RFC 9110 — HTTP Semantics, status codes](https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes) — the protocol definitions behind the five response families
+- [RFC 9110 — HTTP Semantics, status codes](https://datatracker.ietf.org/doc/html/rfc9110#section-15) — the protocol definitions behind the five response families
 - [MDN — Overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview) — Mozilla's authoritative plain-language reference
 - [Julia Evans — How HTTP works](https://wizardzines.com/zines/http/) — paid zine, the most readable thing on the topic
 - [What is a Server? — Cloudflare's primer](https://www.cloudflare.com/learning/cloud/what-is-a-server/) — short, friendly, with diagrams
