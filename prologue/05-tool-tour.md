@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-08-02"
+updated: "2026-08-28"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -58,13 +58,13 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Claude.ai
 
-**What it is:** The chat at `claude.ai`. A web browser window with a text box. Same underlying models (reached through Anthropic directly via your SSO seat, not through the LiteLLM gateway), no file access, no repo context, no Razorpay skills.
+**What it is:** The chat at `claude.ai`. A web browser window with a text box. It reaches Claude through your SSO workspace rather than the LiteLLM gateway. Its context comes from the conversation, files you upload, and any workspace connectors you are allowed to use; it does not inherit your local working tree or Compass runtime.
 
 **Why you'll use it:** For thinking, writing, PM-style work: draft a Slack post, explain a technical concept in plain English, brainstorm an RFC, summarise a long doc. It's *excellent* for those.
 
 **The feel:** ChatGPT, but with Claude as the model. Low-ceremony, no setup.
 
-**When NOT to reach for it:** **When you want to ship code into a Razorpay repo.** Claude.ai has no access to your files, no Blade knowledge, and none of the pre-ship / PR-guardrail skills. Code pasted out of Claude.ai into a repo has a near-perfect record of failing compliance because it doesn't know Blade exists. The failure mode is so common that a dedicated "production-compiler" skill exists specifically to repair Claude.ai / AI-Studio / ChatGPT output when someone has already gone down this path. [Appendix C](../appendices/C-skills-library/README.md) is the first catalogue for those skills.
+**When NOT to reach for it:** **When you want to ship code into a Razorpay repo.** Claude.ai can help draft or explain code, but it cannot inspect your live branch, run the repo checks, or apply Razorpay conventions it has not been given. Treat its code as a proposal: bring the intent into Claude Code, inspect the current repo, apply Blade, and run the required build, tests, and review checks. The in-repo [`production-compiler` reference definition](../skills/production-compiler/README.md) shows one repair-workflow pattern; its source here does not mean your Compass runtime installs it. [Appendix C](../appendices/C-skills-library/README.md) explains that source-versus-runtime boundary.
 
 **Rule of thumb:** Claude.ai is for *talking about* code. Claude Code is for *shipping* code. Don't cross the streams.
 
@@ -100,17 +100,17 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 
 ## Compass (the plugin, not a separate app)
 
-**What it is:** A **plugin that runs inside Claude Code.** Not a standalone tool. When you install Compass, your Claude Code gets a bundle of Razorpay-specific extensions:
+**What it is:** A **plugin that runs inside Claude Code.** Not a standalone tool. The installed Compass version can add Razorpay-specific extensions such as:
 
-- **Skills**: structured markdown instructions that tell Claude how to do Razorpay-native tasks (choosing a Blade component, running a pre-ship check, guarding PR creation, etc.; [Appendix C](../appendices/C-skills-library/README.md) catalogues the pattern).
+- **Skills**: structured Markdown instructions for Razorpay-native tasks; [Appendix C](../appendices/C-skills-library/README.md) catalogues the reference patterns separately from current runtime availability.
 - **Subagents** — smaller specialist Claudes that the main Claude can delegate to (e.g. a Blade reviewer agent).
 - **Hooks**: scripts that auto-fire at pre-commit, pre-PR, or other Claude Code lifecycle moments.
 - **Slash commands** — typed shortcuts like `/setup-verify` or `/pre-ship-check` that trigger skills.
 - **MCP servers**: Model Context Protocol servers that let Claude talk to Blade, Figma, Slack, DevRev, etc.
 
-**Why it matters:** This is Razorpay's unfair advantage. Without Compass, Claude Code is a generic coding assistant. With Compass, it's a Razorpay-native builder copilot that already knows Blade, our repo conventions, and our review culture. The [origin-story chapter](02-bd1-bd2-origin.md) has a whole paragraph on why we version-lock the Compass plugin.
+**Why it matters:** Compass is how supported Razorpay context and workflows reach Claude Code. What is available depends on the version you installed; a skill definition in this repository is not proof that Compass distributes the same command. The [origin-story chapter](02-bd1-bd2-origin.md) explains why the program pins plugin versions.
 
-**The feel:** You won't *see* Compass — you'll see its effects. When you type `/` and a long list of Razorpay-specific commands appears, that's Compass. When Claude randomly knows that the Blade `Button` component is called that and has these variants, that's Compass.
+**The feel:** You won't open a separate Compass app; you will see whichever extensions the installed version loads inside Claude Code. Run `/help` and inspect the installed plugin sources for the current runtime inventory. Do not infer an available command from an example elsewhere in the playbook.
 
 **When to reach for it:** You don't reach for it. You install it once in [W.7 — Compass plugin](../belts/01-white/W07-compass-plugin.md), then it stays available inside Claude Code. Questions go to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD).
 
