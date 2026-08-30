@@ -92,8 +92,8 @@ chapters:
     type: chapter
     audience: anyone-curious
     time_minutes: 10
-    outcome: Understand which side of a product change lives on the frontend,
-      backend, or between them.
+    outcome: Locate a product change or bug using interface, service, data, and
+      boundary evidence.
     tags:
       - software-basics
   - slug: tech-101/server-client-http

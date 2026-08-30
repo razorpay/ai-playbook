@@ -14,7 +14,7 @@ next: "tech-101"
 pillar: null
 belt: null
 tags: ["orientation"]
-updated: "2026-04-27"
+updated: "2026-08-30"
 ---
 
 # Part 0 — Foundation
@@ -47,7 +47,7 @@ The minimum viable picture of how software actually works. By the end you can re
 Ten short chapters, ~90 minutes total:
 
 - 0A.1 — What is software, really?
-- 0A.2 — Frontend vs backend (and why most product friction lives in between)
+- 0A.2 — Frontend vs backend (and why product friction lives at boundaries)
 - 0A.3 — What is a server? What is a client? What is HTTP?
 - 0A.4 — Databases: the world's most important spreadsheet
 - 0A.5 — What is an API? What is a UI?

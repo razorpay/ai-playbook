@@ -99,13 +99,13 @@ chapters:
     order: 2
     time_minutes: 10
     audience: "anyone-curious"
-    outcome: "Understand which side of a product change lives on the frontend, backend, or between them."
+    outcome: "Locate a product change or bug using interface, service, data, and boundary evidence."
     prev: "tech-101/what-is-software"
     next: "tech-101/server-client-http"
     pillar: null
     belt: null
     tags: ["software-basics"]
-    updated: "2026-04-26"
+    updated: "2026-08-30"
   - slug: "tech-101/server-client-http"
     path: "foundation/tech-101/03-server-client-http.md"
     title: "What is a server? What is a client? What is HTTP?"

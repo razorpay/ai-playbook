@@ -6,6 +6,17 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.62 — frontend/backend responsibility and evidence (2026-08-30)
+
+Tech 101 said backend does the “actual work,” frontend always lives on the user's device, almost every nasty bug lives at their seam, and a refresh can localise a defect by 50%. Those absolutes give beginners a false ownership and diagnosis model.
+
+**What changed.**
+
+- **0A.2 now teaches responsibilities, not importance or fixed machines.** The restaurant analogy distinguishes the interactive experience from supporting services, rules, and shared data while covering server-rendered interfaces, offline-capable apps, background jobs, and local services.
+- **Bug diagnosis now asks for evidence.** A copyable receipt captures the surface, action, expected and observed result, boundary evidence, scope, time, and retry result before assigning a layer or cause.
+- **Navigation and metadata aligned.** Foundation indexes, the course manifest, and generated project knowledge use the corrected chapter label and outcome.
+- **Version markers bumped.** README and INDEX now report v0.62 / 2026-08-30 for this Tech 101 correction.
+
 ## v0.61 — plugin package and surface proof (2026-08-13)
 
 B.3 described a Razorpay Cowork tenant marketplace, `pack.yml`, one-click installs, and a central governance route that the canonical plugin repository does not implement. Internal support requests asking how to publish or set up Analytics Agent in Cowork show why the distinction matters: a source package in the developer marketplace is not proof that PMs or designers can use it on another surface.
