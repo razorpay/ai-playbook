@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.61 · last reviewed 2026-08-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.62 · last reviewed 2026-08-30 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -153,7 +153,7 @@ Two background concepts that the playbook depends on; each has its own chapter, 
 | §     | Chapter                                                        | Status | Time   |
 |-------|----------------------------------------------------------------|--------|--------|
 | 0A.1  | [What is software, really?](foundation/tech-101/01-what-is-software.md) | [drafted] | 5 min  |
-| 0A.2  | [Frontend vs backend (and why most product friction lives in between)](foundation/tech-101/02-frontend-vs-backend.md) | [drafted] | 10 min |
+| 0A.2  | [Frontend vs backend (and why product friction lives at boundaries)](foundation/tech-101/02-frontend-vs-backend.md) | [drafted] | 10 min |
 | 0A.3  | [What is a server? What is a client? What is HTTP?](foundation/tech-101/03-server-client-http.md) | [drafted] | 10 min |
 | 0A.4  | [Databases — the world's most important spreadsheet](foundation/tech-101/04-databases.md) | [drafted] | 8 min  |
 | 0A.5  | [What is an API? What is a UI?](foundation/tech-101/05-api-vs-ui.md) | [drafted] | 8 min  |

@@ -14,7 +14,7 @@ next: "tech-101/what-is-software"
 pillar: null
 belt: null
 tags: ["tech-101"]
-updated: "2026-04-27"
+updated: "2026-08-30"
 ---
 
 # Track 0A — Tech 101
@@ -42,7 +42,7 @@ If you finish this track and find yourself wanting more, the right next step is 
 | §     | Chapter                                                        | Time   |
 |-------|----------------------------------------------------------------|--------|
 | 0A.1  | [What is software, really?](01-what-is-software.md)            | 5 min  |
-| 0A.2  | [Frontend vs backend (and why most product friction lives in between)](02-frontend-vs-backend.md) | 10 min |
+| 0A.2  | [Frontend vs backend (and why product friction lives at boundaries)](02-frontend-vs-backend.md) | 10 min |
 | 0A.3  | [What is a server? What is a client? What is HTTP?](03-server-client-http.md) | 10 min |
 | 0A.4  | [Databases — the world's most important spreadsheet](04-databases.md) | 8 min |
 | 0A.5  | [What is an API? What is a UI?](05-api-vs-ui.md)               | 8 min  |

@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.61 · last reviewed 2026-08-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.62 · last reviewed 2026-08-30 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -158,7 +158,7 @@ Two background concepts that the playbook depends on; each has its own chapter, 
 | §     | Chapter                                                        | Status | Time   |
 |-------|----------------------------------------------------------------|--------|--------|
 | 0A.1  | [What is software, really?](https://razorpay.github.io/ai-playbook/foundation/tech-101/01-what-is-software/) | [drafted] | 5 min  |
-| 0A.2  | [Frontend vs backend (and why most product friction lives in between)](https://razorpay.github.io/ai-playbook/foundation/tech-101/02-frontend-vs-backend/) | [drafted] | 10 min |
+| 0A.2  | [Frontend vs backend (and why product friction lives at boundaries)](https://razorpay.github.io/ai-playbook/foundation/tech-101/02-frontend-vs-backend/) | [drafted] | 10 min |
 | 0A.3  | [What is a server? What is a client? What is HTTP?](https://razorpay.github.io/ai-playbook/foundation/tech-101/03-server-client-http/) | [drafted] | 10 min |
 | 0A.4  | [Databases — the world's most important spreadsheet](https://razorpay.github.io/ai-playbook/foundation/tech-101/04-databases/) | [drafted] | 8 min  |
 | 0A.5  | [What is an API? What is a UI?](https://razorpay.github.io/ai-playbook/foundation/tech-101/05-api-vs-ui/) | [drafted] | 8 min  |
