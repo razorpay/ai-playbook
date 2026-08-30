@@ -1,175 +1,200 @@
 ---
-title: "The shape of a software org"
+title: "Shape of a software org: roles, teams, and decision rights"
 slug: "tech-101/shape-of-a-software-org"
 section: "foundation"
 status: "drafted"
 type: "chapter"
 track: "tech-101"
 order: 10
-time_minutes: 10
+time_minutes: 12
 audience: "anyone-curious"
-outcome: "Understand the roles around software work and how they collaborate."
+outcome: "Read a software org chart without mistaking job titles for fixed ownership, and map the decision rights on a product team."
 prev: "tech-101/tests"
 next: null
 pillar: null
 belt: null
-tags: ["software-basics", "roles"]
-updated: "2026-04-26"
+tags: ["tech-101", "org-design", "roles", "teams"]
+updated: "2026-08-30"
 ---
 
-# 0A.10 — The shape of a software org (engineers, designers, PMs, ops, SRE)
+# 0A.10 — Shape of a software org: roles, teams, and decision rights
 
-> **⏱ 10 minutes · 👥 Anyone curious · 🎯 Leaves with:** the cast of roles that make modern software get built, what each one is responsible for, and where the tension between them tends to live.
-
----
-
-## Why this chapter closes Tech 101
-
-You've now got the technical vocabulary: software, frontend, backend, server, database, API, code, repo, git, build, deploy, tests. What's left is the *people* layer. Who works on which part. Who decides what. Who's accountable when something breaks.
-
-Software org charts vary wildly between companies, but the *roles* are remarkably consistent. Once you can name the cast and the relationships, every product conversation becomes legible — *"I think this is more of a platform-team question"*, *"that's an SRE call"*, *"design and product disagree on this one"* — and you can place yourself in the conversation rather than nodding along.
-
-This chapter is shorter than the technical ones. It's also the one most readers will quote back later when teaching a teammate. *"Read 0A.10. It tells you who does what."*
+> **⏱ 12 minutes · 👥 Anyone curious · 🎯 Leaves with:** a practical map of common software roles, shared ownership, and the questions to ask when the org chart is not enough.
 
 ---
 
-## The core six
+## The one-paragraph answer
 
-Most software product teams have, somewhere, all of the following roles. Sometimes one person plays two; sometimes a role is held by a whole team. The roles are stable.
+**Software organisations divide work into roles, but products ship through teams.** Titles such as product manager, designer, engineer, tech lead, engineering manager, and SRE describe common areas of focus. They do not create universal borders. The useful questions are: *who is accountable for this decision, who contributes evidence, who approves a high-risk change, and who operates the result?* Answer those for the work in front of you instead of inferring them from a generic org chart.
 
-### Engineer
+---
 
-Writes the code. Reviews other engineers' code. Owns the technical correctness of what gets built. The most numerous role at most software companies, often by a wide margin.
+## Start with responsibilities, not stereotypes
 
-Engineers come in flavours: **frontend engineers** (the dining-room people from chapter 0A.2), **backend engineers** (the kitchen people), **mobile engineers** (specialised in iOS / Android), **full-stack engineers** (comfortable on both sides of the seam — and the role this playbook is mostly oriented toward producing).
+The same responsibilities recur across software organisations: understand a problem, design an experience, build a system, test it, release it, and keep it reliable. Different companies split them differently. A small pod may combine several in one person; a regulated or platform-heavy product may add specialists.
 
-The engineer's instinct is *correctness first*. They want the code to do what it claims, robustly, and to keep doing it as the system changes. Their stress is bugs in production; their joy is a clean change that survives a year of evolution without rotting.
+These roles are common, but the boundaries are local:
 
-Most product friction with engineers is *scope* — what's in the change and what's not. A change that touches eight things is harder than a change that touches one thing, even if both feel "small" in PM-speak.
+### Software engineer
 
-### Designer
+**Usually focuses on:** designing, building, reviewing, testing, releasing, and operating software. Frontend, backend, mobile, data, and infrastructure describe areas of focus, not sealed rooms.
 
-Owns how the product *feels*. Not just how it looks: how it works, how it flows, how it reads, how a user moves through it without confusion or dread. Designers come in two main flavours: **product designers** (responsible for whole flows and end-to-end UX) and **visual / brand designers** (focused more on aesthetics, typography, illustration, marketing surfaces). On most product teams, "designer" without a qualifier means a product designer.
-
-The designer's instinct is *user comprehension first*. They want the user to understand, succeed, and not feel stupid. Their stress is shipping a feature users don't understand; their joy is the support ticket that *doesn't* arrive because the design was clear.
-
-Most product friction with designers is *fidelity-vs-velocity* — when a design isn't quite ready to engineering's eye but the team is under deadline pressure. The instinct gap between designers (more iteration is better) and engineers (more iteration is more risk) is real and managed in every healthy team.
+**Do not assume:** engineers receive a finished specification and merely type it. Good engineers shape scope, expose constraints, test assumptions, and share responsibility for outcomes and reliability.
 
 ### Product manager (PM)
 
-Owns *what* gets built and *why*. The PM holds the customer view, the business view, and the trade-off view, and turns them into decisions about what the team works on. PMs come in flavours that vary wildly between companies — some are deeply technical, some are deeply customer-facing, some are deeply analytical — but the role's core is the same: *be accountable for whether the right thing is being built*.
+**Usually focuses on:** customer and business outcomes, problem framing, priorities, trade-offs, and making sure decisions are explicit. PMs connect evidence from users, data, design, engineering, operations, risk, and commercial teams.
 
-The PM's instinct is *outcome first*. They want the team's effort to translate into something that helps users and the business. Their stress is shipping features nobody uses; their joy is the metric that moved.
+**Do not assume:** the PM owns every decision or dictates implementation. Product direction is stronger when PM, design, and engineering challenge one another with evidence.
 
-Most product friction with PMs is *prioritisation* — what's the most important thing to do *right now*, and why this rather than that. Engineers and designers feel this most acutely when the answer changes mid-quarter; the PM is often the one carrying the cost of changing it.
+### Product designer
 
-### Ops / operations
+**Usually focuses on:** user research, task flows, interaction, information architecture, content, visual systems, prototypes, and experience quality across happy and unhappy paths.
 
-The role most people forget when sketching a software org. Ops people do the *invisible work that keeps things running*: onboarding new customers, handling escalations, maintaining internal tools, managing vendor relationships, running back-office processes that touch real money or real customers.
+**Do not assume:** design ends when a mock-up is handed over. Designers help discover the problem, test options, inspect the built experience, and learn from production behaviour.
 
-Ops varies even more between companies than the other roles: at a fintech, ops is large and consequential (KYC, reconciliation, disputes, refunds, vendor coordination); at a small SaaS startup, ops might be one person juggling everything. What's consistent is that *ops is the role most likely to surface bugs nobody else sees*, because ops is the role most directly in contact with customers when systems misbehave.
+### Engineering manager (EM)
 
-The ops instinct is *systemic over heroic*. They want processes that don't depend on any one person remembering. Their stress is repeated manual work; their joy is automation that takes a recurring pain off the team forever. Ops 101 (the parallel track in this Foundation) is for these people.
+**Usually focuses on:** people leadership, team health, capability, sustainable delivery, and the environment in which engineers do good work. Some EMs remain deeply technical; others lead through coaching and organisational design.
 
-### Site reliability engineering (SRE) / devops
+**Do not assume:** the EM automatically owns the product roadmap or every technical choice. The exact split with PMs and technical leaders varies by team.
 
-The team that owns *whether the system stays up*. SREs handle on-call rotations, incident response, capacity planning, deployment infrastructure, monitoring, and the parts of the stack underneath the application layer. *"Devops"* is a related term that emphasises the cultural integration of dev and ops; in practice the two terms overlap heavily and many companies use them interchangeably.
+### Technical lead / staff engineer
 
-The SRE instinct is *tail-risk first*. They worry about the rare event that takes the whole system down at 3am Saturday. Their stress is the postmortem; their joy is the system that handled a 10x traffic spike without anyone noticing.
+**Usually focuses on:** technical direction, architecture, difficult trade-offs, engineering standards, and risks that cross components or teams. This is often an individual-contributor leadership path.
 
-Most friction with SRE is *velocity-vs-stability* — features that ship fast can introduce instability; SREs push back on changes they think will make 3am incidents more likely. They're usually right; teams that ignore SRE pushback usually get the postmortem they were warned about.
+**Do not assume:** “tech lead” is a mandatory promotion step before management. Technical leadership and people management are different careers, even when one person temporarily performs both.
 
-### QA / test engineering
+### Quality, reliability, security, data, research, and operations specialists
 
-Owns *whether the change actually works*. QA engineers are the layer between development and production that's specifically incentivised to *find what's broken before customers do*. Some companies have dedicated QA teams; others fold the role into engineering directly (each engineer tests their own work, with peer review as the safety net).
+Teams add specialist roles when the product and risk justify them. A quality engineer may design test strategy and tooling. An SRE may apply software engineering to reliability and operations. Security, data, analytics, research, legal, compliance, support, or go-to-market partners may own or approve decisions in their domain.
 
-The QA instinct is *adversarial-on-purpose*. They try to break the thing. They ask *"what if the user does this weird sequence?"* They poke at the edges. Their stress is shipping a bug; their joy is finding a bug nobody else spotted.
-
-The QA role has shrunk at many companies as automated testing (chapter 0A.9) absorbs more of the work, but the *function* (somebody whose job it is to be sceptical of new changes) remains essential.
+**Do not assume:** specialists are a final checkpoint for work created elsewhere. Quality and reliability are shared responsibilities, and specialist involvement should begin before the costly decisions harden. SRE and DevOps are also not interchangeable job titles: SRE is an engineering approach to reliability; DevOps is a broader set of cultural and delivery practices.
 
 ---
 
-## A few specialist roles you'll meet
+## The product team: one outcome, several kinds of expertise
 
-Beyond the core six, depending on the size of the org, you'll encounter:
+A common product team looks roughly like this:
 
-**Engineering manager (EM).** Manages a team of engineers. Half technical leadership, half people management. Holds the team's roadmap, growth plans, and morale. The PM and EM are usually peers and split *what* (PM) and *who/how* (EM).
-
-**Tech lead.** Most-senior engineer on a team, plays a leadership role on technical decisions but isn't usually a manager. Bridges between engineering and product/design when architectural calls have to be made. Often the role engineers grow into before becoming an EM.
-
-**Data analyst / analytics engineer.** Owns *what the numbers say*. Pulls reports, writes queries, sets up dashboards, helps PMs and execs understand what's happening in the product. A specialist version of "what is true about our system."
-
-**Security engineer.** Owns *what could go wrong if a bad actor showed up*. Writes security reviews, audits new features, runs penetration tests. Tends to be small in number relative to the rest of engineering, with a large multiplier on what they catch.
-
-**TPM (technical program manager).** Coordinates work across multiple engineering teams. Distinct from a PM — a PM owns the *what*, a TPM owns the *coordination*. TPMs are common at larger companies where features cross many team boundaries.
-
-**Solutions architect / sales engineer.** A specialist engineer who works with sales rather than product, helping prospective customers understand what the system can do and how to integrate. Mostly relevant for B2B companies.
-
-You don't need to memorise this list. The point is that any role you'll meet at a software company is some specialised version of one of the *core six* plus a few specialists. When someone has a title you don't recognise, ask: *"is this a specialised engineer, designer, PM, ops, SRE, or QA?"* — and you've usually triangulated it.
-
----
-
-## The shape of how decisions get made
-
-A useful frame: most product decisions involve some combination of three of the core six roles: **PM** (what / why), **design** (how it feels), and **engineering** (how it's built). The other three (ops, SRE, QA) tend to be *consulted* rather than *deciding*, except when the question is squarely in their domain.
-
-A simplified picture of how a feature gets built:
-
-```
-   ┌──────────┐   "what should we build?"       ┌──────────┐
-   │   PM     │──────────────────────────────▶  │  DESIGN  │
-   │          │                                  │          │
-   └──────────┘                                  └──────────┘
-        ▲                                              │
-        │  "what's possible / what's hard?"            │  "how should it feel?"
-        │                                              ▼
-   ┌──────────┐    "let's build it together"   ┌──────────────┐
-   │   ENG    │◀──────────────────────────────│  PM + DESIGN  │
-   │          │                                │   together    │
-   └──────────┘                                └──────────────┘
-        │
-        │  "is this safe / scalable?"
-        ▼
-   ┌──────────┐   ┌──────────┐   ┌──────────┐
-   │   SRE    │   │   QA     │   │   OPS    │
-   │ consults │   │ consults │   │ consults │
-   └──────────┘   └──────────┘   └──────────┘
+```text
+                 shared product outcome
+                          │
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+     Product          Design         Engineering
+   problem, value   user experience   system behaviour
+          │               │               │
+          └───────────────┼───────────────┘
+                          ▼
+             evidence, decisions, delivery
+                          │
+              specialists join by need
+      data · research · risk · security · SRE · support
 ```
 
-The triangle PM ↔ design ↔ engineering is the core of how features get made. The bottom row are *consulted* roles — they shape decisions but don't usually own them. When ops or SRE or QA *do* own a decision, it's because the question is squarely in their domain (an incident response, a migration, a security question).
+The triangle is a collaboration model, not a claim that three people decide everything. The team still needs named decision rights. A payment-flow change may require Risk or Compliance approval. A platform migration may have a technical DRI. A research finding can reopen the problem definition. “Cross-functional” means the required expertise is in the loop; it does not mean accountability is fuzzy.
 
-The triangle's tensions are predictable: PM wants the most impactful thing in the time available; design wants it to be coherent and respectful of the user; engineering wants it to be feasible and not introduce future pain. Each pulls slightly differently. *Healthy product orgs are honest about these tensions and resolve them in conversation*; unhealthy ones force one corner of the triangle to override the others.
+### Copy this decision-rights card
 
----
+Use this before a consequential piece of work. If the DRI or approval boundary is blank, the org chart will not rescue the project later.
 
-## How AI changes this picture
+```text
+OUTCOME: <what should change for the user or business?>
+DECISION: <the specific choice being made>
+DRI: <one role accountable for making and recording this decision>
+CONTRIBUTORS: <roles supplying options, constraints, or evidence>
+EVIDENCE: <research, data, prototype, technical spike, policy>
+APPROVAL / VETO: <who must approve because of risk or regulation?>
+OPERATOR: <who owns the result after release?>
+ESCALATION: <where does unresolved disagreement go?>
+REVIEW DATE: <when will evidence reopen the decision?>
+```
 
-The change AI is bringing to the org chart is real and worth naming explicitly.
-
-**The boundaries between roles are softening.** Designers can ship code (Yellow Belt of this playbook is named for that). PMs can write small features end-to-end. Ops can build automations that previously required engineering. The roles still exist; what's changing is *which work is exclusively which role's*. Five years ago, "designer ships frontend code" would have been an org-chart anomaly; today, it's an explicit program direction.
-
-**The triangle is shrinking from three corners toward fewer corners on small features.** A designer who can build a UI change end-to-end *is* the PM-design-engineering triangle for that small change, in one head. The communication overhead between corners disappears. The trade-off (less specialisation, more breadth) is something each org gets to make on each kind of work.
-
-**Engineering capacity goes from being the bottleneck to being the leveraged role.** The story used to be "we need more engineers to ship more features." The new story is "every existing person who builds is now a leveraged engineer, and we need fewer dedicated engineers per shipped feature." This is the underlying business case for the full-stack-builder program; this playbook is the operating manual for that transition.
-
-None of this makes the core six obsolete. It does change the *mix*. A 2030-shaped product team will have fewer dedicated frontend engineers per PM-shaped feature than a 2020-shaped team did, and the ones that remain will be doing harder work: platform, infrastructure, the tail of complexity that AI doesn't yet handle.
-
----
-
-## What you should carry forward
-
-- **The core six roles** are engineer, designer, PM, ops, SRE, QA. Every software org has them, sometimes blended. Recognise them when you meet them.
-- **The PM ↔ design ↔ engineering triangle** is where most product decisions live. The other three are usually consulted, not deciding.
-- **Each role has a different default instinct**: correctness (engineer), comprehension (designer), outcome (PM), systemic (ops), tail-risk (SRE), adversarial (QA). Healthy product work needs all six instincts in some balance.
-- **AI is softening the boundaries** between roles, especially on small features. The full-stack-builder direction this playbook teaches is the formal embrace of that softening.
-- **Tech 101 ends here.** You can now read a tech blog post, a product spec, an incident channel, a PR review thread, a hiring page — and follow what's being said. That's the promise of this track. The Prologue is the natural next read; the Ops 101 track is the parallel track for non-coders.
+**Five-minute exercise:** fill the card for one live product decision. If you write “the team” in every field, try again. Shared work still needs explicit accountability.
 
 ---
 
-**Previous:** [← 0A.9 Tests](09-tests.md) · **Next:** [→ Foundation README](../README.md) (this is the last chapter of Tech 101) — or proceed to [Prologue §0.1](../../prologue/01-welcome.md)
+## How work moves through the team
+
+Product development is usually iterative rather than a one-way hand-off:
+
+1. **Frame the outcome and constraints.** PM, design, engineering, and relevant specialists make the problem testable.
+2. **Gather evidence.** Research, analytics, support signal, prototypes, technical spikes, and policy constraints reduce different kinds of uncertainty.
+3. **Choose and record.** The named DRI makes the decision, records the trade-off, and names any approval boundary.
+4. **Build and verify.** Engineers implement; design, product, quality, and specialists inspect the evidence that matters for their part of the contract.
+5. **Release and operate.** The team proves what reached users, watches behaviour and reliability, and keeps an owner for the result.
+6. **Learn and revise.** Production evidence can change the problem, design, architecture, priority, or operating model.
+
+Ownership can change between steps. The PM may be DRI for which problem enters discovery; the designer for an interaction standard; the tech lead for an architecture choice; Risk for a regulated control; and an incident commander during recovery. Name the decision, then name its owner.
+
+---
+
+## Productive tension is evidence work
+
+Cross-functional teams should disagree. The useful form of disagreement is not “PM wants speed, design wants beauty, engineering says no.” It sounds like this:
+
+- **Outcome:** which user or business result are we optimising, and how will we know?
+- **Experience:** which task or failure path becomes easier, and what did users actually do?
+- **Feasibility:** which constraints are hard, which are assumptions, and what can a spike prove?
+- **Risk:** what needs approval, what can be reversed, and what must fail closed?
+- **Operations:** who sees a failure first, who can stop the rollout, and what recovery evidence is required?
+
+This language turns role friction into a decision that can be tested. It also gives AI-assisted work somewhere to attach: the model can draft options or inspect evidence, but it cannot decide who is accountable.
+
+---
+
+## Reporting lines and product teams answer different questions
+
+Most people sit in two structures at once:
+
+- a **reporting line**, which handles coaching, performance, capability, and career growth; and
+- a **product or platform team**, which owns an outcome or service with colleagues from other disciplines.
+
+That is why an engineer can report to an EM while taking technical direction from a staff engineer and working day to day with a PM and designer. Matrixed structures can be useful, but only when the team knows which decision belongs to which line.
+
+Career paths vary too. Engineering commonly offers individual-contributor and people-management tracks. Product, design, data, and other disciplines also have specialist and leadership paths, but titles and levels differ between companies. Treat a title as a clue to scope, not a universal ladder or proof of authority.
+
+---
+
+## What AI changes — and what it does not
+
+AI can compress tasks across disciplines: drafting a prototype, exploring code, summarising research, generating test cases, or analysing a data set. That can change who performs a task and how quickly a team explores options. It does **not** remove the need for domain judgement, decision rights, approval boundaries, production evidence, or an operator.
+
+For AI-assisted work, add four questions to the decision card:
+
+1. What artefact did the model produce?
+2. Which source, test, or user evidence checks it?
+3. Who owns the decision to accept or reject it?
+4. Who owns the result after release?
+
+Do not turn a temporary tooling advantage into a prediction that one role disappears or that every person should become a one-person product team. The durable skill is broader: understand adjacent constraints, collaborate earlier, and keep accountability visible while the task boundaries move.
+
+---
+
+## What to carry forward
+
+When someone mentions a role, team, or reorganisation, ask:
+
+- What outcome or service does this team own?
+- Which decision are we discussing?
+- Who is the DRI, who contributes evidence, and who has an approval boundary?
+- Who builds, verifies, releases, and operates the result?
+- Which boundary is company-specific rather than universal?
+
+That is enough to read most software-org conversations without pretending every company uses the same map.
+
+---
+
+## Where to go next
+
+This completes the Tech 101 track. You now have the vocabulary to follow the main playbook without treating software delivery as a chain of mysterious job titles.
+
+**Previous:** [← 0A.9 Tests](09-tests.md) · **Next:** [Start the Prologue →](../../prologue/README.md)
 
 **Further reading**
-- [Camille Fournier — *The Manager's Path*](https://www.oreilly.com/library/view/the-managers-path/9781491973882/) — the canonical book on how the engineering side of an org is structured and grows
-- [Marty Cagan — *Inspired*](https://svpg.com/inspired-how-to-create-products-customers-love/) — the canonical book on the PM role and how PM/design/engineering should actually work together
-- [Will Larson — *Staff Engineer*](https://staffeng.com/) — for what the senior end of the engineering ladder looks like; useful even if you're not on it
-- [Charity Majors — Engineering management posts](https://charity.wtf/) — for the SRE/devops culture that makes the difference between teams that sleep at night and ones that don't
+
+- [SVPG — Product vs Feature Teams](https://www.svpg.com/product-vs-feature-teams/) — cross-functional teams accountable for outcomes rather than feature hand-offs
+- [Google SRE Book — Introduction](https://sre.google/sre-book/introduction/) — SRE as an engineering approach to operations and reliability
+- [Team Topologies](https://teamtopologies.com/) — stream-aligned, platform, enabling, and subsystem team interaction patterns
+- [Google re:Work — Team effectiveness](https://rework.withgoogle.com/guides/understanding-team-effectiveness/) — why team dynamics matter beyond individual role strength
