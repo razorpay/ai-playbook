@@ -14,7 +14,7 @@ next: "ops-101/minimum-viable-wiki"
 pillar: null
 belt: null
 tags: ["ops-101", "agents", "event-driven"]
-updated: "2026-08-24"
+updated: "2026-08-31"
 ---
 
 # 0B.7 — Lightweight agents (when "automate this for me" earns its keep)
@@ -233,6 +233,37 @@ Common failure modes:
 - **State grows without a data boundary.** Keep receipts and links; do not create a shadow customer-data store.
 - **The next run cannot learn from an override.** Record the human decision and reason so the same false alarm does not recur silently.
 
+### A green trigger can still produce zero useful work
+
+A healthy schedule proves that the workflow woke up. It does not prove that the workflow found the right inputs, created an execution, or delivered an outcome.
+
+That distinction matters when an agent serves a cohort such as enabled merchants, active projects, or subscribed teams. An empty run can be correct. But if an active unit repeatedly produces nothing, the loop needs to explain where work stopped instead of treating “no error” as success.
+
+Track an **outcome-coverage funnel** over a business-relevant window:
+
+| Stage | Evidence to keep |
+|---|---|
+| **Enabled** | The units configured to receive the workflow |
+| **Source-active** | Units with recent business activity that makes an output plausible |
+| **Eligible input** | Units or items returned after source and business filters |
+| **Executed** | Runs created, with terminal receipts |
+| **Delivered** | Outcomes that reached the intended sink or reviewer |
+
+Every unit that drops out needs a reason such as `expected-empty`, `filtered-by-rule`, `source-missing`, `failed`, or `unknown`. Do not alert on every legitimate no-op. Alert when the no-output reason is unknown, the source is missing, or recent activity makes zero eligible inputs implausible.
+
+Copy this into the loop's checker and state:
+
+```text
+OUTPUT WINDOW: <business-relevant period>
+EXPECTED POPULATION: <enabled units and authoritative source>
+SOURCE-ACTIVE TEST: <activity that makes an output plausible>
+FUNNEL: <enabled → source-active → eligible → executed → delivered counts>
+NO-OUTPUT REASONS: <reason per dropped unit; unknown count>
+ALERT: <threshold, owner, and investigation route>
+```
+
+Before trusting the loop, trace two units end to end: one with recent source activity and one known to be legitimately empty. The active unit should produce an outcome or a specific blocking reason. The empty unit should stop at the expected stage without a false alarm. If either path ends at `unknown`, the checker should hold trust and alert the owner.
+
 ---
 
 ## Recipe 1 — The morning briefing agent (15-minute conversion from a triage recipe)
@@ -355,6 +386,7 @@ Three suggestions before committing one as your boss fight:
 - Prefer an **event trigger** for one business change and a **schedule** for a periodic snapshot; poll only when the source is safe and the freshness, catch-up age, rate, and cost bounds hold.
 - An asynchronous acknowledgement means **accepted, not completed**; return a run ID and status route, enforce time and work bounds, and finish with an itemised terminal receipt.
 - Team-facing recurring work graduates to a **verified loop**: trigger → skill → maker → checker → gate → state.
+- A healthy trigger is not outcome health; track **enabled → source-active → eligible → executed → delivered** coverage and explain every no-output unit.
 - The conversion path is **manual recipe (2 weeks) → configured agent (2 more weeks of observation) → trusted agent.** Skipping either two-week phase is how graveyards form.
 - Three reusable patterns: morning briefing (scheduled triage), status digest (scheduled generation), new-ticket triage (event-triggered).
 - *Agents draft; you confirm.* Auto-action is reserved for cases where you've explicitly proven the cost-benefit; default is always a Slack ping for human review.
@@ -366,6 +398,7 @@ Three suggestions before committing one as your boss fight:
 **Previous:** [← 0B.6 Document workflows](06-document-workflows.md) · **Next:** [→ 0B.8 Building your own minimum viable wiki](08-minimum-viable-wiki.md)
 
 **Further reading**
+- [Product Agent Marketplace — a healthy cart-agent cron produced no runs for active merchants](https://razorpay.slack.com/archives/C0A94EJ38NP/p1788168466388379) — the internal incident behind the outcome-coverage funnel and explicit no-output reasons
 - [Product Agent Marketplace — a stale watermark replayed the wrong customer cohort](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787553481977089?thread_ts=1787552517.288369&cid=C0A94EJ38NP) — the internal incident behind the maximum catch-up age and source-level window guard
 - [`agent-marketplace-service` #352 — clamp stale last-execution watermarks](https://github.com/razorpay/agent-marketplace-service/pull/352) — the shared resume-path guard, alert, and current/recent/missing/stale cursor tests
 - [`agent-marketplace-service` #353 — cap the feedback order-window width](https://github.com/razorpay/agent-marketplace-service/pull/353) — the independent skill-level bound that refuses an oversized historical range
