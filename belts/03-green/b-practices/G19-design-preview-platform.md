@@ -14,7 +14,7 @@ next: "belts/green/observability-with-ai"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "branch-preview", "preview-url", "design-review"]
-updated: "2026-04-29"
+updated: "2026-08-31"
 ---
 
 # G.19 — Branch-preview platform
@@ -140,7 +140,7 @@ Sometimes the preview shows a bug that is not in your change. The dev environmen
 
 ---
 
-## What the agent does
+## What the agent can do with a preview
 
 A well-set-up agent:
 
@@ -148,12 +148,13 @@ A well-set-up agent:
 - Drafts the PR description with the preview URL placeholder for you to fill in.
 - Suggests adding "tested at desktop and 320px" to the PR description if the change touched UI.
 - Flags when the build was older than the latest commit (stale preview risk).
+- With the Design plugin's Design Quality Agent (DQA), opens a live preview, captures desktop and mobile evidence, and returns an advisory UI/UX report. For a journey, give it the preview URL plus an end-goal; it pauses at login, OTP, payment, and other sensitive checkpoints. [G.15 has the bounded prompt and review loop.](G15-design-to-code.md)
 
-What the agent does *not* do:
+Keep the boundary clear:
 
-- Click the preview URL itself (the agent is not a browser; the design-system connector reads structure, not screenshots).
-- Tell you whether the change "looks right" — visual judgement is yours.
-- Auto-tag reviewers (who reviews is a human call).
+- A generic coding-agent session without DQA or another approved browser workflow cannot inspect a preview merely because you pasted its URL.
+- A DQA score is review evidence, not the final design decision. Visual judgement and product intent remain with the human reviewer.
+- Reviewer selection remains a human call; the agent does not auto-tag people.
 
 ---
 
