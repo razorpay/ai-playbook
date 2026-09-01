@@ -71,15 +71,15 @@ If the file is not a UI file, the skill reports "not a UI file" and stops.
 
 ---
 
-## Vendoring into the program plugin
+## Packaging through a supported distributor
 
-Same path as `pre-ship-check` and `playbook-course`: in-repo for v0.12; vendored into the Compass plugin in a later cycle. The skill name `blade-compliance-reviewer` is intended to be unique within the loaded plugin; check the program's skill-name registry before any rename.
+This directory is a reference definition. A supported distributor may vendor it, but the repository does not prove installation. Keep `blade-compliance-reviewer` as the packaged skill name; check the program's skill-name registry before any rename.
 
 ---
 
 ## Testing
 
-`test-cases.md` covers three scenarios: a clean file, a file with design-system drift, and a file with mixed Blade and ad-hoc usage. Manual run for v0.12; cohort use generates real-test signal.
+`test-cases.md` covers three scenarios: a clean file, a file with design-system drift, and a file with mixed Blade and ad-hoc usage. Run it manually before any release; cohort use generates real-test signal.
 
 ---
 
