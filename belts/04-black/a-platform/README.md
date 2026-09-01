@@ -14,14 +14,14 @@ next: "belts/black/internal-mcp-server"
 pillar: null
 belt: "black"
 tags: ["black-belt", "part-a", "build-the-platform", "readme"]
-updated: "2026-08-13"
+updated: "2026-09-01"
 ---
 
 # Part A — Build the Platform
 
 > **Part A promise.** By the end, you can author MCP servers, publish shared skills and plugins through the canonical repositories, prove every promised user surface, decide when to write your own agent with the SDK, orchestrate multi-agent workflows, and design tool contracts that compose.
 >
-> **Prerequisite.** Green Belt awarded. Nomination registered with the cohort lead. The chapters assume comfort with G.6 / G.7 (skills), G.8 / G.9 (subagents, worktrees), G.26 (pre-ship-check), and the v0.12 SKILL.md anatomy.
+> **Prerequisite.** Green Belt awarded. Nomination registered with the cohort lead. The chapters assume comfort with G.6 / G.7 (skills), G.8 / G.9 (subagents, worktrees), G.26 (pre-ship-check), and the SKILL.md anatomy those chapters teach.
 > **Time budget.** ~4h 15m for the six modules; ~8h for Quest B-1. Plan over a week or two.
 
 ---

@@ -14,7 +14,7 @@ next: "belts/black/cost-and-observability"
 pillar: "prompt"
 belt: "black"
 tags: ["black-belt", "prompt-evals", "agent-evals", "eval-integrity", "multilingual-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
-updated: "2026-08-14"
+updated: "2026-09-01"
 ---
 
 # B.9 — Prompt evals
@@ -383,4 +383,4 @@ B.10 (*Cost attribution + observability at scale*) extends G.20's daily-loop obs
 - [Razorpay Agent Studio — subscription-recovery language quality and cohort signal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1786424673904999?thread_ts=1786424483.840939)
 - [Aakash Gupta with Daniel McKinnon — How to build your first AI eval](https://www.news.aakashg.com/p/how-to-build-your-first-eval)
 - [Razorpay Design Quality Agent — versioned context and regression eval sets](https://github.com/razorpay/claude-plugins/pull/987)
-- [The v0.12 skill test-cases.md files](../../../skills/) — examples of acceptance-scenario writing
+- [The in-repo skill test-cases.md files](../../../skills/) — examples of acceptance-scenario writing

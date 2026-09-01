@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.68 — durable Black Belt reference labels (2026-09-01)
+
+Five Black Belt pages still tied live skill examples and prerequisites to playbook releases v0.7, v0.8, or v0.12. The current repository is v0.68, and the in-repo skill directories are reference definitions rather than evidence of runtime distribution.
+
+**What changed.**
+
+- **Examples now survive release bumps.** Part A and B point to the current SKILL.md anatomy and in-repo reference definitions without freezing those lessons to old playbook versions.
+- **Runtime status stays explicit.** B.11 no longer claims `pre-ship-check` runs on every PR; the routing exercise applies where a team has actually distributed the reference as a runtime workflow.
+- **Version markers bumped.** README, INDEX, manifest, course curriculum, and generated Concierge material now report v0.68 / 2026-09-01.
+
+---
+
 ## v0.67 — provisioned model routes in gateway guidance (2026-08-26)
 
 W.6 and G.23 still described LiteLLM as the route for every Claude Code or approved model call. Support now provisions some builders on separate Claude Team or Claude Max subscription paths, and Y.8 already treats those paths as distinct from LiteLLM.
