@@ -6,7 +6,7 @@
 
 ## How to run these
 
-Manual, for v0.12. Each test sets up a stub branch, invokes the skill via a trigger phrase, and checks the output against the expected shape and the expected colour pattern.
+Run these manually before any release. Each test sets up a stub branch, invokes the skill via a trigger phrase, and checks the output against the expected shape and the expected colour pattern.
 
 The maintainer keeps a markdown log of each run in `test-runs/<date>.md` — not committed; ephemeral, local.
 
@@ -121,8 +121,8 @@ grep -nE "Nawal|Khilan|Abhinav|Vaibhav|FSB-1|FSB-2|FSB-3|FSB-Transformation" \
 ## What is intentionally not tested
 
 - **Real-cohort UX.** A first real-cohort run belongs in the Appendix L calibration retro after a Boss Fight G-B has been run with the skill end-to-end.
-- **Performance.** Skill latency on a large diff is dominated by the diff itself, not the skill logic. Not a v0.12 concern.
-- **Cross-language coverage.** v0.12 ships against the program's primary stack (TypeScript / React / Node + Python). Other languages may need pattern additions to `layer-specs.md`.
+- **Performance.** Skill latency on a large diff is dominated by the diff itself, not the skill logic. It is not an acceptance criterion in this suite.
+- **Cross-language coverage.** The current layer specs cover the program's primary stack (TypeScript / React / Node + Python). Other languages may need pattern additions to `layer-specs.md`.
 - **Auto-fixes.** The skill never auto-fixes; this is a hard rule, not a test gap.
 
 ---

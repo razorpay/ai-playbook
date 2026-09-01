@@ -72,15 +72,15 @@ If the diff has no security surface, the skill politely declines and recommends 
 
 ---
 
-## Vendoring into the program plugin
+## Packaging through a supported distributor
 
-Same path as the other v0.12 skills: in-repo for v0.12; vendored into the Compass plugin in a later cycle. The skill name `security-review-subagent` is intended to be unique within the loaded plugin.
+This directory is a reference definition. A supported distributor may vendor it, but the repository does not prove installation. Keep `security-review-subagent` as the packaged skill name so it remains unique within the loaded plugin.
 
 ---
 
 ## Testing
 
-`test-cases.md` covers four scenarios: clean PR with security surface, capability-creep finding, prompt-injection finding, output-exposure finding, plus a "no security surface" path. Manual run for v0.12; cohort use generates real-test signal.
+`test-cases.md` covers four scenarios: clean PR with security surface, capability-creep finding, prompt-injection finding, output-exposure finding, plus a "no security surface" path. Run it manually before any release; cohort use generates real-test signal.
 
 ---
 

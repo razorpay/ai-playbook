@@ -6,6 +6,19 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.69 — evergreen skill reference and acceptance labels (2026-09-01)
+
+Seven maintainer and test files still described current reference workflows as release-bound work from v0.8 or v0.12. Those labels made live acceptance suites look archival and left speculative Compass-vendoring language beside the v0.66 distribution boundary.
+
+**What changed.**
+
+- **Acceptance suites are current by contract.** Test instructions now apply before any release, and coverage statements describe the current cases or layer specs rather than an old playbook release.
+- **Distribution remains explicit.** Maintainer READMEs describe optional supported packaging without implying that the repository proves installation or that Compass vendoring is scheduled.
+- **Calibration evidence stays attached to the runtime.** Learner walkthroughs now belong to the supported distribution's calibration retro instead of a release-numbered retro that never updates.
+- **Version markers bumped.** README, INDEX, manifest, course curriculum, and generated Concierge material now report v0.69 / 2026-09-01.
+
+---
+
 ## v0.68 — durable Black Belt reference labels (2026-09-01)
 
 Five Black Belt pages still tied live skill examples and prerequisites to playbook releases v0.7, v0.8, or v0.12. The current repository is v0.68, and the in-repo skill directories are reference definitions rather than evidence of runtime distribution.

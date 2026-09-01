@@ -110,7 +110,7 @@ grep -nE "Nawal|Khilan|Abhinav|Vaibhav|FSB-1|FSB-2|FSB-3|FSB-Transformation" \
 ## What is intentionally not tested
 
 - **Blade-version drift.** If the connector serves an older Blade version, the scan reports against that older version. The version stamp in the report makes this visible; the test cases do not enumerate every version-specific edge case.
-- **Cross-language coverage.** v0.12 ships against TypeScript / React / Vue / Svelte UI files. Other UI stacks may need additions to the SKILL.md Workflow.
+- **Cross-language coverage.** The current workflow covers TypeScript / React / Vue / Svelte UI files. Other UI stacks may need additions to the SKILL.md Workflow.
 - **Auto-fix capability.** The skill never auto-fixes; this is a hard rule, not a test gap.
 - **Production-compiler integration.** The skill does not invoke the production-compiler; a builder who wants bulk repair runs the production-compiler separately (G.17).
 

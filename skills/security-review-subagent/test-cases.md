@@ -112,9 +112,9 @@ grep -nE "Nawal|Khilan|Abhinav|Vaibhav|FSB-1|FSB-2|FSB-3|FSB-Transformation" \
 ## What is intentionally not tested
 
 - **High-stakes path coverage.** PCI-scope and KYC-flow changes go through the program's formal security review, not this skill. Test cases here cover the daily-loop pre-flight surface.
-- **Cross-stack coverage.** v0.12 ships against the program's primary stack. Other stacks may need brief tightening.
+- **Cross-stack coverage.** The current cases cover the program's primary stack. Other stacks may need brief tightening.
 - **Subagent quality regression.** The subagent's reasoning quality depends on the model and the brief; the brief is the controllable variable. If brief quality regresses, edit `brief-template.md`.
-- **Speed.** Subagent latency varies; not a v0.12 concern.
+- **Speed.** Subagent latency varies; it is not an acceptance criterion in this suite.
 
 ---
 
