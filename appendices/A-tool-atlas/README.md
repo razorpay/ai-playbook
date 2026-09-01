@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-27"
+updated: "2026-09-01"
 ---
 
 # Appendix A — Tool Atlas
@@ -195,6 +195,24 @@ Do not continue on a red diagnostic. Apply the fix printed beside the failed che
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
 
+#### Refresh after a catalog change
+
+Analytics Agent carries its metric catalog inside the installed plugin. A metric owner can switch a domain or correct a definition in the source catalog while your local copy keeps running without an obvious error.
+
+After an announced metric cutover or catalog correction, refresh **before the next** `/analytics-query` or `/analytics-review`:
+
+1. In Claude Code, choose `/plugin` → **Marketplaces** → **razorpay-marketplace** → **Enable auto-update**. If you keep updates manual, run:
+
+   ```bash
+   claude plugin marketplace update razorpay-marketplace
+   claude plugin update analytics-agent@razorpay-marketplace
+   ```
+
+2. Restart Claude Code so the refreshed commands and catalog load.
+3. Rerun the metric question and inspect the receipt. Confirm that its source table matches the announced path before using the number.
+
+Stop if the plugin did not refresh, the commands do not load after restart, or the receipt still names the superseded source. Capture the announcement, metric, expected source, observed source, and redacted error; route that evidence to the Analytics Agent owner instead of guessing a table name.
+
 #### Current Trino route: stop on a 401
 
 Analytics Agent still uses the Trino MCP for Trino-backed metrics. The move to the repo-owned Trino CLI is under review in [`claude-plugins` #1075](https://github.com/razorpay/claude-plugins/pull/1075); it is not a released fallback yet. Keep using `/analytics-query` and `/analytics-review`, but do not hand-edit `.env` or `.mcp.json` to select the pending CLI route.
@@ -212,14 +230,7 @@ A Trino MCP 401 is a known issue. Add the exact question, route or gateway shown
 
 Some metrics now have two certified Trino queries: the **legacy** table that dashboards use and a rebuilt **redesign** table under validation. Analytics Agent keeps serving legacy by default. When it reports `redesign_pair_available: true`, you can compare both paths without changing the served answer. **Served does not automatically mean correct**: the legacy query may carry a known definition defect that the redesign is meant to repair.
 
-**Refresh before you validate.** The metric catalog ships inside Analytics Agent, and the Razorpay marketplace is not automatically updated for every installation. A comparison can therefore run without an obvious error while using an old catalog. In Claude Code, choose `/plugin` → **Marketplaces** → **razorpay-marketplace** → **Enable auto-update**. If you keep updates manual, run:
-
-```bash
-claude plugin marketplace update razorpay-marketplace
-claude plugin update analytics-agent@razorpay-marketplace
-```
-
-Restart Claude Code after either route. Do not start the comparison until the refreshed Analytics Agent commands load.
+**Refresh before you validate.** Run the catalog-change preflight above. Do not start the comparison until the refreshed Analytics Agent commands load and the normal metric receipt names the expected source.
 
 **Qualify the control before you compare.** A delta tells you that two queries disagree; it does not tell you which query is right. Read the metric definition and both query intents with the domain owner, then classify the legacy path:
 
@@ -271,7 +282,7 @@ Comparison receipt:
 
 **Stop conditions.** Stop if the plugin was not refreshed, no registered pair exists, either query fails, the metric intent or domain owner is unknown, the legacy baseline is unclassified, an invalid legacy baseline has no independent anchor, the grain or filters differ, the date window is incomplete, the producing source or refresh owner is unknown, only the downstream copy has a current timestamp, producer coverage is shorter than the consumer window, matching row counts have no value-distribution or segment check, a freshness explanation is unverified, or the result conflicts with an owner-approved source of truth. Keep legacy as primary and route the evidence to the metric owner.
 
-**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). On 17 August, [a Mid Market pair showed the control itself can be wrong](https://razorpay.slack.com/archives/C0A98PQTJH4/p1797520898391909): legacy counted only successful attempts while redesign counted all intended attempts. On 27 August, [`self-serve-analytics` #2239](https://github.com/razorpay/self-serve-analytics/pull/2239) proved a one-day producer was feeding 30-day consumers: per-day row counts matched while a derived value silently changed. A same-day [`#ai-help` recovery](https://razorpay.slack.com/archives/C08C35GKJKD/p1787816521545829) restored the latest date but stamped 13 backfilled days into two partitions. The repository now guards the producer window with a custom test—the same assertion pattern documented in [dbt data tests](https://docs.getdbt.com/docs/build/data-tests). Freshness belongs to the producing data, coverage belongs to the full consumer window, and correctness belongs to the approved metric intent—not whichever query shipped first.
+**Why this path exists.** The registered `shadow → compare → promote` contract shipped in [`self-serve-analytics` #1926](https://github.com/razorpay/self-serve-analytics/pull/1926). The first Reporting rollout then asked a PM to run the comparison and sign off only when values match in [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4/p1785925293599689). A later 17-pair validation request made the plugin-refresh preflight explicit because [the marketplace can leave the bundled metric catalog stale silently](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786420608675429). On 1 September, [all 68 payments-infra KAM metrics switched to redesign tables](https://razorpay.slack.com/archives/C0A98PQTJH4/p1788259038806079), and the cutover note warned users to update the plugin or keep reading the old catalog; automated catalog syncs landed in [`claude-plugins` #1277](https://github.com/razorpay/claude-plugins/pull/1277) and [#1278](https://github.com/razorpay/claude-plugins/pull/1278). That makes refresh a routine post-cutover check, not only a shadow-validation step. A 13 August investigation exposed the other freshness trap: [a daily downstream load made roughly 22 metrics look current while their manually rebuilt source had not changed since 4 August](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786612966405379). On 17 August, [a Mid Market pair showed the control itself can be wrong](https://razorpay.slack.com/archives/C0A98PQTJH4/p1797520898391909): legacy counted only successful attempts while redesign counted all intended attempts. On 27 August, [`self-serve-analytics` #2239](https://github.com/razorpay/self-serve-analytics/pull/2239) proved a one-day producer was feeding 30-day consumers: per-day row counts matched while a derived value silently changed. A same-day [`#ai-help` recovery](https://razorpay.slack.com/archives/C08C35GKJKD/p1787816521545829) restored the latest date but stamped 13 backfilled days into two partitions. The repository now guards the producer window with a custom test—the same assertion pattern documented in [dbt data tests](https://docs.getdbt.com/docs/build/data-tests). Freshness belongs to the producing data, coverage belongs to the full consumer window, and correctness belongs to the approved metric intent—not whichever query shipped first.
 
 #### Ask, review, or contribute?
 
