@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.67 — durable Black Belt reference labels (2026-09-01)
+
+Five Black Belt pages still tied live skill examples and prerequisites to playbook releases v0.7, v0.8, or v0.12. The current repository is v0.67, and the in-repo skill directories are reference definitions rather than evidence of runtime distribution.
+
+**What changed.**
+
+- **Examples now survive release bumps.** Part A and B point to the current SKILL.md anatomy and in-repo reference definitions without freezing those lessons to old playbook versions.
+- **Runtime status stays explicit.** B.11 no longer claims `pre-ship-check` runs on every PR; the routing exercise applies where a team has actually distributed the reference as a runtime workflow.
+- **Version markers bumped.** README, INDEX, manifest, course curriculum, and generated Concierge material now report v0.67 / 2026-09-01.
+
+---
+
 ## v0.66 — runtime command discovery in Prologue (2026-08-23)
 
 The two Prologue pages that define Compass still presented `setup-verify` and `pre-ship-check` as installed slash-command examples, even though the repository's distribution status says its in-repo skill definitions do not prove equivalent runtime commands and neither command is present in the current Compass distribution.

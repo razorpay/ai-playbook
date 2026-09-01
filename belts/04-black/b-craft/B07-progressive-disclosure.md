@@ -14,7 +14,7 @@ next: "belts/black/memory-systems"
 pillar: "context"
 belt: "black"
 tags: ["black-belt", "progressive-disclosure", "skill-design", "voice-anchor"]
-updated: "2026-08-06"
+updated: "2026-09-01"
 ---
 
 # B.7 — Progressive disclosure
@@ -52,7 +52,7 @@ Voice anchor for Part B. Where Part A taught you to *publish* skills, Part B tea
    └────────────────────────────────────────────────┘
 ```
 
-The pre-ship-check skill (v0.12) is a real example. Its name and description are Level 1. Its 109-line SKILL.md body is Level 2. Its `layer-specs.md`, `redline-patterns.md`, and `output-shape.md` are Level-3 supporting files that load only when the workflow needs them. Links to Appendix H and chapter G.22 go deeper still: the agent follows them only when the task needs that context.
+The in-repo `pre-ship-check` reference is a concrete example. Its name and description are Level 1. Its 109-line SKILL.md body is Level 2. Its `layer-specs.md`, `redline-patterns.md`, and `output-shape.md` are Level-3 supporting files that load only when the workflow needs them. Links to Appendix H and chapter G.22 go deeper still: the agent follows them only when the task needs that context.
 
 The total policy weight is hundreds of lines. Startup pays only for the discovery metadata; a relevant invocation adds the body; the active workflow adds only the supporting detail it uses.
 
@@ -86,7 +86,7 @@ The trap: copying public-doc content into the SKILL.md "for offline access." Pub
 
 ## Worked comparison
 
-Suppose your team is publishing a "team-status-summary" skill (the v0.7-ish example from G.13's discussion). Two ways to write it.
+Suppose your team is publishing a "team-status-summary" skill (the example from G.13's discussion). Two ways to write it.
 
 ### The wrong way (one big SKILL.md)
 
@@ -129,9 +129,9 @@ The fix in all three cases: when a SKILL.md crosses 200 lines, ask "what would I
 
 ---
 
-## What this looks like in v0.12's skills
+## What this looks like in the reference skills
 
-The v0.12 Part C skills are real applications of progressive disclosure:
+The in-repo Part C skill definitions are real applications of progressive disclosure:
 
 - `pre-ship-check/` — SKILL.md at 109 lines; layer-specs.md (156), redline-patterns.md (96), output-shape.md (175) loaded on demand.
 - `blade-compliance-reviewer/` — SKILL.md at 109 lines; the Blade vocabulary loads from the connector at scan time, not from a reference file (because it changes with the design system).
@@ -182,4 +182,4 @@ B.8 (*Memory systems*) is the next layer up. Once your skills are small, the nex
 - [G.7 — Writing your first SKILL.md](../../03-green/a-craft/G07-writing-your-first-skill.md)
 - [G.2 — Why context windows fill](../../03-green/a-craft/G02-context-windows.md) — the constraint this discipline is downstream of
 - [Anthropic — *Equipping agents for the real world with Agent Skills*](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) — the three levels of skill progressive disclosure
-- The v0.12 Part C skills as reference implementations
+- The in-repo Part C skill definitions as reference implementations

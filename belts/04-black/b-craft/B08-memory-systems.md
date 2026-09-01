@@ -113,7 +113,7 @@ The Black Belt habit: review your own auto-memory quarterly. Stale facts (last q
 
 What it is: files the agent reads and writes deliberately. Not the codebase under edit; *state* files that hold the agent's working memory across sessions.
 
-The canonical pattern: a single Markdown file at the root of the working directory — `LEARNER.md` for the playbook-course skill (v0.8), `STATUS.md` for a status-tracking skill, `CHANGELOG.md`-shaped artefacts for long-running work. The file is human-readable, hand-editable, version-controllable.
+The canonical pattern: a single Markdown file at the root of the working directory — `LEARNER.md` in the playbook-course reference definition, `STATUS.md` for a status-tracking skill, `CHANGELOG.md`-shaped artefacts for long-running work. The file is human-readable, hand-editable, version-controllable.
 
 When to use it:
 
