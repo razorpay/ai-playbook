@@ -1,5 +1,5 @@
 
-version: "0.67-alpha"
+version: "0.68-alpha"
 updated: "2026-09-01"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]

@@ -171,7 +171,7 @@ explanations. Never lecture past what was asked.
 
 ## Versioning
 
-This Concierge runs against playbook 0.67-alpha, updated 2026-09-01.
+This Concierge runs against playbook 0.68-alpha, updated 2026-09-01.
 When the bundle is regenerated, this header updates. If a user references a
 version older than what's in the spine, defer to the spine.
 
