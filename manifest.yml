@@ -1,6 +1,6 @@
 
-version: "0.66-alpha"
-updated: "2026-08-30"
+version: "0.67-alpha"
+updated: "2026-09-01"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -1925,7 +1925,7 @@ chapters:
     pillar: null
     belt: "black"
     tags: ["black-belt", "part-a", "build-the-platform", "readme"]
-    updated: "2026-08-13"
+    updated: "2026-09-01"
   - slug: "belts/black/internal-mcp-server"
     path: "belts/04-black/a-platform/B01-internal-mcp-server.md"
     title: "Authoring an internal MCP server — architecture, auth, packaging"
@@ -2078,7 +2078,7 @@ chapters:
     pillar: "context"
     belt: "black"
     tags: ["black-belt", "progressive-disclosure", "skill-design", "voice-anchor"]
-    updated: "2026-04-29"
+    updated: "2026-09-01"
   - slug: "belts/black/memory-systems"
     path: "belts/04-black/b-craft/B08-memory-systems.md"
     title: "Memory systems — auto-memory, session state, long-running agents"
@@ -2095,7 +2095,7 @@ chapters:
     pillar: "context"
     belt: "black"
     tags: ["black-belt", "memory-systems", "session-state", "long-running-agents"]
-    updated: "2026-04-29"
+    updated: "2026-09-01"
   - slug: "belts/black/prompt-evals"
     path: "belts/04-black/b-craft/B09-prompt-evals.md"
     title: "Prompt evals — A/B, regression, golden sets"
@@ -2112,7 +2112,7 @@ chapters:
     pillar: "prompt"
     belt: "black"
     tags: ["black-belt", "prompt-evals", "golden-sets", "a-b-testing"]
-    updated: "2026-04-29"
+    updated: "2026-09-01"
   - slug: "belts/black/cost-and-observability"
     path: "belts/04-black/b-craft/B10-cost-and-observability.md"
     title: "Cost attribution + observability at team + org scale"
@@ -2146,7 +2146,7 @@ chapters:
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "effort-settings", "model-routing", "fall-backs"]
-    updated: "2026-04-29"
+    updated: "2026-09-01"
   - slug: "belts/black/quest-contribution-or-full-stack"
     path: "belts/04-black/b-craft/quest-B2-contribution-or-full-stack.md"
     title: "Quest B-2: Component contribution or full-stack feature"

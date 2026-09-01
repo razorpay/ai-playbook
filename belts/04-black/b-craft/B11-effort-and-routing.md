@@ -14,7 +14,7 @@ next: "belts/black/quest-contribution-or-full-stack"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "effort-settings", "model-routing", "fall-backs"]
-updated: "2026-08-18"
+updated: "2026-09-01"
 ---
 
 # B.11 — Effort settings, model routing, fall-backs
@@ -192,7 +192,7 @@ What it is: what happens when the primary call fails. Three named failure modes:
 
 ## Worked example — tuning a "pre-ship-check" invocation
 
-The pre-ship-check skill (v0.12) runs on every PR in some teams. Route one invocation with E3:
+The in-repo `pre-ship-check` definition is a useful routing example. Where a team distributes it as a runtime workflow, route one invocation with E3:
 
 **Estimate.** The required evidence is bounded: redlines, design-system compliance, tests, PR craft, prompt-craft trace, and behaviour preservation. Layers 1–4 are mostly deterministic checks; Layers 5–6 require judgement. The failure cost is high enough that every layer must run, but not every layer needs the same model or effort.
 
