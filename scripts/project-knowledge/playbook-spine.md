@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.69-alpha, updated 2026-09-01).
+Compact chapter index for the Razorpay AI Playbook (0.70-alpha, updated 2026-09-02).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.69-alpha
-updated: 2026-09-01
+version: 0.70-alpha
+updated: 2026-09-02
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -2737,17 +2737,16 @@ chapters:
     section: appendices
     track: known-issues
     belt: null
-    status: drafted skeleton
+    status: drafted
     type: readme
     audience: everyone
-    time_minutes: 8
-    outcome: Find the known fix for a problem you have hit, or contribute a fix you
-      have just developed.
+    time_minutes: 10
+    outcome: Find the known fix for a problem you have hit, or the contribution path
+      for a problem you have just solved.
     tags:
       - appendix
       - known-issues
       - faq
-      - skeleton
   - slug: appendices/roles-and-forums
     title: "Appendix E: Roles & Forums"
     hub_url: https://razorpay.github.io/ai-playbook/appendices/roles-and-forums/
@@ -2775,8 +2774,9 @@ chapters:
     type: readme
     audience: everyone
     time_minutes: 6
-    outcome: Find the right channel for a question; follow the etiquette so the
-      program's primary channels stay useful.
+    outcome: Find the right channel for the question you have, follow the etiquette
+      so the program's primary channels stay useful, and know where to celebrate
+      wins or escalate concerns.
     tags:
       - appendix
       - slack

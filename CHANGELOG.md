@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.70 — drafted appendix routing metadata (2026-09-02)
+
+Appendices D and F are live, drafted references in their source frontmatter and the Master Index, but the slug registry still labelled both as drafted skeletons. Appendix D's manifest record also retained its original May seed metadata, so generated Concierge routing understated a fifteen-entry support FAQ.
+
+**What changed.**
+
+- **Appendix statuses agree across surfaces.** `slugs.yml` now marks both live references as drafted, matching their source files and `INDEX.md`.
+- **Appendix D and F routing details match their sources.** The manifest now carries each appendix's current outcome, timing, tags, and review date.
+- **Version markers bumped.** README, INDEX, and manifest now report v0.70; course curriculum and generated Concierge material carry the 2026-09-02 refresh.
+
+---
+
 ## v0.69 — evergreen skill reference and acceptance labels (2026-09-01)
 
 Seven maintainer and test files still described current reference workflows as release-bound work from v0.8 or v0.12. Those labels made live acceptance suites look archival and left speculative Compass-vendoring language beside the v0.66 distribution boundary.

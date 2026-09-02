@@ -1,5 +1,5 @@
-version: "0.69-alpha"
-updated: "2026-09-01"
+version: "0.70-alpha"
+updated: "2026-09-02"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -2865,18 +2865,18 @@ chapters:
     title: "Appendix D: Known Issues + FAQ"
     section: "appendices"
     track: "known-issues"
-    status: "drafted skeleton"
+    status: "drafted"
     type: "readme"
     order: 0
-    time_minutes: 8
+    time_minutes: 10
     audience: "everyone"
-    outcome: "Find the known fix for a problem you have hit, or contribute a fix you have just developed."
+    outcome: "Find the known fix for a problem you have hit, or the contribution path for a problem you have just solved."
     prev: null
     next: null
     pillar: null
     belt: null
-    tags: ["appendix", "known-issues", "faq", "skeleton"]
-    updated: "2026-05-08"
+    tags: ["appendix", "known-issues", "faq"]
+    updated: "2026-07-21"
   - slug: "appendices/roles-and-forums"
     path: "appendices/E-roles-and-forums/README.md"
     title: "Appendix E: Roles & Forums"
@@ -2904,13 +2904,13 @@ chapters:
     order: 0
     time_minutes: 6
     audience: "everyone"
-    outcome: "Find the right channel for a question; follow the etiquette so the program's primary channels stay useful."
+    outcome: "Find the right channel for the question you have, follow the etiquette so the program's primary channels stay useful, and know where to celebrate wins or escalate concerns."
     prev: null
     next: null
     pillar: null
     belt: null
     tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-    updated: "2026-05-13"
+    updated: "2026-08-05"
   - slug: "appendices/reading-list"
     path: "appendices/J-reading-list/README.md"
     title: "Appendix J: Reading List"
