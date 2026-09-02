@@ -14,7 +14,7 @@ next: "tech-101/tests"
 pillar: null
 belt: null
 tags: ["software-basics", "deploy"]
-updated: "2026-08-29"
+updated: "2026-09-02"
 ---
 
 # 0A.8 — Build, deploy, staging, production (the journey of a change)
@@ -118,6 +118,31 @@ Do not infer safety or fidelity from the name alone. Ask what data it uses, what
 
 ---
 
+## Before release: make the risk a product decision
+
+A release path tells you **where** a change goes. A release-risk preflight decides **how much user harm the team is prepared to risk while learning**. This is not an engineering-only appendix. The PM makes the affected user journey and acceptable exposure explicit; the designer defines failure and recovery states; engineering supplies the signals and controls. The team agrees on the release decision.
+
+You may hear this discussed as **non-functional requirements (NFRs)**: reliability, latency, security, recovery, and other conditions the product must satisfy beyond its happy-path feature behaviour. An **SLO** turns one reliability expectation into a measurable target over a time window. For example, “checkout should work” is a hope; an agreed success-rate target, measurement window, and owner can govern a release.
+
+A canary is useful only when the team knows what it is watching and what result stops the rollout. “Start at 5%” without a signal, observation window, or decision rule is a smaller gamble, not a release gate.
+
+### Try it: the six-field release-risk preflight
+
+Fill this before a design or launch review. Use the service owner's agreed targets; do not invent a reassuring number to complete the card.
+
+```text
+Critical user journey:
+Failure users would experience:
+Maximum first-exposure cohort or blast radius:
+User-visible signal, target, and observation window:
+Stop trigger and decision owner:
+Tested disable, rollback, or recovery path:
+```
+
+If the signal cannot be measured, the stop trigger has no owner, or the recovery path has not been tested, keep exposure bounded. A green build proves the named checks passed. It does not answer how quickly the team will detect user harm or recover from it.
+
+---
+
 ## One common journey, fully traced
 
 A service using required PR checks, staging, and progressive production rollout might follow this path:
@@ -176,6 +201,9 @@ This is also why preview environments are such a leverage point for non-engineer
 **Previous:** [← 0A.7 Git, conceptually](07-git-concepts.md) · **Next:** [→ 0A.9 Tests](09-tests.md)
 
 **Further reading**
+- [Razorpay Product Function — Reliability 101 (2 September 2026)](https://razorpay.slack.com/archives/C3GF5LWJK/p1788338964833349) — the Product-team session connecting NFRs, detection, SLOs, canaries, rollback speed, and blast radius
+- [Google SRE Workbook — Implementing SLOs](https://sre.google/workbook/implementing-slos/) — how user journeys and measurable indicators become reliability objectives
+- [Google SRE Workbook — Canarying Releases](https://sre.google/workbook/canarying-releases/) — why canaries need representative traffic, evaluation, and an explicit rollout decision
 - [Atlassian — CI/CD intro](https://www.atlassian.com/continuous-delivery/continuous-integration) — the cleanest plain-language overview of CI and CD as separable practices
 - [GitHub Actions — events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows) — why repository rules, events, branches, and path filters determine what runs
 - [Martin Fowler — Feature Toggles](https://martinfowler.com/articles/feature-toggles.html) — the classic explanation of separating feature release from code deployment
