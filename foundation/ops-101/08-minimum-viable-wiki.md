@@ -14,7 +14,7 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-08-12"
+updated: "2026-09-02"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
@@ -366,6 +366,55 @@ The failure mode to avoid is turning a private notebook into shared, searchable 
 
 ---
 
+## When your knowledge base becomes a docs product
+
+A private wiki has a small, known audience. Product documentation may now have two readers: the person doing the work and an AI agent reading on that person's behalf. Both need the same authoritative source, but they use it differently. A person scans navigation and examples; an agent searches, retrieves, and assembles instructions into a task.
+
+Treat **AI-ready** as an acceptance condition, not a launch label. A docs assistant that returns an answer has proved that the route responded. It has not proved that the answer used the right source, that the integration worked, or that an unsupported question stayed unsupported.
+
+### Design and test the two routes together
+
+1. **Name the jobs before the pages.** Start with what the reader came to do: choose an integration, reach working code, look up an exact contract, debug an error, or verify a launch. Organise discovery around those intents rather than making readers decode the owning team's structure.
+2. **Keep one source of truth.** Put the current contract, example, error meaning, prerequisites, and next step close enough to retrieve together. Human navigation, search, a built-in assistant, and an external coding agent should point back to the same canonical page—not maintain separate “human” and “AI” answers.
+3. **Write the test set first.** Pick five important questions with expected source pages. Add one unsupported question, one outdated example, and one ambiguous request. Reuse real search terms, support themes, and integration jobs; do not write questions that merely repeat a heading.
+4. **Run every available route.** For each case, try ordinary browse/search, the docs assistant, and a coding agent using the published prompt or docs path. Grade the source reached, the supported claims, the next action, and the final task outcome. Wording may differ; the contract may not.
+5. **Test a source change.** Correct one harmless fact in the source and repeat the relevant case after publication. If one route stays stale, the ingestion or cache path is part of the product defect.
+6. **Launch with denominators visible.** Agent page views show reach. Answer rate shows that the assistant responded. Search click-through and zero-result queries show discovery behaviour. CSAT shows reported sentiment. None alone proves task completion or correctness, and a percentage without its response count can look far more certain than it is.
+
+### Copy this dual-reader acceptance card
+
+```markdown
+# Dual-reader docs acceptance: <surface or release>
+Owner: <role responsible for source correctness>
+Primary jobs: <integrate, reference, debug, verify, ...>
+Available routes: <browse/search, assistant, coding agent>
+
+| Test | Expected source or gap | Human route | Assistant route | Coding-agent route | Outcome proof |
+|---|---|---|---|---|---|
+| Known answer 1 | <canonical page> | Pass / Fail | Pass / Fail | Pass / Fail | <observable result> |
+| Known answer 2 | <canonical page> | Pass / Fail | Pass / Fail | Pass / Fail | <observable result> |
+| Unsupported question | No source | Gap admitted? | Gap admitted? | Gap admitted? | No invented action |
+| Stale example | Current page | Old path rejected? | Old path rejected? | Old path rejected? | Current path works |
+
+Source-change freshness check: Pass / Fail by route
+Smallest failing slice: <job, page family, route, or audience>
+Release decision: Ship / Narrow scope / Fix and retest
+```
+
+Grade the smallest failing slice instead of averaging it away. If browse works but the coding-agent route uses a retired example, the surface is not “mostly ready” for that job. Narrow the advertised route or fix and rerun. The same rule applies when an assistant answers fluently but cannot cite the page that supports the action.
+
+Razorpay's 2026 Docs rollout is a useful measurement example: the launch separated human and agent page views, assistant answer rate, page CSAT, search click-through, and zero-result searches—and explicitly called the early sample directional. That is the right posture. Use those signals to find the next test case; use sourced correctness and task outcome to decide whether the docs passed it.
+
+### Failure modes to avoid
+
+- **A second truth for agents.** Agent-only summaries drift from the pages people maintain. Fix the canonical source and regenerate or re-index the route.
+- **Response rate presented as answer quality.** “Answered” can include a polished wrong answer. Inspect the source and outcome.
+- **Traffic presented as task success.** Agent page views prove consumption, not a successful integration. Add an observable task check.
+- **Testing only the happy path.** The unsupported, stale, ambiguous, and missing-prerequisite cases are where fabricated confidence appears.
+- **A separate launch for every route.** Test the routes together so a content correction cannot pass on the website while remaining stale in the assistant or agent path.
+
+---
+
 ## When to add a retrieval layer
 
 The folder you built is the source of truth. For many projects, `INDEX.md` plus ordinary search is all you need. Do not install a knowledge platform merely because your four-page wiki now has ambitions.
@@ -458,6 +507,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - Preflight recurring conversation sources before capture: approved route, informed participants, capture window, destination audience, exclusions, owner, and one known-decision check.
 - Automate ingestion only after the manual habit works; keep raw capture, proposed wiki changes, proposed actions, approval, and receipts as separate stages.
 - Promote private analytics context into the shared knowledge hub only through source screening, known-answer checks, and a pod-owner-reviewed PR.
+- When shared knowledge becomes a docs product, test the same jobs across human, assistant, and coding-agent routes; grade sources and task outcomes, not response counts alone.
 - Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
 - A shared wiki needs a named owner for `CONTEXT.md` and for the weekly lint pass. Without ownership, it rots.
 - This chapter closes Ops 101. You can stop here: the boss fight (if you've completed it), the wiki (if you've stood it up), and the seven prior chapters are a coherent on-ramp into AI-leveraged work that doesn't require any code.
@@ -478,3 +528,7 @@ Shared wikis compound much harder than personal ones (the value scales with the 
 - [Analytics Knowledge repository](https://github.com/razorpay-ai-tools/analytics-knowledge) — central pod folders and the Cross-border pilot
 - [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) — current Razorpay-specific setup and maintenance guidance
 - [GBrain](https://github.com/garrytan/gbrain) — official source for the retrieval/synthesis model and public documentation
+- [Razorpay Docs](https://docs.razorpay.com/) — the live human, search, assistant, and coding-agent-facing product surface
+- [Product Design — agent-readable Docs homepage review](https://razorpay.slack.com/archives/C07KLQKSB6U/p1785410814261309) — intent-first navigation, zero-depth references, and the agent-reader requirement before launch
+- [Prod Bulletin — Razorpay Docs launch](https://razorpay.slack.com/archives/C2NVBTWF6/p1788265422625329) — rollout scope, human/agent traffic, assistant, search, and CSAT denominators
+- [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) — representative tasks, outcome graders, trial evidence, and failure analysis
