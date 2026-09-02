@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.71 — repaired White Belt readiness links (2026-09-02)
+
+Five orientation, support, tool-selection, and Yellow Belt pages still linked to the previous heading for W.5's canonical setup-verification section. The destination chapter remained correct, but the stale fragment no longer opened the readiness checks learners were being told to run.
+
+**What changed.**
+
+- **Readiness links now land on the checks.** All five stale fragments point to W.5's current `what-setup-verification-should-prove` section.
+- **Chapter metadata reflects the repair.** Frontmatter and manifest review dates now agree for every touched learner page.
+- **Version markers bumped.** README, INDEX, manifest, and generated Concierge material now report v0.71 / 2026-09-02; the course curriculum was regenerated from the manifest.
+
+---
+
 ## v0.70 — drafted appendix routing metadata (2026-09-02)
 
 Appendices D and F are live, drafted references in their source frontmatter and the Master Index, but the slug registry still labelled both as drafted skeletons. Appendix D's manifest record also retained its original May seed metadata, so generated Concierge routing understated a fifteen-entry support FAQ.

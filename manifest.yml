@@ -1,4 +1,4 @@
-version: "0.70-alpha"
+version: "0.71-alpha"
 updated: "2026-09-02"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
@@ -496,7 +496,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "builder-day"]
-    updated: "2026-08-24"
+    updated: "2026-09-02"
   - slug: "prologue/mental-model"
     path: "prologue/03-mental-model.md"
     title: "The 5-Layer Mental Model of the AI Dev Stack"
@@ -513,7 +513,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "mental-model"]
-    updated: "2026-08-24"
+    updated: "2026-09-02"
   - slug: "prologue/enablement-stack"
     path: "prologue/04-enablement-stack.md"
     title: "The Enablement Stack"
@@ -564,7 +564,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "support", "directory"]
-    updated: "2026-08-24"
+    updated: "2026-09-02"
   - slug: "prologue/operating-principles"
     path: "prologue/07-operating-principles.md"
     title: "Operating Principles"
@@ -1261,7 +1261,7 @@ chapters:
     pillar: "harness"
     belt: "yellow"
     tags: ["yellow-belt", "boss-fight"]
-    updated: "2026-08-24"
+    updated: "2026-09-02"
   - slug: "belts/yellow/badge"
     path: "belts/02-yellow/badge.md"
     title: "Yellow Belt badge template"
@@ -2451,7 +2451,7 @@ chapters:
     pillar: "harness"
     belt: null
     tags: ["appendix", "tools", "harness"]
-    updated: "2026-08-24"
+    updated: "2026-09-02"
   - slug: "appendices/environment-setup"
     path: "appendices/B-environment-setup/README.md"
     title: "Appendix B: Environment Setup"

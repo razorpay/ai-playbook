@@ -14,7 +14,7 @@ next: "prologue/operating-principles"
 pillar: null
 belt: null
 tags: ["orientation", "support", "directory"]
-updated: "2026-08-24"
+updated: "2026-09-02"
 ---
 
 # 0.6 — Meet the people (roles, forums, the support surface)
@@ -141,7 +141,7 @@ This is where:
 
 The single most-important rule is **post publicly, not in DM**. Your question is almost certainly someone else's question. The thread you start helps the next reader who searches the channel for the same problem. *DM saves you face; public posting compounds the playbook.*
 
-The second-most-important rule: **post the full diagnostic output**. *"It doesn't work"* gets you nowhere. Post the exact failing command and its full output, the relevant [W.5 readiness check](../belts/01-white/W05-installing-the-stack.md#step-5--run-the-supported-readiness-gate), and the version of the tool you're on. That is what lets the channel diagnose in three minutes instead of an hour.
+The second-most-important rule: **post the full diagnostic output**. *"It doesn't work"* gets you nowhere. Post the exact failing command and its full output, the relevant [W.5 readiness check](../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove), and the version of the tool you're on. That is what lets the channel diagnose in three minutes instead of an hour.
 
 ### The celebrations channel
 

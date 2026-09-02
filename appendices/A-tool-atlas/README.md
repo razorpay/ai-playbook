@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-08-24"
+updated: "2026-09-02"
 ---
 
 # Appendix A — Tool Atlas
@@ -133,7 +133,7 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 **What it cannot do.** Run by itself. If Claude Code is broken or unauthed, Compass is not running.
 
-**Common failure modes.** Installed but stale — the loaded plugin version does not match current conventions. Before high-stakes work, inspect the installed plugin source and `/help` inventory, then run the direct readiness checks in [W.5](../../belts/01-white/W05-installing-the-stack.md#step-5--run-the-supported-readiness-gate).
+**Common failure modes.** Installed but stale — the loaded plugin version does not match current conventions. Before high-stakes work, inspect the installed plugin source and `/help` inventory, then run the direct readiness checks in [W.5](../../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove).
 
 **Belt relevance.** Required from White Belt setup. Becomes the centre of gravity at Green and Black, where builders begin authoring their own skills.
 
