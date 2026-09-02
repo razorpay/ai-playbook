@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.71 — drafted appendix routing metadata (2026-09-02)
+
+Appendices D and F are live, drafted references in their source frontmatter and the Master Index, but the slug registry still labelled both as drafted skeletons. Appendix D's manifest record also retained its original May seed metadata, so generated Concierge routing understated a fifteen-entry support FAQ.
+
+**What changed.**
+
+- **Appendix statuses agree across surfaces.** `slugs.yml` now marks both live references as drafted, matching their source files and `INDEX.md`.
+- **Appendix D and F routing details match their sources.** The manifest now carries each appendix's current outcome, timing, tags, and review date.
+- **Version markers bumped.** README, INDEX, and manifest now report v0.71; course curriculum and generated Concierge material carry the 2026-09-02 refresh.
+
+---
+
 ## v0.70 — production proof for full-stack quest work (2026-09-04)
 
 Razorpay's first announced Full Stack Builder production launch crossed product, service, and infrastructure surfaces, used staged exposure, and reported merchant-visible outcomes. Quest B-2 still treated two merged PRs as the complete artefact, so a candidate could claim cross-layer shipping without proving that the coordinated change reached users or passed its acceptance signal.
