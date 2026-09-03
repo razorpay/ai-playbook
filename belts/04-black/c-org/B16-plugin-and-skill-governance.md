@@ -14,7 +14,7 @@ next: "belts/black/boss-fight-pod-ai-uplift"
 pillar: "governance"
 belt: "black"
 tags: ["black-belt", "governance", "plugin-lifecycle"]
-updated: "2026-07-24"
+updated: "2026-09-03"
 ---
 
 # B.16 — Plugin + skill governance: approval, deprecation, security review
@@ -99,7 +99,7 @@ Choose the route before opening the PR:
 | A standalone shared skill for supported coding agents | `razorpay/agent-skills` | Install the named skill from a clean environment. |
 | A plugin, or a skill packaged for the Razorpay marketplace | `razorpay/claude-plugins` | Confirm the entry propagated to the marketplace and installs from there. |
 
-Whichever route you choose, the PR names the use case, placement, owner, invocation, validation, and non-goals. The owning team reviews normal workflow content. DevEx joins when the PR changes repository structure; plugin, MCP, or sensitive-data changes add the reviewers their scope requires. The merged PR is the durable approval record. Use the [current product-function announcement feed](../../../appendices/F-slack-channels/README.md#product--design-context) for marketplace discovery and updates.
+Whichever route you choose, the PR names the use case, placement, owner, invocation, validation, and non-goals. The owning team reviews normal workflow content. DevEx joins when the PR changes repository structure; plugin, MCP, or sensitive-data changes add the reviewers their scope requires. The merged PR is the durable approval record. Use the [current product-function announcement feed](../../../appendices/F-slack-channels/README.md#wider-product-context) for marketplace discovery and updates.
 
 ### What it is not
 
@@ -244,7 +244,7 @@ A redacted shape. Names removed; numbers illustrative.
 >
 > **Trigger.** A successor plugin, `org-status-pack` v1.0, has shipped. The successor handles three additional report shapes that `weekly-status-pack` does not, and the platform-builder community has consensus that the successor replaces the original.
 >
-> **Day 0.** Owner team publishes an update through the [current product-function announcement feed](../../../appendices/F-slack-channels/README.md#product--design-context): "`weekly-status-pack` v1.x is deprecated as of <today>. Successor: `org-status-pack` v1.0. Migration guide: <link to a one-page doc walking the change>. Removal date: <today + 90 days>." The known adopters (5 PODs) are notified directly with the migration link.
+> **Day 0.** Owner team publishes an update through the [current product-function announcement feed](../../../appendices/F-slack-channels/README.md#wider-product-context): "`weekly-status-pack` v1.x is deprecated as of <today>. Successor: `org-status-pack` v1.0. Migration guide: <link to a one-page doc walking the change>. Removal date: <today + 90 days>." The known adopters (5 PODs) are notified directly with the migration link.
 >
 > **Day 30.** Owner team posts a status update: 3 of 5 known adopters have migrated. The remaining 2 have specific blockers. The blockers are documented; the migration guide is updated to address them.
 >
