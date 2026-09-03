@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.62 — refresh Concierge release metadata (2026-09-03)
+
+The root README and Master Index had advanced to v0.61, but `manifest.yml` and the generated Playbook Concierge bundle still identified v0.59. That split let manifest-backed hub metadata and uploaded Concierge guidance report an older release while selected generated records were being updated by hand.
+
+**What changed.**
+
+- **Release metadata aligned.** README, INDEX, and `manifest.yml` now identify v0.62 / 2026-09-03.
+- **Concierge bundle regenerated.** The generated routing spine, project instructions, and quick-reference cards now come from one current source snapshot rather than a mixture of v0.59 metadata and later manual updates.
+
 ## v0.61 — plugin package and surface proof (2026-08-13)
 
 B.3 described a Razorpay Cowork tenant marketplace, `pack.yml`, one-click installs, and a central governance route that the canonical plugin repository does not implement. Internal support requests asking how to publish or set up Analytics Agent in Cowork show why the distinction matters: a source package in the developer marketplace is not proof that PMs or designers can use it on another surface.

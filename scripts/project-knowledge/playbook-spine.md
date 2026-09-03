@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.59-alpha, updated 2026-08-07).
+Compact chapter index for the Razorpay AI Playbook (0.62-alpha, updated 2026-09-03).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.59-alpha
-updated: 2026-08-07
+version: 0.62-alpha
+updated: 2026-09-03
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -1811,8 +1811,8 @@ chapters:
     type: readme
     audience: platform-builder
     time_minutes: 15
-    outcome: Understand the Black Belt arc, what is drafted in Part A, and what
-      comes next in Parts B and C.
+    outcome: Understand the Black Belt arc, walk Parts A, B, and C, claim Quests B-1
+      and B-2, ship Boss Fight B-B, and earn the badge.
     tags:
       - black-belt
       - readme

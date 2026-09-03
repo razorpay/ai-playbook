@@ -648,7 +648,7 @@ Escalation order: post the full redacted context publicly, follow the channel's 
 
 ---
 
-*Last reviewed: 2026-07-16. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
+*Last reviewed: 2026-08-03. If anything on this card is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and it gets patched in the next revision.*
 
 ---
 
