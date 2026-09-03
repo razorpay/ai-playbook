@@ -8,13 +8,13 @@ track: "black"
 order: 9
 time_minutes: 80
 audience: "platform-builder"
-outcome: "Build cold-start golden sets, prove the evaluator ran the intended variants and routes, then run prompt and agent evaluations with named pass criteria, outcome-state checks, trajectory checks, language slices, and calibrated graders — and refuse vibes-only updates."
+outcome: "Build cold-start golden sets, prove the evaluator ran the intended variants and routes, then run prompt and agent evaluations with named pass criteria, wrapper-boundary checks, outcome-state checks, trajectory checks, language slices, and calibrated graders — and refuse vibes-only updates."
 prev: "belts/black/memory-systems"
 next: "belts/black/cost-and-observability"
 pillar: "prompt"
 belt: "black"
 tags: ["black-belt", "prompt-evals", "agent-evals", "eval-integrity", "multilingual-evals", "golden-sets", "cold-start-evals", "a-b-testing"]
-updated: "2026-08-14"
+updated: "2026-09-03"
 ---
 
 # B.9 — Prompt evals
@@ -30,6 +30,7 @@ The discipline that turns "this prompt feels right" into "this system completes 
 - Before production traces exist, build a **cold-start set** from domain expertise: realistic input, expected answer, and one-line grader rule.
 - Before trusting a score, prove the evaluator ran the **intended variant and execution path**. Plant one case the checker must fail.
 - For an agent, grade the **outcome and trajectory**, not only the final message. A confident "done" is not evidence that the state changed.
+- When a runner wraps an agent, require **both wrapper success and semantic agent success**. A green job can still contain an error result.
 - For a multilingual agent, rerun the **same intent across supported languages** and compare actions, guardrails, handoffs, and outcomes — not fluency alone.
 - "Vibes-driven updates" (the team thinks the new prompt is better) is the failure mode this module exists to prevent.
 
@@ -241,6 +242,40 @@ That distinction catches a dangerous false positive. A ticket-triage agent can s
 
 Do not turn this into a dashboard of ten green averages and call it safety. Outcome and critical guardrails are **gates**: one fabricated action or unauthorised write can fail a trial even when the average score looks healthy.
 
+### Reconcile every wrapper boundary
+
+Agents rarely run alone. A scheduler, action, API handler, or orchestration layer starts the agent and reports its own status. That outer status proves only that the wrapper finished. It does not prove that the nested agent result was successful.
+
+Razorpay hit this exact split in a shared code-review action: more than 25 runs across four repositories reported green while the structured result said `is_error: true`, completed one turn, consumed no model tokens, and returned no useful work. The model route was stale, but the longer-lived defect was at the boundary: the wrapper exited successfully without interpreting the agent's result.
+
+Treat each boundary as a separate assertion:
+
+| Boundary | Evidence to inspect | Release rule |
+|---|---|---|
+| **Wrapper** | Process or transport status; output artifact exists and parses | Missing, malformed, or failed execution stops the workflow |
+| **Agent result** | The runtime's documented success/error field and safe error detail | An explicit semantic error fails the wrapper, even when its process exit is zero |
+| **Product outcome** | The external state or artifact named in the scorecard | Downstream writes or promotion wait until the required outcome exists |
+
+Implement the boundary in this order:
+
+1. **Name semantic success from the runtime contract.** Use the documented result field; do not invent a proxy such as “the log has many lines” or “cost is non-zero.”
+2. **Persist and parse the result before filtering logs.** On failure, surface the safe inner error so the owner can distinguish routing, auth, policy, and tool failures.
+3. **Fail closed on error, missing output, or malformed output.** Do this before commits, messages, approvals, or any other downstream effect.
+4. **Prove the guard with a known-red payload.** Feed one valid error result through the wrapper and verify that the outer check fails; then run one valid success result and verify the intended receipt.
+
+```markdown
+# Agent-wrapper boundary check
+Wrapper: <scheduler, action, handler, or orchestrator>
+Process success: <what the outer runtime reports>
+Semantic success: <documented field and passing value>
+Failure visibility: <safe error detail and owner>
+Downstream effects held until pass: <writes, messages, approval, promotion>
+Known-red probe: <valid error payload that must fail the wrapper>
+Success receipt: <agent result plus required external outcome>
+```
+
+The boundary check is not a replacement for the outcome grader. It stops an errored agent from masquerading as a completed run; the outcome check still proves that a successful agent did the intended work.
+
 ### Run the agent-eval loop
 
 1. **Choose representative tasks.** Cover the happy path, edge cases, missing inputs, denied permissions, tool failures, and an adversarial case. Use realistic fixtures without copying production secrets into the suite.
@@ -295,6 +330,7 @@ Hard gates:
 - <required state assertion>
 - <forbidden tool, write, or policy breach>
 - <timeout / escalation condition>
+- <wrapper status reconciled with semantic agent result>
 
 Quality rubric: <criteria, scale, passing threshold, labelled calibration examples>
 Efficiency budget: <latency, turns, tokens/cost, retries>
@@ -343,6 +379,8 @@ Release decision: <pass/fail by slice; named owner for accepted trade-offs>
 
 **Grading only the final message.** Fluent prose can claim a task completed when no state changed. Fix: check the final environment state and the tool trajectory.
 
+**Trusting the wrapper's green check.** A runner can exit successfully while its nested agent result records an error. Fix: parse the documented result contract, fail on semantic errors or missing output, and prove the adapter with a known-red payload.
+
 **A multilingual score that hides the weakest language.** Overall pass rate can look healthy while one advertised language takes different actions or misses handoffs. Fix: use paired intents, report each language separately, and gate on the weakest supported slice.
 
 **Running each agent task once.** One lucky pass hides nondeterminism. Fix: run multiple trials and report the pass rate by slice.
@@ -377,6 +415,8 @@ B.10 (*Cost attribution + observability at scale*) extends G.20's daily-loop obs
 
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md)
 - [Anthropic — Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Razorpay Actions #201 — fail the shared action on semantic Claude errors](https://github.com/razorpay/actions/pull/201)
+- [Post-merge caller receipt — semantic guard and successful agent result](https://github.com/razorpay/rewards-procurement/actions/runs/33722085861)
 - [QuoteBench — How matched scores can hide command-path failures](https://arxiv.org/abs/2608.13547)
 - [Razorpay SSA — evaluator self-comparison caught by a forbidden-path assertion](https://razorpay.slack.com/archives/C0A98PQTJH4/p1786634385695289)
 - [Mukherjee, Bali & Sitaram — Measuring cross-lingual policy retention in tool-using agents](https://arxiv.org/abs/2608.11110)
