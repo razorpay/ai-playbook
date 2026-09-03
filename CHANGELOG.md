@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.72 — refresh Concierge release metadata (2026-09-03)
+
+The root README and Master Index had advanced to v0.61, but `manifest.yml` and the generated Playbook Concierge bundle still identified v0.59. That split let manifest-backed hub metadata and uploaded Concierge guidance report an older release while selected generated records were being updated by hand.
+
+**What changed.**
+
+- **Release metadata aligned.** README, INDEX, and `manifest.yml` now identify v0.72 / 2026-09-03.
+- **Concierge bundle regenerated.** The generated routing spine, project instructions, and quick-reference cards now come from one current source snapshot rather than a mixture of v0.59 metadata and later manual updates.
+
 ## v0.71 — drafted appendix routing metadata (2026-09-02)
 
 Appendices D and F are live, drafted references in their source frontmatter and the Master Index, but the slug registry still labelled both as drafted skeletons. Appendix D's manifest record also retained its original May seed metadata, so generated Concierge routing understated a fifteen-entry support FAQ.
