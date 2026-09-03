@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-09-01"
+updated: "2026-09-03"
 ---
 
 # Appendix A — Tool Atlas
@@ -213,18 +213,23 @@ After an announced metric cutover or catalog correction, refresh **before the ne
 
 Stop if the plugin did not refresh, the commands do not load after restart, or the receipt still names the superseded source. Capture the announcement, metric, expected source, observed source, and redacted error; route that evidence to the Analytics Agent owner instead of guessing a table name.
 
-#### Current Trino route: stop on a 401
+#### Current Trino route: distinguish setup from data access
 
-Analytics Agent still uses the Trino MCP for Trino-backed metrics. The move to the repo-owned Trino CLI is under review in [`claude-plugins` #1075](https://github.com/razorpay/claude-plugins/pull/1075); it is not a released fallback yet. Keep using `/analytics-query` and `/analytics-review`, but do not hand-edit `.env` or `.mcp.json` to select the pending CLI route.
+Analytics Agent still uses the Trino MCP for Trino-backed metrics. Data Platform has retired the shared service-account route in favour of [Trino MCP 2.0's per-user, region-specific Datum authentication](https://razorpay.slack.com/archives/C0432SCD5/p1782735791420309). However, the current released plugin still declares a credential-free MCP and its `/analytics-setup` flow does not configure those per-user headers. The repo-owned Trino CLI migration remains under review in [`claude-plugins` #1075](https://github.com/razorpay/claude-plugins/pull/1075); it is not a released fallback yet.
+
+Use this decision card before diagnosing the metric:
 
 ```text
-Ask the metric question normally
-  → the skill resolves the source
-  → Trino MCP returns a result? Continue
-  → Trino MCP returns 401? Stop and capture the redacted error
+Refresh Analytics Agent and restart Claude Code
+  → rerun /analytics-setup and its Trino probe
+  → probe passes? Ask the metric question and inspect its receipt
+  → 401 "User not authenticated"? Stop: the auth route is not ready
+  → 403 or profile denial? Stop: access approval is missing
 ```
 
-A Trino MCP 401 is a known issue. Add the exact question, route or gateway shown, and redacted error to [the current support thread](https://razorpay.slack.com/archives/C08QZD2GQFB/p1785472728285639); do not paste credentials or add a personal token as a workaround. The pending CLI migration changes transport, not data-access policy, so it must not be used to bypass a rejected write, expired access, timeout, or row cap.
+A 401 on `SELECT 1` is an authentication-path failure, not evidence that the metric, table, or VPN is broken. Capture the refresh status, exact probe, region or gateway, timestamp, and redacted error in [the active Analytics Agent thread](https://razorpay.slack.com/archives/C0A98PQTJH4/p1788431742546139?thread_ts=1788431704.199739), then follow the owner-confirmed setup route. Do not paste a Datum token into chat, commit it, or hand-edit the installed plugin's `.mcp.json`; plugin updates can overwrite that file, and an added MCP may not be the route the Analytics Agent skill invokes.
+
+Until the plugin owns per-user setup or the CLI migration ships, treat Trino-backed Analytics Agent answers as blocked when this probe is red. Use the source-of-truth dashboard or another owner-approved source for the decision rather than silently changing transport. Per-user authentication changes identity and auditability, not the underlying data-access policy, timeout, row cap, or read-only boundary.
 
 #### Validate a redesign without cutting over
 
