@@ -1,5 +1,5 @@
 
-version: "0.69-alpha"
+version: "0.70-alpha"
 updated: "2026-09-04"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
@@ -2163,7 +2163,7 @@ chapters:
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "quest", "blade-contribution", "full-stack"]
-    updated: "2026-05-07"
+    updated: "2026-09-04"
   - slug: "belts/black/c-org"
     path: "belts/04-black/c-org/README.md"
     title: "Black Belt — Part C: Shape the Org"
@@ -2299,7 +2299,7 @@ chapters:
     pillar: null
     belt: "black"
     tags: ["black-belt", "badge"]
-    updated: "2026-07-15"
+    updated: "2026-09-04"
   - slug: "council"
     path: "belts/05-council/README.md"
     title: "Staff+ Council"

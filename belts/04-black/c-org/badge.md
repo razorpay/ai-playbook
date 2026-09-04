@@ -14,12 +14,12 @@ next: "council"
 pillar: null
 belt: "black"
 tags: ["black-belt", "badge"]
-updated: "2026-07-15"
+updated: "2026-09-04"
 ---
 
 # ⚫ Black Belt — The badge
 
-> You have walked Parts A, B, and C. You have claimed Quest B-1 (a shared skill adopted by two PODs outside your team) and Quest B-2 (a Blade contribution or a full-stack feature you owned end-to-end). You have shipped Boss Fight B-B (a one-month POD embed with a signed-off metric lift and a contributed case study). You are ready to claim the Black Belt.
+> You have walked Parts A, B, and C. You have claimed Quest B-1 (a shared skill adopted by two PODs outside your team) and Quest B-2 (a Blade contribution or a full-stack feature released with production proof). You have shipped Boss Fight B-B (a one-month POD embed with a signed-off metric lift and a contributed case study). You are ready to claim the Black Belt.
 
 ---
 
@@ -50,7 +50,7 @@ Walk your tracker row and confirm:
 - 🟢 Green Belt earned (date logged).
 - Black Belt nomination registered (manager or Green Belt teammate, recorded with the cohort lead).
 - Quest B-1 claimed: merged shared-skill PR, install confirmations from ≥2 outside-team PODs, reviewer attestation.
-- Quest B-2 claimed: merged Blade contribution OR full-stack PR pair, reviewer attestation.
+- Quest B-2 claimed: merged Blade contribution OR full-stack PR/revision set with a completed production release receipt, reviewer attestation.
 - Boss Fight B-B claimed: case-study link, POD lead's metric sign-off, all-hands share confirmation, two reviewer attestations (one out-of-team, one Black-Belt-or-above).
 
 If any link is missing, fix the link before claiming. The claim is *built on the chain*, not on the candidate's say-so.
