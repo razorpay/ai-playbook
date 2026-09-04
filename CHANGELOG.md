@@ -6,6 +6,15 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.69 — canonical certification contract (2026-09-04)
+
+The Master Index duplicated Appendix L's certification policy but disagreed with it on belt evidence, reviewer requirements, tracker fields, and recertification. A candidate following the shorter index contract could therefore submit evidence that the canonical appendix would reject.
+
+**What changed.**
+
+- **One certification contract.** The Master Index now routes readers to Appendix L's evidence matrix, reviewer protocol, and tracker schema instead of maintaining a conflicting policy copy.
+- **Release surfaces aligned.** README, INDEX, `manifest.yml`, and generated project knowledge now identify v0.69 / 2026-09-04.
+
 ## v0.68 — evergreen skill reference and acceptance labels (2026-09-01)
 
 Seven maintainer and test files still described current reference workflows as release-bound work from v0.8 or v0.12. Those labels made live acceptance suites look archival and left speculative Compass-vendoring language beside the v0.66 distribution boundary.
