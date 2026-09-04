@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.68 · last reviewed 2026-09-01 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.69 · last reviewed 2026-09-04 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -603,33 +603,15 @@ Versioning discipline. Every non-trivial change logged with date, author, ration
 
 ## Appendix L — Certification [drafted]
 
-The *contract* between the playbook and the program's certification track. The playbook is the on-ramp; the tracker is the scoreboard.
+The canonical contract between the playbook and the program's certification track. Belt chapters own learning and quest requirements; Appendix L owns organisation-recognised evidence, review decisions, tracker fields, and recertification.
 
-### Belt → certification (the contract)
+Use these routes instead of treating an index summary as policy:
 
-| Belt earned → | Evidence required                                                |
-|---------------|------------------------------------------------------------------|
-| ⚪ White       | setup-verify all-green + closed practice PR                      |
-| 🟡 Yellow      | One PR raised in any Razorpay org repo (merged or under review)  |
-| 🟢 Green       | Two merged PRs (one product repo + one greenfield) + pre-ship-check pass |
-| ⚫ Black       | Green criteria + (component contribution OR backend change shipped) |
+1. Use the [belt ladder](#the-belt-ladder-at-a-glance) to find the required modules, quest, and boss fight for your belt.
+2. Gather the belt-specific artefacts in Appendix L's [evidence matrix](https://razorpay.github.io/ai-playbook/appendices/L-certification/#evidence-by-belt).
+3. Follow its [reviewer protocol](https://razorpay.github.io/ai-playbook/appendices/L-certification/#reviewer-protocol) and log the required [tracker fields](https://razorpay.github.io/ai-playbook/appendices/L-certification/#tracker-fields).
 
-### Certification process
-
-1. Candidate earns the belt (quest + boss fight complete).
-2. Evidence logged against their row in the certification tracker.
-3. Program lead verifies PR(s) + quality.
-4. Public recognition in the celebrations channel.
-5. Tracker updated.
-
-**Quality guardrails.** All code must pass standard PR review. "Non-trivial" = 50+ lines of meaningful code (not just config/styling tweaks). Deployments must be in production for 1+ week without critical bugs.
-
-### Tracker structure (seed)
-
-| Name | Role (PM / PD) | POD | Belt | # of PRs merged | Date certified | Mentor |
-|------|----------------|-----|------|-----------------|----------------|--------|
-
-The page keeps the quality bar simple: evidence over self-report, small reviewable artefacts, and tracker fields that force proof.
+This index deliberately does not repeat thresholds or reviewer rules. When certification policy changes, Appendix L remains the single page to update.
 
 **File:** [`appendices/L-certification/README.md`](https://razorpay.github.io/ai-playbook/appendices/L-certification/).
 

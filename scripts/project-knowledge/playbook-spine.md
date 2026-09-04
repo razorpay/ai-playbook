@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.68-alpha, updated 2026-09-01).
+Compact chapter index for the Razorpay AI Playbook (0.69-alpha, updated 2026-09-04).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.68-alpha
-updated: 2026-09-01
+version: 0.69-alpha
+updated: 2026-09-04
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
