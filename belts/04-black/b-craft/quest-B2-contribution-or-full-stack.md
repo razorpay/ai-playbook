@@ -14,7 +14,7 @@ next: "belts/black/c-org"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "quest", "blade-contribution", "full-stack"]
-updated: "2026-05-07"
+updated: "2026-09-04"
 ---
 
 # 🎮 Quest B-2 — Component contribution or full-stack feature
@@ -22,7 +22,7 @@ updated: "2026-05-07"
 > **Belt progress:** Part B of Black Belt
 > **Time budget:** ~8 hours active, more elapsed (review cycles)
 > **Prerequisite:** Green Belt awarded; Quest B-1 claimed; Part B modules read at GREEN colour
-> **What you'll prove:** that you own work across layers — either across the design-system contribution pipeline (option a) or across frontend and backend (option b) — not just within your team's usual surface
+> **What you'll prove:** that you own work across layers — either across the design-system contribution pipeline (option a) or from coordinated frontend/backend change through production evidence (option b) — not just within your team's usual surface
 
 ---
 
@@ -32,7 +32,7 @@ INDEX commits two acceptable shapes; pick one:
 
 **Option (a) — Blade component contribution.** Submit a Blade component via the contribution pipeline. The contribution must merge through Blade's review process: design alignment, accessibility audit, token compliance, documentation. The merged contribution is the artefact.
 
-**Option (b) — Full-stack feature.** Ship a feature involving a backend change. You own the PR in both layers — the backend change and the frontend change. "Backend" means a real service-side change (a new endpoint, a schema change, a meaningful service-side logic update), not just a config tweak. The merged PRs are the artefact.
+**Option (b) — Full-stack feature.** Ship a feature involving a backend change. You own the change across every affected layer — at minimum, the backend change and the frontend change. "Backend" means a real service-side change (a new endpoint, a schema change, a meaningful service-side logic update), not just a config tweak. The merged PRs and completed production release receipt are the artefact.
 
 Either option exercises cross-layer ownership. Black Belt is awarded when all three Parts close and both quests + boss fight are claimed; this quest is the second of the two quests.
 
@@ -80,6 +80,8 @@ Common candidates:
 
 ## Option (b) — Full-stack feature
 
+[Razorpay's first announced Full Stack Builder production launch](https://razorpay.slack.com/archives/C2NVBTWF6/p1788507012028539?thread_ts=1788507012.028539) crossed product, service, and infrastructure surfaces, then paired staged exposure with merchant-visible outcomes. The lesson is not “more commits wins.” It is that cross-layer ownership continues until the coordinated change reaches users and the team checks what happened.
+
 ### When this is the right option
 
 Your team owns both a frontend and a backend service, and you have a feature in flight that genuinely needs changes in both. The point is not "any feature with two PRs" — it is *a feature where the cross-layer ownership matters*.
@@ -93,20 +95,25 @@ Common candidates:
 
 ### How to do it
 
-1. **Scope.** With your team's backend lead, agree on the change's boundaries. The feature must require changes in both layers; not a frontend feature that "happens to log a metric."
-2. **Sequence.** Backend first or frontend first? Usually backend first: ship the endpoint, verify it, then build the UI against it. Sometimes coordinated; rarely frontend-first.
+1. **Scope.** With your team's backend lead, agree on the change's boundaries. List every affected repository, service, product surface, and owner; do not submit two convenient PR links if the feature actually changed five surfaces. The feature must require changes in both layers, not a frontend feature that "happens to log a metric."
+2. **Sequence.** Decide the dependency and deploy order, including how old and new versions behave while rollout is uneven. Backend-first is common, but it is not a law. Before exposure, agree the critical user journey, first cohort, acceptance signal and target, observation window, stop owner, and tested recovery path.
 3. **Build.** Apply Part A and Part B craft as appropriate. Pre-ship-check on both PRs (per G.26). Playwright test on the UI side (per G.12). Cost attribution if any agent is in the loop (per B.10).
 4. **Review.** An out-of-team reviewer per Appendix L; given the cross-layer surface, ideally one reviewer per layer and a coordinator.
-5. **Ship.** Both PRs merge; the feature works end-to-end.
-6. **Reflect.** What was harder about the layer you do not normally own?
+5. **Release.** Merge is a checkpoint, not the finish line. Record which revision reached each environment, the first user cohort, the rollout steps, the live signals, and who owns stop or recovery decisions.
+6. **Verify.** After the planned observation window, prove the intended cohort can complete the user journey. Record whether the acceptance signal passed and whether the product outcome is met, missed, or still measuring. A rollback is honest evidence; a merge notification is not production proof.
+7. **Reflect.** What was harder about the layer you do not normally own?
 
 ### Evidence
 
 - The merged backend PR URL.
 - The merged frontend PR URL.
+- Links for every additional affected repository or service.
 - Both PRs' pre-ship-check logs (green).
 - The Playwright test path on the frontend PR.
+- The completed production release receipt: release state, rollout, observed signals, recovery result, and user evidence.
 - A reflection naming the cross-layer cost (the protocol decisions, the schema-evolution thinking, the deploy ordering).
+
+The quest closes when the planned release cohort is live and its acceptance signal passes. A longer-term business outcome may still be measuring, but the receipt must say so rather than upgrading hope to fact.
 
 ---
 
@@ -132,9 +139,11 @@ For option (b): the cross-layer review usually involves at least one out-of-team
 
 **Same-team reviewer for both PRs.** Convenient; not Appendix-L-compliant for Black Belt. Fix: out-of-team reviewer for at least one PR.
 
+**Calling merged “shipped.”** Accepted code may still be undeployed, behind a flag, paused at a small cohort, or failing the user journey. Fix: complete the release receipt from runtime and product evidence after the observation window.
+
 ---
 
-## Evidence template
+## Evidence template and production release receipt
 
 Copy into your tracker or `LEARNER.md`:
 
@@ -148,8 +157,17 @@ Copy into your tracker or `LEARNER.md`:
 - (Option a) Accessibility-audit log: <link>
 - (Option b) Backend PR URL: <link>
 - (Option b) Frontend PR URL: <link>
+- (Option b) Other affected surfaces + PR/revision links: <list>
+- (Option b) Compatibility + deploy order: <short contract>
 - (Option b) Pre-ship-check logs: <link>
 - (Option b) Playwright test path: <path>
+- (Option b) Release-risk preflight: <link>
+- (Option b) Actual state per surface: <merged / deployed / released>
+- (Option b) First cohort + rollout steps: <audience and progression>
+- (Option b) Signals + planned observation window: <links and result>
+- (Option b) Stop/recovery result + owner: <result or not triggered; owner>
+- (Option b) User-journey acceptance evidence: <link>
+- (Option b) Product outcome: <met / missed / still measuring; evidence>
 - Reviewer (out-of-team per Appendix L): <handle>
 - Reflection on cross-layer cost: <one-paragraph or link>
 ```
@@ -158,7 +176,7 @@ Copy into your tracker or `LEARNER.md`:
 
 ## What you can say after this quest
 
-> "I have shipped cross-layer work (either a merged Blade contribution or a full-stack feature I owned end-to-end) and I can name what was harder about the layer I do not normally own."
+> "I have completed cross-layer work through a merged Blade contribution or a full-stack feature released to its planned cohort. For the full-stack path, I proved the user journey from production evidence. I can name what was harder about the layer I do not normally own."
 
 ---
 
@@ -170,3 +188,4 @@ Copy into your tracker or `LEARNER.md`:
 - [G.16 — Blade deep dive](../../03-green/b-practices/G16-blade-deep-dive.md)
 - [Quest B-1](../a-platform/quest-B1-publish-an-internal-plugin.md)
 - [Appendix L — Certification](../../../appendices/L-certification/README.md)
+- [Google SRE — Reliable Product Launches](https://sre.google/sre-book/reliable-product-launches/) — launch checklists, staged rollouts, monitoring, and rollback preparation

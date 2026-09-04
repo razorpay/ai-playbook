@@ -6,6 +6,16 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.70 — production proof for full-stack quest work (2026-09-04)
+
+Razorpay's first announced Full Stack Builder production launch crossed product, service, and infrastructure surfaces, used staged exposure, and reported merchant-visible outcomes. Quest B-2 still treated two merged PRs as the complete artefact, so a candidate could claim cross-layer shipping without proving that the coordinated change reached users or passed its acceptance signal.
+
+**What changed.**
+
+- **Quest B-2 closes the release loop.** Full-stack candidates now map every affected surface, plan compatibility and rollout, distinguish merge from release, and verify the user journey after the observation window.
+- **One copyable production receipt.** The quest records revisions, deploy order, first cohort, observed signals, recovery ownership, user acceptance, and outcome state without pretending a longer-term result is already known.
+- **Certification surfaces aligned.** The Master Index and Black Belt badge now require the same production proof for the full-stack path; README, INDEX, `manifest.yml`, and generated project knowledge identify v0.70 / 2026-09-04.
+
 ## v0.69 — canonical certification contract (2026-09-04)
 
 The Master Index duplicated Appendix L's certification policy but disagreed with it on belt evidence, reviewer requirements, tracker fields, and recertification. A candidate following the shorter index contract could therefore submit evidence that the canonical appendix would reject.

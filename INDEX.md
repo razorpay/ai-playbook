@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.69 · last reviewed 2026-09-04 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.70 · last reviewed 2026-09-04 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -441,8 +441,8 @@ A repository-native skill, with an MCP dependency only when needed, merged to `r
 **🎮 [Quest B-2 — Component contribution or full-stack feature](belts/04-black/b-craft/quest-B2-contribution-or-full-stack.md) [drafted].**
 One of:
 (a) Submit a Blade component via the contribution pipeline.
-(b) Ship a feature involving a backend change (not just frontend). You must own the PR in both layers.
-*Success criteria:* merged contribution.
+(b) Ship a feature involving a backend change (not just frontend). Own the coordinated change across every affected layer and carry it to the planned production cohort.
+*Success criteria:* merged Blade contribution; or a full-stack PR/revision set plus a completed production release receipt with passing user-journey acceptance.
 
 ### Boss fight (required to earn Black Belt)
 
