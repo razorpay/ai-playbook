@@ -109,6 +109,11 @@ function routeFor(slug) {
   return `${slug.replace(/^\/+|\/+$/g, '')}/`;
 }
 
+function hubRouteFor(slug) {
+  const base = process.env.ASTRO_BASE || '/ai-playbook';
+  return `/${[base, routeFor(slug)].join('/').replace(/^\/+|\/+$/g, '')}/`;
+}
+
 function outputPathFor(slug) {
   if (!slug || slug === '/') return 'index.md';
   return `${slug.replace(/^\/+|\/+$/g, '')}.md`;
@@ -258,7 +263,7 @@ function previousNext(value, entryBySlug) {
   if (!value || !entryBySlug.has(value)) return undefined;
   const entry = entryBySlug.get(value);
   return {
-    link: routeFor(value),
+    link: hubRouteFor(value),
     label: entry.title || value
   };
 }
