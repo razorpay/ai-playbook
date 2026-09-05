@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 11
-time_minutes: 40
+time_minutes: 50
 audience: "experienced-builder"
-outcome: "Write prompts that name the goal, the constraints, and the success criteria precisely enough that the agent's output is consistent across runs and worth shipping."
+outcome: "Write precise prompts for small tasks, and turn larger PRD-to-production work into a gated, resumable workflow with checkable evidence."
 prev: "belts/green/hooks-and-slash-commands"
 next: "belts/green/quest-author-a-team-skill"
 pillar: "prompt"
 belt: "green"
 tags: ["green-belt", "prompting", "prompt-craft"]
-updated: "2026-04-29"
+updated: "2026-09-05"
 ---
 
 # G.11 — Advanced prompting
@@ -28,6 +28,7 @@ White Belt (W.10) taught the difference between "make it better" and "find all a
 - A prompt that depends on the agent guessing your goal is a prompt that will produce different outputs on different runs.
 - The five elements of a Green-Belt prompt: goal, constraints, success criteria, output shape, and what success does *not* look like.
 - The shortest path to consistency is making the prompt do the work the CLAUDE.md cannot.
+- When one prompt grows into a PRD, spec, implementation, human approvals, and evaluation, stop making the prompt longer. Use Superprompt's gated workflow so the work can pause, resume, and prove each gate.
 
 ---
 
@@ -155,6 +156,64 @@ Same logic with skills. If you find yourself writing the same multi-element prom
 
 ---
 
+## When a prompt should become a pipeline
+
+The five-element prompt is still the unit of clear work. It is not always the whole workflow.
+
+Use a single prompt for a small, reversible task with one main artefact. Use a pipeline when the work starts from a PRD, needs a reviewed spec, crosses human-only actions, may pause for hours or days, or must reconcile the final implementation against its requirements.
+
+Razorpay's [Superprompt plugin](https://github.com/razorpay/claude-plugins/tree/master/plugins/superprompt) turns that larger path into a resumable workflow:
+
+```text
+PRD review → final spec → gated run → independent evaluation → captured gaps
+```
+
+This matters to PMs and designers because automation does not transfer product judgement. You still own the requirement, unresolved trade-offs, acceptance criteria, and approvals. The pipeline makes those decisions visible instead of letting the agent quietly invent them midway through implementation.
+
+### Run the workflow
+
+1. **Clean the source requirement.** Run `/superprompt:prd <aidoc-url>`. It comments on the PRD where it lives; the PM updates that document, which remains the source of truth.
+2. **Produce a reviewable spec.** Run `/superprompt:spec`. It interviews you, grounds a draft in the repository, explores alternatives, collects team review, and publishes a final tech spec. Resolve interaction and product-policy decisions here, before implementation makes them expensive.
+3. **Emit the run contract.** Run `/superprompt`. From the final spec, it creates the implementation prompt, definition of done, human gates, and PR plan, then offers to start the run.
+4. **Let probes—not confidence—pass gates.** The run works on every unblocked slice, saves state, and stops when a human action is the only thing left. After the human acts, run `/superprompt` again. The workflow re-runs the gate's live probe and resumes only when that probe passes.
+5. **Evaluate against the contract.** Run `/superprompt:eval`. Two evaluators review the result from different context positions, report gaps, run a separate fix loop, and reconcile implementation changes back into the spec.
+6. **Preserve the learning.** Run `/superprompt:gaps` when the agent gets something wrong. Capture the failure; do not hide it inside a heroic final prompt that nobody else can reuse.
+
+For a small task without a PRD, `/superprompt <ask>` still interviews you and emits a saved prompt. The decision is not “manual prompt or automation.” It is “one bounded task or a workflow with hand-offs?”
+
+### Why a live probe changes the work
+
+“I completed the migration” is a status update. A read against the live schema is evidence. A human gate should name both the human action and the probe the agent can safely run to verify its effect.
+
+| Weak gate | Checkable gate |
+|---|---|
+| “PM approved the requirement.” | “PM resolves the blocking PRD comments; probe confirms none remain open.” |
+| “The configuration is ready.” | “Owner applies the configuration; probe reads the target environment and matches the expected value.” |
+| “The route is live.” | “Owner deploys the route; probe sends the documented read-only request and verifies the expected response.” |
+
+Never ask the agent to bypass a failed probe because the action “definitely happened.” Fix the action, the probe, or the expected result. Otherwise the gate is decoration.
+
+### Try it: audit one gate
+
+Take one upcoming task that needs a human action. Fill this before you run it:
+
+```text
+Human action:
+Why the agent must not do it:
+Safe live probe:
+Expected passing result:
+Work the agent can continue while blocked:
+```
+
+- [ ] The probe observes the real target, not a local plan or generated file.
+- [ ] The probe is read-only or otherwise safe to repeat.
+- [ ] A failed probe keeps the dependent work blocked.
+- [ ] The remaining lanes can advance without pretending the gate passed.
+
+If you cannot write the probe, the gate is not ready for an autonomous run. Keep that step manual and narrow the workflow.
+
+---
+
 ## Multi-turn prompting
 
 Some tasks need a conversation, not a one-shot prompt. The Green Belt habit: each turn carries the full shape, not just the next ask.
@@ -206,6 +265,10 @@ This pattern doubles the cost of the first turn and saves the cost of an entire 
 
 **Skipping "explain the reasoning" on hard tasks.** Save five minutes of prompt time, lose two hours to the wrong implementation. Fix: ask for the reasoning first when the task is hard or expensive to revert.
 
+**Stretching one prompt across a staged delivery.** The agent forgets a decision, assumes a human action happened, or cannot resume cleanly. Fix: use the Superprompt workflow when the task needs a PRD, spec, gates, resumable state, and final evaluation.
+
+**Treating a human's “done” as evidence.** The run resumes before the external state changed. Fix: define a safe live probe for every human gate and resume only after it passes.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
@@ -218,7 +281,7 @@ This pattern doubles the cost of the first turn and saves the cost of an entire 
 
 ## What you can say after this module
 
-> "I write prompts with goal, constraints, success criteria, output shape, and anti-success — and I move repeatable shapes into skills or CLAUDE.md so I do not write them again."
+> "I write bounded prompts with goal, constraints, success criteria, output shape, and anti-success. When the work becomes a staged delivery, I use a gated pipeline that can pause, resume, and prove what passed."
 
 ---
 
@@ -232,3 +295,4 @@ You have finished Part A. Quest G-1 (*Author a team skill*) is the test of G.6 a
 
 - [Yellow Belt Y.3 — Prompt quality, deep dive](../../02-yellow/Y03-prompt-quality-deep.md)
 - [Anthropic on prompt engineering](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [Superprompt plugin — commands, pipeline, gates, and prerequisites](https://github.com/razorpay/claude-plugins/blob/master/plugins/superprompt/README.md)
