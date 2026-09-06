@@ -14,7 +14,7 @@ next: "ops-101/triage-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "connectors"]
-updated: "2026-08-10"
+updated: "2026-09-06"
 ---
 
 # 0B.2 — The non-coding AI surface
@@ -25,83 +25,53 @@ updated: "2026-08-10"
 
 ## If you're short on time
 
-There are three general places non-coders open AI for work, one supporting concept that ties them together, and two PM/Product add-ons that matter once you start doing measurable product work:
+Choose by the job in front of you. Claude.ai, Cowork, and Slash are general work surfaces. Analytics Agent and PM Tracer are specialised PM/Product plugins.
 
-| Tool / capability | One-sentence definition |
-|---|---|
-| **Claude.ai** | A web browser tab where you talk to Claude. Best for thinking, writing, drafting, brainstorming. No local file access or auto-running; approved connectors vary by workspace. |
-| **Cowork** | A desktop app where Claude can work in folders on your computer and use installed plugins. Best for document-heavy work and small repeatable tasks. |
-| **Slash** | Razorpay's remote internal AI worker, invoked with `@slash`. Best for internal research and bounded repo tasks you can delegate with a clear result. |
-| **Connectors** | Not a tool. A *capability*. A connector is what lets an AI read or act on Slack, Google Workspace, your ticketing tool, your calendar — i.e. the apps where your work actually lives. |
-| **Analytics Agent** | A Claude Code plugin for Self Serve Analytics metric questions. Best for PMs asking “what does this metric mean / is it healthy?” Not a general assistant. |
-| **PM Tracer** | A Claude Code plugin that instruments PM AI usage for the adoption leaderboard. Best for proving applied workflow usage. Not a tool you ask questions to. |
+| Your next job | Start here | Check before you begin |
+|---|---|---|
+| Think, draft, summarise, or challenge an idea | **Claude.ai** | Paste, upload, or connect the source material; it cannot see local files by default. |
+| Work through a folder of docs, decks, spreadsheets, or PDFs | **Cowork** | Give it only the folder and plugins this task needs. |
+| Research internal context or delegate a bounded remote repo task | **Slash** | Name the question or repo, success criteria, and evidence you expect. |
+| Explain or query a Self Serve Analytics metric | **Analytics Agent** | Use the SSA-aware plugin instead of asking a general assistant to infer metric meaning. |
+| Check whether PM AI work is visible to the adoption programme | **PM Tracer** | Treat it as instrumentation, not a chat surface. |
 
-If you only remember one thing: **the AI tool is not the bottleneck. The context path is.** Which general surface you pick is a question of comfort and habit. *What that AI can see* (your messages, your docs, your tickets) depends on connectors. *Which specialised job it can do* (metric analysis, PM adoption instrumentation) depends on the right plugin. That is where most of the leverage in this track comes from.
+The durable distinction is **surface, context path, specialised workflow**:
 
----
+- A **surface** is where you ask or delegate.
+- A **connector** gives an approved surface access to a source such as Slack or Google Workspace.
+- A **plugin** packages a specialised workflow, command, skill, or instrumentation path.
 
-## Why the surface matters less than you think
-
-It's tempting to ask "which is the best one?" The honest answer is that any of the three general surfaces will get most ops work done. Comfort matters. The AI surface you'll actually open every day is the one that wins.
-
-Pick the one whose layout you like. Pick the one your team already uses. Pick the one that's already on your laptop. Don't agonise. *The leverage isn't in the surface, it's in what the surface can see and do on your behalf.* The rest of this chapter is about the see-and-do part.
-
-A useful frame: each of the three surfaces is a different *front door* to AI-assisted work. The doors are different shapes — Claude.ai is a browser tab, Cowork is a desktop window, and Slash is a remote worker you invoke from Slack — and each is best at different ergonomics.
+Pick a surface quickly. Spend your attention on whether it can reach the right evidence and whether the task needs a specialised plugin.
 
 ---
 
 ## Claude.ai
 
-**What it is.** A page on the web at `claude.ai`. You open it, you see a text box, you type. Claude responds. That's the entire UI.
+Claude.ai is the lowest-setup option for interactive thinking and writing. Use it to draft an email, challenge a brief, summarise an uploaded document, or compare options while you are at the keyboard.
 
-**The feel.** It's the closest thing to chatting with a very smart, very patient junior colleague who can read whatever you paste in. Low ceremony, no setup beyond logging in.
+It sees what you type, paste, or upload. An approved workspace connector may let it retrieve from a connected source, but availability and permissions vary. Confirm the source is actually connected before relying on the answer, and inspect citations or links when the task depends on internal facts.
 
-**Best for.**
-- Drafting: emails, briefs, doc updates, talking points, tricky responses you want to think through.
-- Thinking out loud: "help me unpack this problem," "what are the trade-offs here," "what am I missing."
-- Reading and summarising — paste a long document and ask for a one-pager, or for the bits relevant to a specific question.
-- Brainstorming — "give me twenty ways to frame this," "argue against my thesis."
-
-**Limits.** Without an approved connector enabled, Claude.ai cannot read files on your laptop or in Drive on its own. It sees what you type, paste, or upload. If your workspace exposes an approved connector, Claude.ai can retrieve context from that connected source, but access varies by workspace; confirm the connector is enabled before relying on it. It still cannot run automatically while you're away, and any action outside chat depends on an explicitly approved capability.
-
-That sounds like a lot of limits, and it is — but for the kinds of work most of us do *while sitting at the keyboard*, they don't matter. Claude.ai is a knife. Cowork and Slash are kitchens. The knife is fine for most cooking.
+Choose Claude.ai when the output is mostly prose and you want a quick back-and-forth. Choose another surface when the task depends on a local folder, remote repo execution, or a specialised PM workflow.
 
 ---
 
 ## Cowork
 
-**What it is.** A desktop application (a window that lives on your laptop, not in a browser tab) that gives Claude access to a folder on your computer plus a set of installed *plugins*. It's specifically designed for people who don't open Terminal.
+Cowork is the desktop option for work that lives in files. Point it at a bounded folder to summarise meeting notes, clean a spreadsheet, assemble a deck, extract a PDF table, or save a recurring report back beside its sources. Installed plugins can add repeatable workflows.
 
-**The feel.** Like having Claude live in a folder on your Desktop. You open Cowork, point it at a directory (a project folder, a Drive folder you've synced, the place your weekly reports live), and now Claude can read and write files there as you talk to it. You can install plugins that bundle skills, and Claude will use them automatically when relevant.
+The folder boundary matters: give Cowork the smallest directory that contains the task, then review writes before sharing the result. It requires a local installation and may need IT approval on a managed laptop.
 
-**Best for.**
-- Document workflows: open a folder of meeting notes, ask Claude to summarise the last month into a single doc, save the result back into the folder.
-- Spreadsheet work: give it a messy CSV, ask it to clean and reformat, get an `xlsx` back.
-- Slide decks: generate a `pptx` from a brief, edit existing decks, swap out templates.
-- PDF processing: extract tables, fill forms, merge docs, redact.
-- Repeatable small tasks: "every Monday, open this folder, look at last week's notes, and produce a digest" type work.
-
-**Limits.** Cowork doesn't (today) replace your IDE for serious coding work. If you want to ship pull requests, that's Claude Code, not Cowork — which is a White Belt topic, not an Ops 101 one. Cowork also requires installation on your laptop, which means asking IT for permission if your machine is locked down.
-
-If your day is heavy on documents, decks, spreadsheets, and PDFs (and most ops days are) Cowork pays for itself in the first afternoon.
+Cowork does not replace an IDE for serious coding or the normal review path for pull requests. That path is Claude Code, covered in White Belt.
 
 ---
 
 ## Slash
 
-**What it is.** Razorpay's remote internal AI worker, invoked with `@slash` in Slack. It can use approved internal sources for knowledge-first work or take a scoped task against a named remote repo.
+Slash is Razorpay's remote internal AI worker, invoked with `@slash` in Slack. Use it to research approved internal sources or delegate a bounded task against a named remote repository. For example: ask what changed in a sprint, summarise a linked thread, trace an earlier decision, or request a small repo change with explicit success criteria.
 
-**The feel.** Like a well-informed colleague with access to approved internal sources. You can ask it questions about the *internal* world (your sprint, that thread from last month, what's open in your team's queue) without context-switching between four tools yourself.
+Slash cannot see uncommitted files on your laptop or provide Claude Code's tight edit-run-debug loop. Review a generated answer against its sources and a generated PR against its diff and checks. Creation is a receipt that work ran, not proof that the result is correct.
 
-**Best for.**
-- "What does my sprint look like?" / "What's open on my plate?"
-- "Summarise this thread / channel / doc."
-- Discovery questions that benefit from internal context: competitive research that pulls from internal docs, support trend questions, "what did we decide about X last quarter."
-- Bounded repo tasks where the repository, constraints, and expected result are already clear.
-
-**Limits.** Slash works remotely. It cannot see uncommitted files on your laptop or provide the tight edit-run-debug loop of Claude Code. For repo work, name the repo and success criteria, then review the resulting PR like any other PR; opening one is not proof that the task is done.
-
-The one-line distinction: **Slash is for remote research and delegation. Claude.ai and Cowork are for interactive thinking and document work.** For exact Slash modes and scope syntax, use [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md#slash).
+For exact modes and scope syntax, use [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md#slash).
 
 ### Pick the lightest research mode that can prove the answer
 
@@ -113,30 +83,23 @@ Slash offers three knowledge-first depths. Put the mode immediately after `@slas
 | `@slash --plan <question>` | You need the normal default: curated knowledge plus one round of code evidence. |
 | `@slash --plan-accurate <question>` | A high-stakes or cross-service question needs a deeper multi-repo search and can wait longer. |
 
-Start with `--plan` when you are unsure. Use `--plan-fast` for bounded lookups, not broad flows. If fast mode returns `INSUFFICIENT_CURATED_KNOWLEDGE`, move to `--plan` or `--plan-accurate`; do not keep rewording the prompt until it agrees with you. A deeper mode broadens the evidence search—it does not make the answer automatically true—so check the cited source and its date before acting.
+Start with `--plan` when you are unsure. Use `--plan-fast` for bounded lookups. If fast mode returns `INSUFFICIENT_CURATED_KNOWLEDGE`, move to `--plan` or `--plan-accurate`; do not keep rewording the question until it agrees with you. A deeper search broadens the evidence. It does not make the answer automatically true, so check the cited source and date before acting.
 
 **Hand off the question, not just the escalation.** Treat a deeper research run as a fresh session: repeat the full question and include the facts or links it needs. A reply such as “try again in research mode” does not carry the parent thread's context into the new run, so the research worker has nothing useful to investigate.
 
-Try it with a real decision: `@slash --plan Which team owns <area>, and which sources support that answer?`
+Try it with a real decision:
+
+`@slash --plan Which team owns <area>, and which sources support that answer?`
 
 ---
 
 ## PM/Product add-ons: Analytics Agent and PM Tracer
 
-Two current PM/Product workflows do **not** belong in the generic "pick any surface" bucket.
+These plugins answer narrower questions than the three general surfaces.
 
-**Analytics Agent** is the recommended surface for Self Serve Analytics metric questions. If the work is *"explain this metric, query this funnel, review this dashboard's health"*, route it through the Analytics Agent plugin instead of asking generic Claude or Slash to guess from partial context. Treat it like a metric co-pilot with SSA context, not a spreadsheet chatbot.
+**Analytics Agent** is the recommended plugin for Self Serve Analytics metric questions. Use it to explain a metric, query a funnel, or review dashboard health with SSA context. Do not ask a general assistant to infer metric meaning from a pasted screenshot or partial schema.
 
-**PM Tracer** is instrumentation. It feeds the AI Adoption Leaderboard with traces that help score applied work, including skill and plugin use, productivity and impact, prompting maturity, consistency, and shipped output. The score no longer rewards using more AI surfaces, so use the smallest set that fits the job instead of tool-hopping for points. You do not brainstorm with PM Tracer. Install it once, run the health check, and then let it quietly report whether your real AI work is visible.
-
-The distinction matters because these two plugins answer different questions:
-
-| If your question is... | Use... |
-|---|---|
-| "What happened in my sprint, tickets, or internal docs?" | Slash |
-| "Can you help me draft, summarise, or package this document?" | Claude.ai or Cowork |
-| "What does this metric/funnel/dashboard say, and is it healthy?" | Analytics Agent |
-| "Is my PM AI usage being counted for adoption/proficiency signals?" | PM Tracer |
+**PM Tracer** is instrumentation for the AI Adoption Leaderboard. Install it when your programme requires it, run its health check, and let it record whether applied PM workflows are visible. It is not a tool you ask questions to, and using more AI surfaces does not make the underlying work better.
 
 For install snippets and caveats, use [Appendix A — Tool Atlas](../../appendices/A-tool-atlas/README.md) and [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md). This chapter's job is the mental model: **general surfaces for general work; specialised plugins for specialised PM workflows.**
 
@@ -144,9 +107,7 @@ For install snippets and caveats, use [Appendix A — Tool Atlas](../../appendic
 
 ## The supporting concept: connectors
 
-This is the part that determines whether you save four hours a week or twenty.
-
-A **connector** is a piece of plumbing that lets your AI surface read or act on a specific external system: Slack, Google Workspace, your ticketing tool, your calendar, your knowledge base, etc. Without connectors, every AI surface is an isolated island; you have to manually paste in everything you want it to know about. With the right connectors enabled, the AI can go fetch what it needs and act on your behalf.
+A **connector** is an approved path that lets an AI surface read or act on an external system: Slack, Google Workspace, a ticketing tool, a calendar, or a knowledge base. Without one, you provide context manually. With one, the surface can retrieve or act within the connector's permissions.
 
 Mentally, picture it like this:
 
@@ -168,62 +129,40 @@ Mentally, picture it like this:
                         Calendar / Docs        Linear / etc.
 ```
 
-The AI surface on top is the front door. The connectors in the middle are how it reaches into the real-work tools at the bottom. Each connector is a separate switch — you turn on the ones you need, you leave off the ones you don't.
+The surface is the front door. Connectors are the paths to work systems. Each path is separately enabled and permissioned, so access in one surface does not imply access everywhere.
 
-Plugins are different from connectors. A connector gives a surface access to a system. A plugin packages a workflow, skill, command, or instrumentation path inside a host like Claude Code. Analytics Agent and PM Tracer are plugins; Slack and Google Workspace are connectors. Mixing those up is how people open the right-looking tool and still get the wrong result.
-
-**Why this matters for everything that follows.** Every chapter from 0B.3 onwards (triage, generation, ticket workflows, document workflows, agents) is a different *combination* of connectors. Triage = email + Slack + ticketing. Generation = Slack + Calendar + Docs. Document workflows = Drive + Docs. Lightweight agents = whichever combination of the above plus a schedule. Once you grasp the connector concept, the rest of the track becomes "pick connectors, write a recipe, run it."
-
-**The minimum useful set for most readers.** Slack, Google Workspace (Drive + Docs + Calendar + Gmail at least), your ticketing tool of choice, and (if you're working with a team) a shared knowledge base or doc index connector. Four switches, four big leaps in capability.
+The remaining Ops 101 chapters combine context paths for different jobs: triage may need email, Slack, and ticketing; generation may need Calendar and Docs; document workflows may need Drive; scheduled agents need only the sources required by their recipe. Start with the smallest set for the workflow, verify what each connector can read or change, and add another only when the task requires it.
 
 ---
 
-## Picking your daily driver — a 60-second decision tree
+## Make the choice with one real task
 
-Don't overthink this. Use the heuristic, then change your mind later if you want.
+Use a task from today rather than designing a perfect tool stack in the abstract.
 
-**Are you mostly drafting and thinking?** → Claude.ai is enough. Open a tab, keep it pinned.
+1. **Name the output.** For example: "a one-page recap of yesterday's design review."
+2. **Name the source.** Is the evidence in text you can paste, a local folder, internal systems, or SSA?
+3. **Pick from the table above.** Use Claude.ai for pasted or connected prose, Cowork for local files, Slash for internal research or remote delegation, and Analytics Agent for SSA questions.
+4. **Run a small read-only test.** Ask for three source-linked bullets before requesting a full artefact or any write action.
+5. **Check the boundary.** Could the surface reach the source? Did it cite the right evidence? Did it stay inside the task? If not, fix the context path or switch surfaces before expanding the job.
 
-**Are you working with files (docs, decks, spreadsheets, PDFs) every day?** → Cowork. Install it, point it at the folder you live in, install one or two plugins. Your week starts moving faster within an afternoon.
+Before the next chapter, log in to one general surface and confirm one approved context path that your actual workflow needs. Do not enable every connector just because it exists. PM/Product readers can add Analytics Agent or PM Tracer when their workflow or programme requires it; neither is a prerequisite for the rest of Ops 101.
 
-**Are you researching the internal world or delegating a bounded remote repo task?** → Slash. Use knowledge-first mode to understand; use execution mode when the repo and result are clear.
-
-**Are you asking metric/SSA questions?** → Analytics Agent. Metrics need the SSA-aware plugin, not vibes plus a pasted screenshot.
-
-**Are you checking whether your PM AI work is counted?** → PM Tracer. It is instrumentation, not a chat surface.
-
-**Are you doing all three?** → Most of us are. Pick whichever feels best as a daily driver, and use the others when they're the right tool. Most readers end up with Claude.ai pinned in a tab, Cowork installed for document work, and Slash in Slack for internal research or remote delegation. Three tools, three reflexes, no agonising over which one to open.
-
-**Don't try to make one tool do everything.** A common mistake is to treat your favourite as a hammer and force every task through it. Doable, but slow. The 30 seconds it takes to switch tabs is far less than the 10 minutes you'd spend coercing the wrong tool into doing a task it wasn't built for.
-
----
-
-## What you'll set up before the next chapter
-
-The chapters from 0B.3 onwards assume you've made two cheap moves:
-
-1. **Logged into your daily-driver AI surface** (whichever you picked above).
-2. **Turned on connectors for at least Slack and Google Workspace.** Your ticketing connector matters too; turn it on if you have access. The exact installation steps vary by tool — there's a setup-checklist appendix you can use as a reference.
-
-PM/Product readers should also confirm whether their cohort expects Analytics Agent or PM Tracer. Those are post-setup add-ons, not universal Ops 101 prerequisites. Install them when your workflow or adoption program needs them; do not block the rest of this track waiting on instrumentation.
-
-If your laptop policy or your IT setup gets in the way of either step, post a question in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) — chances are someone else hit the same wall last week and the workaround is already known. Don't try to brute-force a permission issue alone; that's exactly the time-tax this track is supposed to be reducing, not creating.
+If installation, access, or laptop policy blocks the test, ask in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not brute-force a permission problem.
 
 ---
 
 ## What you should carry into the next chapter
 
-- The AI surface you choose (Claude.ai, Cowork, Slash) matters less than you think. Pick by comfort. Use all three across the day.
-- **Connectors and plugins are the actual leverage.** Connectors turn each AI surface from an island into a remote control for the apps where your work lives; plugins add specialised workflows such as Analytics Agent and PM Tracer.
-- The minimum useful connector set for most readers is Slack + Google Workspace + your ticketing tool. Three switches, big delta.
-- Slash is the remote path for internal research and bounded repo tasks. Claude.ai and Cowork are interactive surfaces for thinking and document work.
-- The next chapter ([0B.3 — Triage automations](03-triage-automations.md)) is the first place you actually save time. We'll work through inbox triage, Slack triage, and on-call queue triage as three concrete recipes.
+- Pick by **output and source**: Claude.ai for interactive prose, Cowork for local files, Slash for internal research or remote delegation.
+- A connector supplies permissioned context. A plugin supplies a specialised workflow. They are not interchangeable.
+- Start read-only and source-linked. Expand permissions or enable another connector only when the workflow needs it.
+- Analytics Agent handles SSA metric questions; PM Tracer records programme instrumentation.
+- Next, [0B.3 — Triage automations](03-triage-automations.md) applies this choice to inbox, Slack, and on-call queues.
 
 ---
 
 **Previous:** [← 0B.1 Why this track exists](01-why-this-track.md) · **Next:** [→ 0B.3 Triage automations](03-triage-automations.md)
 
 **Further reading**
-- [Anthropic's Model Context Protocol (MCP)](https://modelcontextprotocol.io/) — the open standard most modern connectors are built on; useful background for when you're choosing or building one
-- [Lenny's Newsletter — 25 proven AI-adoption tactics](https://www.lennysnewsletter.com/p/25-proven-tactics-to-accelerate-ai) — the time-saved patterns the rest of this track operationalises
-- [Anthropic on Cowork](https://www.anthropic.com/) — official product overview
+- [Model Context Protocol (MCP) documentation](https://modelcontextprotocol.io/) — background on one open standard for connecting AI applications to data sources and tools
+- [Lenny's Newsletter — 25 proven AI-adoption tactics](https://www.lennysnewsletter.com/p/25-proven-tactics-to-accelerate-ai) — examples of the adoption patterns the rest of this track turns into workflows
