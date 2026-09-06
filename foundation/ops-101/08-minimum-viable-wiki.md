@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "ops-101"
 order: 8
-time_minutes: 30
+time_minutes: 20
 audience: "pm-designer-ops"
 outcome: "Set up a small project wiki that lets AI work with memory instead of repeated context."
 prev: "ops-101/lightweight-agents"
@@ -14,36 +14,37 @@ next: "ops-101/quest-30-minute-teardown"
 pillar: null
 belt: null
 tags: ["ops-101", "knowledge-base"]
-updated: "2026-08-12"
+updated: "2026-09-06"
 ---
 
 # 0B.8 — Building your own minimum viable wiki for any project
 
-> **⏱ 30 minutes · 👥 PMs, designers, ops, anyone running ongoing workstreams · 🎯 Leaves with:** the operating-philosophy capstone of the Ops 101 track — a one-hour recipe for a knowledge base that grows alongside your work and earns its keep across weeks.
+> **⏱ 20 minutes · 👥 PMs, designers, ops, anyone running ongoing workstreams · 🎯 Leaves with:** a one-hour recipe for a small, verifiable project knowledge base—and clear gates for deciding whether it needs automation, team promotion, or retrieval.
 
 ---
 
 ## Why this chapter closes Ops 101
 
-Six chapters into Ops 101 you've now done a lot of *individual* work: triage, generation, ticket workflows, document workflows, a configured agent or two. Each chapter saved you some hours. Each was good on its own.
+Ops 101 has given you separate workflows for triage, generation, tickets, documents, and lightweight agents. This chapter gives those workflows shared memory. Instead of re-pasting decisions and conventions, you keep verified context in a small set of files that the AI reads before answering and updates only after review.
 
-This chapter teaches the move that makes all those hours *compound*. The single-most-important habit for an Ops 101 reader to leave with isn't any specific recipe: it's the discipline of **knowledge-base-driven development**, applied to *your* ongoing work, so that the second time you do anything resembling a task you've done before, the agent already knows what worked the first time.
+That practice is **knowledge-base-driven development** applied to non-coding work. [Prologue §0.7](../../prologue/07-operating-principles.md) explains the philosophy; [Appendix N](../../appendices/N-methodologies/README.md) goes deeper. Here, you build the smallest useful version in an hour.
 
-The full philosophical version of this idea lives in [Prologue §0.7](../../prologue/07-operating-principles.md) and the long-form treatment in [Appendix N](../../appendices/N-methodologies/README.md). This chapter is the *applied* version for non-coders. Same idea, tuned to ops-shaped work, set up in an hour.
+### Pick your path through this page
 
----
+| If you need to… | Read and do |
+|---|---|
+| Start a project wiki | The five-step core workflow. Stop after the weekly lint is scheduled. |
+| Pull recurring sources automatically | [Graduate to automated ingest](#graduation-path-1-automate-ingest). |
+| Turn one person's notebook into team memory | [Promote it through review](#graduation-path-2-promote-private-notes-to-team-memory). |
+| Search a wiki that has outgrown its index | [Run a bounded retrieval trial](#graduation-path-3-add-retrieval-only-when-search-fails). |
 
-## The thesis, in one paragraph
-
-Most of the time you spend re-establishing context for an agent — pasting in last month's data, explaining the same pattern again, re-describing your team's conventions for the fifth time — is *waste*. Knowledge-base-driven development is the practice of accumulating that context once, in a structured place, and letting the agent read it on every future query. The agent stops being *amnesia + brilliance* and becomes *brilliance + memory*. Every recipe gets sharper. Every digest pulls from richer context. Every agent fires with more relevant background.
-
-The cost is small (about an hour to set up; about 10 minutes a week to maintain). The compounding is large (the wiki gets sharper every week you use it). The trick that makes this possible *now* and not five years ago is that the LLM does almost all the bookkeeping — you direct, it files. Reading [Appendix N.1](../../appendices/N-methodologies/N1-kb-driven-development.md) is the long version of why this works; this chapter is what you do.
+Build the core before choosing a graduation path. A four-page wiki does not need platform ambitions.
 
 ---
 
 ## What "your wiki" looks like for ops work
 
-The shape is simple. You'll create a folder somewhere — Drive, Notion, a local folder synced via Cowork, your organisation's docs surface — with a small set of files inside.
+The shape is simple: one project space in Drive, Notion, a local folder synced via Cowork, or your organisation's docs surface, with three core documents and a set of topic pages.
 
 ```
 your-project-or-workstream/
@@ -51,7 +52,7 @@ your-project-or-workstream/
 ├── INDEX.md           ← the catalog (what pages exist)
 ├── LOG.md             ← the journal (what happened when)
 └── pages/
-    ├── (one markdown file per concept, person, decision, source)
+    ├── (one page per concept, person, decision, or source)
     └── ...
 ```
 
@@ -63,7 +64,7 @@ your-project-or-workstream/
 
 **`pages/`** — individual pages, one per concept. A page about a decision. A page about a vendor. A page about a recurring meeting series. A page about an open question. Each page is short (under 200 lines is the rule); long pages get split.
 
-That's the entire structure. Four files-and-a-folder. Every wiki you'll see — the elaborate ones in N.2 through N.4, the minimum-viable one in N.7 — is a more elaborate version of this same shape.
+That's the entire structure: three files and a folder of topic pages. The larger patterns in Appendix N add machinery around the same basic contract.
 
 ---
 
@@ -83,7 +84,7 @@ If you're following the more developer-shaped recipe in [Appendix N.7](../../app
 
 ## Step 1 — Create the structure (5 minutes)
 
-In Drive (or Notion, or your Cowork folder) create a new folder for the project. Inside it, create three empty files: `CONTEXT.md`, `INDEX.md`, `LOG.md`. And a sub-folder called `pages/`.
+On a surface your AI can read—such as a Cowork folder or a suitable workspace in Drive or Notion—create one project folder. Add `CONTEXT.md`, `INDEX.md`, `LOG.md`, and a `pages/` folder. If your surface uses pages rather than Markdown files, preserve the names and relationships rather than forcing a file format.
 
 Initial contents for `INDEX.md`:
 
@@ -107,15 +108,13 @@ Append-only journal of meaningful events.
 ## [YYYY-MM-DD] init | KB structure created
 ```
 
-(Replace the date.)
-
-You now have the bones. We'll give them a brain in the next step.
+Replace the date. The structure is ready; the next step defines its rules.
 
 ---
 
 ## Step 2 — Fill in `CONTEXT.md` (20 minutes)
 
-This is the keystone. Spend the time. The act of filling it in is itself most of the value.
+This file defines the project facts, boundaries, and update rules that every later query should inherit.
 
 A useful template, adapted for ops/PM work:
 
@@ -154,8 +153,8 @@ When I ask a question:
 When I share a new source (a meeting, a thread, a doc):
 1. Read the source.
 2. Decide which existing pages it should update.
-3. Update those pages cleanly (refactor, don't append).
-4. Create new pages where needed.
+3. Propose the page changes and wait for my approval.
+4. After approval, update existing pages cleanly and create new pages where needed.
 5. Update INDEX.md.
 6. Add a single line to LOG.md: ## [YYYY-MM-DD] ingest | <source title>.
 
@@ -185,25 +184,21 @@ Treat this list as policy, not as a security boundary. Remove sensitive material
 adjacent areas when asked tangential questions.)
 ```
 
-Spend the 20 minutes. By the end you'll have caught at least two decisions you'd been hand-waving about (every project has them). Save and commit.
-
-The 200-line rule still applies — if your `CONTEXT.md` is much over 200 lines, you have two projects pretending to be one.
+Resolve any ambiguous decision rights or source locations the template exposes, then save the file. Treat 200 lines as a split signal, not a magic limit: if the context becomes hard to scan, move stable topics into `pages/` and keep this file as the routing contract.
 
 ---
 
 ## Step 3 — Ingest one real source (15 minutes)
 
-Pick a source. Something with substance: a meeting transcript from the project, a long Slack thread, a brief, a research note, a customer interview transcript. Not the project README; that's not yet a *source*.
+Pick one substantive, audience-appropriate source: a project meeting, long Slack thread, brief, research note, or redacted customer interview. Use a source that contains a real decision or fact you can verify.
 
 In your daily-driver AI surface (Cowork pointed at the project folder, or Claude.ai with the connector that reaches the source):
 
 > "Read the schema at `CONTEXT.md`. Then ingest this source [paste content or paste a link the AI can read]:
 >
-> Per the schema's ingest rules: identify which pages it should update, create new pages where needed, update `INDEX.md`, and add a `LOG.md` entry."
+> Per the schema's ingest rules: propose which pages to update or create. Do not write yet. After I verify and approve the proposal, apply it, update `INDEX.md`, and add a `LOG.md` entry."
 
-The first time, there are no existing pages — the AI will create new ones. Watch what it creates. The names of the pages tell you whether your `CONTEXT.md` is dialled-in. If the AI creates pages with vague names (`general-notes.md`, `info.md`), tighten the page-naming convention in `CONTEXT.md` and re-ingest. If the names are specific (`decision-vendor-shortlist-2026-04.md`, `customer-interview-merchant-onboarding.md`), the schema is doing its job.
-
-Read what got written. Edit anything off. Don't *rewrite* — let the AI hold the pen, but tell it where to push harder.
+Review the proposed changes before accepting them. Vague names such as `general-notes.md` or `info.md` mean the naming convention needs work; specific names such as `decision-vendor-shortlist-2026-04.md` make later retrieval easier. Check that each proposed page preserves the source and date, separates facts from open questions, and contains no excluded data.
 
 ---
 
@@ -215,45 +210,40 @@ Now run a real question. Something you'd actually have asked the AI today.
 >
 > After I verify the load-bearing claims, I will tell you whether to file the answer back."
 
-The first question should be one whose answer would help future-you. *"What's our current thinking on vendor selection?"* is good. *"What time is it?"* is bad. Reusability is the first test. Before filing, open the cited pages and verify the claims that would change a decision, metric, owner, or deadline. If they hold, ask the AI to file the answer per the schema: a new page in `pages/`, an update to `INDEX.md`, and a line in `LOG.md`.
-
-Read the filed page once more. *Notice the compounding starting*: your second question, even five minutes later, will draw on the just-filed, verified page.
+Choose a reusable question, such as *"What's our current thinking on vendor selection?"* Before filing, open the cited pages and verify every claim that would change a decision, metric, owner, or deadline. If the evidence holds, ask the AI to file the answer per the schema: update or create the right page, update `INDEX.md`, and append one `LOG.md` entry. Read the final diff once more before accepting it.
 
 ---
 
 ## Step 5 — Schedule the lint pass and walk away (5 minutes)
 
-Open your calendar. Create a recurring weekly 10-minute block called *"KB lint."* Pick a slot you'll actually keep. *This single calendar entry is the difference between a wiki that stays trustworthy and one that doesn't.*
+Create a recurring *"KB lint"* calendar block. Weekly is a useful starting cadence for an active project; adjust it to the consequence and frequency of change.
 
 The lint pass, when it fires:
 
-> "Run a lint pass on the KB. Surface contradictions, orphan pages, stale claims (pages not updated in 90+ days), and any updates to pages that didn't get a `LOG.md` entry. Don't fix anything; just surface. I'll adjudicate."
+> "Run a lint pass on the KB. Surface contradictions, orphan pages, claims older than this project's review threshold, and page changes without a `LOG.md` entry. Don't fix anything; just surface. I'll adjudicate."
 
-You read the output, decide what to fix, and adjudicate. Sometimes you delete a page. Sometimes you update a stale claim. Sometimes you reconcile a contradiction. Five to ten minutes a week. The wiki stays honest because *something is watching it*, and that something is now the AI surfacing decay for you.
+Review the findings yourself. Delete obsolete pages, update stale claims, and resolve contradictions against their sources. The AI finds possible decay; the owner decides what is true.
 
-Walk away. The first hour is done.
-
----
-
-## What changes between week 1 and week 8
-
-Week 1 feels like overhead. You're typing more around the AI, not less. *That's expected.* The compounding is mathematical, not motivational — week 1 is the investment phase.
-
-By week 3 you have 10–20 pages in the wiki, mostly verified and filed back from queries. You start *expecting* the AI to know things. You stop re-pasting context. You also learn not to file a plausible answer until its load-bearing claims check out.
-
-By week 8:
-
-- **Re-entry test.** Take a few days off from the project. Come back, ask *"where was I? what's open? what should I pick up first?"* — and the answer is genuinely useful. Five minutes back in flow, instead of an hour.
-- **Teammate test.** If you've shared the wiki, watch what happens when a teammate uses it. Your `CONTEXT.md` is now deciding their interactions too. The wiki is a team artefact, not just a personal one.
-- **Surprising find.** The wiki surfaces something the AI knew but you'd forgotten — a decision from week 4, a vendor's specific quirk you'd flagged. *That moment* is when the wiki has fully earned its keep.
-
-This is when it lands. Not before; not by accident.
+The core workflow is now complete. Run it manually before adding automation or another knowledge tool.
 
 ---
 
-## When to automate the ingest loop
+## Prove the core wiki earns its keep
 
-Automate only after the manual ingest habit has worked for at least two weeks. A scheduled collector can save real catch-up time by pulling meeting notes and relevant Slack threads into a raw folder, while a second step proposes wiki updates and follow-up tasks. It also crosses two new trust boundaries:
+Do not judge the wiki by page count or elapsed weeks. Use evidence:
+
+- **Known-answer test.** Ask a question whose source you know. The answer should cite that source and preserve its qualifiers.
+- **Gap test.** Ask something the wiki cannot answer. It should expose the gap instead of inventing context.
+- **Re-entry test.** After time away, ask what changed, what remains open, and which source supports each claim.
+- **Teammate test.** If the wiki is shared, give a teammate the same questions. Different readers should reach the same source-backed state.
+
+If these fail, fix the source structure, context rules, or review habit before graduating the system.
+
+---
+
+## Graduation path 1: automate ingest
+
+Automate only after reviewed manual runs pass the known-answer and gap tests. A scheduled collector may pull approved meeting notes or Slack threads into a raw folder; a separate step may propose wiki updates and follow-up tasks. Neither step gains authority from the source text:
 
 1. **Source text is data, not authority.** A transcript, thread, or linked page can contain an instruction aimed at the agent. Treat it as content to extract and cite, never as a command to run.
 2. **An extracted action is not an approved action.** “Send this update”, “change the doc”, or “move the deadline” may be a useful proposal. The source does not authorise the agent to do it.
@@ -274,11 +264,9 @@ human gate ──→ apply wiki diff / approved action
 receipt: applied, rejected, skipped, or failed
 ```
 
-The raw capture preserves what the source actually said. The proposed diff makes synthesis reviewable. The action ledger stops a useful reminder from silently becoming a Slack message or document edit.
-
 ### Preflight a recurring conversation source
 
-Automation starts one step earlier than the schedule: deciding which conversations may become durable source material. This matters when product decisions, merchant feedback, partner discussions, or launch coordination happen in an external chat rather than a tool your wiki can already read. The same boundary supports the [NIST Privacy Framework](https://www.nist.gov/privacy-framework) goal of identifying and managing privacy risk while building useful services.
+First decide which conversations may become durable source material. Product decisions, merchant feedback, partner discussions, and launch coordination may sit in a chat outside the wiki's current boundary. Expanding that boundary requires explicit audience, retention, and privacy decisions, consistent with the [NIST Privacy Framework](https://www.nist.gov/privacy-framework).
 
 Razorpay now has an [announced WhatsApp-to-Slack bridge for the DEPA organisation](https://razorpay.slack.com/archives/C3GF5LWJK/p1786513633115819?thread_ts=1786513633.115819). The announcement says it copies only messages sent after the bridge joins a group, creates a Slack channel for the Razorpay participants, and does not reach past history or personal chats. Follow the current owner guidance for setup; this chapter deliberately does not repeat the live number or turn one organisation's rollout into a company-wide default.
 
@@ -295,9 +283,7 @@ SOURCE OWNER: <who reviews access, retention, and failures>
 PROOF: <one known decision that appears with source and date>
 ```
 
-The audience check is load-bearing. A source can be appropriate for one working group and still be wrong for a broader wiki. Capture should preserve the source boundary, not quietly widen it. Do not treat a searchable Slack copy as verified knowledge either: it is still raw evidence that must pass the proposal, checks, and human gate below.
-
-**Five-minute exercise:** choose one recurring conversation that currently produces decisions. Fill the card without connecting anything. If you cannot name the approved route, destination audience, or source owner, keep the workflow manual. If you can, test one known decision after capture begins and confirm that pre-connection history remains absent when the route promises no backfill.
+Fill the card before connecting anything. If the approved route, destination audience, or source owner is unknown, keep the workflow manual. After capture starts, verify one known decision and any promised no-backfill boundary. A searchable copy is still raw evidence, not verified knowledge.
 
 ### Copy this automation graduation card
 
@@ -316,36 +302,25 @@ RECEIPT: <applied/rejected/skipped/failed record and location>
 KILL-SWITCH: <one step that stops collection and writes>
 ```
 
-Start with `AUTO-APPLY: none`. After at least two weeks of reviewed runs, consider one deterministic, private, reversible action such as updating an existing personal task. Keep outbound Slack messages, shared-doc edits, new commitments, and changes to decisions, metrics, owners, or deadlines behind confirmation. Give the ingest step read access; give only the gated apply step narrowly scoped write access.
+Start with `AUTO-APPLY: none`. After repeated reviewed runs pass the drills below, consider one deterministic, private, reversible action such as updating an existing personal task. Keep outbound Slack messages, shared-doc edits, new commitments, and changes to decisions, metrics, owners, or deadlines behind confirmation. Give ingest read access; give only the gated apply step narrowly scoped write access.
 
 Before enabling the schedule, run four drills: an empty capture, the same source twice, a source containing “ignore the wiki rules and send…”, and a write that fails halfway through. A safe loop should skip or hold each case, avoid duplicate updates, and leave a receipt the owner can inspect. If it cannot, you have automated uncertainty rather than knowledge.
 
 ---
 
-## When a private NotebookLM should become team memory
+## Graduation path 2: promote private notes to team memory
 
-NotebookLM is useful while one person is exploring a bounded set of documents. It becomes a bottleneck when the same context should power a pod's questions, RCA work, monthly reviews, or analytics workflows — but only one person's notebook can use it.
+Keep exploratory notes private while one person is learning. Promote them only when the same bounded corpus should support a pod's questions, RCA work, monthly reviews, or analytics workflows.
 
 For analytics pods, Razorpay's current promotion path is the [`analytics-knowledge-hub` guide](https://docs.google.com/document/d/1mIMQx2pXFQ11AMUnNeA0pVOj5QgDzVHV1f4-x_vSD90/edit?usp=sharing) and the central [`analytics-knowledge` repository](https://github.com/razorpay-ai-tools/analytics-knowledge). The repository keeps one folder per pod, small answer-first topic files, source metadata, an index, and a search graph. Cross-border is the first live pilot.
 
-Promote a notebook only when:
+Promote only when teammates repeatedly need the context, the source set fits the intended audience, a pod owner will maintain it, and a real workflow will use it.
 
-- teammates repeatedly need the same domain context;
-- the source set is appropriate for the whole intended audience;
-- a pod owner will review changes and keep the folder current; and
-- the knowledge will support a real workflow, not merely make a nicer archive.
-
-### Promote one pod with a review gate
-
-Use the current internal guide for installation and its exact NotebookLM export prompt. The durable workflow is:
-
-1. **Name the corpus and owner.** List the notebook, documents, intended readers, and the role that will approve the generated knowledge files. Remove customer PII, credentials, private legal material, and sources outside that audience before export.
-2. **Export to a reviewable source.** Follow the guide to move the notebook's knowledge into a Google Doc. Treat that document as an input bundle, not as proof that every extracted claim is correct.
-3. **Ingest through the skill.** Ask Claude: `ingest this google doc: <link>`. The `analytics-knowledge-hub` skill splits the source into topic files and prepares the pod folder and indexes.
-4. **Review the generated diff.** Open the files, not just the summary. Check topic boundaries, source and date metadata, links, duplicates, and excluded data. A large clean-looking diff is still a large diff.
-5. **Run a known-answer check.** Reuse the [bounded retrieval trial](#run-a-bounded-retrieval-trial) below: five questions with expected sources plus one question the corpus cannot answer. Inspect the source behind each answer and require the missing answer to remain missing.
-6. **Merge through a pod PR.** Add the pod folder to `analytics-knowledge` and have the named pod owner review it. The repository becomes shared memory only after that review — generation alone does not publish truth.
-7. **Keep downstream changes separate.** If the workflow proposes an Analytics Agent or Self Serve Analytics update, raise and review that in its owning repository. A KB entry may explain a metric; it does not approve the metric definition.
+1. **Name the corpus, audience, and owner.** Remove customer PII, credentials, private legal material, and sources outside that audience before export.
+2. **Export to a reviewable source.** Use the current internal guide and its exact NotebookLM export prompt. Treat the Google Doc as an input bundle, not proof that every extracted claim is correct.
+3. **Generate the pod folder.** Ask Claude: `ingest this google doc: <link>`. The `analytics-knowledge-hub` skill splits the source into topic files and prepares indexes.
+4. **Review files and test answers.** Check topic boundaries, source/date metadata, links, duplicates, and excluded data. Run five known-answer questions plus one unsupported question; inspect the source behind every answer.
+5. **Merge through an owner-reviewed PR.** Generation does not publish truth. Keep any proposed Analytics Agent or Self Serve Analytics change in its own repository and review path.
 
 Copy this into the PR description so the review gate survives the demo:
 
@@ -362,22 +337,22 @@ Copy this into the PR description so the review gate survives the demo:
 Decision: Merge / Fix and retest / Stop
 ```
 
-The failure mode to avoid is turning a private notebook into shared, searchable confidence faster than anyone can verify it. Promotion should improve reuse **and** accountability.
+Promotion should increase both reuse and accountability—not turn private notes into shared confidence faster than anyone can verify them.
 
 ---
 
-## When to add a retrieval layer
+## Graduation path 3: add retrieval only when search fails
 
 The folder you built is the source of truth. For many projects, `INDEX.md` plus ordinary search is all you need. Do not install a knowledge platform merely because your four-page wiki now has ambitions.
 
-A retrieval layer becomes useful when:
+A retrieval trial is justified when:
 
 - the index no longer gets you to the right page reliably;
 - useful answers need evidence scattered across several pages;
 - the same source-finding work repeats across meetings or workflows; and
 - someone owns ingestion, access, and the weekly quality check.
 
-GBrain is one current option. Razorpay's [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) covers the internal setup path, including LiteLLM and embeddings. The [GBrain repository](https://github.com/garrytan/gbrain) describes the product boundary: your Markdown repository remains the system of record; GBrain indexes it for raw retrieval and cited synthesis. It does not make source quality, permissions, or maintenance somebody else's problem.
+GBrain is one current option. Razorpay's [GBrain Guide for PMs](https://aidocs.concierge.razorpay.com/app/d/doc_f4epenromq36auvd) covers the internal setup path, including LiteLLM and embeddings. The [GBrain repository](https://github.com/garrytan/gbrain) describes the boundary: Markdown remains the system of record; GBrain indexes it for retrieval and cited synthesis. It does not fix weak sources, permissions, or maintenance.
 
 Treat setup as a trial, not a migration.
 
@@ -427,41 +402,22 @@ The graduation path is intentionally boring: build the folder, prove the habit, 
 
 ---
 
-## How this connects to the boss fight
+## Share it and connect it to the boss fight
 
-If you've been working through Ops 101 in order, your boss fight has probably been a triage / generation / ticket / agent automation. The wiki is *not* a replacement for any of those — it's the *substrate they all run better on*.
+A shared wiki needs two explicit roles: an owner who approves `CONTEXT.md` changes and an owner who runs lint and follows findings to closure. They may be the same person. Other contributors propose changes; the owner preserves the schema and source boundary.
 
-Two suggestions:
-
-- **Build your wiki in parallel with whatever your boss-fight automation is.** They reinforce each other. The agent's prompts get sharper because the wiki has more context; the wiki gets sharper because the agent's queries file back into it.
-- **Document the wiki itself in your boss-fight retro.** When you contribute a recipe back to the recipe library at the end of the boss fight, include the `CONTEXT.md` template you used and a short note on what conventions worked best. That's the part that *transfers across teams*; specific recipes are personal, but the wiki structure is universal.
+Use the wiki as the memory layer for your Ops 101 boss fight, not as a replacement for its workflow. In the retro, include the `CONTEXT.md` template, the conventions that worked, and evidence from the known-answer, gap, or re-entry test. That is more reusable across teams than a claim that the wiki saved time.
 
 ---
 
-## A small caveat for shared wikis
+## What to carry forward
 
-If the wiki is being shared across more than one teammate, two extra disciplines kick in:
-
-- **Decide who owns `CONTEXT.md`.** It can't be edited by everyone whenever they want; that's how schemas get inconsistent. Pick one owner; others propose changes, the owner approves.
-- **Decide who runs lint.** It can be the same person who owns `CONTEXT.md` or someone else; the point is that *one named person owns the discipline*. Without ownership, the lint pass gets skipped, the wiki rots, the team distrusts it, and you're back to a graveyard.
-
-Shared wikis compound much harder than personal ones (the value scales with the number of teammates contributing) but only if the discipline scales too. Pick the owner first, then start filling.
-
----
-
-## What you should carry forward
-
-- A wiki is **`CONTEXT.md` + `INDEX.md` + `LOG.md` + `pages/`.** Four files plus a folder.
-- **`CONTEXT.md` is the keystone.** The 20 minutes you spend filling it in is itself most of the value.
-- **The three habits are ingest, query-verify-file-back, lint.** Together they grow the wiki without turning a plausible answer into durable fiction.
-- The compounding is delayed (week 1 feels like overhead) but real (week 8 is when it lands).
-- Preflight recurring conversation sources before capture: approved route, informed participants, capture window, destination audience, exclusions, owner, and one known-decision check.
-- Automate ingestion only after the manual habit works; keep raw capture, proposed wiki changes, proposed actions, approval, and receipts as separate stages.
-- Promote private analytics context into the shared knowledge hub only through source screening, known-answer checks, and a pod-owner-reviewed PR.
-- Add a retrieval layer only after a bounded known-answer trial proves that it finds the right sources, stays fresh, and has an owner.
-- A shared wiki needs a named owner for `CONTEXT.md` and for the weekly lint pass. Without ownership, it rots.
-- This chapter closes Ops 101. You can stop here: the boss fight (if you've completed it), the wiki (if you've stood it up), and the seven prior chapters are a coherent on-ramp into AI-leveraged work that doesn't require any code.
-- If you want to graduate to *coding* AI work next, the natural next step is the [Prologue](../../prologue/README.md), which orients you to the developer side. White Belt picks up from there.
+- The minimum shape is **three files—`CONTEXT.md`, `INDEX.md`, `LOG.md`—plus `pages/`.**
+- The core loop is **ingest → query → verify → file back → lint**. Plausible answers do not become durable facts without source review.
+- A shared wiki needs named context and maintenance owners.
+- Preflight recurring sources before capture; separate raw input, proposed changes, approval, and receipts.
+- Promote private notes or add retrieval only after the core tests pass, with an audience, owner, and stop decision.
+- This chapter closes Ops 101. Continue to the [Ops 101 quests and boss fight](README.md), or start the [Prologue](../../prologue/README.md) before White Belt if you want to move into coding workflows.
 
 ---
 
