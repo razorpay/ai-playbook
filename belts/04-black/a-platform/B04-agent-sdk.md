@@ -8,13 +8,13 @@ track: "black"
 order: 4
 time_minutes: 50
 audience: "platform-builder"
-outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; define safe configuration and merchant-knowledge contracts; and prove the intended runtime executes without crossing tenant boundaries."
+outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; design the first useful action; define safe configuration and merchant-knowledge contracts; and prove the intended runtime executes without crossing tenant boundaries."
 prev: "belts/black/cowork-plugin-marketplace"
 next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-08-25"
+updated: "2026-09-07"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -27,6 +27,7 @@ The default answer at every belt up to here has been: *use the program-pinned pl
 
 - For internal interactive work, default to the program-pinned plugin.
 - For a supported merchant-facing agent, check Agent Studio first. Its builder path carries the agent from a one-outcome spec through tools, evals, review, shadow traffic, release, monitoring, and rollback.
+- Treat the first useful action as part of release: show a real outcome in context, offer a representative task, and hand control to the live input without auto-running it.
 - Reach for a custom Claude Agent SDK build only when the product or runtime genuinely falls outside that paved road and the owning reviewers agree.
 - "We want our own thing" and "we want to control the prompt" are not runtime requirements. They are usually requests for a better skill or configuration.
 
@@ -124,6 +125,7 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Outcome and owner — PM:** Name one merchant outcome, one success metric, the affected cohort, and the team that will own the agent after launch.
 - [ ] **Platform fit — PM + Agent Studio owner:** Confirm the trigger, tenant boundary, connectors, and interaction fit the supported platform. Record any exception instead of silently coding around it.
 - [ ] **Interaction and control — designer:** Design the empty, loading, success, failure, approval, and recovery states. Put human confirmation around consequential actions.
+- [ ] **First useful action — PM + designer:** Show one real outcome in the user's current context, offer a representative starter task, land in the live input, preserve the final submit decision, and measure first valid attempt plus useful result—not tour completion alone.
 - [ ] **Recipient preference — PM + builder:** For every outbound contact, name the canonical preference authority and its scope; check it immediately before each attempt; persist stop requests received during the interaction; and save blocked-recipient, allowed-recipient, and unavailable-state canaries. An unreadable preference is `BLOCKED`, not permission to continue.
 - [ ] **Merchant knowledge — PM + builder:** For a shared agent, name the canonical merchant identity and knowledge authority; bind storage and retrieval to the server-derived identity; deny missing or mismatched context; and save allowed, cross-merchant-denied, and missing-identity canaries.
 - [ ] **Spec and tool contracts — builder:** Define inputs, structured outputs, tool side effects, permissions, and stop conditions before implementation.
@@ -135,6 +137,39 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Monitor — owner:** Watch outcome quality, failures, latency, cost, and unsafe actions; assign a response owner for every alert.
 
 **Any unchecked box is a stop signal.** Keep the agent in test or shadow mode until the contract is complete. If the platform-fit box fails, take the written gap to the Agent Studio owner before choosing a custom SDK. That review is the fork; a clever local workaround is not.
+
+### Design for the first useful action, not the first tour completion
+
+A blank command bar asks a new user to invent both the agent's capabilities and a good prompt. A capability tour can fail in the opposite direction: it explains everything, then leaves the user to find the real control again. The first-use path should connect **recognition → realistic task → live input → verified result** with as little translation as possible.
+
+Two shipped Razorpay surfaces now show the pattern. [Ray's first-time introduction](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788776937451509) runs over the merchant's own Home, demonstrates asks grounded in that account, and ends in Ray's real command bar; the day-one read reported 30% more users asking, 34% more prompts per 1,000 Home views, and a 4× asking rate among people who completed the intro. [Slash's capability page](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788774789002559) maps capabilities to concrete outcomes and lets a newcomer prefill a realistic example, but does not submit it because the run is billable. These are reasons to test the behaviour, not a universal uplift promise: Ray's figures are an early observational read, and completion can reflect user intent as well as cause it.
+
+Use this workflow for an interactive product agent:
+
+1. **Choose one representative first task.** Start from the user's current object or job—a payout, invoice, dashboard, or review—not a generic “ask me anything” prompt.
+2. **Preview the outcome and authority.** Show what the task can produce and whether it reads, drafts, or acts. Label approval and admin boundaries before the user starts.
+3. **Hand off to the real control.** Prefill the live input or place focus there. Do not end on a dead “Done” screen or a sample that behaves differently from production.
+4. **Preserve user control.** Let the user edit or skip. Do not auto-submit a consequential or billable task; pausing, dismissal, and return should land in a usable state.
+5. **Measure the work, not the walkthrough.** Instrument exposure, starter selection, valid submit, useful result, approval or handoff, and repeat use. Compare completers, skippers, and people who did not see the path without claiming causality from the funnel alone.
+
+Copy this acceptance card into the release review:
+
+```text
+First-use outcome:
+User context shown:
+Representative starter task:
+Expected result:
+Read / draft / act boundary:
+Live input handoff:
+Edit, skip, pause, and return behaviour:
+Final submit remains with the user? yes / no
+Funnel events: exposed → selected → submitted → useful result → repeat use
+Comparison cohorts and observation window:
+Failure or abandonment owner:
+Decision: release / revise / stop
+```
+
+Stop if the starter task is a canned demo with no path to the user's real context, if skipping strands the user, if the first submit triggers an unlabelled side effect, or if success is measured only by finishing the tour. W3C's [On Input](https://www.w3.org/WAI/WCAG22/Understanding/on-input.html) and [Pause, Stop, Hide](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html) guidance reinforce the control principle: input and moving content should not surprise or trap the user.
 
 ### Make tuning a product contract, not a bag of knobs
 
@@ -327,9 +362,9 @@ This is real ongoing work. A custom agent is infrastructure. Treat it as such, o
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; I can prove a shared agent retrieves only the authenticated merchant's knowledge before release.
-- 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the platform-fit, knowledge-isolation, or release evidence I would need.
-- 🔴 RED — I would trust a merchant label in a prompt, test only the happy path, or send an agent live without proving the intended runtime and tenant boundary.
+- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; design and measure the first useful action; and prove a shared agent retrieves only the authenticated merchant's knowledge before release.
+- 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the first-use, platform-fit, knowledge-isolation, or release evidence I would need.
+- 🔴 RED — I would launch with a blank input, count tour completion as activation, trust a merchant label in a prompt, or send an agent live without proving the intended runtime and tenant boundary.
 
 ---
 
@@ -349,6 +384,7 @@ B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you ha
 
 - [Claude Agent SDK docs](https://docs.claude.com/) — Anthropic's public SDK reference
 - [Agent Studio builder command tree](https://github.com/razorpay/merchant-skills/pull/232) — merged internal lifecycle and owning command source
+- [Ray first-time introduction](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788776937451509) and [Slash capability-to-task page](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788774789002559) — shipped first-use patterns with contextual starter tasks, live-input handoff, user control, and early activation evidence
 - [Agent Studio configuration-surface launch](https://razorpay.slack.com/archives/C07KLQKSB6U/p1787518405395499) — Product, Design, and builder ownership for tuning controls
 - [Dashboard configuration schema](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/services/agent-config-schema-types.ts) and [field-state tests](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/__tests__/agent-config-field-states.test.tsx) — current typed controls, validation, and unsupported-field handling
 - [Agent Studio merchant-knowledge isolation proposal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787632755071319) — the current shared-agent boundary and platform roadmap signal
