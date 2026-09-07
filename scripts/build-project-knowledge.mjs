@@ -40,6 +40,7 @@ const repoRoot = path.resolve(scriptDir, '..');
 const outDir = path.join(scriptDir, 'project-knowledge');
 
 const HUB_BASE = 'https://razorpay.github.io/ai-playbook';
+const GITHUB_BLOB_BASE = 'https://github.com/razorpay/ai-playbook/blob/master';
 
 // Same rule used by the hub: '/' becomes the root path. Everything else gets
 // the slug with a trailing slash.
@@ -47,6 +48,27 @@ function hubUrl(slug) {
   if (!slug || slug === '/') return `${HUB_BASE}/`;
   const clean = slug.replace(/^\/+|\/+$/g, '');
   return `${HUB_BASE}/${clean}/`;
+}
+
+function rewriteLocalMarkdownLinks(raw, sourcePath, pathToHubUrl) {
+  return raw.replace(
+    /\]\(([A-Za-z0-9_\-./]+\.md)(#[^)]+)?\)/g,
+    (_full, target, hash = '') => {
+      const resolvedPath = path.posix.normalize(
+        path.posix.join(path.posix.dirname(sourcePath), target)
+      );
+      if (resolvedPath.startsWith('../')) {
+        throw new Error(
+          `Cannot rewrite local Markdown link ${target} in ${sourcePath}: target leaves the repository`
+        );
+      }
+      // Manifest-backed documents have stable hub slugs. Reference sources
+      // outside the manifest (for example a skill README) remain usable via
+      // an absolute GitHub source URL instead of a broken relative path.
+      const url = pathToHubUrl.get(resolvedPath) || `${GITHUB_BLOB_BASE}/${resolvedPath}`;
+      return `](${url}${hash})`;
+    }
+  );
 }
 
 async function readText(relPath) {
@@ -209,24 +231,26 @@ async function copyGlossary() {
 // 4. Quick-reference cards (H1–H7)
 // -----------------------------------------------------------------------------
 
-async function bundleCards() {
+async function bundleCards(manifest) {
   const cardDir = path.join(repoRoot, 'appendices/H-reference-cards');
+  const pathToHubUrl = new Map(
+    (manifest.chapters || [])
+      .filter((chapter) => chapter.path && chapter.slug)
+      .map((chapter) => [chapter.path, hubUrl(chapter.slug)])
+  );
   const entries = (await fs.readdir(cardDir))
     .filter((f) => /^H\d+-.+\.md$/.test(f))
     .sort();
   const sections = [];
   for (const file of entries) {
     const raw = await fs.readFile(path.join(cardDir, file), 'utf8');
-    const body = raw
-      .replace(/^---\n[\s\S]*?\n---\n+/, '')              // strip frontmatter
-      .replace(
-        /\]\(((?:\.\.\/)+[A-Za-z0-9_\-./]+\.md)(#[^)]+)?\)/g,
-        (_full, target, hash = '') => {
-          const segments = target.split('/').filter((s) => s && s !== '..');
-          const noMd = segments.join('/').replace(/\.md$/, '').replace(/\/README$/, '');
-          return `](${HUB_BASE}/${noMd}/${hash})`;
-        }
-      );
+    const sourcePath = path.posix.join('appendices/H-reference-cards', file);
+    const withoutFrontmatter = raw.replace(/^---\n[\s\S]*?\n---\n+/, '');
+    const body = rewriteLocalMarkdownLinks(
+      withoutFrontmatter,
+      sourcePath,
+      pathToHubUrl
+    );
     sections.push(body.trim());
   }
   const out = [
@@ -242,6 +266,14 @@ async function bundleCards() {
     sections.join('\n\n---\n\n'),
     ''
   ].join('\n');
+
+  const unresolved = [...out.matchAll(/\]\(([A-Za-z0-9_\-./]+\.md)(#[^)]+)?\)/g)]
+    .map((match) => match[1]);
+  if (unresolved.length) {
+    throw new Error(
+      `Quick-reference bundle still has local Markdown links: ${unresolved.join(', ')}`
+    );
+  }
   await fs.writeFile(path.join(outDir, 'playbook-cards.md'), out);
 }
 
@@ -600,7 +632,7 @@ async function main() {
   const spine = await buildSpine(manifest);
   await copyIndex();
   await copyGlossary();
-  await bundleCards();
+  await bundleCards(manifest);
   await summariseSkills();
   await writeConciergeInstructions(manifest);
   await writeBundleReadme(manifest, spine);
