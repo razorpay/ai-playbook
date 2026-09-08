@@ -8,13 +8,13 @@ track: "black"
 order: 5
 time_minutes: 45
 audience: "platform-builder"
-outcome: "Choose the right multi-agent orchestration pattern, define its state and failure contract, and refuse patterns that consistently fail."
+outcome: "Choose the right multi-agent orchestration pattern, draw its code/model control boundary, define its state and failure contract, and refuse patterns that consistently fail."
 prev: "belts/black/agent-sdk"
 next: "belts/black/tool-design"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "multi-agent", "orchestration", "patterns", "state-management", "error-handling"]
-updated: "2026-08-04"
+updated: "2026-09-08"
 ---
 
 # B.5 — Multi-agent orchestration
@@ -28,6 +28,7 @@ G.8 introduced subagents. B.5 is the systems-design layer above subagents: when 
 - Three patterns reliably work: **sequential pipeline**, **fan-out + reduce**, **supervisor + specialists**.
 - Two patterns reliably fail at scale: **agent free-for-all** and **deep recursive delegation**.
 - Pick by job. The wrong pattern is an order of magnitude more expensive than the right one.
+- Keep known transitions, retries, gates, and receipts in code. Give models bounded judgement work, not ownership of the run.
 - Before launch, name one state owner and decide what happens when a worker times out, returns invalid output, or cannot finish.
 
 ---
@@ -173,6 +174,52 @@ The patterns are not mutually exclusive — a supervisor-with-specialists pipeli
 
 ---
 
+## Before adding agents: draw the control boundary
+
+Choosing a pattern decides how model-backed workers relate to each other. It does **not** mean a model should decide every transition in the run.
+
+Use code for behaviour you can state before the run: the next step, schema validation, retry budgets, checkpoints, approval gates, and the final status. Use a model for bounded judgement: classifying ambiguous input, comparing evidence with a rubric, synthesising findings, or doing specialist analysis. Open a separate agent session only when that judgement needs isolated context, tools, or permissions.
+
+| Work | Default owner | Why |
+|---|---|---|
+| Advance from one known step to the next | Code | The transition is predictable and testable. |
+| Validate output shape or required evidence | Code | A gate should produce the same result on the same artefact. |
+| Interpret ambiguous evidence | Model | The task needs semantic judgement. |
+| Investigate with specialist tools or context | Bounded session | Isolation limits context and permissions. |
+| Approve an irreversible or policy-sensitive action | Human | Authority is not a model capability. |
+
+This is a **code-owned workflow with model points**, not a conversational agent trying to remember what comes next. The model may recommend an outcome; the runner validates the artefact and records the transition.
+
+### Copyable control-boundary card
+
+List the workflow as observable steps, then fill one row per step. Start with `CODE`; promote a step to `MODEL` or `SESSION` only when you can name the judgement that code cannot make.
+
+```text
+STEP ALLOCATION
+
+Step:
+Owner: CODE | MODEL | SESSION | HUMAN
+Input + source:
+Allowed action:
+Closed outcome(s):
+Required evidence:
+Retry / stop rule:
+Checkpoint written:
+```
+
+Then run a planted-failure drill:
+
+1. Make one model point return a plausible answer with the wrong classification or missing evidence.
+2. Confirm that code rejects or routes the result without skipping the next gate.
+3. Replace the working directory or interrupt the run after a checkpoint.
+4. Confirm that the runner resumes from durable state instead of replaying accepted work.
+
+If the only recovery plan is “ask the model what happened,” the model still owns too much control.
+
+**Internal proof:** an open [Dashboard runner refactor](https://github.com/razorpay/dashboard/pull/24001) expresses a long agent workflow as 17 typed steps with code-owned gates and named model/session requests. Its [planted-failure probe](https://github.com/razorpay/dashboard/pull/24002) reached a closed terminal state while exposing workspace recovery, publishing, and classification defects as separate failures. The lesson is the boundary, not the implementation: deterministic control made the uncertain work inspectable.
+
+---
+
 ## Before launch: write the execution contract
 
 Choosing a pattern answers **who does the work**. It does not answer **who owns the truth when the work is half done**.
@@ -285,6 +332,8 @@ Its execution contract is equally important: the supervisor owns the run record;
 
 **Hand-wavy success criteria.** "It worked" is not a success criterion for a 4× cost multi-agent run. Fix: name what the artefact is and what passing looks like before invoking.
 
+**Giving the model the run loop.** A conversational coordinator remembers the next step, retries from intuition, and declares success from its own summary. Fix: put known transitions and gates in code; give each model point closed outcomes and required evidence.
+
 **Shared mutable state with no owner.** Two agents update the same record and the reducer cannot reconstruct which value is current. Fix: workers return immutable results; one coordinator validates and writes checkpoints.
 
 **Retrying every error.** Permission failures, malformed outputs, and unsafe mutations are not transient network blips. Fix: define which errors get one bounded retry, which produce a partial artefact, and which stop the run.
@@ -293,15 +342,15 @@ Its execution contract is equally important: the supervisor owns the run record;
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I pick the right pattern in under five minutes, name one state owner, checkpoint accepted outputs, and predefine retry, partial-result, approval, and stop rules.
-- 🟡 YELLOW — I understand the patterns, but state ownership or failure behaviour still lives in my head rather than an execution contract.
+- 🟢 GREEN — I pick the right pattern in under five minutes, keep known transitions and gates in code, name one state owner, checkpoint accepted outputs, and predefine retry, partial-result, approval, and stop rules.
+- 🟡 YELLOW — I understand the patterns, but the code/model boundary, state ownership, or failure behaviour still lives in my head rather than an execution contract.
 - 🔴 RED — I have launched multi-agent work without deciding which pattern fits or what happens when one worker fails.
 
 ---
 
 ## What you can say after this module
 
-> "I pick the right multi-agent pattern, give it one state owner, and define checkpoints, retries, partial results, and stop conditions before launch. I default down to a single agent when the patterns do not clearly apply."
+> "I pick the right multi-agent pattern, keep the predictable control path in code, give models bounded judgement work, and define checkpoints, retries, partial results, and stop conditions before launch. I default down to a single agent when the patterns do not clearly apply."
 
 ---
 
@@ -315,4 +364,5 @@ B.6 (*Tool design*) closes Part A. Multi-agent patterns work only as well as the
 
 - [G.8 — Subagents](../../03-green/a-craft/G08-subagents.md)
 - [G.20 — Observability with AI](../../03-green/b-practices/G20-observability-with-ai.md) — cost attribution
+- [Anthropic — Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) — choosing predictable workflows over model-directed agents when the path is well defined
 - [Anthropic — How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) — delegation, state, checkpoints, retries, and resumable failures
