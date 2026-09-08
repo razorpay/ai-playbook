@@ -14,7 +14,7 @@ next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review"]
-updated: "2026-08-11"
+updated: "2026-09-08"
 ---
 
 # G.15 — Design-to-code
@@ -33,6 +33,7 @@ This chapter walks the path end to end with a real worked example.
 - The boss fight in Part C requires a product-repo PR built through this flow, with Code Connect mappings and Blade-native components — not a pixel-pushed lookalike.
 - Before push, run `/design:copy-review` on the customer-facing words in the diff. Review the findings before applying them, then verify the code and rendered states. Copy review checks the words; it does not replace DQA or a human design review.
 - When the change affects a real journey, run a DQA flow review on the preview before PR. Treat the report as review evidence and a fix list, not as permission to skip human design review.
+- When a search, filter, or clear action changes content without navigating, prove the transition: visible state, announced status, keyboard focus, and layout width must still agree.
 
 ---
 
@@ -251,6 +252,49 @@ What to do with the output:
 
 DQA is especially useful on full flows because it returns a combined UI + UX report with per-screen coverage and persona impact. It is less useful for a one-line copy fix; do not make a tiny PR wear a tuxedo.
 
+### Transition proof — when the page changes without navigating
+
+A Figma frame proves a state. It does not prove the transition into or out of that state. An agent can generate a search that looks right while the list, result count, and empty-state title read from different values. It can remove a clear button while focus is still on it, leaving a keyboard user at the top of the page. It can redraw results silently for a screen reader. It can also pass on a Mac with overlay scrollbars and clip a card when a classic scrollbar consumes real width.
+
+Treat the transition as part of the interface contract. For any search, filter, tab, sort, or clear action that updates content in place, prove four things:
+
+1. **One state source.** The visible rows, count, and empty state derive from the same query or filter state. One action cannot make them disagree.
+2. **Focus continuity.** If an action removes the focused control, focus moves to the next useful control by design. Clearing a search usually returns focus to the search field; it does not quietly restart the page.
+3. **Announced status.** A result count or completion message is exposed as a status message, often through a live region, so assistive technology receives the update without moving focus there.
+4. **Real-width layout.** The narrowest supported breakpoint still works when the browser reserves width for a classic scrollbar. Sticky behaviour and multi-column layout switch at the same breakpoint unless the design explicitly says otherwise.
+
+#### Copyable transition-proof card
+
+Use one card per dynamic surface. This is the smallest useful interactive exercise: fill it against a real preview, not the Figma file.
+
+```text
+Journey / surface:
+Preview URL:
+Data fixture: <enough rows to scroll, one matching query, one zero-result query>
+Narrowest supported two-column width:
+
+| Action | Visible state | Status announced | Focus after action | Layout proof | Evidence |
+| Load | | | | | |
+| Enter a matching query | | | | | |
+| Enter a zero-result query | | | | | |
+| Clear from the empty state | | | | | |
+| Scroll at the narrowest breakpoint | | | | | |
+
+State source: <query/filter state used by rows, count, and empty state>
+Automated checks added:
+Human reviewer:
+```
+
+Run it in this order:
+
+1. Load a fixture large enough to scroll. Record the total before filtering.
+2. Use only the keyboard to enter a matching query, enter a zero-result query, and clear it. Confirm where focus lands after each action.
+3. Use a screen reader or the repository's accessibility test route to verify that the changed result status is announced. An `aria-live` attribute in the diff is an implementation clue, not proof that the experience works.
+4. Set the viewport to the narrowest supported breakpoint in an environment that reserves scrollbar width. Scroll the page and check every edge; hidden horizontal overflow can conceal clipping rather than solve it.
+5. Automate stable invariants: rows/count/empty state share the same query, clear restores the intended focus, and the supported viewport has no clipped interactive control. Put the test name and the human proof in the PR notes.
+
+Why this gate exists: a [shipped Slash member-search change](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788837770341879) found all four failures in one small surface — inconsistent state was prevented, focus and announcements were repaired, and a six-pixel layout margin that looked fine with overlay scrollbars clipped the card with a classic scrollbar. The lesson is not “test one operating system.” It is “test the interaction contract under the layout conditions your users actually have.”
+
 ---
 
 ## A worked example, end to end
@@ -309,11 +353,13 @@ The combination is what makes design-to-code mechanical. A Razorpay program that
 
 **Stopping after the copy edit.** The sentence improved, but a placeholder, quote delimiter, accessible label, or rendered state broke. Fix: inspect the diff, run normal checks, and render the changed states before push.
 
+**Reviewing only the final screenshot.** The loaded state looks right, but filtering, clearing, focus, announcements, or scrollbar width breaks the journey. Fix: complete the transition-proof card against the preview and keep the evidence with the PR.
+
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, and produce running code that uses Blade primitives end-to-end without fighting the design system.
+- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, prove dynamic transitions, and produce running code that uses Blade primitives end-to-end without fighting the design system.
 - 🟡 YELLOW — I can run the flow, but the contract card still has an unconfirmed owner, state, or fixture, or I tend to skip gap-naming and end up with ad-hoc components.
 - 🔴 RED — I have not locked an interface contract or completed a design-to-code session through the connector + Blade + Code Connect path.
 
@@ -341,4 +387,6 @@ G.16 (*Blade deep dive*) is the reference chapter for Blade itself. After this c
 - [Design plugin: Copy Review](https://github.com/razorpay/claude-plugins/tree/master/plugins/design#copy-review) — supported command, scope, and the boundary with DQA
 - [Copy-review implementation evidence](https://github.com/razorpay/claude-plugins/pull/1155) — repository-derived rules, authority tiers, safety checks, and validation
 - [WCAG 2.2: Labels or Instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html) — the public accessibility rationale behind reviewing labels and instructions as part of the shipped interface
+- [WCAG 2.2: Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html) — expose dynamic result or completion status without forcing focus onto the message
+- [WCAG 2.2: Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) — the public rationale for checking that content remains usable without hidden two-dimensional overflow
 - [Appendix C — Skills Library](../../../appendices/C-skills-library/README.md)
