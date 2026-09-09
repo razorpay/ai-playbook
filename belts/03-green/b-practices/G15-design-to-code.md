@@ -6,15 +6,15 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 15
-time_minutes: 60
+time_minutes: 70
 audience: "experienced-builder"
-outcome: "Walk a Figma frame through the Figma connector, the Blade design system, and Code Connect into running code that respects design-system conventions and ships cleanly."
+outcome: "Walk a Figma frame through the Figma connector, the Blade design system, and Code Connect into running code with governed customer-facing copy that respects design-system conventions and ships cleanly."
 prev: "belts/green/seed-spec"
 next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
-tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review"]
-updated: "2026-09-08"
+tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review", "localisation"]
+updated: "2026-09-09"
 ---
 
 # G.15 — Design-to-code
@@ -32,6 +32,7 @@ This chapter walks the path end to end with a real worked example.
 - The flow has five named steps. Skipping any one of them produces ad-hoc components that drift from the design system.
 - The boss fight in Part C requires a product-repo PR built through this flow, with Code Connect mappings and Blade-native components — not a pixel-pushed lookalike.
 - Before push, run `/design:copy-review` on the customer-facing words in the diff. Review the findings before applying them, then verify the code and rendered states. Copy review checks the words; it does not replace DQA or a human design review.
+- If the journey ships in Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Malayalam, or Kannada, use the Localization Brain workflow. Approved copy can ship verbatim; validated AI copy still needs native-speaker review.
 - When the change affects a real journey, run a DQA flow review on the preview before PR. Treat the report as review evidence and a fix list, not as permission to skip human design review.
 - When a search, filter, or clear action changes content without navigating, prove the transition: visible state, announced status, keyboard focus, and layout width must still agree.
 
@@ -229,6 +230,48 @@ If `/design:copy-review` is unavailable on an existing Design plugin install, ru
 
 This checklist is the exercise. Run it on one real diff and keep the accepted and rejected findings in the PR notes; no separate quiz is needed.
 
+### Localisation gate — when the words need another language
+
+Do not freehand-translate customer-facing copy, even with the English guideline in context. A translation can be fluent and still use vocabulary that Indian users do not use. The supported path is **approved copy first; otherwise rule-constrained translation, deterministic validation, and native-speaker review**.
+
+Localization Brain supports Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Malayalam, and Kannada through an [org website](https://localization-brain.aisites.razorpay.com/) and the [`localization` plugin](https://github.com/razorpay/claude-plugins/tree/master/plugins/localization). Use whichever surface fits the job. The website is the shortest path for a few strings; the plugin is better when the copy already lives in a repository or an agent workflow.
+
+Run this sequence for every target language:
+
+1. **Freeze the English source and its context.** Record the component, user intent, state, character constraint, and placeholders such as `{amount}`. “Failed” in an error and “failed” in a status can require different wording; context is part of the copy contract.
+2. **Ask Localization Brain, not a general translator.** Request the named language. The workflow checks for a human-approved exact match first. If none exists, it translates under that language's rulebook.
+3. **Read the provenance label.** `✓ approved copy · 100%` means a human-approved string was found and should be used verbatim. `NN% · AI translation` means machine-generated copy passed automated checks; it is not approved copy. Do not invent or round the score.
+4. **Require a clean validation result.** The validator must report no blocking banned vocabulary, wrong script, or native numerals, while preserving placeholders and product terms. Fix named violations and rerun it. A clean result proves rule compliance, not that the sentence is right for the journey.
+5. **Review machine output with a native speaker.** Review in the rendered state, not just a spreadsheet cell. Record who reviewed it, what changed, and the final approved string. Feed recurring corrections back into the rulebook so the next run starts smarter.
+
+#### Copyable localisation release card
+
+Fill one row per language. This is the smallest useful interactive exercise: it makes provenance and human approval visible before the PR is called ready.
+
+```text
+Journey / component:
+English source:
+User intent + state:
+Placeholders / product terms to preserve:
+
+| Language | Approved match or AI score | Validator clean? | Native reviewer | Final string / source |
+|---|---|---|---|---|
+| Hindi | | | | |
+| <next supported language> | | | | |
+
+Rendered-state evidence:
+Rulebook correction raised (if any):
+```
+
+Common traps:
+
+- **Treating `95%` as approval.** Machine output is capped below human-approved copy. Fix: keep the AI label and get native-speaker review before production.
+- **Losing placeholders during translation.** The sentence reads well but `{amount}`, OTP, UPI, or a merchant name changes. Fix: validate against the English source and test the rendered dynamic value.
+- **Using a general model after validation fails.** A fluent rewrite can reintroduce the same banned term. Fix: apply the validator's named replacement, rerun validation, then review meaning.
+- **Approving strings outside the interface.** Copy fits the spreadsheet but clips, wraps badly, or no longer matches the action. Fix: review every target language in the real component and state.
+
+Why this gate exists: the [2026-09-09 launch audit](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788945586980459) found 290 explicitly banned terms across 14,352 live Checkout translations. The point is not “AI translates now.” It is that product guidance has become executable: approved wording, language-specific rules, deterministic failure, visible provenance, and a human decision at the production boundary. [Unicode CLDR](https://cldr.unicode.org/) is the external standard for locale data; it is useful infrastructure, but Razorpay's product vocabulary and approval rules remain the authority for this workflow.
+
 ### DQA review — when the change is a journey, not a component
 
 After the component renders in preview, ask Design Quality Agent (DQA) to review the journey if the change affects a customer-visible flow, mobile + desktop behaviour, accessibility, or a persona-specific decision. This is review evidence, not generation. The code is already in a branch; DQA is now helping you find the UX holes before a human reviewer has to.
@@ -347,7 +390,7 @@ The combination is what makes design-to-code mechanical. A Razorpay program that
 
 **Not running the daily loop.** Generated code that has not been seen in a real browser is hypothetical code. Fix: always preview on a branch URL.
 
-**Treating copy-review findings as an auto-fix queue.** Some findings encode observed convention or a house ruling rather than a hard requirement. Fix: inspect the rule and authority tier, accept deliberately, and keep the product or design owner in charge of meaning.
+**Treating copy-review or localisation findings as an auto-fix queue.** Some findings encode observed convention or a house ruling rather than a hard requirement; localisation validation also cannot prove journey meaning. Fix: inspect the rule and provenance, accept deliberately, and keep the product, design, and native-language reviewers in charge of meaning.
 
 **Reviewing only pasted strings when the code is available.** The words look fine in isolation, but the skill cannot see their component slot, dynamic placeholders, or surrounding literal. Fix: review the diff or named files so the code-safety checks have context.
 
@@ -359,7 +402,7 @@ The combination is what makes design-to-code mechanical. A Razorpay program that
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, prove dynamic transitions, and produce running code that uses Blade primitives end-to-end without fighting the design system.
+- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, govern supported Indian-language copy through validation and native review, prove dynamic transitions, and produce running code that uses Blade primitives end-to-end without fighting the design system.
 - 🟡 YELLOW — I can run the flow, but the contract card still has an unconfirmed owner, state, or fixture, or I tend to skip gap-naming and end up with ad-hoc components.
 - 🔴 RED — I have not locked an interface contract or completed a design-to-code session through the connector + Blade + Code Connect path.
 
@@ -386,6 +429,9 @@ G.16 (*Blade deep dive*) is the reference chapter for Blade itself. After this c
 - [Figma Code Connect docs](https://www.figma.com/code-connect-docs/)
 - [Design plugin: Copy Review](https://github.com/razorpay/claude-plugins/tree/master/plugins/design#copy-review) — supported command, scope, and the boundary with DQA
 - [Copy-review implementation evidence](https://github.com/razorpay/claude-plugins/pull/1155) — repository-derived rules, authority tiers, safety checks, and validation
+- [Localization plugin](https://github.com/razorpay/claude-plugins/tree/master/plugins/localization) — supported languages, provenance labels, validator behaviour, and setup
+- [Localization Brain release evidence](https://github.com/razorpay/claude-plugins/pull/1223) — approved-copy-first workflow, rulebooks, deterministic checks, and native-review boundary
+- [Unicode Common Locale Data Repository](https://cldr.unicode.org/) — public locale-data standard; complementary to product-specific vocabulary and approval rules
 - [WCAG 2.2: Labels or Instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html) — the public accessibility rationale behind reviewing labels and instructions as part of the shipped interface
 - [WCAG 2.2: Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html) — expose dynamic result or completion status without forcing focus onto the message
 - [WCAG 2.2: Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) — the public rationale for checking that content remains usable without hidden two-dimensional overflow
