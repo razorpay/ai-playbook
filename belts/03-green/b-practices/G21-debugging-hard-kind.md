@@ -14,7 +14,7 @@ next: "belts/green/quest-greenfield-crossover"
 pillar: "prompt"
 belt: "green"
 tags: ["green-belt", "debugging", "prompt-craft", "capstone"]
-updated: "2026-04-29"
+updated: "2026-09-09"
 ---
 
 # G.21 — Debugging the hard kind
@@ -27,6 +27,7 @@ This is the Prompt-pillar capstone of Part B and the most senior prompt skill in
 
 - A confidently wrong answer feels useful. The first sign is that the user has stopped reasoning and started copying.
 - Push back with evidence, not with frustration. "Here's what I saw on the trace; that doesn't match your hypothesis" beats "you're wrong."
+- Test a proposed cause at the mechanism's own grain. If the signature is absent, withdraw the cause instead of keeping it as a speculative risk.
 - The agent is not your adversary; it is a stuck colleague. Treat it like one and the conversation gets unstuck.
 
 ---
@@ -136,6 +137,35 @@ That session worked because the builder noticed the contradiction in the agent's
 
 ---
 
+## Turn a causal story into a falsifiable test
+
+An agent can find a real symptom and invent a plausible cause for it. “The totals differ” is an observation. “Late-arriving records caused the difference” is a causal claim. The second statement needs a test that could prove it wrong.
+
+Use this card before changing code, a data window, a status gate, or rollout guidance:
+
+```text
+CAUSAL CLAIM CHECK
+OBSERVATION: <what was measured>
+PROPOSED CAUSE: <the mechanism that supposedly produced it>
+EXPECTED SIGNATURE: <what must be present if that mechanism is real>
+DISCONFIRMING TEST: <read-only check that could make the cause impossible>
+RESULT: PROVEN | DISPROVED | UNKNOWN
+ACTION: act on cause | withdraw cause | gather named evidence
+REMAINING GATES: <verified risks that still apply>
+```
+
+Work in this order:
+
+1. **Name the observation without explaining it.** Preserve the measured fact even if the story changes.
+2. **Derive the mechanism's signature.** Ask what rows, timestamps, state transition, trace, or user behaviour must exist if the proposed cause is true.
+3. **Run the narrowest read-only test at that grain.** Prefer relevant rows and time windows over one aggregate snapshot.
+4. **Use an honest state.** `PROVEN` has direct supporting evidence. `DISPROVED` has evidence that makes the mechanism impossible. `UNKNOWN` names the evidence still unavailable.
+5. **Correct the decision record.** Withdraw a disproved cause from status and remediation text. Keep a concise disproof when it prevents the next person from repeating the same mistake, and preserve unrelated verified gates.
+
+A recent internal analytics correction used this loop. A month-level discrepancy had been attributed to late-arriving records. A direct lag check across the relevant joins found no late arrivals, while a finer-grained comparison localized the difference to the partition still being written. The PR withdrew the invented gate, retained the disproof, and left the verified gates intact. That is stronger debugging than defending a neat story.
+
+---
+
 ## When you should defer to the agent
 
 The skill is *not* "always assume the agent is wrong." It is "verify before acting." Two patterns where deferring is correct.
@@ -201,3 +231,5 @@ You have finished Part B. Quest G-2 (*The Greenfield cross-over*) is the test of
 - [G.11 — Advanced prompting](../a-craft/G11-advanced-prompting.md) — the Part A capstone this module builds on
 - [Yellow Belt Y.12 — Debugging with Claude](../../02-yellow/Y12-debugging-loop.md)
 - [Anthropic on calibrated trust](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [Internal example — withdrawing a disproved causal gate](https://github.com/razorpay/self-serve-analytics/pull/2425) — separates the observed discrepancy from its proposed mechanism, preserves the disproof, and keeps the real gates
+- [Google SRE — Effective Troubleshooting](https://sre.google/sre-book/effective-troubleshooting/) — confirm or disprove hypotheses with direct evidence before acting
