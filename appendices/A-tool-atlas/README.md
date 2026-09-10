@@ -6,7 +6,7 @@ status: "drafted"
 type: "readme"
 track: "tool-atlas"
 order: 0
-time_minutes: 16
+time_minutes: 18
 audience: "everyone"
 outcome: "Choose the right AI tool surface for the job instead of treating every tool as interchangeable."
 prev: "prologue/tool-tour"
@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-09-03"
+updated: "2026-09-10"
 ---
 
 # Appendix A — Tool Atlas
@@ -191,7 +191,7 @@ Do not continue on a red diagnostic. Apply the fix printed beside the failed che
 
 **What it cannot do.** Fix missing data-access grants by itself, replace source-of-truth dashboards, or run reliably on native Windows today. The current plugin assumes a Unix-like surface for shell wrappers, `python3`, hooks, and POSIX locking.
 
-**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Running a stale plugin whose bundled metric catalog no longer matches the current definitions. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named.
+**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Running a stale plugin whose bundled metric catalog no longer matches the current definitions. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named. Treating one returned row as proof that the query honoured its date, filter, or comparison inputs.
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
 
@@ -230,6 +230,46 @@ Refresh Analytics Agent and restart Claude Code
 A 401 on `SELECT 1` is an authentication-path failure, not evidence that the metric, table, or VPN is broken. Capture the refresh status, exact probe, region or gateway, timestamp, and redacted error in [the active Analytics Agent thread](https://razorpay.slack.com/archives/C0A98PQTJH4/p1788431742546139?thread_ts=1788431704.199739), then follow the owner-confirmed setup route. Do not paste a Datum token into chat, commit it, or hand-edit the installed plugin's `.mcp.json`; plugin updates can overwrite that file, and an added MCP may not be the route the Analytics Agent skill invokes.
 
 Until the plugin owns per-user setup or the CLI migration ships, treat Trino-backed Analytics Agent answers as blocked when this probe is red. Use the source-of-truth dashboard or another owner-approved source for the decision rather than silently changing transport. Per-user authentication changes identity and auditability, not the underlying data-access policy, timeout, row cap, or read-only boundary.
+
+#### Prove the inputs before trusting the number
+
+A query can run, return a plausible number, and still ignore the parameter that made the question specific. Execution proves that the plumbing works; it does not prove that a date, segment, or comparison window changed the computation.
+
+Run this check before a parameterised metric answer drives a product decision, and whenever a certified query is added or modified. Week-on-week and month-on-month metrics need it most: both comparison windows must be distinct and tied to the requested period.
+
+1. **Write the expected behaviour first.** Choose a date, filter, or segment whose effect you can explain. Use an owner-approved dashboard, a small manual count, or a deliberately empty window as the anchor.
+2. **Run a baseline and save its receipt.** Record the input, source, evaluated window or population, and value. A value without the evaluated input is not enough evidence.
+3. **Change one input only.** Pick a second valid value that should exercise a different window or population. Confirm the receipt reflects that value. For a comparison metric, confirm both the current and prior windows moved.
+4. **Challenge a boundary.** Use one safe edge case: an empty window, a narrow segment, a month boundary, or a period with a known answer. The result should match the declared empty-state or owner-approved expectation—not quietly fall back to the baseline.
+5. **Record pass or stop.** Equal outputs can be legitimate, but only when the receipts prove that distinct populations or windows were evaluated and the anchor supports equality. Otherwise, stop and route the evidence to the metric owner.
+
+Copy this card into the review thread:
+
+```text
+Metric and decision it will inform:
+Metric owner:
+Parameter under test: date / filter / segment / comparison period
+Source-of-truth anchor:
+
+Case 1 — baseline input:
+Expected window or population:
+Observed window or population and value:
+
+Case 2 — one changed input:
+Expected change:
+Observed window or population and value:
+
+Case 3 — boundary or known-answer input:
+Expected behaviour:
+Observed behaviour:
+
+Decision: pass / stop
+Evidence link:
+```
+
+**Stop conditions.** Stop if the receipt omits the evaluated input; changing the input leaves a hardcoded window or population in place; both sides of a comparison resolve to the same period; an empty or boundary case silently returns the baseline; or the result misses the owner-approved anchor. Do not explain an identical number as coincidence until the window and population evidence prove it.
+
+**Why this check exists.** A [9 September certified-query audit](https://razorpay.slack.com/archives/C0A98PQTJH4/p1788972341276129) found five week-on-week definitions that reused one date placeholder for every endpoint, so they always returned zero delta, plus a sixth that accepted a date while pivoting on two hardcoded months. All six executed and returned numbers. The broader testing principle is established in [dbt's unit-test guidance](https://docs.getdbt.com/docs/build/unit-tests): validate SQL logic against controlled inputs and expected outputs, especially date math, window functions, edge cases, and high-criticality models.
 
 #### Validate a redesign without cutting over
 
@@ -308,7 +348,7 @@ Once the stop is lifted, start from a clean local clone of `razorpay/self-serve-
 1. **Bring a metric brief.** Name the metric, product area/domain, description, source table, formula or query, unit, filters, and gotchas. If you cannot name the source and computation yet, use `/analytics-query` to investigate first.
 2. **Choose the discovered domain.** Prefer an existing domain from the skill's picker. Creating a new domain needs explicit owner confirmation; a similar-looking folder is not close enough.
 3. **Review ADD versus MODIFY.** For an existing metric, inspect every old → new field. For a new metric, confirm the glossary location and certified-query location before files are written.
-4. **Require a real query check.** The source table must exist and the query must run in Trino or ClickHouse with `LIMIT 1`. A returned row is GREEN; an empty result needs explicit confirmation; a failed query does not become “documentation only”—fix it before proceeding.
+4. **Require execution and behaviour checks.** The source table must exist and the query must run in Trino or ClickHouse with `LIMIT 1`. A returned row proves execution only. Before calling the query GREEN, use the [parameter check above](#prove-the-inputs-before-trusting-the-number) for every date, filter, segment, or comparison input. An empty result needs explicit confirmation; a failed query does not become “documentation only”—fix it before proceeding.
 5. **Keep the diff domain-scoped.** The glossary term and certified query may change, plus the generated merged glossary. Unrelated domain cleanup belongs in another PR.
 6. **Approve the change summary.** Confirm the metric, domain, serving layer, files, and sample value before the skill commits or opens a PR.
 7. **Wait for CI and human review.** A generated PR is a proposal, not a live metric. Merge only after metadata validation passes and the owning reviewer agrees with the definition.
