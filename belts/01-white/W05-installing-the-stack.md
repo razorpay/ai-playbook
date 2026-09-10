@@ -14,7 +14,7 @@ next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-08-22"
+updated: "2026-09-10"
 ---
 
 # W.5 - Installing the stack
@@ -23,15 +23,15 @@ Installation is where many new builders lose half a day. Not because they are ba
 
 White Belt uses the supported setup path. Your job is to run it, read the output, and verify the pieces. Your job is not to become a package-manager expert on day one.
 
-> **The canonical source.** Everything in this chapter mirrors the [org-wide rollout announcement](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) posted by Bhanu Prakash in `#engineering-all` on 2026-03-24. If a step here disagrees with that thread, the thread wins — ping `#ai-help` and this chapter will be patched.
+> **Choose your provisioned route first.** If support has not moved you to Claude Team or Claude Max, this chapter's LiteLLM path mirrors the [org-wide rollout announcement](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) from 2026-03-24. If support explicitly provisioned Team or Max, use [Y.8's route chooser](../02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route) and the current SOP they sent instead. Do not apply the LiteLLM settings below to a different route.
 
 ---
 
 ## If you're short on time
 
-- Two steps: (1) get access via MyAccess, (2) run one setup script in your terminal.
-- Claude Desktop verifies your enterprise seat for chat/co-work. Code work in this playbook runs through terminal Claude Code via LiteLLM.
-- The setup script is `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash`. That is the only install command you should run.
+- Get access via MyAccess, then use the terminal route support provisioned for you.
+- No explicit Team or Max direction? Continue with the LiteLLM setup below. If support moved you, follow [Y.8's route chooser](../02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route) and the current migration SOP instead.
+- On the LiteLLM route, `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash` is the only install command you should run.
 - A successful install is not enough. You pass only when `claude --version` prints a version and `claude` opens without errors.
 
 ---
@@ -66,9 +66,9 @@ This is why setup has to be boring and pinned.
 4. Install **Claude Desktop** from Self Service (Mac). Treat this as the enterprise seat / SSO check for chat and co-work — not the code path.
 5. Go to [claude.ai](https://claude.ai), sign in with SSO → Razorpay email + MFA. You should see your org workspace.
 
-### Step 2 — Install Claude Code
+### Step 2 — Install Claude Code on the LiteLLM route
 
-Run the program-pinned setup script in your terminal. This is the *only* install command you should run:
+Continue here only if support has not explicitly moved you to Team or Max. If they have, stop and follow the route-specific SOP linked from [Y.8](../02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route). Otherwise, run the program-pinned LiteLLM setup script in your terminal:
 
 ```bash
 curl -fsSL https://get-claude.dev.razorpay.in/setup.sh | bash
@@ -82,7 +82,7 @@ The script:
 - installs the Zscaler certificate trust chain,
 - removes any stale Vertex environment variables left over from the March migration.
 
-After the script finishes, **restart your terminal** (important — environment changes only apply to new shells). Then run `claude` and follow the browser SSO login prompt if it appears. Do **not** run `claude /login` from the shell; `/login` is an in-session slash command, not a terminal subcommand. You are ready when a fresh prompt returns a response. For code tasks, trust this terminal path and the LiteLLM dashboard over Claude Desktop's quota display.
+After the script finishes, **restart your terminal** (important — environment changes only apply to new shells). Then run `claude` and follow the browser SSO login prompt if it appears. Do **not** run `claude /login` from the shell; `/login` is an in-session slash command, not a terminal subcommand. You are ready when a fresh prompt returns a response. On this route, trust the terminal path and LiteLLM dashboard over Claude Desktop's quota display.
 
 Do not paste commands from a teammate's terminal unless `#ai-help` confirms they apply to your machine. Two laptops can have different existing state — especially if one of you was on the Vertex-era setup.
 
@@ -142,9 +142,9 @@ Which one? The repo README and lockfile tell you. If you see `pnpm-lock.yaml`, u
 
 ---
 
-## What `~/.claude/settings.json` should look like
+## What LiteLLM `~/.claude/settings.json` should look like
 
-The setup script writes this file for you. You should not need to edit it. If you do need to inspect it (because something looks off and you want to compare), this is the canonical shape:
+The LiteLLM setup script writes this file for you. You should not need to edit it. If you are on that route and need to inspect it because something looks off, this is the canonical shape. Team and Max use their own route-specific configuration; do not compare those settings with this block.
 
 ```json
 {
@@ -178,7 +178,7 @@ Do not "fix" by hand-editing this file unless `#ai-help` walks you through it. R
 
 ## What setup verification should prove
 
-Run this seven-check manual gate. It is the current evidence contract for [Quest W-0](quest-W0-turn-green.md):
+On the LiteLLM route, run this seven-check manual gate. It is the current evidence contract for [Quest W-0](quest-W0-turn-green.md). If support provisioned Team or Max, use the readiness checks in that route's current SOP instead of forcing the LiteLLM gateway check to pass.
 
 ```bash
 # 1. Git is installed
@@ -259,7 +259,7 @@ You are **GREEN** if:
 
 - `git --version`, `node --version`, package manager version, and `claude --version` work;
 - you know whether a repo uses `npm` or `pnpm`;
-- the gateway, retired-Vertex, and prompt-round-trip checks report GREEN;
+- the readiness checks for your provisioned route report GREEN; on LiteLLM, that means the gateway, retired-Vertex, and prompt-round-trip checks above;
 - `git status` is clean after setup unless a module told you to change a file.
 
 You are **YELLOW** if:
@@ -290,16 +290,16 @@ For the print-this-and-stick-it-on-your-monitor version:
 
 | Thing you need | Value |
 |---|---|
-| Setup script | `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh \| bash` |
-| LLM gateway URL | `https://llm-gateway.razorpay.com` |
-| Settings file | `~/.claude/settings.json` |
+| Default LiteLLM setup script | `curl -fsSL https://get-claude.dev.razorpay.in/setup.sh \| bash` |
+| LiteLLM gateway URL | `https://llm-gateway.razorpay.com` |
+| LiteLLM settings file | `~/.claude/settings.json` |
 | MyAccess portal | [myaccess.microsoft.com](https://myaccess.microsoft.com) |
 | Support channel | [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) |
 | Cohort + show-and-tell | [`#product-ai-labs`](https://razorpay.slack.com/archives/C0A7B848RS7) |
 | Canonical rollout thread | [Step-by-step in `#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) |
 | Pricing reference | [Anthropic pricing docs](https://platform.claude.com/docs/en/about-claude/pricing) |
 
-*Last reviewed: 2026-08-22. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
+*Last reviewed: 2026-09-10. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
 
 > **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the common failure modes onto a single printable card.
 

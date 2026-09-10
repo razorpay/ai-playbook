@@ -1,6 +1,6 @@
 
-version: "0.72-alpha"
-updated: "2026-09-04"
+version: "0.73-alpha"
+updated: "2026-09-10"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -769,7 +769,7 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-    updated: "2026-08-22"
+    updated: "2026-09-10"
   - slug: "belts/white/llm-gateway"
     path: "belts/01-white/W06-llm-gateway.md"
     title: "The LLM Gateway"
