@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.73 — provisioned routes in White Belt setup (2026-09-10)
+
+W.5 still told every new builder to run the LiteLLM setup and prove a gateway-specific check, although support now provisions some builders on separate Claude Team or Claude Max routes. Applying the LiteLLM settings to those routes can undo the migration support assigned.
+
+**What changed.**
+
+- **Route choice now comes before installation.** W.5 keeps LiteLLM as the default path but sends explicitly provisioned Team and Max readers to Y.8 and their current support SOP.
+- **Examples and evidence are route-scoped.** The setup script, settings sample, dashboard advice, seven-check gate, and pinned references now identify themselves as LiteLLM-specific.
+- **Version markers bumped.** README, INDEX, manifest, course curriculum, and generated Concierge material now report v0.73 / 2026-09-10.
+
+---
+
 ## v0.72 — refresh Concierge release metadata (2026-09-03)
 
 The root README and Master Index had advanced to v0.61, but `manifest.yml` and the generated Playbook Concierge bundle still identified v0.59. That split let manifest-backed hub metadata and uploaded Concierge guidance report an older release while selected generated records were being updated by hand.
