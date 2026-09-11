@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-09-10"
+updated: "2026-09-11"
 ---
 
 # Appendix A — Tool Atlas
@@ -191,7 +191,7 @@ Do not continue on a red diagnostic. Apply the fix printed beside the failed che
 
 **What it cannot do.** Fix missing data-access grants by itself, replace source-of-truth dashboards, or run reliably on native Windows today. The current plugin assumes a Unix-like surface for shell wrappers, `python3`, hooks, and POSIX locking.
 
-**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Running a stale plugin whose bundled metric catalog no longer matches the current definitions. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named. Treating one returned row as proof that the query honoured its date, filter, or comparison inputs.
+**Common failure modes.** Using the deprecated `querying-metrics` habit when the standalone plugin is the current path. Running a stale plugin whose bundled metric catalog no longer matches the current definitions. Installing on native Windows and trying to hand-port the plumbing. Asking broad business questions before the metric/source is named. Treating one returned row as proof that the query honoured its inputs—or that its units and arithmetic are correct.
 
 **Belt relevance.** PM/Product add-on after White Belt setup; useful from Yellow Belt onward for metric-backed product work.
 
@@ -270,6 +270,43 @@ Evidence link:
 **Stop conditions.** Stop if the receipt omits the evaluated input; changing the input leaves a hardcoded window or population in place; both sides of a comparison resolve to the same period; an empty or boundary case silently returns the baseline; or the result misses the owner-approved anchor. Do not explain an identical number as coincidence until the window and population evidence prove it.
 
 **Why this check exists.** A [9 September certified-query audit](https://razorpay.slack.com/archives/C0A98PQTJH4/p1788972341276129) found five week-on-week definitions that reused one date placeholder for every endpoint, so they always returned zero delta, plus a sixth that accepted a date while pivoting on two hardcoded months. All six executed and returned numbers. The broader testing principle is established in [dbt's unit-test guidance](https://docs.getdbt.com/docs/build/unit-tests): validate SQL logic against controlled inputs and expected outputs, especially date math, window functions, edge cases, and high-criticality models.
+
+#### Recompute the unit and order of magnitude
+
+A query can honour every input and still return the wrong scale. A rate may lose useful precision during intermediate arithmetic; a money metric may apply the same unit conversion twice. Both can produce tidy, believable numbers.
+
+Before a metric informs a launch, target, or revenue decision, reconstruct one representative slice:
+
+1. **Write the equation and units.** Name the numerator, denominator, and output unit. For money, spell out each conversion—for example, paise → rupees → crore—instead of hiding it inside a label.
+2. **Recompute from components.** Ask for the underlying counts or amounts and calculate the result independently. Use an owner-approved dashboard or raw aggregate when available; do not validate a generated answer by asking the same query to explain itself.
+3. **Inspect precision before display rounding.** Keep intermediate values at sufficient precision and round only the final displayed result. If a supposedly variable rate collapses to a few repeated values, stop and inspect the arithmetic types.
+4. **Check magnitude through a second route.** For a rate, divide the representative numerator by its denominator. For an amount, compare against a rough `count × typical amount` estimate. The routes need not match perfectly, but they must agree on unit and order of magnitude.
+5. **Record pass or stop.** Save the components, conversion chain, independently recomputed value, reported value, and owner-approved tolerance. A plausible-looking answer without reconstructable arithmetic does not pass.
+
+Copy this card into the review thread:
+
+```text
+Metric and decision it will inform:
+Metric owner:
+Declared equation:
+Numerator value and unit:
+Denominator value and unit:
+Output unit:
+Conversion chain:
+
+Independently recomputed value:
+Reported value before display rounding:
+Reported display value:
+Second-route magnitude estimate:
+Owner-approved tolerance:
+
+Decision: pass / stop
+Evidence link:
+```
+
+**Stop conditions.** Stop if an input or output unit is unknown; the same conversion appears twice; an intermediate result is rounded before the final calculation; the recomputed value and reported value miss the approved tolerance; or the second route disagrees by an order of magnitude. Do not repair the discrepancy by widening the tolerance after seeing the result.
+
+**Why this check exists.** Merged [`self-serve-analytics` #2490](https://github.com/razorpay/self-serve-analytics/pull/2490) executed certified queries against live Trino and found two independent scale failures. Decimal arithmetic compressed rates that should have varied—for example, Saved Card Use Rate displayed `0.0` instead of roughly `2.1–3.1%`—while an extra money conversion understated two MCC metrics by exactly 100×. Execution and input sensitivity would not catch either defect; reconstructing components, units, and magnitude does. Trino's [decimal operators documentation](https://trino.io/docs/current/functions/decimal.html) explains why result precision and scale depend on the operand types.
 
 #### Validate a redesign without cutting over
 
@@ -353,7 +390,7 @@ Once the stop is lifted, start from a clean local clone of `razorpay/self-serve-
 1. **Bring a metric brief.** Name the metric, product area/domain, description, source table, formula or query, unit, filters, and gotchas. If you cannot name the source and computation yet, use `/analytics-query` to investigate first.
 2. **Choose the discovered domain.** Prefer an existing domain from the skill's picker. Creating a new domain needs explicit owner confirmation; a similar-looking folder is not close enough.
 3. **Review ADD versus MODIFY.** For an existing metric, inspect every old → new field. For a new metric, confirm the glossary location and certified-query location before files are written.
-4. **Require execution and behaviour checks.** The source table must exist and the query must run in Trino or ClickHouse with `LIMIT 1`. A returned row proves execution only. Before calling the query GREEN, use the [parameter check above](#prove-the-inputs-before-trusting-the-number) for every date, filter, segment, or comparison input. An empty result needs explicit confirmation; a failed query does not become “documentation only”—fix it before proceeding.
+4. **Require execution, behaviour, and scale checks.** The source table must exist and the query must run in Trino or ClickHouse with `LIMIT 1`. A returned row proves execution only. Before calling the query GREEN, use the [parameter check above](#prove-the-inputs-before-trusting-the-number) for every date, filter, segment, or comparison input, then [recompute one representative result](#recompute-the-unit-and-order-of-magnitude). An empty result needs explicit confirmation; a failed query does not become “documentation only”—fix it before proceeding.
 5. **Keep the diff domain-scoped.** The glossary term and certified query may change, plus the generated merged glossary. Unrelated domain cleanup belongs in another PR.
 6. **Approve the change summary.** Confirm the metric, domain, serving layer, files, and sample value before the skill commits or opens a PR.
 7. **Wait for CI and human review.** A generated PR is a proposal, not a live metric. Merge only after metadata validation passes and the owning reviewer agrees with the definition.
