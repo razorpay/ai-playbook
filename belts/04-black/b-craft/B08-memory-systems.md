@@ -14,7 +14,7 @@ next: "belts/black/prompt-evals"
 pillar: "context"
 belt: "black"
 tags: ["black-belt", "memory-systems", "session-state", "long-running-agents"]
-updated: "2026-07-22"
+updated: "2026-09-11"
 ---
 
 # B.8 — Memory systems
@@ -28,6 +28,7 @@ The longest module in Part B. Agents have always had context windows; the questi
 - **Auto-memory** is the program-pinned plugin's persistent layer for facts the agent should remember across sessions about the user. Cheap, durable, narrowly scoped.
 - **Session state** is what threads within one running session: the current conversation, the in-flight artefacts, the recent file reads. Free, ephemeral, scoped to the session.
 - **External storage** is files (the canonical pattern: a `LEARNER.md`-shaped artefact in the working directory, or a state directory the agent reads / writes deliberately). Durable, reviewable, pays only when the agent reads.
+- **A correction is a candidate, not automatically truth.** Validate its source, choose the narrowest useful scope, give that scope one named writer, replay known cases, and keep a rollback path before publishing it as shared memory.
 
 Pick the layer by lifetime and trust shape: ephemeral session work in session state; durable cross-session facts about the user in auto-memory; durable reviewable state in external storage.
 
@@ -127,6 +128,45 @@ The properties that matter:
 - **Versioned.** When the file's schema evolves, bump the version in the front-matter; the agent migrates cleanly.
 
 The trap: choosing a JSON or proprietary format for state. Markdown is the right default — humans and the agent both read it; tooling is universal; debugging is grep.
+
+---
+
+## Govern the write path, not only the storage layer
+
+Persistent memory creates leverage only when its writes are trustworthy. A user correction may be accurate, mistaken, true only for one case, or inconsistent with current policy. Treat it as evidence to investigate, not permission to rewrite shared memory. A correction that fixes one answer is not yet a rule for every future answer.
+
+Use this promotion path:
+
+```text
+candidate → validate → scope → approve → replay → publish
+```
+
+1. **Capture the candidate.** Record the exact correction, its source, and when it was observed. Keep credentials, PII, and regulator-protected data out of the record.
+2. **Validate it.** Check the authoritative source and look for conflicts with existing facts or policy. If no authoritative source exists, keep the correction local and mark the uncertainty.
+3. **Choose the narrowest useful scope.** Session-local state is enough while investigating. User-local memory fits a confirmed preference. Workflow- or domain-local memory fits reviewed operating knowledge. Shared memory is for rules that should affect many users or agents.
+4. **Approve the promotion plan.** Give each target scope one named writer: a person, team, or controlled process accountable for writes. Other agents may propose candidates; they do not silently publish competing versions. Name the approver and pass criteria before testing.
+5. **Replay before broadening.** Run the corrected case, known-good cases, and relevant boundary or safety cases. A correction that helps one case but breaks another does not graduate. [B.9](B09-prompt-evals.md) covers golden sets and regression checks.
+6. **Publish a reversible change.** Write a versioned diff and a change receipt: what changed, who approved it, which replay checks passed, and when it should be reviewed. Keep the previous version and a named rollback owner.
+
+The approval burden should rise with reach. A user can confirm a personal formatting preference. A workflow owner should validate domain knowledge. A shared policy claim needs its system of record, an accountable approver, and replay evidence. Defaulting to the narrowest scope prevents one plausible reply from becoming organisation-wide folklore.
+
+### Copyable correction-promotion card
+
+Use this card when a correction may outlive the current session. It is intentionally small enough to sit beside the memory file or in the change request.
+
+```text
+CORRECTION: <what existing answer or memory is wrong?>
+SOURCE + CHECKED AT: <authoritative source; date/time checked>
+TARGET SCOPE: <session | user | workflow/domain | shared>
+CONFLICT CHECK: <existing memory or policy reviewed; conflicts resolved>
+NAMED WRITER: <only writer allowed to update this scope>
+APPROVER + PASS BAR: <who approves; what must pass>
+REPLAY SET: <corrected case + known-good + boundary/safety cases>
+VERSION + RECEIPT: <diff/version; approval and replay result>
+ROLLBACK + REVIEW: <previous version; rollback owner; review or expiry date>
+```
+
+For example, suppose a merchant-document assistant receives a correction about which document is accepted for one entity type. It keeps the candidate attached to the current case while the workflow owner checks the current policy source; it does not immediately teach every future session the same rule. After resolving conflicts, the owner selects workflow scope and sends the candidate through the named memory writer. Only after the corrected case and known-good document cases pass replay does the writer publish a versioned rule. If later evidence changes, the receipt makes the rule easy to find and roll back.
 
 ---
 
@@ -240,15 +280,15 @@ The Black Belt habit: when an agent's behaviour drifts in a way that suggests st
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I pick the memory layer for any agent task by walking the three layers in order and choosing by lifetime and trust shape; I review my auto-memory quarterly.
-- 🟡 YELLOW — I understand the layers but my agents sometimes use auto-memory for project-shaped state or session state for durable work.
-- 🔴 RED — I have not thought deliberately about memory layers; my agents work session-by-session with no durable strategy.
+- 🟢 GREEN — I choose by lifetime and trust shape, and I promote corrections through validation, scoped ownership, replay, versioning, and rollback.
+- 🟡 YELLOW — I understand the layers, but my agents sometimes use the wrong scope or persist corrections without a named writer and replay check.
+- 🔴 RED — I have not designed a durable-memory strategy or governed who may turn a correction into shared memory.
 
 ---
 
 ## What you can say after this module
 
-> "I choose between session state, auto-memory, and external storage by lifetime and trust shape, write durable state in human-readable Markdown, and version the schemas so the agent reads cleanly across releases."
+> "I choose memory by lifetime and trust shape, keep durable state reviewable, and promote corrections only after source validation, scoped approval, replay, and a reversible versioned write."
 
 ---
 
@@ -266,5 +306,7 @@ B.9 (*Prompt evals*) covers the discipline that turns "the agent feels right" in
 - [Product Function — Hermes enablement announcement](https://razorpay.slack.com/archives/C3GF5LWJK/p1782734977980559) — internal walkthrough of use cases, provisioning, configuration, and troubleshooting
 - [AI SDLC pilot — role-specific Hermes profiles](https://razorpay.slack.com/archives/C0B2LQ1V1SQ/p1779710778779049) — PM, analyst, builder, and assistant profiles with separate persistent knowledge boundaries
 - [AI Bulletin — cross-border command centre](https://razorpay.slack.com/archives/C08NRSW1BUZ/p1781866421807989) — a shipped operational workflow using Hermes, Claude Code, daily reporting, and a feedback loop
+- [Product Bulletin — AML assistant correction loop](https://razorpay.slack.com/archives/C2NVBTWF6/p1789123959324149) — production evidence for turning quality-checked replies into reusable knowledge
+- [`claude-plugins` #1340](https://github.com/razorpay/claude-plugins/pull/1340) and [#1322](https://github.com/razorpay/claude-plugins/pull/1322) — design proposals for narrowing automatic learning writes and preserving explicit correction paths
 - [Hermes Agent documentation](https://hermes-agent.nousresearch.com/docs/) — public reference for memory, skills, messaging, and scheduled automations
 - [Anthropic on auto-memory](https://docs.claude.com/) — public reference
