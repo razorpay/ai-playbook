@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 15
-time_minutes: 70
+time_minutes: 75
 audience: "experienced-builder"
 outcome: "Walk a Figma frame through the Figma connector, the Blade design system, and Code Connect into running code with governed customer-facing copy that respects design-system conventions and ships cleanly."
 prev: "belts/green/seed-spec"
@@ -14,7 +14,7 @@ next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review", "localisation"]
-updated: "2026-09-09"
+updated: "2026-09-12"
 ---
 
 # G.15 — Design-to-code
@@ -34,6 +34,7 @@ This chapter walks the path end to end with a real worked example.
 - Before push, run `/design:copy-review` on the customer-facing words in the diff. Review the findings before applying them, then verify the code and rendered states. Copy review checks the words; it does not replace DQA or a human design review.
 - If the journey ships in Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Malayalam, or Kannada, use the Localization Brain workflow. Approved copy can ship verbatim; validated AI copy still needs native-speaker review.
 - When the change affects a real journey, run a DQA flow review on the preview before PR. Treat the report as review evidence and a fix list, not as permission to skip human design review.
+- Before trusting DQA's scores, verify what its screenshots actually covered. A requested full-page capture can fall back to one viewport; disclose that limit and collect targeted evidence for anything outside the captured region.
 - When a search, filter, or clear action changes content without navigating, prove the transition: visible state, announced status, keyboard focus, and layout width must still agree.
 
 ---
@@ -283,15 +284,47 @@ Do a design review of <preview-url>.
 Goal: <user goal, e.g. create a Payment Link>.
 Cover: desktop and mobile if available.
 Pause and hand control back to me on login, OTP, payment, or other sensitive steps.
-Return: top 3 fixes, UI/UX score, screens covered, and any persona-specific risk.
+Return: top 3 fixes, UI/UX score, screens covered, capture scope,
+full-page or fallback status, confidence limits, and any persona-specific risk.
 ```
+
+#### Verify the capture before trusting the score
+
+“Full page requested” and “full page captured” are different claims. Starting in v1.22.2, DQA records `capture.full_page` and `capture.full_page_skipped` on each `screens[]` entry; its capture helper also returns page height and bitmap dimensions. When a page is too tall for a safe single image, DQA falls back to a viewport capture rather than returning a silently wrapped image. The run completed, but the evidence covers only the visible region.
+
+Check the receipt before acting on a score:
+
+1. **Use a current Design plugin.** If the installed plugin predates v1.22.2, run `/plugin update design` and rerun DQA.
+2. **Read every screen's capture fields.** If `capture.full_page_skipped` is set, record the reason and treat that screen as above-the-fold only. If the fields are absent, coverage is unknown; update and rerun rather than guessing.
+3. **Open the artefact.** Compare distinct landmarks near the top, middle, and bottom. Repeated content, a blank band, or a missing page ending means the image is not trustworthy even if the command succeeded.
+4. **Bound the conclusion.** Put the actual scored region in the report's confidence limits. Capture the skipped states or regions separately before making a whole-journey claim.
+
+Use this small receipt in the PR notes:
+
+```text
+DQA capture receipt
+Run / report:
+Design plugin version: <1.22.2 or later>
+Requested coverage: <desktop / mobile / both; viewport / full page>
+Desktop screen: capture.full_page= | capture.full_page_skipped=
+Mobile screen: capture.full_page= | capture.full_page_skipped=
+Page height / bitmap dimensions (if reported):
+Artefact spot-check: top= | middle= | bottom=
+Scope actually scored:
+Skipped regions + targeted evidence:
+Confidence limit stated:
+Human reviewer:
+```
+
+This receipt is not screenshot bureaucracy. It prevents a clean-looking viewport from being presented as evidence for a page it never saw.
 
 What to do with the output:
 
-1. Fix the top issues that are in scope for this PR.
-2. Paste the top 3 findings and the HTML-report link or saved artefact into the PR notes.
-3. If DQA flags a design-system gap, route it like any other Blade / Code Connect gap instead of hiding it with custom CSS.
-4. If the report disagrees with your design partner, the human wins; capture the disagreement as a note, not a fight with the bot. The bot does not get a feelings budget.
+1. Complete the capture receipt and resolve any unknown or corrupt evidence.
+2. Fix the top issues that are in scope for this PR.
+3. Paste the capture receipt, top 3 findings, and the HTML-report link or saved artefact into the PR notes.
+4. If DQA flags a design-system gap, route it like any other Blade / Code Connect gap instead of hiding it with custom CSS.
+5. If the report disagrees with your design partner, the human wins; capture the disagreement as a note, not a fight with the bot. The bot does not get a feelings budget.
 
 DQA is especially useful on full flows because it returns a combined UI + UX report with per-screen coverage and persona impact. It is less useful for a one-line copy fix; do not make a tiny PR wear a tuxedo.
 
@@ -396,13 +429,15 @@ The combination is what makes design-to-code mechanical. A Razorpay program that
 
 **Stopping after the copy edit.** The sentence improved, but a placeholder, quote delimiter, accessible label, or rendered state broke. Fix: inspect the diff, run normal checks, and render the changed states before push.
 
+**Treating requested capture scope as proven coverage.** DQA was asked for a full page, but the run fell back to one viewport or returned no capture metadata. Fix: update the Design plugin, complete the capture receipt, disclose above-the-fold-only scoring, and add targeted evidence for skipped regions.
+
 **Reviewing only the final screenshot.** The loaded state looks right, but filtering, clearing, focus, announcements, or scrollbar width breaks the journey. Fix: complete the transition-proof card against the preview and keep the evidence with the PR.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, govern supported Indian-language copy through validation and native review, prove dynamic transitions, and produce running code that uses Blade primitives end-to-end without fighting the design system.
+- 🟢 GREEN: I can lock the interface contract, take a Figma frame through the five steps, name gaps, review customer-facing copy with its authority and code context, govern supported Indian-language copy through validation and native review, verify DQA's actual capture scope, prove dynamic transitions, and produce running code that uses Blade primitives end-to-end without fighting the design system.
 - 🟡 YELLOW — I can run the flow, but the contract card still has an unconfirmed owner, state, or fixture, or I tend to skip gap-naming and end up with ad-hoc components.
 - 🔴 RED — I have not locked an interface contract or completed a design-to-code session through the connector + Blade + Code Connect path.
 
@@ -432,6 +467,7 @@ G.16 (*Blade deep dive*) is the reference chapter for Blade itself. After this c
 - [Localization plugin](https://github.com/razorpay/claude-plugins/tree/master/plugins/localization) — supported languages, provenance labels, validator behaviour, and setup
 - [Localization Brain release evidence](https://github.com/razorpay/claude-plugins/pull/1223) — approved-copy-first workflow, rulebooks, deterministic checks, and native-review boundary
 - [Unicode Common Locale Data Repository](https://cldr.unicode.org/) — public locale-data standard; complementary to product-specific vocabulary and approval rules
+- [DQA v1.22.2 capture-integrity evidence](https://github.com/razorpay/claude-plugins/pull/1325) — live reproduction, full-page fallback fields, artefact validation, and confidence-limit requirements
 - [WCAG 2.2: Labels or Instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html) — the public accessibility rationale behind reviewing labels and instructions as part of the shipped interface
 - [WCAG 2.2: Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html) — expose dynamic result or completion status without forcing focus onto the message
 - [WCAG 2.2: Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) — the public rationale for checking that content remains usable without hidden two-dimensional overflow
