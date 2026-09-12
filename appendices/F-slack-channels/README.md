@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-08-25"
+updated: "2026-09-12"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
@@ -78,6 +78,14 @@ For builders contributing back to platform layers — MCP servers, API design, t
 | [`#testing-slash`](https://razorpay.slack.com/archives/C09CG60KLMU) | Testing the `/slash` plugin patterns — slash-command development, regression checks, plugin POCs. | Arnav Gaur | Async |
 | [`#ai-pr-merge-requests`](https://razorpay.slack.com/archives/C0AT2TNFGM7) | Where AI-assisted PRs surface for visibility and review-routing. Use when you've shipped AI-generated work and want it found by reviewers tracking the pattern. | Vaibhav Dhir | Async |
 | [`#api_council`](https://razorpay.slack.com/archives/C0168DC4DCZ) | The API Council — submissions, reviews, design-guide questions. Referenced in [B.15 — API Council contributions](../../belts/04-black/c-org/B15-api-council-contributions.md). | Khilan Haria | Per-review cadence |
+
+### Data and analytics
+
+For PMs and analysts using Analytics Agent or validating certified metrics.
+
+| Handle | Purpose | Owner | First-response expectation |
+|---|---|---|---|
+| [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4) | Analytics Agent onboarding, certified-metric questions, redesign shadow comparisons, sign-off, and rollout escalations. Keep each domain's evidence in its existing thread when one is linked. | Analytics Self Serve team | Per-validation cadence |
 
 ### Wider product context
 
@@ -143,6 +151,7 @@ Quick reference for "where does this question go?". Full role-and-forum mapping 
 | Cowork desktop app issue | [`#cowork-help`](https://razorpay.slack.com/archives/C0B0G3NGLP6) |
 | Blade component question; design-system compliance | [`#design-system`](https://razorpay.slack.com/archives/CMQ3RBHEU) or [`#experience_fe_core`](https://razorpay.slack.com/archives/C01H13RTF8V) ticket |
 | MCP connector failing or missing for a Razorpay service | [`#mcp-dev`](https://razorpay.slack.com/archives/C08PEUVAZ1B) |
+| Analytics Agent onboarding, certified-metric comparison, or redesign sign-off | [`#analytics-self-serve`](https://razorpay.slack.com/archives/C0A98PQTJH4) |
 | API design question; API council submission | [`#api_council`](https://razorpay.slack.com/archives/C0168DC4DCZ) |
 | Security concern; sensitive data in a prompt; redline-flagged review | Security review owner directly — see [Appendix E](../E-roles-and-forums/README.md) |
 | "Show me what you built"; share a skill | [`#product-ai-labs`](https://razorpay.slack.com/archives/C0A7B848RS7) or [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) |
@@ -181,4 +190,4 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 ---
 
-*Last reviewed: 2026-08-25. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
+*Last reviewed: 2026-09-12. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
