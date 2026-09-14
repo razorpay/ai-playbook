@@ -14,12 +14,12 @@ next: "ops-101/generation-automations"
 pillar: null
 belt: null
 tags: ["ops-101", "automation"]
-updated: "2026-04-26"
+updated: "2026-09-14"
 ---
 
 # 0B.3 — Triage automations
 
-> **⏱ 25 minutes · 👥 PMs, designers, ops, anyone with a queue · 🎯 Leaves with:** three concrete triage recipes (for inbox, Slack, and an on-call queue) that you can stand up in an afternoon and a clear sense of *which kind of triage AI is good at and which kind it isn't.*
+> **⏱ 25 minutes · 👥 PMs, designers, ops, anyone with a queue · 🎯 Leaves with:** three concrete triage recipes (for inbox, Slack, and an on-call queue), plus an acceptance card for deciding whether each recipe is trustworthy and worth keeping.
 
 ![Inbox before and after — hand-drawn](../../excalidraw/inbox-triage-before-after.svg)
 
@@ -27,11 +27,11 @@ updated: "2026-04-26"
 
 ## The thing you're actually trying to fix
 
-Open your inbox right now. Don't act on it. Just look. Some fraction of what you're seeing is real work: a client question that needs your judgement, a colleague waiting on a decision, a calendar invite from your skip. But a large fraction is *noise*: newsletters you forgot you subscribed to, automated alerts you skim and dismiss, FYI threads you got CC'd on, tickets the system thought you might care about.
+Open your inbox or work queue. Some items need your judgement: a client question, a colleague waiting on a decision, a broken journey. Others are routine alerts, FYI threads, duplicates, or items that belong elsewhere. The useful automation is not “make the queue disappear.” It is “make the first sorting pass consistent enough that I can review the right items sooner.”
 
-A typical knowledge worker spends 30–60 minutes a day **just sorting**. Reading enough of each item to decide *does this need me, does this need a quick reply, or does this need to be archived?* The decision is usually obvious within the first three sentences. The cost is in the cumulative re-doing of it across hundreds of items per week.
+Before automating, measure one representative manual pass: record the queue, time window, item count, time spent, and anything urgent you nearly missed. That is your baseline. Without it, a neat briefing can *feel* faster while quietly omitting work.
 
-Triage automation is the part where you teach an AI agent to do the *first pass* of that sorting — not to replace your judgement, but to make sure your judgement only gets spent on the items that actually need it. This is the highest-leverage hour of work in the whole Ops 101 track.
+Triage automation teaches an AI agent to propose the first pass. Your judgement still owns the final classification and every consequential action.
 
 ---
 
@@ -49,11 +49,13 @@ Some queues need a fourth bucket:
 
 - **Routes to someone else.** This isn't actually mine; forward to the right person and stop tracking it.
 
-The discipline of triage is *naming your buckets up front*. An AI agent that has clear bucket definitions will sort consistently. An agent told only "help me triage my inbox" will sort whimsically. The recipes below all start by naming the buckets explicitly.
+The discipline of triage is *naming your buckets up front*. Clear definitions give the agent a testable sorting contract. “Help me triage my inbox” does not. The recipes below all start by naming the buckets explicitly.
+
+Every recipe also needs a **coverage receipt**: which sources it searched, the query and time window, how many items it returned, whether results were truncated, and which requested sources were inaccessible or skipped. “No urgent items” is useful only when you know what the agent actually checked.
 
 ---
 
-## Recipe 1 — Inbox triage (45-minute setup, ~15 minutes saved per workday)
+## Recipe 1 — Inbox triage
 
 **The connector you need.** Gmail (or your email tool, via the Workspace connector).
 
@@ -61,51 +63,53 @@ The discipline of triage is *naming your buckets up front*. An AI agent that has
 
 Each morning, before you open your inbox yourself, ask Claude (in Cowork or Claude.ai with the connector active):
 
-> "Pull every unread email I received in the last 24 hours. For each one, classify it into one of: ACTS_ON_ME, FYI, ROUTES_TO_SOMEONE_ELSE, or AUTO_ARCHIVE. Use these definitions:
+> "Using the connected mailbox sources you can access, pull unread email I received in the last 24 hours. Before classifying, report the mailbox, exact time window, item count, and any requested source you could not search. For each returned item, classify it into one of: ACTS_ON_ME, FYI, ROUTES_TO_SOMEONE_ELSE, or AUTO_ARCHIVE. Use these definitions:
 >
 > - **ACTS_ON_ME** = a human is waiting on me to respond, decide, or act. Includes direct asks, calendar conflicts, anything urgent.
 > - **FYI** = I should be aware but no action is needed. Includes status updates from teams I'm part of, decision recaps that don't need my input, automated reports I read for context.
 > - **ROUTES_TO_SOMEONE_ELSE** = mistakenly sent to me; should go to a specific other person. Tell me who.
 > - **AUTO_ARCHIVE** = newsletters, marketing, automated noise, alerts about things I don't care about.
 >
-> Group the results by bucket. For ACTS_ON_ME, give me a one-line summary of what's needed and from whom. For FYI, just the subjects. For ROUTES, name the right recipient. For AUTO_ARCHIVE, just a count."
+> Group the results by bucket. For ACTS_ON_ME, give me a one-line summary of what's needed and from whom. For FYI, show the subjects. For ROUTES, suggest the right recipient and why. For AUTO_ARCHIVE, show the subjects during calibration rather than only a count. Cite or link every item. Do not archive, forward, reply, or change state."
 
-The output is your morning briefing. You spend two minutes on it, instead of twenty minutes scrolling.
+The output is a proposed morning briefing. Compare it with the mailbox before trusting it: open every ACTS_ON_ME item, inspect every proposed AUTO_ARCHIVE item, and look for at least one known message from the window. Log omissions and wrong buckets.
 
-**The first week** will produce some misclassifications — a thing it called "FYI" that actually needed action, or vice versa. When that happens, *correct it explicitly*: "this one was actually ACTS_ON_ME because [reason]." Within a few days the agent stabilises. Save the final prompt as a recipe. [Appendix I — Templates](../../appendices/I-templates/README.md) holds the reusable recipe format.
+When you find a misclassification — a thing it called "FYI" that actually needed action, or vice versa — correct the bucket definition, not just that one output: "this was ACTS_ON_ME because [reason]. Add that rule and show me where it applies." Save the prompt as a recipe only after it handles a representative set. [Appendix I — Templates](../../appendices/I-templates/README.md) holds the reusable recipe format.
 
-**Reliability tip.** Don't let the agent *act* on the inbox the first week — no auto-archives, no auto-routing. It's a *briefing* tool until you trust the buckets. After two weeks of stable behaviour, you can let it auto-archive the AUTO_ARCHIVE pile, but keep ACTS_ON_ME and ROUTES under your eye.
+**Reliability tip.** Keep this in briefing mode while you calibrate: no auto-archives, forwarding, routing, or replies. Promote only a narrow, reversible action after your sample shows no missed action items, the false-positive rate is acceptable to you, and missing coverage fails loudly. Keep ACTS_ON_ME and ROUTES under human review.
 
 ---
 
-## Recipe 2 — Slack triage (30-minute setup, ~30 minutes saved per workday)
+## Recipe 2 — Slack triage
 
-This one is a bigger deal than inbox triage for most readers, because Slack is where most of us actually drown.
+Slack triage has a wider and less predictable source set than one mailbox, so coverage matters as much as classification.
 
 **The connector you need.** Slack.
 
 **The shape of the workflow.**
 
-Twice a day (say, mid-morning and after lunch) ask Claude:
+At a cadence that matches your role, ask Claude:
 
-> "Read every channel I'm in plus my DMs. Show me, in order:
+> "Search [REQUIRED_CHANNELS_OR_CONVERSATION_TYPES] through the connected Slack source for activity since [LAST_CHECKED_AT]. First report the exact time window, conversations searched, returned item count, whether results were truncated, and any requested channel or conversation you could not access. Then show me, in order:
 >
 > 1. Direct mentions of me that I haven't responded to. For each: who pinged me, in which channel, the gist of what they said, and whether they need an action or just an acknowledgement.
 > 2. Threads I'm participating in where someone replied since I last checked. For each: where, what's new, do I need to weigh in?
 > 3. Channels where something *significant* happened that I should know about (a decision was made, a customer issue came in, an outage was declared). Just headlines.
-> 4. Everything else: ignore."
+> 4. Everything else: ignore.
+>
+> Link every reported message or thread. Do not post, react, or mark anything read."
 
-The output is a 60-second briefing of "what's happened in Slack since last time." If you have an open Slack tab and run this every couple of hours, *you'll never miss a mention again*, and you'll stop doing the thing where you re-read three thousand messages because you're terrified you missed something.
+Treat the output as an index, not proof that nothing else happened. During calibration, open a known mention and a thread you participated in, then confirm both appear. If a source is missing or a link cannot be opened, use Slack directly for that part of the window.
 
-**The crucial step.** Define what "significant" means for *you*. For a PM, it might be "anything in the customer escalation channel, anything tagged as a decision, anything with `[blocker]`." For a designer, it might be "anything in design-review channels, anything mentioning a Figma file I own, anything with a feedback request." Be specific. The Slack triage that's tuned to your role saves five times more time than a generic one.
+**The crucial step.** Define what "significant" means for *you*. For a PM, it might be "anything in the customer escalation channel, anything tagged as a decision, anything with `[blocker]`." For a designer, it might be "anything in design-review channels, anything mentioning a Figma file I own, anything with a feedback request." Be specific, then test those rules against real examples from your baseline.
 
-**Reliability tip.** This one is hard for Claude to get exactly right because "significant" is subjective. Expect to refine the definition of significance for two or three weeks. When you find the version that works, write it down — in your minimum viable wiki (chapter 0B.8) — so it survives.
+**Reliability tip.** "Significant" is subjective, and connector access can change. Re-check both classification and coverage until your representative sample is clean, then write the working definition down in your minimum viable wiki (chapter 0B.8). Keep a direct-Slack fallback for omitted sources.
 
 ---
 
-## Recipe 3 — On-call / queue triage (1-hour setup, several hours saved per on-call rotation)
+## Recipe 3 — On-call / queue triage
 
-If your role includes being on-call for a queue — support tickets, customer escalations, security alerts, infrastructure pages, design QA backlog — this is the highest-impact recipe in the chapter.
+If your role includes being on-call for a queue — support tickets, customer escalations, security alerts, infrastructure pages, or a design QA backlog — this recipe can shorten the first sorting pass while keeping priority and response decisions human-owned.
 
 **The connector you need.** Whichever ticketing tool the queue lives in.
 
@@ -113,20 +117,43 @@ If your role includes being on-call for a queue — support tickets, customer es
 
 When you go on-call (or at the start of each shift), ask Claude:
 
-> "Pull every open ticket in [QUEUE] that's unassigned or assigned to me. For each, classify it as:
+> "Using the connected ticket source, pull every open ticket in [QUEUE] that's unassigned or assigned to me. First report the queue, query or filters, retrieval time, returned item count, total count if available, pagination or truncation state, and any source or field you could not access. Use the queue's documented priority policy; if these labels conflict with it, stop and ask me to map them. For each returned item, classify it as:
 >
 > - **P0 (now)**: customer-impacting, blocking, or escalation. Show me everything you have on it: full description, related tickets, any prior fix attempts, the customer's tier if visible.
 > - **P1 (today)** — needs a fix or response today, but not blocking. Summarise it in two lines.
 > - **P2 (this week)** — real bug or request, can wait. One-line summary.
 > - **NOISE**: duplicate, already-fixed, malformed, or not actually a ticket. Tell me which.
 >
-> For each P0 and P1, suggest the most likely owner based on the surface area mentioned. Don't auto-assign — just suggest."
+> For each P0 and P1, suggest the most likely owner based on the surface area mentioned and cite the ownership source. If the source is absent or stale, say OWNER_UNKNOWN. Don't change priority, auto-assign, reply, or close anything."
 
-The first time you run this, plan to spend 20 minutes correcting the bucketing. After that, your daily on-call sweep is fifteen minutes instead of two hours.
+Review every proposed P0 and P1, a sample from each lower bucket, every OWNER_UNKNOWN item, and the queue's unclassified remainder. Compare elapsed time and errors with your baseline; the result, not the recipe heading, tells you whether the workflow saved time.
 
 **The escalation pattern.** For P0s, ask Claude (separately) to also: read related Slack threads, check if a similar ticket was solved before, surface the repro steps if any, flag the customer's history. *The triage step is fast; the context-gathering step makes the actual fix far faster.* This is a two-prompt pattern — first triage, then deep-context the items that earned it.
 
-**Reliability tip.** Never let an automation auto-respond to a P0 ticket. The reliability of triage is high; the reliability of *answering* a real customer issue is variable. Triage frees you up to write the right answer faster, not to skip writing it.
+**Reliability tip.** Never let an automation auto-respond to a P0 ticket. A sorting proposal and a customer-facing answer have different evidence and consequence. Triage should help you reach the right item sooner, not skip the human response.
+
+---
+
+## Triage acceptance card
+
+Run the recipe across representative busy and quiet windows before keeping it. Copy this card into your notes for each recipe:
+
+```text
+TRIAGE ACCEPTANCE
+Queue + owner:
+Baseline window / items / minutes:
+Requested sources + time window:
+Coverage receipt (searched / inaccessible / skipped / truncated):
+Review sample (all urgent + all proposed state changes + lower-bucket sample):
+False negatives (items needing action that were missed):
+False positives / wrong routes:
+Human-only actions:
+Measured result (items / minutes / errors):
+Decision: REFINE / KEEP_AS_BRIEFING / PROMOTE_NARROW_ACTION / STOP
+Next review date + kill-switch owner:
+```
+
+Stop if the agent cannot report coverage, cite each surfaced item, or preserve a human gate for consequential actions. Refine when the source set is complete but the buckets are weak. Keep it as a briefing when the summary helps but actions are not trustworthy. Promote only the smallest reversible action that your evidence supports.
 
 ---
 
@@ -139,9 +166,9 @@ A short, honest list before you go build.
 - Sorting items into well-defined buckets when the rules can be written in a paragraph.
 - Surfacing patterns in a queue ("you've gotten 4 different complaints about the same checkout step in the last 48 hours").
 - Summarising the body of an item so you can decide without opening it.
-- Pulling context that lives in *other* tools: the related ticket, the prior thread, the linked doc.
+- Pulling context that lives in connected tools when the source is accessible: the related ticket, prior thread, or linked doc.
 
-**Not good at, yet:**
+**Not good at:**
 
 - Distinguishing tone reliably (a polite frustrated customer can read as a chill request).
 - Knowing your team's invisible context (the PM you wouldn't normally route to because they're on PTO).
@@ -154,31 +181,32 @@ The right line is: **let AI do the first pass; you do the final call.** That's t
 
 ## Connecting this back to the boss fight
 
-Recipe 1, 2, or 3 is a perfectly defensible boss-fight candidate. If you're triaging your inbox in 2 minutes instead of 20, that's 90 minutes a week back. Run it for two weeks; if it survives, it's a recipe worth contributing to the library.
+Recipe 1, 2, or 3 is a defensible boss-fight candidate when your baseline and acceptance cards show a real improvement without missed urgent work. Run it across representative busy and quiet windows; if the result survives, it is a recipe worth contributing to the library.
 
 Two specific suggestions before you commit a triage automation as your boss fight:
 
 - **Pick the queue that *bleeds* the most time.** If your inbox is fine and your Slack is hell, pick Slack. If Slack is fine and on-call ruins your weekends, pick on-call. The biggest time-saver wins.
-- **Plan to refine for 2 weeks.** The first week's classifications will be wrong in interesting ways. The second week is when the recipe stabilises. The boss fight measures the *stabilised* week. That's the artefact worth contributing.
+- **Plan to refine before measuring the win.** Use the acceptance card to separate calibration runs from the representative window you report. Contribute the measured result and remaining failure modes, not a best-case demo.
 
 ---
 
 ## A common failure mode (and how to avoid it)
 
-The most common way these recipes go wrong is the same way: **the user defines a bucket too vaguely**, the agent sorts inconsistently, the user gets frustrated, and the automation gets quietly abandoned within a week.
+The most common failures come from **a vague bucket or an incomplete source set**. The agent sorts inconsistently or misses part of the queue, the user loses trust, and the automation gets abandoned.
 
-The fix is dull but reliable: *write each bucket's definition as you'd explain it to a new joiner on day one*. Specific. Concrete. With an example item that fits each bucket. The clearer your bucket definitions, the more reliable your agent. This is true of every Claude-driven workflow in the rest of this track, but it's most visible in triage because triage is *just* sorting.
+The fix is dull but reliable: write each bucket's definition as you'd explain it to a new joiner, include one fitting and one borderline example, and require a coverage receipt on every run. Clear buckets improve classification; explicit coverage tells you whether there was anything to classify.
 
-If you find yourself frustrated at a triage automation, before adjusting the prompt, look at the bucket definitions. The fault is almost always there.
+If you are frustrated with a triage automation, inspect the receipt first. Missing source? Fix access or narrow the promise. Complete source set but wrong sorting? Fix the bucket definition. Unknown cause? Keep it in briefing mode.
 
 ---
 
 ## What you should carry into the next chapter
 
 - Triage = sorting incoming queues into buckets *with named follow-up actions per bucket*. Define the buckets first.
-- Three reusable recipes: inbox, Slack, on-call queue. Each saves serious time once stable.
+- Three reusable recipes: inbox, Slack, on-call queue. Measure each against its own baseline.
 - AI does the first pass; *you* do the final call. Especially for anything customer-, urgent-, or political-flavoured.
-- The first week's classifications will be wrong in instructive ways. Refine for two weeks before measuring.
+- Coverage is part of correctness. Require sources, time window, item count, gaps, and links.
+- Use the acceptance card to decide whether to refine, keep briefing-only, promote one narrow action, or stop.
 - The next chapter ([0B.4 — Generation automations](04-generation-automations.md)) flips the direction: instead of *sorting* inputs, you'll be *producing* outputs: standups, meeting notes, weekly summaries.
 
 ---
