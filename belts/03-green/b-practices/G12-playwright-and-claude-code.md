@@ -6,7 +6,7 @@ status: "drafted"
 type: "chapter"
 track: "green"
 order: 12
-time_minutes: 45
+time_minutes: 55
 audience: "experienced-builder"
 outcome: "Write a Playwright end-to-end test with Claude Code that survives the codebase, reads cleanly, and catches the regression you actually fear."
 prev: "belts/green/b-practices"
@@ -14,7 +14,7 @@ next: "belts/green/playwright-skill-pattern"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "playwright", "e2e-testing", "voice-anchor"]
-updated: "2026-04-29"
+updated: "2026-09-14"
 ---
 
 # G.12 — E2E testing with Playwright + Claude Code
@@ -27,6 +27,7 @@ This is the voice anchor for Part B. Where Part A taught the craft layer (CLAUDE
 
 - A good E2E test names a user behaviour, not an implementation detail. "Submitting an empty form shows the inline error" — not "the validateForm function returns false."
 - Have Claude write the *spec* in plain English first. Then have it generate the Playwright code from the spec. Two prompts beat one.
+- Name the completion signal before generating code. A URL change, a transient toast, and settled product state prove different things.
 - Run the test. Read the failure. Iterate. Do not let Claude "fix" a failing test by relaxing its assertion.
 
 ---
@@ -63,7 +64,7 @@ This is the voice anchor for Part B. Where Part A taught the craft layer (CLAUDE
    └─────────────────────────────────────────────┘
 ```
 
-The most important property of this flow: the *spec* is the artefact you review, not the test code. A well-written spec is unambiguous; the code is a faithful translation. If the code is wrong, the spec is wrong.
+The most important property of this flow: the *spec* is the artefact you review, not the test code. A well-written spec is unambiguous; the code is a faithful translation. If the generated code drifts, the spec tells you what to fix.
 
 ---
 
@@ -119,6 +120,61 @@ When a test fails, the failure message is almost always more useful than the fai
 
 ---
 
+## Choose a completion signal, not a longer delay
+
+Every E2E step needs two proofs:
+
+1. **The triggering action reached the state where an assertion is meaningful.**
+2. **The durable user outcome appeared.**
+
+These are often different. A route can change before a lazy-loaded screen has mounted. A request can succeed before the UI renders its result. A toast can disappear before the click promise finishes on a loaded runner.
+
+Choose the narrowest observable contract that matches the behaviour:
+
+| What the behaviour gives you | Synchronise on | Then assert |
+|---|---|---|
+| A stable user-visible state | Playwright's web-first locator assertion | The visible state itself. Do not add a network dependency. |
+| A known request that must complete before the state can settle | A response listener armed **before** the click or navigation | Response success, then the durable visible outcome. |
+| A transient event that is itself the requirement | A web-first visibility assertion started before the triggering action | The event's exact accessible text or role. |
+| Only a URL change | Treat it as navigation proof, not readiness proof | A page-specific heading, row, empty state, or other settled outcome. |
+
+Never use a fixed sleep as the contract. Increasing a timeout is justified only when the signal is correct and measured runtime shows that its budget is too short.
+
+When the request is part of the behaviour, order matters:
+
+```ts
+const responsePromise = page.waitForResponse(response =>
+  response.url().includes('/reports') &&
+  response.request().method() === 'POST' &&
+  response.ok()
+);
+
+await page.getByRole('button', { name: 'Create report' }).click();
+await responsePromise;
+await expect(page.getByRole('row', { name: /weekly revenue/i })).toBeVisible();
+```
+
+Do not `await` `waitForResponse` before the click; that would wait for an event you have not triggered. Do not register it after the click; a fast response can win that race. Playwright's official [`page.waitForResponse` reference](https://playwright.dev/docs/api/class-page#page-wait-for-response) uses the same pre-arm → trigger → await order.
+
+### Try it — write the contract before the test
+
+Copy this into the plain-English spec. If Claude cannot fill it without guessing, the scenario is not ready to become code.
+
+```markdown
+Behaviour:
+Triggering action:
+Earliest safe completion signal:
+Why that signal proves the step is ready:
+Must the listener be armed before the trigger? yes / no
+Durable user-visible outcome:
+Negative proof (what must not happen):
+Failure evidence to keep: trace / screenshot / response / rendered HTML
+```
+
+This pattern is already doing real work inside Razorpay. Merged Dashboard PR [#22513](https://github.com/razorpay/dashboard/pull/22513) replaced racing success toasts with pre-armed response listeners and durable status, row, and accessibility checks; its Reports E2E job passed. Merged follow-up [#22743](https://github.com/razorpay/dashboard/pull/22743) hardened completion and retry handling across seven of that module's eight least-reliable tests. The same missing contract resurfaced in open PR [#24237](https://github.com/razorpay/dashboard/pull/24237), where URL arrival did not prove that a lazy MFE had mounted or that its list request had settled. The point is not “always wait for the network.” The point is to write down what completion means for this behaviour, then make the test observe exactly that.
+
+---
+
 ## Why Claude is good at Playwright
 
 Three properties of Playwright that match Claude Code's strengths:
@@ -141,6 +197,10 @@ The combination means a Green Belt builder can author Playwright tests with the 
 
 **Treating Playwright snapshots as a substitute for assertions.** Snapshots drift; they catch unintentional changes but are noisy. Use them sparingly. Real assertions on visible behaviour beat snapshot diffs.
 
+**Treating URL arrival as page readiness.** Navigation can finish before lazy components, flags, or data have settled. Fix: identify the first stable page-specific outcome; pre-arm a request listener only when that request is part of the scenario's completion contract.
+
+**Adding sleep when the signal is wrong.** A longer delay makes the race slower, not deterministic. Fix: inspect the trace, name the event that actually unlocks the user outcome, and wait on that event plus the durable state.
+
 **Not running the test before committing.** Generated tests sometimes have small import-path errors or missing fixtures. The agent did not run it. You did not run it. CI did. Fix: run it locally first.
 
 **Testing too many things in one spec.** Five `expect` statements across three behaviours. When it fails, you do not know which behaviour broke. Fix: one spec per named behaviour.
@@ -149,7 +209,7 @@ The combination means a Green Belt builder can author Playwright tests with the 
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN: I can author a Playwright test from a behaviour description, run it, read failures carefully, and ship it without weakening assertions.
+- 🟢 GREEN: I can author a Playwright test from a behaviour description, name its completion contract, run it, read failures carefully, and ship it without weakening assertions.
 - 🟡 YELLOW — I can write tests with Claude but rely on it to fix failures without reading the trace myself.
 - 🔴 RED — I have not written a Playwright test with Claude and would not know where to start.
 
@@ -157,7 +217,7 @@ The combination means a Green Belt builder can author Playwright tests with the 
 
 ## What you can say after this module
 
-> "I write Playwright end-to-end tests with Claude Code spec-first, read failures carefully, and refuse to ship a test whose assertion was weakened to make it pass."
+> "I write Playwright end-to-end tests with Claude Code spec-first, name observable completion signals, read failures carefully, and refuse to weaken assertions just to make a test pass."
 
 ---
 
@@ -170,5 +230,6 @@ G.13 (*The Playwright Skill pattern*) packages this loop into a reusable skill s
 **Further reading**
 
 - [Playwright docs](https://playwright.dev/)
+- [Playwright `page.waitForResponse` reference](https://playwright.dev/docs/api/class-page#page-wait-for-response)
 - [Yellow Belt Y.11 — Bug hunting with AI](../../02-yellow/Y11-bug-hunting.md)
 - [Anthropic on testing-with-the-agent patterns](https://code.claude.com/docs/en/best-practices)
