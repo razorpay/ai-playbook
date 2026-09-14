@@ -8,13 +8,13 @@ track: "black"
 order: 4
 time_minutes: 50
 audience: "platform-builder"
-outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; design the first useful action; define safe configuration and merchant-knowledge contracts; and prove the intended runtime executes without crossing tenant boundaries."
+outcome: "Decide cleanly among the program-pinned plugin, Agent Studio, and a custom Claude Agent SDK build; design first-use and contextual repeat-use interactions; define safe configuration and merchant-knowledge contracts; and prove the intended runtime executes without crossing tenant boundaries."
 prev: "belts/black/cowork-plugin-marketplace"
 next: "belts/black/multi-agent-orchestration"
 pillar: "harness"
 belt: "black"
 tags: ["black-belt", "agent-sdk", "agent-studio", "build-vs-install", "harness"]
-updated: "2026-09-07"
+updated: "2026-09-14"
 ---
 
 # B.4 — The Claude Agent SDK
@@ -28,6 +28,7 @@ The default answer at every belt up to here has been: *use the program-pinned pl
 - For internal interactive work, default to the program-pinned plugin.
 - For a supported merchant-facing agent, check Agent Studio first. Its builder path carries the agent from a one-outcome spec through tools, evals, review, shadow traffic, release, monitoring, and rollback.
 - Treat the first useful action as part of release: show a real outcome in context, offer a representative task, and hand control to the live input without auto-running it.
+- Put repeat-use entry points beside the page, metric, or record that creates the question. Carry visible context, preserve the route back, and keep generation off the host page's critical render path.
 - Reach for a custom Claude Agent SDK build only when the product or runtime genuinely falls outside that paved road and the owning reviewers agree.
 - "We want our own thing" and "we want to control the prompt" are not runtime requirements. They are usually requests for a better skill or configuration.
 
@@ -126,6 +127,7 @@ The owning plugin is the source of truth for current command names and setup. Th
 - [ ] **Platform fit — PM + Agent Studio owner:** Confirm the trigger, tenant boundary, connectors, and interaction fit the supported platform. Record any exception instead of silently coding around it.
 - [ ] **Interaction and control — designer:** Design the empty, loading, success, failure, approval, and recovery states. Put human confirmation around consequential actions.
 - [ ] **First useful action — PM + designer:** Show one real outcome in the user's current context, offer a representative starter task, land in the live input, preserve the final submit decision, and measure first valid attempt plus useful result—not tour completion alone.
+- [ ] **Contextual re-entry — designer + builder:** Put repeat-use entry points beside the relevant page, metric, or record; carry visible context; keep generation off the host page's critical path; and restore the source view on return.
 - [ ] **Recipient preference — PM + builder:** For every outbound contact, name the canonical preference authority and its scope; check it immediately before each attempt; persist stop requests received during the interaction; and save blocked-recipient, allowed-recipient, and unavailable-state canaries. An unreadable preference is `BLOCKED`, not permission to continue.
 - [ ] **Merchant knowledge — PM + builder:** For a shared agent, name the canonical merchant identity and knowledge authority; bind storage and retrieval to the server-derived identity; deny missing or mismatched context; and save allowed, cross-merchant-denied, and missing-identity canaries.
 - [ ] **Spec and tool contracts — builder:** Define inputs, structured outputs, tool side effects, permissions, and stop conditions before implementation.
@@ -170,6 +172,48 @@ Decision: release / revise / stop
 ```
 
 Stop if the starter task is a canned demo with no path to the user's real context, if skipping strands the user, if the first submit triggers an unlabelled side effect, or if success is measured only by finishing the tour. W3C's [On Input](https://www.w3.org/WAI/WCAG22/Understanding/on-input.html) and [Pause, Stop, Hide](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html) guidance reinforce the control principle: input and moving content should not surprise or trap the user.
+
+### Put the repeat-use entry point inside the task
+
+First-use design gets a person to one useful run. Repeat-use design decides whether they can invoke the agent without leaving their work, reconstructing the question, or losing their place.
+
+[Ray's contextual-entry design bulletin](https://razorpay.slack.com/archives/C07KLQKSB6U/p1789386551506709) shows the distinction. The shipped card and in-pipeline treatments use one shared kit designed at three levels across Transactions, Payment Links, and Settlements:
+
+| Entry level | User signal | Useful handoff |
+|---|---|---|
+| Page | Scanning a broad overview | A generated summary or ready-to-use prompts grounded in the visible page |
+| Metric | An unusual value needs explanation | The metric, time range, and comparison that made it unusual |
+| Record | Investigating one failed or unusual item | The selected record and the relevant list context |
+
+The design carries the selected date range into Ray and restores the filtered view on return. It also keeps the record action out of healthy rows until relevant. The team held back a generated overview because waiting for model output would delay the first page render. That is the product contract: **context should travel; model latency should not become page latency.**
+
+Build the handoff in this order:
+
+1. **Name the source object and question.** Start from the page, metric, or record that made the agent useful. A generic launcher is a fallback, not the primary path.
+2. **Decide eligibility without the model.** Use product state to determine when the entry point appears. If an affordance appears on hover, provide an equivalent focus and touch path; hidden must not mean unreachable.
+3. **Carry only visible, authorised context.** Pass stable IDs plus the user's visible date range, filters, and comparison state. Show the carried context so the user can correct it. Never broaden access because the handoff came from a trusted-looking page.
+4. **Choose a latency lane.** Render the host page deterministically. Generate after an explicit invocation, stream into a non-blocking region, or show a cached result with its timestamp. If generation is required before the page can settle, redesign or hold the treatment.
+5. **Preserve the way back.** Record the source route and view state. A contextual visit gets a labelled return action and restores filters, pagination, and selection; a direct visit does not invent a misleading back link.
+6. **Test the round trip.** Verify entry → carried context → useful result → return on keyboard, touch, narrow viewport, slow response, timeout, and refusal paths.
+
+Copy this entry contract into the interaction review:
+
+```text
+Source surface / object:
+User signal and show condition:
+Keyboard, focus, and touch access:
+Visible context carried: IDs / date range / filters / comparison
+Read / draft / act boundary:
+Host-page render path: deterministic / cached
+Agent latency path: on demand / streamed / deferred
+Slow, timeout, and refusal fallback:
+Return target and view state to restore:
+Round-trip canary: enter → context matches → result → return state matches
+Events: eligible → shown → invoked → useful result → returned
+Decision: release / revise / hold
+```
+
+Stop if the host page waits on generation, if the agent silently substitutes “today” for the visible range, if a hover-only control has no focus or touch equivalent, or if returning drops the user's filtered view. W3C's [Content on Hover or Focus](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html) guidance covers the access requirement; the agent still needs product-specific context, latency, and recovery tests.
 
 ### Make tuning a product contract, not a bag of knobs
 
@@ -362,15 +406,15 @@ This is real ongoing work. A custom agent is infrastructure. Treat it as such, o
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; design and measure the first useful action; and prove a shared agent retrieves only the authenticated merchant's knowledge before release.
-- 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the first-use, platform-fit, knowledge-isolation, or release evidence I would need.
-- 🔴 RED — I would launch with a blank input, count tour completion as activation, trust a merchant label in a prompt, or send an agent live without proving the intended runtime and tenant boundary.
+- 🟢 GREEN — I can choose among the program-pinned plugin, Agent Studio, and a custom SDK; design and measure first-use plus contextual repeat-use interactions; and prove a shared agent retrieves only the authenticated merchant's knowledge before release.
+- 🟡 YELLOW — I know Agent Studio exists, but I cannot yet name the first-use, contextual-entry, platform-fit, knowledge-isolation, or release evidence I would need.
+- 🔴 RED — I would launch with a blank input, block the host page on generation, lose the source view on return, trust a merchant label in a prompt, or send an agent live without proving the intended runtime and tenant boundary.
 
 ---
 
 ## What you can say after this module
 
-> "I use the program-pinned plugin for internal interactive work, check Agent Studio first for supported merchant-facing agents, and choose a custom SDK only for a reviewed fit gap. For shared agents, I bind knowledge retrieval to authenticated merchant context and prove both access and isolation before release."
+> "I use the program-pinned plugin for internal interactive work, check Agent Studio first for supported merchant-facing agents, and choose a custom SDK only for a reviewed fit gap. I put repeat-use entry points inside the task, preserve context and the route back, and prove shared agents retrieve only the authenticated merchant's knowledge before release."
 
 ---
 
@@ -385,6 +429,7 @@ B.5 (*Multi-agent orchestration*) turns to the systems-design layer. When you ha
 - [Claude Agent SDK docs](https://docs.claude.com/) — Anthropic's public SDK reference
 - [Agent Studio builder command tree](https://github.com/razorpay/merchant-skills/pull/232) — merged internal lifecycle and owning command source
 - [Ray first-time introduction](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788776937451509) and [Slash capability-to-task page](https://razorpay.slack.com/archives/C07KLQKSB6U/p1788774789002559) — shipped first-use patterns with contextual starter tasks, live-input handoff, user control, and early activation evidence
+- [Ray contextual-entry design bulletin](https://razorpay.slack.com/archives/C07KLQKSB6U/p1789386551506709) — page-, metric-, and record-level entry points; inherited date range; return-state recovery; and the critical-path latency hold
 - [Agent Studio configuration-surface launch](https://razorpay.slack.com/archives/C07KLQKSB6U/p1787518405395499) — Product, Design, and builder ownership for tuning controls
 - [Dashboard configuration schema](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/services/agent-config-schema-types.ts) and [field-state tests](https://github.com/razorpay/dashboard/blob/master/apps/agent-marketplace/src/__tests__/agent-config-field-states.test.tsx) — current typed controls, validation, and unsupported-field handling
 - [Agent Studio merchant-knowledge isolation proposal](https://razorpay.slack.com/archives/C0A94EJ38NP/p1787632755071319) — the current shared-agent boundary and platform roadmap signal
