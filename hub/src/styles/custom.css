@@ -179,6 +179,7 @@ header.header::after {
 .sidebar-content a[aria-current='page'] {
   font-weight: 600;
   background: var(--belt-soft);
+  color: var(--belt-ink);
   border-radius: var(--pb-radius-sm);
 }
 .sidebar-content summary, .sidebar-content a { letter-spacing: -0.01em; }
