@@ -14,7 +14,7 @@ next: "prologue/mental-model"
 pillar: null
 belt: null
 tags: ["orientation", "builder-day"]
-updated: "2026-04-26"
+updated: "2026-08-24"
 ---
 
 # 0.2 — The origin story (and why setup is Layer 0)
@@ -107,7 +107,7 @@ Before the second event even happened, the first *certified* builder had already
 
 The single most important idea in this playbook is that **setup is not hygiene; setup is the first boss fight.** Every belt has a Layer 0 gate built into it for this reason.
 
-- **White Belt Quest W-0: "Turn GREEN":** you run a verification skill, show an all-green checklist, and only then are you allowed to attempt the W-1 quest. Same contract as the second Builder Day's validation checklist. Same reason.
+- **White Belt Quest W-0: "Turn GREEN":** you run the direct [W.5 readiness checks](../belts/01-white/W05-installing-the-stack.md#step-5--run-the-supported-readiness-gate), show an all-green checklist, and only then attempt the W-1 quest. Same contract as the second Builder Day's validation checklist. Same reason.
 - **Yellow Belt assumes GREEN:** if you're stuck on install at Yellow, you're actually at White. The playbook will send you back one level — not as a punishment, but because the cost of pushing forward with a broken environment is wildly non-linear.
 - **Green and Black Belts assume Layer 0 is muscle memory:** you don't remember where your MCPs live, you just know they live somewhere and they work. When they break, you know the three places to look.
 

@@ -14,7 +14,7 @@ next: "belts/green/pre-ship-check-skill"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "prompt-injection", "output-classifiers", "security"]
-updated: "2026-04-29"
+updated: "2026-08-24"
 ---
 
 # G.25 — Prompt injection + output classifiers
@@ -184,7 +184,7 @@ The whole feature, designed this way, is robust against injection because even a
 
 ## Where to go next
 
-G.26 (*The pre-ship-check skill*) turns the design discipline of this chapter into a shipped review skill. Most prompt-injection design failures are caught at PR time by the pre-ship-check; G.26 is how the program makes that catch reliable.
+G.26 (*The pre-ship-check skill*) turns the design discipline of this chapter into a six-layer review contract. Apply it through a supported loaded skill when available, or run the same checklist manually; the source definition alone is not proof of distribution.
 
 **Previous:** [← G.24 PII / PCI / RBI](G24-pii-pci-rbi.md) · **Next:** [→ G.26 The pre-ship-check skill](G26-pre-ship-check-skill.md)
 

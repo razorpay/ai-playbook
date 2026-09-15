@@ -101,7 +101,7 @@ The skill should:
 
 If the skill does not activate, check:
 
-- the plugin version (run the program's verification skill);
+- the installed plugin source and current `/help` inventory;
 - the SKILL.md frontmatter (the `description` field is what Claude Code matches trigger phrases against);
 - the trigger phrase exactly (case-insensitive, but spelling matters).
 

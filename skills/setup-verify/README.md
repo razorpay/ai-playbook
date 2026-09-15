@@ -1,6 +1,8 @@
 # setup-verify
 
-The environment health check that White Belt's Quest W-0 depends on. Runs ten checks against your development environment, produces GREEN / YELLOW / RED per check, and gives you a one-line fix for each non-green result.
+The reference definition for a broad environment health check. It runs ten checks, produces GREEN / YELLOW / RED per check, and gives a one-line fix for each non-green result.
+
+> **Distribution boundary.** This directory is reviewable source, not proof that Compass or another marketplace installs an equivalent command. White Belt Quest W-0 uses the direct seven-check gate in [W.5](../../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove). Use the instructions below only when `/help` confirms this skill is available in your current session.
 
 This is a *diagnosis* skill, not a fix-it skill. It tells you what is wrong. You run the fixes.
 
@@ -8,7 +10,7 @@ This is a *diagnosis* skill, not a fix-it skill. It tells you what is wrong. You
 
 - Right after the setup script finishes.
 - When something stops working and you suspect environment drift.
-- Before claiming Quest W-0 in your White Belt tracker row.
+- For broader diagnosis after the direct W.5 gate identifies an environment problem.
 - After any laptop refresh, OS upgrade, or major tool change.
 - When a teammate's setup-verify is GREEN and yours is not, and you want to find the diff.
 
@@ -33,7 +35,7 @@ The skill runs all ten checks and produces a structured report.
 ## What the report looks like
 
 ```
-Overall: YELLOW — Quest W-0 claimable but worth fixing two warnings.
+Overall: YELLOW — 2 warnings worth fixing.
 
 | # | Check                         | Status |
 |---|-------------------------------|--------|
@@ -77,7 +79,7 @@ To suggest a new check or a fix update, open a PR against this skill's directory
 
 ## Related
 
-- [Quest W-0](../../belts/01-white/quest-W0-turn-green.md) — the quest this skill gates.
+- [Quest W-0](../../belts/01-white/quest-W0-turn-green.md) — the current direct setup-evidence gate.
 - [W.8 — GREEN / YELLOW / RED](../../belts/01-white/W08-green-yellow-red.md) — the chapter that introduces the status framing.
 - [Appendix B — Environment Setup](../../appendices/B-environment-setup/README.md) — the reader-facing reference.
 - [Appendix D — Known Issues](../../appendices/D-known-issues/README.md) — where common one-line-fix failures get documented as deeper-fix entries.

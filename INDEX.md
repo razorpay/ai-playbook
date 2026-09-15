@@ -4,7 +4,7 @@
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.61 · last reviewed 2026-08-13 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
+> **Status.** v0.67 · last reviewed 2026-08-26 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](./CONTRIBUTING.md), and [`ROADMAP.md`](./ROADMAP.md). Version history → [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -218,7 +218,7 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 > **Prerequisite.** A Razorpay laptop and your Google SSO. (If "what's a terminal?" still feels foreign, do Part 0 first.)
 > **Time budget.** 4–6 hours, spread over a week.
 > **Ramp L-level.** L0 → L1.
-> **Canonical setup artefacts.** A one-command setup script (laptop), a design-track add-on, the setup-verify health check, and a plugin-version verification script. Every module ends with "what colour are you?"
+> **Canonical setup artefacts.** A one-command setup script, a direct seven-check evidence gate, and documented add-on install routes. Every module ends with "what colour are you?"
 
 ### Modules
 
@@ -230,8 +230,8 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 | W.4  | [Your auth setup — MyAccess, LiteLLM key, SSO, proxy trust](belts/01-white/W04-auth-setup.md) [drafted] | Harness        | 20 min |
 | W.5  | [Installing the stack — Node, pnpm, Claude Code, internal npm registry](belts/01-white/W05-installing-the-stack.md) [drafted] | Harness       | 40 min |
 | W.6  | [The LLM Gateway — what LiteLLM does, what you need to know](belts/01-white/W06-llm-gateway.md) [drafted] | Context        | 15 min |
-| W.7  | [Compass plugin — install, verify, what's inside](belts/01-white/W07-compass-plugin.md) [drafted] | Context        | 20 min |
-| W.8  | [GREEN / YELLOW / RED — the 10-point health check and one-line fixes](belts/01-white/W08-green-yellow-red.md) [drafted] | Harness        | 20 min |
+| W.7  | [Compass plugin — source, distribution, and runtime proof](belts/01-white/W07-compass-plugin.md) [drafted] | Context        | 20 min |
+| W.8  | [GREEN / YELLOW / RED — the supported manual setup gate](belts/01-white/W08-green-yellow-red.md) [drafted] | Harness        | 20 min |
 | W.9  | [Your first conversation with Claude Code](belts/01-white/W09-first-conversation.md) [drafted] | Prompt         | 30 min |
 | W.10 | [Prompt quality 101 — "make it better" vs "find all auth handlers"](belts/01-white/W10-prompt-quality-101.md) [drafted] | Prompt         | 20 min |
 | W.11 | [The permission system — y / n / a, and why auto-yes is a trap](belts/01-white/W11-permission-system.md) [drafted] | Harness        | 15 min |
@@ -242,8 +242,8 @@ Pick the highest-leverage entry from your agent diary. Configure it end-to-end (
 ### Quests (both required)
 
 **🎮 [Quest W-0 — Turn GREEN](belts/01-white/quest-W0-turn-green.md) [drafted].**
-Run the W.5 setup flow (laptop or design-track add-on), then invoke `setup-verify` inside Claude Code. Resolve every YELLOW or RED and capture the complete ten-row GREEN report. If a focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted report and what you tried.
-*Success criteria:* setup-verify output screenshot, all checks ✅.
+Run the W.5 setup flow, then capture the direct seven-check gate: Git, Node, pnpm, Claude Code, LiteLLM configuration, no retired Vertex configuration, and a prompt round-trip. Resolve every YELLOW or RED; if one focused fix does not unblock you, route to [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) with the redacted failed command and what you tried.
+*Success criteria:* seven-row evidence table, all checks ✅.
 
 **🎮 [Quest W-1 — The HelloRazorpay commit](belts/01-white/quest-W1-hello-razorpay.md) [drafted].**
 Clone an assigned sandbox repo. Create a branch. Change one line in a README. Commit, push, open a PR. Close it.
@@ -362,7 +362,7 @@ The point of this boss fight is *not* the size of the change — it's the *full 
 | §    | Chapter                                                              | Pillar  | Time   |
 |------|----------------------------------------------------------------------|---------|--------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](belts/03-green/c-guardrails/G22-redlines.md) [drafted] | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](belts/03-green/c-guardrails/G23-llm-proxy.md) [drafted] | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does on the gateway route](belts/03-green/c-guardrails/G23-llm-proxy.md) [drafted] | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](belts/03-green/c-guardrails/G24-pii-pci-rbi.md) [drafted] | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — the threats, the mitigations](belts/03-green/c-guardrails/G25-prompt-injection.md) [drafted] | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](belts/03-green/c-guardrails/G26-pre-ship-check-skill.md) [drafted] | Harness | 20 min |
@@ -604,7 +604,7 @@ The *contract* between the playbook and the program's certification track. The p
 
 | Belt earned → | Evidence required                                                |
 |---------------|------------------------------------------------------------------|
-| ⚪ White       | setup-verify all-green + closed practice PR                      |
+| ⚪ White       | W.5 readiness checks all-green + closed practice PR              |
 | 🟡 Yellow      | One PR raised in any Razorpay org repo (merged or under review)  |
 | 🟢 Green       | Two merged PRs (one product repo + one greenfield) + pre-ship-check pass |
 | ⚫ Black       | Green criteria + (component contribution OR backend change shipped) |

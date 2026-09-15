@@ -14,7 +14,7 @@ next: "belts/green/advanced-prompting"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "hooks", "slash-commands", "automation", "harness"]
-updated: "2026-04-29"
+updated: "2026-08-24"
 ---
 
 # G.10 — Hooks + slash commands
@@ -67,10 +67,10 @@ A hook earns its place when its job is "always do this, regardless of whether an
 - **Secret scanning before commit.** A pre-commit hook scans staged files for tokens, credentials, or known-shape secrets and refuses the commit if any are found. The cost of forgetting is data loss; a hook removes the possibility.
 - **Format-on-save or format-on-commit.** Standard formatting applied automatically so reviews focus on logic, not whitespace.
 - **Lint-before-PR.** A pre-PR hook runs the project's lint and refuses to open a PR with errors. Catches mistakes the human would have caught later, faster.
-- **Pre-ship-check on PR creation.** The program-pinned `pre-ship-check` skill (referenced in G.6) can be wired as a hook that fires when a builder is about to open a PR. Surfaces issues before review burns reviewer time.
+- **Pre-ship-check on PR creation.** A team can wire its reviewed pre-ship workflow as a hook that fires when a builder is about to open a PR. This surfaces issues before review burns reviewer time.
 - **Post-test summarisation.** When the agent runs the test suite and the output is verbose, a post-test hook summarises into three lines and drops the rest. Protects the context window per G.2.
 
-The hook layer is where team discipline becomes infrastructure. A team rule like "we always run the pre-ship-check before opening a PR" becomes "we *cannot* open a PR without running it." Discipline that does not depend on memory is the most reliable discipline.
+The hook layer is where team discipline becomes infrastructure. A team rule like "we always run the pre-ship checks before opening a PR" can become "the checks run before every PR." Discipline that does not depend on memory is the most reliable discipline.
 
 ---
 
@@ -78,24 +78,22 @@ The hook layer is where team discipline becomes infrastructure. A team rule like
 
 A slash command earns its place when the workflow has a clear name and the user wants to invoke it on demand. Examples:
 
-- **`/setup-verify`** — runs the program's verification skill and prints the GREEN / YELLOW / RED status.
-- **`/pre-ship-check`** — explicitly runs the pre-ship-check skill before the user opens a PR (the same skill the hook would run automatically; the slash command is the manual lever).
-- **`/draft-pr-description`** — invokes a team skill that drafts a PR body in the team's tone for the current branch.
-- **`/find-bug-context`**: invokes a triage workflow that pulls git history, related Slack threads via the connector, and any open ticket via the ticketing connector for a named symptom.
-- **`/start-the-playbook`** — the playbook-course skill from v0.8 has trigger phrases; some teams wire `/start-the-playbook` as a slash-command shortcut to one of those phrases.
+- **`/draft-pr-description`** — a team command could invoke a reviewed skill that drafts a PR body in the team's tone for the current branch.
+- **`/find-bug-context`** — a team command could invoke a triage workflow that pulls git history, related Slack threads through a connector, and any open ticket for a named symptom.
+- **`/run-team-preflight`** — a team command could expose the same approved checks that its PR hook runs automatically.
 
-A slash command is a name the user can remember. If your team writes a custom skill, give it a slash command shortcut so muscle memory finds it.
+A slash command is a name the user can remember. If your team writes a custom skill, a slash-command shortcut can make it easier to find. These are design examples, not promises about your installed inventory: run `/help` before relying on any command name.
 
 ---
 
 ## When the same job is both
 
-Sometimes a workflow benefits from both. The pre-ship-check pattern:
+Sometimes a workflow benefits from both. Consider a team-owned pre-ship pattern:
 
 - as a **hook** firing on PR creation: catches the case where the builder forgot;
 - as a **slash command** the builder can invoke earlier: catches issues during the build, before the PR creation moment.
 
-Same skill, two surfaces. The hook makes it impossible to forget; the slash command makes it convenient to use early. Run them together and the workflow stops being something the team has to remember.
+Same reviewed workflow, two surfaces. The hook makes it hard to forget; the slash command makes it convenient to use early. Run them together and the workflow stops being something the team has to remember.
 
 ---
 
@@ -116,7 +114,7 @@ Behaviour:
      message").
 ```
 
-The hook ships in the program-pinned plugin. A team installs the plugin, and every commit they make is scanned. If a builder bypasses with `--no-verify`, that is logged in the commit metadata for review. The team has not asked anyone to remember; the discipline is structural.
+A team can package this hook through its supported plugin route, then verify the behaviour on a clean install. If its implementation permits bypass with `--no-verify`, the team must make that exception visible in review. The team has not asked anyone to remember; the discipline is structural.
 
 ---
 
@@ -146,7 +144,7 @@ Slash commands collide. The first ones loaded in a Claude Code session win; late
 
 **Keep team-local commands short and specific.** A team's command for drafting PR descriptions should be specific enough to not collide and short enough to type. `/pr-draft` beats `/teammate-pr-description-helper-v2`.
 
-The skill name registry in the program-pinned plugin tracks active slash commands; check before inventing a new one.
+Run `/help` in a fresh session to inspect the commands exposed by your installed plugins before inventing a new one.
 
 ---
 

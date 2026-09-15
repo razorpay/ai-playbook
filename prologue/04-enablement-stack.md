@@ -14,7 +14,7 @@ next: "prologue/tool-tour"
 pillar: null
 belt: null
 tags: ["orientation", "enablement"]
-updated: "2026-07-17"
+updated: "2026-08-22"
 ---
 
 # 0.4 — The Enablement Stack (the 9-layer map)
@@ -82,11 +82,11 @@ Status at a glance (current point in the cycle): **Layers 0, 2, and 7 are the mo
 
 **Why it matters:** The previous chapter ([§0.2](02-bd1-bd2-origin.md)) is a cautionary tale about this layer. Every other layer in this stack is worthless if a builder can't get past Layer 0.
 
-**What's shipped:** A one-command setup script that installs Claude Code, writes the LiteLLM gateway config and personal key, installs Node/pnpm/nvm, trusts the Zscaler certificate chain, and removes stale Vertex-era environment variables. A design-environment setup flow that configures the Blade connector, the Figma connector, and access to the internal npm registry. A verification skill that runs a ten-point green/red health check and prints a one-line fix suggestion for any red.
+**What's shipped:** A one-command setup script that installs Claude Code, writes the LiteLLM gateway config and personal key, installs Node/pnpm/nvm, trusts the Zscaler certificate chain, and removes stale Vertex-era environment variables. A design-environment setup flow configures the Blade connector, the Figma connector, and access to the internal npm registry. White Belt's seven-check manual gate verifies the current Day-1 terminal path without assuming a reference skill is installed.
 
 **What's still a gap:** A documented IDE setup (VS Code / Cursor extensions, workspace config), and the holy grail: a **cloud-hosted dev environment** (Codespaces, Gitpod, or an internal equivalent) that removes the Mac requirement entirely. This is blocked on org-level billing approval. The north star depends on this layer going cloud-first.
 
-**Playbook belt:** White Belt. The W-0 boss fight is named "Turn GREEN" because it is literally running the verification skill until all ten checks go green.
+**Playbook belt:** White Belt. Quest W-0 is named "Turn GREEN" because the learner captures seven direct checks and repairs every non-GREEN row before continuing.
 
 ### Layer 1 — Collaboration & Sharing (Preview Rails)
 
@@ -192,7 +192,7 @@ If you are a lead reading this playbook wondering where you can plug in — thos
 
 The belt system is not a parallel taxonomy — it's an ascent path through these nine layers. Read this paragraph once and the rest of the playbook stops feeling like a pile of concepts.
 
-- **White Belt** operates at **Layer 0 + Layer 7**. You run the setup scripts (Layer 0), you consume the learning content (Layer 7), and your boss fight is to GREEN all ten checks of the verification skill. You don't have to know that any higher layer exists yet.
+- **White Belt** operates at **Layer 0 + Layer 7**. You run the setup scripts (Layer 0), consume the learning content (Layer 7), and turn the seven direct setup checks GREEN. You don't have to know that any higher layer exists yet.
 - **Yellow Belt** spends most of its time in **Layer 2** (the skill library) and dips into **Layer 1** (your first shared preview). The boss fight is your first merged PR in a Razorpay org repo. You're consuming what the program built.
 - **Green Belt** crosses into **Layers 3, 5, and the authorship side of Layer 2**. Part A = writing skills (Layer 2 creation). Part B = contributing to the KB (Layer 3). Part C = data-aware skills (Layer 5). Boss fight: the **double-ship** — a skill your team installs, plus a feature that touches something beyond pure frontend.
 - **Black Belt** climbs **Layers 4, 6, and 7**. Part A = platform contributions (your skill is adopted org-wide). Part B = a Blade component ship (Layer 4 contribution pipeline). Part C = program operation (Layer 6 observability, Layer 7 facilitation). Boss fight: **autonomy** — you mentor a cohort and lead a Builder Day.

@@ -1,6 +1,6 @@
 # pre-ship-check — Maintainer README
 
-> **What this is.** Maintainer-facing notes for `skills/pre-ship-check/`. The Razorpay-shipped six-layer review skill that runs before every PR. Its primary consumer is the Green Belt boss fight (sub-requirement c).
+> **What this is.** Maintainer-facing notes for the six-layer review reference definition under `skills/pre-ship-check/`. Its primary curriculum consumer is the Green Belt boss fight (sub-requirement c); this source directory does not prove Compass distribution.
 
 ---
 
@@ -59,7 +59,7 @@ The skill emits a structured Markdown report (per `output-shape.md`) that is rev
 
 ## Running the skill locally
 
-From any working directory with Claude Code installed and the program-pinned plugin loaded:
+After a supported distribution has installed this skill, open Claude Code in a working branch:
 
 ```
 claude
@@ -87,7 +87,7 @@ This skill currently lives in-repo at `skills/pre-ship-check/`. The intended pat
 - the skill name stays `pre-ship-check` to avoid trigger-phrase collisions;
 - the layer-specs versioning carries over so policy continuity is preserved.
 
-Until vendoring lands, the skill is loadable directly from the playbook repo if the team clones it and points Claude Code at it.
+Until vendoring lands, teams can inspect or deliberately load the reference from this repository. That local choice is not an org-wide installed command; record the source and version in any evidence that relies on it.
 
 ---
 

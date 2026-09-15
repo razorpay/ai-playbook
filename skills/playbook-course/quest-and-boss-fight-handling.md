@@ -45,26 +45,26 @@ The skill then asks: "Send this to a reviewer now, or save it for later?" If now
 
 **Learner has finished W08 (GREEN/YELLOW/RED) and the skill routes to Quest W-0.**
 
-**Skill:** Welcome to Quest W-0 — *Turn GREEN*. This is the first of two White Belt quests. The success criterion is a `setup-verify` output screenshot with all ten checks green.
+**Skill:** Welcome to Quest W-0 — *Turn GREEN*. This is the first of two White Belt quests. The success criterion is a seven-row evidence table with every direct setup check GREEN.
 
-Have you run `setup-verify` already?
+Have you run the manual gate linked from W.5 and W.8 already?
 
 **Learner:** Yes, output was all green.
 
 **Skill:** Good. To claim Quest W-0, I need three things:
 
-1. A link to the screenshot or the verification output.
-2. The plugin version that was verified.
-3. The date you ran the verification.
+1. A link to the screenshot or redacted seven-row table.
+2. The machine class used for the checks.
+3. The date you ran the gate.
 
 Paste each one when you have it.
 
-**Learner:** [Pastes a workspace path to the screenshot, the plugin version, and the date.]
+**Learner:** [Pastes a workspace path to the screenshot, the machine class, and the date.]
 
 **Skill:** [Logs to `LEARNER.md`:]
 
 ```markdown
-- [x] belts/white/quest-turn-green — claimed: yes — date: 2026-04-25 — evidence: <screenshot path> · plugin <version>
+- [x] belts/white/quest-turn-green — claimed: yes — date: 2026-04-25 — evidence: <screenshot path> · machine <class>
 ```
 
 Quest W-0 is now claimed. The next quest is W-1 — *HelloRazorpay commit*. Continue or take a break?

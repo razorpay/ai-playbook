@@ -8,18 +8,18 @@ track: "white"
 order: 6
 time_minutes: 15
 audience: "new-builder"
-outcome: "Understand what the LiteLLM gateway does, what Claude Code does, and which failures are yours to debug vs. the gateway's."
+outcome: "Understand what the LiteLLM gateway does when it is your provisioned route, and which failures are yours to debug vs. the gateway's."
 prev: "belts/white/installing-the-stack"
 next: "belts/white/compass-plugin"
 pillar: "context"
 belt: "white"
 tags: ["white-belt", "llm-gateway", "litellm"]
-updated: "2026-07-18"
+updated: "2026-08-26"
 ---
 
 # W.6 - The LLM Gateway
 
-You do not need to understand model infrastructure to use Claude Code well. You do need to know that your prompt does not travel straight from your laptop to a mystery model. It moves through Razorpay's LLM gateway — with auth, routing, logging, and policy around it.
+You do not need to understand model infrastructure to use Claude Code well. This module explains Razorpay's LiteLLM gateway for builders provisioned on that route. Claude Team and Claude Max are separate managed routes; use [Y.8's route chooser](../02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route) if support has moved you to one of them.
 
 This module is intentionally short. The goal is vocabulary and a quick way to triage, not infrastructure ownership.
 
@@ -28,13 +28,15 @@ This module is intentionally short. The goal is vocabulary and a quick way to tr
 ## If you're short on time
 
 - The gateway is `https://llm-gateway.razorpay.com`. It runs **LiteLLM**, an open-source model proxy.
-- Every Claude Code request from your laptop goes through it. The gateway authenticates your personal key, checks whether the requested model is enabled for that key, applies the current access and budget rules, routes to the model, and records the usage.
-- The setup script in [W.5](W05-installing-the-stack.md) writes everything you need into `~/.claude/settings.json`. You should not hand-edit it.
+- When LiteLLM is your provisioned route, Claude Code requests go through it. The gateway authenticates your personal key, checks whether the requested model is enabled for that key, applies the current access and budget rules, routes to the model, and records the usage.
+- For that route, the setup script in [W.5](W05-installing-the-stack.md) writes everything you need into `~/.claude/settings.json`. You should not hand-edit it. Follow the current migration SOP instead if support explicitly provisioned Team or Max.
 - If a gateway call fails, capture the short error and route it. Do not try to bypass it.
 
 ---
 
 ## The mental model
+
+This is the LiteLLM route, not every Claude access shape:
 
 ```text
 You
@@ -46,13 +48,13 @@ You
   -> response back to Claude Code
 ```
 
-The gateway exists so the organisation can control access, routing, observability, and safety. Three concrete things it does:
+On this route, the gateway gives the organisation one place to control access, routing, observability, and safety. Three concrete things it does:
 
-1. **Auth.** Every request carries your personal LiteLLM key as a Bearer token. The key is minted by the setup script and rotated on demand.
+1. **Auth.** Every gateway request carries your personal LiteLLM key as a Bearer token. The key is minted by the setup script and rotated on demand.
 2. **Routing.** You ask for an enabled model such as `claude-sonnet-4-6`; the gateway picks the right provider route and forwards. The approved model list can include Claude, GPT, or OSS models depending on the current rollout.
-3. **Observability and limits.** Every request lands in the LiteLLM dashboard with cost, latency, token count, and budget usage. That dashboard is the source of truth when claude.ai or Claude Desktop shows a different remaining balance.
+3. **Observability and limits.** Every gateway request lands in the LiteLLM dashboard with cost, latency, token count, and budget usage. That dashboard is the source of truth for this route; a separately provisioned Team or Max route has its own usage surface.
 
-Without it, every builder would invent their own model path, and the program would become impossible to support.
+Without managed routes, every builder would invent their own model path, and the program would become impossible to support.
 
 ---
 
@@ -98,8 +100,8 @@ Then ask a small reasoning question that does not require private context:
 In one paragraph, explain what a pull request is to a first-time builder.
 ```
 
-- **Both work** → harness and gateway are alive. Trust the verification skill and move on.
-- **First works, second fails** → the harness is alive but the gateway request failed. Read the short error: `401` usually means key issue; `403` means either stale Vertex env vars *when the error mentions `aiplatform.googleapis.com`* or missing model access *when it says your key can only access another model list*; `429` means quota or rate limit; a timeout needs routing. See [W.5 common failure modes](W05-installing-the-stack.md#common-failure-modes).
+- **Both work** → the harness and your assigned model route are alive. Record the two successful probes and move on.
+- **First works, second fails** → the harness is alive but the model request failed. If the error names LiteLLM or the Razorpay gateway, read the short error: `401` usually means key issue; `403` means either stale Vertex env vars *when the error mentions `aiplatform.googleapis.com`* or missing model access *when it says your key can only access another model list*; `429` means quota or rate limit; a timeout needs routing. See [W.5 common failure modes](W05-installing-the-stack.md#common-failure-modes). Otherwise, use the support path for your assigned route.
 - **Both fail** → likely local setup. Re-verify W.5.
 
 ---
@@ -113,13 +115,13 @@ At White Belt, you do not need to know:
 - How model fallback rules are configured.
 - How observability traces are stored or who reads them.
 
-You will learn more of this later if your work requires it (see [G.23 — The LLM proxy](../03-green/c-guardrails/G23-llm-proxy.md) in Green Belt). For now, the gateway is part of the harness: use the approved path, verify it, and route failures cleanly.
+You will learn more of this later if your work requires it (see [G.23 — The LLM proxy](../03-green/c-guardrails/G23-llm-proxy.md) in Green Belt). For now, use the route you were provisioned for, verify it, and route failures cleanly.
 
 ---
 
 ## Common failure modes
 
-The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failure-modes). The short version of the gateway-related ones:
+If LiteLLM is your provisioned route, the detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failure-modes). The short version of the gateway-related ones:
 
 **`401 authentication_error`.** Your LiteLLM key rotated or expired. Re-run the setup script; it re-mints the key into `~/.claude/settings.json`.
 
@@ -142,8 +144,8 @@ The detailed failure modes are in [W.5](W05-installing-the-stack.md#common-failu
 You are **GREEN** if:
 
 - Claude Code answers a small prompt;
-- you can explain the difference between local tool failure and gateway failure;
-- your usage shows up in the LiteLLM dashboard.
+- you can explain the difference between local tool failure and assigned-route failure;
+- when LiteLLM is your route, your usage shows up in its dashboard.
 
 You are **YELLOW** if:
 

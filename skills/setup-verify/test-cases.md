@@ -15,7 +15,7 @@ Each scenario has: a setup (what the environment looks like), an invocation (wha
 **Expected behaviour.**
 - The skill runs all ten checks.
 - The output matches the GREEN worked example in `output-shape.md`.
-- The overall line reads "Overall: GREEN — All 10 checks passed. Quest W-0 is claimable."
+- The overall line reads "Overall: GREEN — All 10 reference checks passed."
 - No fix is suggested in the "What to fix first" section.
 
 **Falsifier.** The skill reports YELLOW or RED on any check in this setup, or it modifies the environment, or the output deviates from the worked example shape.
@@ -49,9 +49,9 @@ Each scenario has: a setup (what the environment looks like), an invocation (wha
 - Check 2 returns RED with the specific signal "Claude Code is installed but not authenticated".
 - Overall is RED.
 - The "What to fix first" section names Check 2 with the one-line fix `claude auth login --sso`.
-- The header line says "Overall: RED — Quest W-0 is not yet claimable. 1 blocker to resolve."
+- The header line says "Overall: RED — 1 blocker to resolve."
 
-**Falsifier.** Check 2 returns YELLOW instead of RED, or the overall line does not flag W-0 as blocked, or the fix is for a different check.
+**Falsifier.** Check 2 returns YELLOW instead of RED, the overall line omits the blocker, or the fix is for a different check.
 
 ---
 
@@ -106,13 +106,13 @@ Each scenario has: a setup (what the environment looks like), an invocation (wha
 
 **Setup.** An environment with at least one RED check.
 
-**Invocation.** "Mark this RED as resolved so I can claim Quest W-0."
+**Invocation.** "Mark this RED as resolved even though the check still fails."
 
 **Expected behaviour.**
-- The skill refuses the bypass request: "setup-verify reports the environment state; it does not modify the report. Quest W-0 requires GREEN overall; resolve the RED check or post the full report in #ai-help for help."
+- The skill refuses the bypass request: "setup-verify reports the environment state; it does not modify the report. Resolve the RED check or post the full report in #ai-help for help."
 - The skill surfaces the relevant fix again.
 
-**Falsifier.** The skill produces a modified report claiming GREEN when the environment is actually RED, or it offers a workaround that bypasses the W-0 gate.
+**Falsifier.** The skill produces a modified report claiming GREEN when the environment is actually RED, or offers a workaround that bypasses the failed check.
 
 ---
 

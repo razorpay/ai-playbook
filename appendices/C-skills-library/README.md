@@ -14,7 +14,7 @@ next: "appendices/certification"
 pillar: "context"
 belt: "green"
 tags: ["appendix", "skills", "agents", "workflow"]
-updated: "2026-08-07"
+updated: "2026-08-24"
 ---
 
 # Appendix C — Skills Library
@@ -69,7 +69,7 @@ These seven maintained definitions document how reusable playbook workflows shou
 
 ### Skill: setup-verify
 
-**Where it lives.** [`skills/setup-verify/`](../../skills/setup-verify/). Quest W-0 depends on it.
+**Where it lives.** [`skills/setup-verify/`](../../skills/setup-verify/). Quest W-0 uses the directly runnable W.5 gate instead; this directory preserves the broader reference contract for maintainers.
 
 **Trigger.** Run before starting any belt work after a fresh install, a plugin upgrade, or a network change. Also activate proactively when the user has just finished running the setup script or reports environmental symptoms.
 

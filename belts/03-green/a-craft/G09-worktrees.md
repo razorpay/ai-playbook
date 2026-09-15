@@ -14,7 +14,7 @@ next: "belts/green/hooks-and-slash-commands"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "worktrees", "parallelism", "harness"]
-updated: "2026-07-30"
+updated: "2026-08-24"
 ---
 
 # G.9 — Worktrees
@@ -192,7 +192,7 @@ A useful worktree shape on a long feature: one worktree where you build, one det
    git worktree add --detach ../feat-x-verify feat/x
    ```
 
-3. Open Claude Code in `../feat-x-verify/`. Ask: "Review the diff between `HEAD` and `main`. Apply the pre-ship-check skill. Report findings; do not modify files." The verification agent has no bias from your build session.
+3. Open Claude Code in `../feat-x-verify/`. If your runtime exposes a supported pre-ship skill, invoke it by the name shown in `/help`. Otherwise ask: "Review the diff between `HEAD` and `main` against the six layers in G.26. Report findings; do not modify files." The verification agent has no bias from your build session.
 4. Remove the verification worktree when the review ends. Apply any fixes back in `../feat-x-build/`, where the feature branch remains checked out.
 
 The verification agent is not a subagent (G.8) — it is a peer agent in its own worktree. Both patterns serve "fresh perspective"; worktree-based verification is the right tool when the task requires reading the full repo, not just a brief.

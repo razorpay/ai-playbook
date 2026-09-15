@@ -6,6 +6,83 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.67 — provisioned model routes in gateway guidance (2026-08-26)
+
+W.6 and G.23 still described LiteLLM as the route for every Claude Code or approved model call. Support now provisions some builders on separate Claude Team or Claude Max subscription paths, and Y.8 already treats those paths as distinct from LiteLLM.
+
+**What changed.**
+
+- **Gateway guidance is route-specific.** W.5 and W.6 now apply LiteLLM setup, dashboard, budget, and error advice only when it is the builder's provisioned route, and send migrated readers to Y.8's existing route chooser.
+- **The proxy lesson keeps its safety contract without claiming universality.** G.23 and its Green Belt references scope proxy mechanics to the LiteLLM gateway and custom-agent paths while retaining the ban on personal provider-key bypasses.
+- **Version markers bumped.** README, INDEX, manifest, course curriculum, and generated Concierge material now report v0.67 / 2026-08-26.
+
+---
+
+## v0.66 — runtime skill claims across the learning path (2026-08-24)
+
+White Belt now uses direct readiness checks and treats the playbook's in-repo skill directories as reference definitions, but orientation, support, Tool Atlas, and Green Belt pages still presented `setup-verify` and `pre-ship-check` as commands or workflows shipped by Compass.
+
+**What changed.**
+
+- **Runtime discovery stays authoritative.** The Tool Atlas and Green Belt now send readers to `/help` and the installed plugin source before relying on a command name.
+- **Reference workflows stay useful without claiming distribution.** G.6, G.10, and G.26 retain pre-ship examples and the six-layer gate while separating definition, adoption, and supported installation; the Green boss fight now provides the same manual fallback.
+- **Skill source labels match that boundary.** The pre-ship, Blade-compliance, security-review, and course examples now describe reference definitions rather than calling themselves Razorpay-shipped runtime components.
+- **Setup evidence stays directly runnable.** Prologue support guidance, W.6, and the Yellow boss fight now point to copyable W.5 probes and full failing-command output instead of an undistributed verifier.
+- **Version markers bumped.** README, INDEX, manifest, and generated Concierge material now report v0.66 / 2026-08-24.
+
+---
+
+## v0.65 — runtime command discovery in Prologue (2026-08-23)
+
+The two Prologue pages that define Compass still presented `setup-verify` and `pre-ship-check` as installed slash-command examples, even though the repository's distribution status says its in-repo skill definitions do not prove equivalent runtime commands and neither command is present in the current Compass distribution.
+
+**What changed.**
+
+- **Runtime inventory is authoritative.** Prologue 0.3 and 0.5 now send learners to `/help` for the commands exposed by their installed plugins.
+- **Reference and distribution are separated.** The orientation path no longer turns the names of reference-only playbook skills into promises about installed slash commands.
+- **Version markers bumped.** README, INDEX, and the manifest now report v0.65 / 2026-08-23.
+
+---
+
+## v0.64 — supported White Belt setup evidence (2026-08-22)
+
+White Belt still required learners to invoke `setup-verify` and prove a pinned Compass version even after v0.59 established that the seven in-repo skill directories are reference definitions, not proof of commands installed through Compass. Current GitHub code searches also find no `setup-verify` distribution in `razorpay/claude-plugins` or `razorpay/agent-skills`.
+
+**What changed.**
+
+- **Quest W-0 is directly runnable.** W.5, W.8, Quest W-0, and H.7 now use a seven-check manual gate for Git, Node, pnpm, Claude Code, LiteLLM configuration, retired Vertex state, and a prompt round-trip.
+- **Plugin evidence is explicit.** W.7 now teaches learners to distinguish a repository definition, a supported distribution, and commands discovered in the current session through `/help`.
+- **Reference contract retained.** The broader ten-check `setup-verify` directory remains reviewable source material without being presented as an installed prerequisite.
+- **Navigation and evidence aligned.** INDEX, the first-day diagram, course metadata, and generated Concierge material use the same supported setup contract.
+- **Version markers bumped.** README and INDEX now report v0.64 / 2026-08-22.
+
+---
+
+## v0.63 — Concierge bundle release alignment (2026-08-21)
+
+The Playbook Concierge bundle still identified itself as v0.59 / 2026-08-07 even though its generated index already carried the v0.62 release marker. Its generator also described seven upload files where the bundle actually contains one Custom Instructions file and five Project Knowledge files.
+
+**What changed.**
+
+- **Release metadata aligned.** `manifest.yml` now carries v0.63 / 2026-08-21, and regenerating the bundle gives its spine, instructions, and README the same release identity as the playbook.
+- **Refresh contract clarified.** The generator and bundle README now distinguish the one Custom Instructions file from the five Project Knowledge files instead of conflating them as six uploads.
+- **Version markers bumped.** README and INDEX now report v0.63 / 2026-08-21 for the Concierge metadata correction.
+
+---
+
+## v0.62 — Concierge quick-card link integrity (2026-08-19)
+
+The Concierge quick-card bundle rewrote parent-directory Markdown links by dropping `..` segments instead of resolving them from each card. That produced wrong hub paths for appendix pages, left H.4's H.3 reference as a missing local file, and sent every “Up to Appendix H” link to the bundle's build notes.
+
+**What changed.**
+
+- **Canonical hub routing.** The bundle generator now resolves local card links from their source files and uses each matching `manifest.yml` slug rather than deriving public URLs from repository folder names.
+- **Source-only fallback and failure gate.** Repository files without hub routes now link to their GitHub source; links that escape the repository or point at a missing target fail the build instead of shipping silently.
+- **Bundle regenerated.** `playbook-cards.md` now sends H.3, Appendix H, Appendix F, Appendix I, and Appendix N references to their real destinations.
+- **Version markers bumped.** README and INDEX now report v0.62 / 2026-08-19 for the Concierge link-integrity correction.
+
+---
+
 ## v0.61 — plugin package and surface proof (2026-08-13)
 
 B.3 described a Razorpay Cowork tenant marketplace, `pack.yml`, one-click installs, and a central governance route that the canonical plugin repository does not implement. Internal support requests asking how to publish or set up Analytics Agent in Cowork show why the distinction matters: a source package in the developer marketplace is not proof that PMs or designers can use it on another surface.

@@ -1,5 +1,5 @@
-version: "0.59-alpha"
-updated: "2026-08-07"
+version: "0.67-alpha"
+updated: "2026-08-26"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -496,7 +496,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "builder-day"]
-    updated: "2026-04-26"
+    updated: "2026-08-24"
   - slug: "prologue/mental-model"
     path: "prologue/03-mental-model.md"
     title: "The 5-Layer Mental Model of the AI Dev Stack"
@@ -513,7 +513,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "mental-model"]
-    updated: "2026-04-26"
+    updated: "2026-08-24"
   - slug: "prologue/enablement-stack"
     path: "prologue/04-enablement-stack.md"
     title: "The Enablement Stack"
@@ -530,7 +530,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "enablement", "leadership"]
-    updated: "2026-04-26"
+    updated: "2026-08-22"
   - slug: "prologue/tool-tour"
     path: "prologue/05-tool-tour.md"
     title: "Meet your tools"
@@ -564,7 +564,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation", "support", "directory"]
-    updated: "2026-05-13"
+    updated: "2026-08-24"
   - slug: "prologue/operating-principles"
     path: "prologue/07-operating-principles.md"
     title: "Operating Principles"
@@ -762,13 +762,13 @@ chapters:
     order: 5
     time_minutes: 40
     audience: "new-builder"
-    outcome: "Install and verify the White Belt tool stack without drifting away from the program-pinned setup path."
+    outcome: "Install and verify the White Belt tool stack through the supported setup path and a direct, copyable evidence gate."
     prev: "belts/white/auth-setup"
     next: "belts/white/llm-gateway"
     pillar: "harness"
     belt: "white"
     tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-    updated: "2026-07-20"
+    updated: "2026-08-26"
   - slug: "belts/white/llm-gateway"
     path: "belts/01-white/W06-llm-gateway.md"
     title: "The LLM Gateway"
@@ -779,13 +779,13 @@ chapters:
     order: 6
     time_minutes: 15
     audience: "new-builder"
-    outcome: "Understand what the LiteLLM gateway does, what Claude Code does, and which failures are yours to debug vs. the gateway's."
+    outcome: "Understand what the LiteLLM gateway does when it is your provisioned route, and which failures are yours to debug vs. the gateway's."
     prev: "belts/white/installing-the-stack"
     next: "belts/white/compass-plugin"
     pillar: "context"
     belt: "white"
     tags: ["white-belt", "llm-gateway", "litellm"]
-    updated: "2026-06-16"
+    updated: "2026-08-26"
   - slug: "belts/white/compass-plugin"
     path: "belts/01-white/W07-compass-plugin.md"
     title: "Compass plugin"
@@ -796,13 +796,13 @@ chapters:
     order: 7
     time_minutes: 20
     audience: "new-builder"
-    outcome: "Understand what the program-pinned plugin is for, how to verify it, and how to avoid stale-plugin drift."
+    outcome: "Distinguish plugin source from installed runtime state, verify the commands you actually have, and route missing commands without guessing."
     prev: "belts/white/llm-gateway"
     next: "belts/white/green-yellow-red"
     pillar: "context"
     belt: "white"
     tags: ["white-belt", "plugin", "compass"]
-    updated: "2026-04-27"
+    updated: "2026-08-22"
   - slug: "belts/white/green-yellow-red"
     path: "belts/01-white/W08-green-yellow-red.md"
     title: "GREEN / YELLOW / RED"
@@ -813,13 +813,13 @@ chapters:
     order: 8
     time_minutes: 20
     audience: "new-builder"
-    outcome: "Run the 10-point health check, interpret colour honestly, and route setup failures without wasting a cohort day."
+    outcome: "Run the supported manual setup gate, interpret colour honestly, and route failures without depending on an undistributed command."
     prev: "belts/white/compass-plugin"
     next: "belts/white/first-conversation"
     pillar: "harness"
     belt: "white"
-    tags: ["white-belt", "health-check", "setup-verify"]
-    updated: "2026-07-20"
+    tags: ["white-belt", "health-check", "setup"]
+    updated: "2026-08-22"
   - slug: "belts/white/first-conversation"
     path: "belts/01-white/W09-first-conversation.md"
     title: "Your first conversation with Claude Code"
@@ -898,13 +898,13 @@ chapters:
     order: 90
     time_minutes: 60
     audience: "new-builder"
-    outcome: "Run setup verification, reach all-GREEN status, and capture evidence that the local environment is ready."
+    outcome: "Run the supported manual setup gate, reach all-GREEN status, and capture evidence that the local environment is ready."
     prev: "belts/white/first-pr"
     next: "belts/white/quest-hello-razorpay"
     pillar: "harness"
     belt: "white"
-    tags: ["white-belt", "quest", "setup-verify", "evidence"]
-    updated: "2026-07-20"
+    tags: ["white-belt", "quest", "setup", "evidence"]
+    updated: "2026-08-22"
   - slug: "belts/white/quest-hello-razorpay"
     path: "belts/01-white/quest-W1-hello-razorpay.md"
     title: "Quest W-1: The HelloRazorpay commit"
@@ -1261,7 +1261,7 @@ chapters:
     pillar: "harness"
     belt: "yellow"
     tags: ["yellow-belt", "boss-fight"]
-    updated: "2026-04-27"
+    updated: "2026-08-24"
   - slug: "belts/yellow/badge"
     path: "belts/02-yellow/badge.md"
     title: "Yellow Belt badge template"
@@ -1295,7 +1295,7 @@ chapters:
     pillar: null
     belt: "green"
     tags: ["green-belt", "readme", "team-velocity"]
-    updated: "2026-04-29"
+    updated: "2026-08-26"
   - slug: "belts/green/a-craft"
     path: "belts/03-green/a-craft/README.md"
     title: "Green Belt Part A — The Craft"
@@ -1414,7 +1414,7 @@ chapters:
     pillar: "context"
     belt: "green"
     tags: ["green-belt", "skills", "compounding"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/writing-your-first-skill"
     path: "belts/03-green/a-craft/G07-writing-your-first-skill.md"
     title: "Writing your first SKILL.md — the anatomy, naming, discipline"
@@ -1431,7 +1431,7 @@ chapters:
     pillar: "context"
     belt: "green"
     tags: ["green-belt", "skill-authorship", "skill-md", "anatomy"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/subagents"
     path: "belts/03-green/a-craft/G08-subagents.md"
     title: "Subagents — when to delegate, how to pass intent cleanly"
@@ -1448,7 +1448,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "subagents", "delegation", "harness"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/worktrees"
     path: "belts/03-green/a-craft/G09-worktrees.md"
     title: "Worktrees — running 3-5 Claude instances in parallel, safely"
@@ -1465,7 +1465,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "worktrees", "parallelism", "harness"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/hooks-and-slash-commands"
     path: "belts/03-green/a-craft/G10-hooks-and-slash-commands.md"
     title: "Hooks + slash commands — when to automate the pre-flight"
@@ -1482,7 +1482,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "hooks", "slash-commands", "automation", "harness"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/advanced-prompting"
     path: "belts/03-green/a-craft/G11-advanced-prompting.md"
     title: "Advanced prompting — goals, constraints, worked examples"
@@ -1737,7 +1737,7 @@ chapters:
     pillar: null
     belt: "green"
     tags: ["green-belt", "part-c", "fintech-guardrails", "readme"]
-    updated: "2026-06-25"
+    updated: "2026-08-26"
   - slug: "belts/green/redlines"
     path: "belts/03-green/c-guardrails/G22-redlines.md"
     title: "What never goes into a prompt — the Razorpay redlines"
@@ -1754,10 +1754,10 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "redlines", "voice-anchor", "guardrails", "safety"]
-    updated: "2026-04-29"
+    updated: "2026-08-26"
   - slug: "belts/green/llm-proxy"
     path: "belts/03-green/c-guardrails/G23-llm-proxy.md"
-    title: "The LLM proxy — what LiteLLM does and why every call routes through it"
+    title: "The LLM proxy — what LiteLLM does on the gateway route"
     section: "belts"
     track: "green"
     status: "drafted"
@@ -1765,13 +1765,13 @@ chapters:
     order: 23
     time_minutes: 25
     audience: "experienced-builder"
-    outcome: "Understand why every model call routes through a proxy, what LiteLLM gives you that direct calls do not, and how to debug when the proxy is the friction."
+    outcome: "Understand what LiteLLM gives the provisioned gateway route, why custom agents must not bypass it, and how to debug when the proxy is the friction."
     prev: "belts/green/redlines"
     next: "belts/green/pii-pci-rbi"
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "llm-proxy", "litellm", "harness"]
-    updated: "2026-06-16"
+    updated: "2026-08-26"
   - slug: "belts/green/pii-pci-rbi"
     path: "belts/03-green/c-guardrails/G24-pii-pci-rbi.md"
     title: "PII, PCI, RBI — the regulators, the reasons, the reflexes"
@@ -1805,7 +1805,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "prompt-injection", "output-classifiers", "security"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/pre-ship-check-skill"
     path: "belts/03-green/c-guardrails/G26-pre-ship-check-skill.md"
     title: "The pre-ship-check skill — 6-layer gate before every PR"
@@ -1816,13 +1816,13 @@ chapters:
     order: 26
     time_minutes: 20
     audience: "experienced-builder"
-    outcome: "Run the pre-ship-check skill before every PR, read the six-layer report, and fix what it surfaces — without working around the gate."
+    outcome: "Apply the six-layer pre-ship contract before every PR, using a supported loaded skill or the manual checklist, and fix what it surfaces."
     prev: "belts/green/prompt-injection"
     next: "belts/green/blade-compliance-skill"
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "pre-ship-check", "skill-pattern", "guardrail"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/blade-compliance-skill"
     path: "belts/03-green/c-guardrails/G27-blade-compliance-skill.md"
     title: "The Blade-compliance reviewer skill — file-granularity checks"
@@ -1873,7 +1873,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "boss-fight", "double-ship", "capstone"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/green/badge"
     path: "belts/03-green/c-guardrails/badge.md"
     title: "Green Belt badge template"
@@ -2009,7 +2009,7 @@ chapters:
     pillar: "harness"
     belt: "black"
     tags: ["black-belt", "multi-agent", "orchestration", "patterns"]
-    updated: "2026-04-29"
+    updated: "2026-08-24"
   - slug: "belts/black/tool-design"
     path: "belts/04-black/a-platform/B06-tool-design.md"
     title: "Tool design — JSON schemas, output shapes, error contracts"
@@ -2451,7 +2451,7 @@ chapters:
     pillar: "harness"
     belt: null
     tags: ["appendix", "tools", "harness"]
-    updated: "2026-04-27"
+    updated: "2026-08-24"
   - slug: "appendices/environment-setup"
     path: "appendices/B-environment-setup/README.md"
     title: "Appendix B: Environment Setup"
@@ -2485,7 +2485,7 @@ chapters:
     pillar: "context"
     belt: "green"
     tags: ["appendix", "skills", "agents", "workflow"]
-    updated: "2026-08-07"
+    updated: "2026-08-24"
   - slug: "appendices/certification"
     path: "appendices/L-certification/README.md"
     title: "Appendix L: Certification"
@@ -2706,7 +2706,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["appendix", "glossary", "reference"]
-    updated: "2026-07-23"
+    updated: "2026-08-22"
   - slug: "appendices/templates"
     path: "appendices/I-templates/README.md"
     title: "Appendix I: Templates"
@@ -2978,7 +2978,7 @@ chapters:
     pillar: "harness"
     belt: null
     tags: ["appendix", "reference-card", "claude-code"]
-    updated: "2026-05-08"
+    updated: "2026-08-22"
   - slug: "appendices/reference-cards/playwright-essentials"
     path: "appendices/H-reference-cards/H5-playwright-essentials.md"
     title: "H.5 — Playwright essentials"
@@ -3029,6 +3029,6 @@ chapters:
     pillar: "harness"
     belt: "white"
     tags: ["appendix", "reference-card", "day-one", "setup", "channels", "people"]
-    updated: "2026-07-20"
+    updated: "2026-08-22"
 
 planned_sections: []
