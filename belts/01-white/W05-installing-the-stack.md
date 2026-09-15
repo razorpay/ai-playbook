@@ -8,20 +8,20 @@ track: "white"
 order: 5
 time_minutes: 40
 audience: "new-builder"
-outcome: "Install and verify the White Belt tool stack without drifting away from the program-pinned setup path."
+outcome: "Install and verify the White Belt tool stack through the supported setup path and a direct, copyable evidence gate."
 prev: "belts/white/auth-setup"
 next: "belts/white/llm-gateway"
 pillar: "harness"
 belt: "white"
 tags: ["white-belt", "setup", "node", "pnpm", "claude-code"]
-updated: "2026-07-31"
+updated: "2026-08-22"
 ---
 
 # W.5 - Installing the stack
 
 Installation is where many new builders lose half a day. Not because they are bad at computers, but because setup is a chain. One missing link makes everything downstream look broken.
 
-White Belt uses the program-pinned setup path. Your job is to run it, read the output, and verify the pieces. Your job is not to become a package-manager expert on day one.
+White Belt uses the supported setup path. Your job is to run it, read the output, and verify the pieces. Your job is not to become a package-manager expert on day one.
 
 > **The canonical source.** Everything in this chapter mirrors the [org-wide rollout announcement](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) posted by Bhanu Prakash in `#engineering-all` on 2026-03-24. If a step here disagrees with that thread, the thread wins — ping `#ai-help` and this chapter will be patched.
 
@@ -47,11 +47,10 @@ Terminal
   -> package manager
   -> internal package registry access
   -> Claude Code
-  -> program-pinned plugin
-  -> setup verification
+  -> direct setup evidence
 ```
 
-If Node is missing, project commands fail. If package registry access is broken, installs fail. If Claude Code is missing, AI workflows cannot start. If the plugin is stale, the program path drifts.
+If Node is missing, project commands fail. If package registry access is broken, installs fail. If Claude Code is missing, AI workflows cannot start. Direct evidence tells you which link failed without depending on another installed command.
 
 This is why setup has to be boring and pinned.
 
@@ -179,30 +178,41 @@ Do not "fix" by hand-editing this file unless `#ai-help` walks you through it. R
 
 ## What setup verification should prove
 
-Start with this five-step smoke test. It proves the setup script finished and Claude Code can open and round-trip a prompt; it does not produce Quest W-0 evidence.
+Run this seven-check manual gate. It is the current evidence contract for [Quest W-0](quest-W0-turn-green.md):
 
 ```bash
-# 1. Setup script completed without errors
-#    (you saw "Setup complete" at the end of the curl | bash above)
+# 1. Git is installed
+git --version
 
-# 2. Restart your terminal (close the window, open a new one)
+# 2. Node is installed
+node --version
 
-# 3. Claude Code is installed and on PATH
+# 3. The package manager installed by the setup path works
+pnpm --version
+
+# 4. Claude Code is installed and on PATH
 claude --version
-#    Expected: a version string like "claude 1.2.3"
 
-# 4. Claude Code opens in agent mode
+# 5. settings.json points at the Razorpay LiteLLM gateway
+grep -F '"ANTHROPIC_BASE_URL": "https://llm-gateway.razorpay.com"' ~/.claude/settings.json
+
+# 6. Retired Vertex variables are absent from this shell and startup files
+if env | grep -Eq '^(ANTHROPIC_VERTEX_PROJECT_ID|CLAUDE_CODE_USE_VERTEX|CLOUD_ML_REGION)=' \
+  || grep -Eq 'ANTHROPIC_VERTEX_PROJECT_ID|CLAUDE_CODE_USE_VERTEX|CLOUD_ML_REGION' ~/.bashrc ~/.zshrc 2>/dev/null; then
+  echo "RED: retired Vertex configuration found"
+else
+  echo "GREEN: no retired Vertex configuration found"
+fi
+
+# 7. Claude Code opens and a small prompt round-trips
 claude
-#    Expected: the agent prompt opens. If SSO login is needed,
-#    follow the browser flow. Do not run `claude /login`.
-
-# 5. A small prompt round-trips through the LiteLLM gateway
-#    Inside the claude prompt, type:
-#       hello
-#    Expected: a reply. Exit with Ctrl-D or /exit.
+# Inside Claude, type: hello
+# Expected: a reply. Exit with Ctrl-D or /exit.
 ```
 
-If the smoke test fails, see the next section and re-run the setup script before re-routing. Once it passes, complete the actual ten-check gate: open Claude Code, ask `Run setup-verify.`, and follow [W.8](W08-green-yellow-red.md) into [Quest W-0](quest-W0-turn-green.md). You are GREEN only when that full report shows all ten checks GREEN.
+Record the redacted output in the [W.8 evidence table](W08-green-yellow-red.md#worked-example). If a check fails, use the next section and re-run only that check after the repair. You are GREEN when all seven rows pass on the machine you will use.
+
+The repository's [`setup-verify`](../../skills/setup-verify/README.md) directory preserves a broader ten-check reference definition. It is not evidence that Compass or another marketplace installed an equivalent command; do not block the quest waiting for it.
 
 ---
 
@@ -249,7 +259,7 @@ You are **GREEN** if:
 
 - `git --version`, `node --version`, package manager version, and `claude --version` work;
 - you know whether a repo uses `npm` or `pnpm`;
-- the program verification command reports GREEN;
+- the gateway, retired-Vertex, and prompt-round-trip checks report GREEN;
 - `git status` is clean after setup unless a module told you to change a file.
 
 You are **YELLOW** if:
@@ -289,7 +299,7 @@ For the print-this-and-stick-it-on-your-monitor version:
 | Canonical rollout thread | [Step-by-step in `#engineering-all`](https://razorpay.slack.com/archives/C06GNML2QJF/p1774334791951129) |
 | Pricing reference | [Anthropic pricing docs](https://platform.claude.com/docs/en/about-claude/pricing) |
 
-*Last reviewed: 2026-07-31. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
+*Last reviewed: 2026-08-22. If any value here is stale, ping `#ai-help` and this row gets refreshed.*
 
 > **Want this on one page?** [H.7 — Day-1 quick reference](../../appendices/H-reference-cards/H7-day-1-quick-reference.md) consolidates this table with the channels, the role-holders, and the common failure modes onto a single printable card.
 

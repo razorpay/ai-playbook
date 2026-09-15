@@ -4,17 +4,17 @@ The structured report the skill produces. The shape is stable; downstream reader
 
 ## Header
 
-A single line naming the overall status and the cohort-relevant context.
+A single line naming the overall status and the count of warnings or blockers.
 
 ```
-Overall: <COLOUR> — <implication for Quest W-0>
+Overall: <COLOUR> — <health summary>
 ```
 
 The implication line varies by colour:
 
-- **GREEN.** "All 10 checks passed. Quest W-0 is claimable."
-- **YELLOW.** "Quest W-0 is claimable, but N warnings worth fixing." Where N is the count of YELLOW checks.
-- **RED.** "Quest W-0 is not yet claimable. N blocker(s) to resolve." Where N is the count of RED checks.
+- **GREEN.** "All 10 reference checks passed."
+- **YELLOW.** "N warnings worth fixing." Where N is the count of YELLOW checks.
+- **RED.** "N blocker(s) to resolve." Where N is the count of RED checks.
 
 ## Check table
 
@@ -84,7 +84,7 @@ The redaction discipline matches [G.22 — Razorpay redlines](../../belts/03-gre
 ## Worked example: GREEN
 
 ```
-Overall: GREEN — All 10 checks passed. Quest W-0 is claimable.
+Overall: GREEN — All 10 reference checks passed.
 
 | # | Check                         | Status |
 |---|-------------------------------|--------|
@@ -109,7 +109,7 @@ Escalation: If any RED persists after one hour of fixes, post this full report i
 ## Worked example: YELLOW
 
 ```
-Overall: YELLOW — Quest W-0 is claimable, but 2 warnings worth fixing.
+Overall: YELLOW — 2 warnings worth fixing.
 
 | # | Check                         | Status |
 |---|-------------------------------|--------|
@@ -135,7 +135,7 @@ Escalation: If any RED persists after one hour of fixes, post this full report i
 ## Worked example: RED
 
 ```
-Overall: RED — Quest W-0 is not yet claimable. 1 blocker to resolve.
+Overall: RED — 1 blocker to resolve.
 
 | # | Check                         | Status |
 |---|-------------------------------|--------|
@@ -162,4 +162,4 @@ The three worked examples cover the three overall states. Any actual report will
 
 ---
 
-*The output shape is part of the skill's contract. Changes require a curriculum update because the W-0 quest description references the format.*
+*The output shape is part of the reference skill contract. Changes require a distribution and documentation review.*

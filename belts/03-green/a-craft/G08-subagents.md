@@ -14,7 +14,7 @@ next: "belts/green/worktrees"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "subagents", "delegation", "harness"]
-updated: "2026-04-29"
+updated: "2026-08-24"
 ---
 
 # G.8 — Subagents
@@ -74,7 +74,7 @@ You have written a change. You want a fresh perspective to review it without the
 
 ### Pattern 3: A skill that is itself a small workflow
 
-Some skills (the program's `pre-ship-check`, the `design-intel` skill, security review) are best implemented as subagents. The skill spawns a specialist, the specialist does the focused work, the result returns. The main session stays light.
+Some skills (a pre-ship review, design-intent extraction, or security review) are best implemented as subagents. The skill spawns a specialist, the specialist does the focused work, the result returns. The main session stays light.
 
 ### Pattern 4: Parallel branches of a larger plan
 
@@ -146,7 +146,7 @@ A common confusion in Green Belt: when does a focused task become a subagent ver
 
 **Subagent.** When the work is task-specific and you need a one-shot specialist for *this* task. No skill exists, or no skill matches.
 
-The two compose: a skill can spawn a subagent inside its workflow. The pre-ship-check skill in the program library is itself a skill that may spawn a subagent for the security-review portion. From the user's perspective, they ran one skill; from the architecture's perspective, the skill delegated.
+The two compose: a skill can spawn a subagent inside its workflow. A team could implement the playbook's pre-ship reference workflow as a skill that delegates its security-review portion. From the user's perspective, they ran one skill; from the architecture's perspective, the skill delegated.
 
 ---
 

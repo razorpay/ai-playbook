@@ -14,7 +14,7 @@ next: "prologue/roles-and-forums"
 pillar: null
 belt: null
 tags: ["orientation", "tools"]
-updated: "2026-08-02"
+updated: "2026-08-23"
 ---
 
 # 0.5 — Meet your tools (a 60-second tour)
@@ -105,7 +105,7 @@ If you only remember one thing: **Claude Code is the one you live in.** Everythi
 - **Skills**: structured markdown instructions that tell Claude how to do Razorpay-native tasks (choosing a Blade component, running a pre-ship check, guarding PR creation, etc.; [Appendix C](../appendices/C-skills-library/README.md) catalogues the pattern).
 - **Subagents** — smaller specialist Claudes that the main Claude can delegate to (e.g. a Blade reviewer agent).
 - **Hooks**: scripts that auto-fire at pre-commit, pre-PR, or other Claude Code lifecycle moments.
-- **Slash commands** — typed shortcuts like `/setup-verify` or `/pre-ship-check` that trigger skills.
+- **Slash commands** — typed shortcuts exposed by the plugins currently installed. Run `/help` to see the live inventory, and invoke a named shortcut only when it appears there.
 - **MCP servers**: Model Context Protocol servers that let Claude talk to Blade, Figma, Slack, DevRev, etc.
 
 **Why it matters:** This is Razorpay's unfair advantage. Without Compass, Claude Code is a generic coding assistant. With Compass, it's a Razorpay-native builder copilot that already knows Blade, our repo conventions, and our review culture. The [origin-story chapter](02-bd1-bd2-origin.md) has a whole paragraph on why we version-lock the Compass plugin.

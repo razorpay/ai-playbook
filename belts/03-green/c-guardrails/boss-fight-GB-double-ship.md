@@ -14,7 +14,7 @@ next: "belts/green/badge"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "boss-fight", "double-ship", "capstone"]
-updated: "2026-04-29"
+updated: "2026-08-24"
 ---
 
 # 🏁 Boss Fight G-B — The double-ship
@@ -52,11 +52,11 @@ A real, runnable, behaviour-focused Playwright test that exercises the changed u
 
 ### (c) A pre-ship-check pass with all six layers green
 
-A clean run of the [pre-ship-check skill (G.26)](G26-pre-ship-check-skill.md). All six layers (redlines, design system, tests, PR craft, prompt craft, behaviour preservation) must be GREEN. A YELLOW with an explicit PR-description note is acceptable; a RED is not.
+A clean [G.26 pre-ship review](G26-pre-ship-check-skill.md), run through a supported loaded skill or the manual six-layer checklist. All six layers (redlines, design system, tests, PR craft, prompt craft, behaviour preservation) must be GREEN. A YELLOW with an explicit PR-description note is acceptable; a RED is not.
 
 ### (d) The PR-guardrail used to construct the PR
 
-The program-pinned PR-craft skill (the one Yellow Belt's [Y.13](../../02-yellow/Y13-pr-craft.md) referenced) was applied during the build. This shows up in the prompt-craft trace in pre-ship-check Layer 5; the PR description should mention which skills shaped the work.
+Apply the PR-craft workflow from [Y.13](../../02-yellow/Y13-pr-craft.md) during the build. The prompt-craft trace in pre-ship Layer 5 should name the workflow and any supported loaded skills that shaped the work.
 
 ### (e) A teammate's sign-off on the *craft of the prompts*
 
@@ -117,12 +117,12 @@ Build the change. Apply the techniques you planned. Use:
 
 Before opening the PR:
 
-- run the pre-ship-check skill — all six layers must be GREEN;
+- run the G.26 six-layer review through a supported loaded skill or the manual checklist — all six layers must be GREEN;
 - run the Blade-compliance reviewer on any UI files touched;
 - run the security-review subagent on the diff;
 - preview the change at desktop and 320px on the branch URL.
 
-If pre-ship-check flags anything: fix it. **Do not work around the gate.** The boss fight requires a clean pass; a flagged pre-ship-check that ships is a failed boss fight regardless of merger.
+If the pre-ship review flags anything: fix it. **Do not work around the gate.** The boss fight requires a clean pass; shipping with an unresolved flag fails the boss fight regardless of merger.
 
 ### Step 5 — Open the PR (~30 minutes)
 

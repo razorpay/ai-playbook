@@ -1,6 +1,6 @@
 # blade-compliance-reviewer — Maintainer README
 
-> **What this is.** Maintainer-facing notes for `skills/blade-compliance-reviewer/`. The Razorpay-shipped per-file design-system drift scanner.
+> **What this is.** Maintainer-facing notes for the per-file design-system review reference under `skills/blade-compliance-reviewer/`. A supported distributor may package it; this directory alone does not prove installation.
 
 ---
 

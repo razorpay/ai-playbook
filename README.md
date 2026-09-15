@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <strong>v0.61 alpha</strong> · updated 2026-08-13 · source of truth: Markdown<br>
+  <strong>v0.66 alpha</strong> · updated 2026-08-24 · source of truth: Markdown<br>
   <a href="INDEX.md">Master Index</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="ROADMAP.md">Roadmap</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -114,7 +114,7 @@ Use the [Master Index](INDEX.md) or [hub](https://razorpay.github.io/ai-playbook
 
 ## What's drafted
 
-Foundation, Prologue, all four belts, the Staff+ Council section, twelve appendices, seven Claude Code reference definitions, seven quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Appendices E (Roles & Forums) and F (Slack Channels) ship as living directories where the structure is fixed and named holders refresh quarterly; everything else is drafted end-to-end. The reading order is coherent end-to-end from first commit to Council membership.
+Foundation, Prologue, all four belts, the Staff+ Council section, thirteen drafted appendices plus one planned appendix, seven Claude Code reference definitions, seven quick-reference cards, nine signature SVG diagrams, and seven hand-drawn companion illustrations. Appendix E (Roles & Forums) remains a drafted skeleton, and Appendix F (Slack Channels) is a living directory; named holders refresh quarterly. Appendix K is the root [CHANGELOG.md](CHANGELOG.md), and Appendix M remains planned. Every other appendix is drafted end-to-end. The reading order is coherent end-to-end from first commit to Council membership.
 
 Version history is in [CHANGELOG.md](CHANGELOG.md). What's coming next is in [ROADMAP.md](ROADMAP.md).
 

@@ -14,7 +14,7 @@ next: "prologue/enablement-stack"
 pillar: null
 belt: null
 tags: ["orientation", "mental-model"]
-updated: "2026-07-26"
+updated: "2026-08-24"
 ---
 
 # 0.3 — The 5-Layer Mental Model of the AI Dev Stack
@@ -163,7 +163,7 @@ The **Compass plugin** fixes that. It's a bundle installed into Claude Code that
 - **Skills** — markdown files that tell Claude how to do specific tasks (e.g. choosing a Blade component, running a pre-ship check, guarding PR creation).
 - **Hooks** — scripts that run automatically at certain moments (e.g. pre-commit, pre-PR).
 - **Subagents** — specialist "smaller Claudes" that Claude can delegate to (e.g. a reviewer agent, a test-writer agent).
-- **Slash-commands** — shortcuts you type with `/` (e.g. `/setup-verify`).
+- **Slash commands** — shortcuts exposed by your installed plugins. Run `/help` to see the current command inventory; a skill named in this playbook is not proof that an equivalent slash command is installed.
 - **MCPs (Model Context Protocol servers)**: connectors that let Claude talk to Blade, Figma, Slack, DevRev, etc.
 
 When you install the Compass plugin at White Belt, you're not just getting "a few extra features." You're uploading years of Razorpay engineering knowledge into Claude Code at once. The plugin is version-locked per cohort (see the [previous chapter](02-bd1-bd2-origin.md)) to make sure everyone on your team sees the same Claude, not a different one.
@@ -199,7 +199,7 @@ Remember the previous chapter: **Layer 0 is setup.** The thing that has to work 
 - Is the Compass plugin installed and version-matched? (Layer 4)
 - Can you run `claude` without errors? (Layer 5)
 
-The setup-verify skill (your first boss fight at White Belt) checks each of these and tells you exactly which layer is red. It's the diagnostic doctor for the whole stack. Chapter W-0 is literally titled "Turn GREEN" because GREEN = all five layers alive.
+Quest W-0 checks each layer through the direct, copyable probes in [W.5](../belts/01-white/W05-installing-the-stack.md#step-5--run-the-supported-readiness-gate). Run those checks in order; the first failed check tells you which layer is red. Chapter W-0 is literally titled "Turn GREEN" because GREEN = all five layers alive.
 
 ---
 

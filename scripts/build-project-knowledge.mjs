@@ -21,8 +21,8 @@
 //   npm install     # one-time, picks up yaml
 //   npm run build-project-knowledge
 //
-// Output: scripts/project-knowledge/ — a directory containing the seven files
-// that get uploaded to the Project, plus a README explaining where each goes
+// Output: scripts/project-knowledge/ — a directory containing six Project files
+// (one custom-instructions file and five knowledge files), plus a README explaining where each goes
 // (project instructions vs. project knowledge).
 //
 // Re-run after any merge that touches manifest.yml, slugs.yml, INDEX.md, the
@@ -30,6 +30,7 @@
 // GitHub Action can wire this to master if/when the freshness story moves
 // beyond manual re-upload.
 
+import { existsSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -40,6 +41,7 @@ const repoRoot = path.resolve(scriptDir, '..');
 const outDir = path.join(scriptDir, 'project-knowledge');
 
 const HUB_BASE = 'https://razorpay.github.io/ai-playbook';
+const GITHUB_BLOB_BASE = 'https://github.com/razorpay/ai-playbook/blob/master';
 
 // Same rule used by the hub: '/' becomes the root path. Everything else gets
 // the slug with a trailing slash.
@@ -209,22 +211,36 @@ async function copyGlossary() {
 // 4. Quick-reference cards (H1–H7)
 // -----------------------------------------------------------------------------
 
-async function bundleCards() {
+async function bundleCards(manifest) {
   const cardDir = path.join(repoRoot, 'appendices/H-reference-cards');
+  const pathToSlug = new Map(
+    manifest.chapters
+      .filter((chapter) => chapter.path && chapter.slug)
+      .map((chapter) => [chapter.path, chapter.slug])
+  );
   const entries = (await fs.readdir(cardDir))
     .filter((f) => /^H\d+-.+\.md$/.test(f))
     .sort();
   const sections = [];
   for (const file of entries) {
-    const raw = await fs.readFile(path.join(cardDir, file), 'utf8');
+    const sourcePath = path.join(cardDir, file);
+    const raw = await fs.readFile(sourcePath, 'utf8');
     const body = raw
       .replace(/^---\n[\s\S]*?\n---\n+/, '')              // strip frontmatter
       .replace(
-        /\]\(((?:\.\.\/)+[A-Za-z0-9_\-./]+\.md)(#[^)]+)?\)/g,
+        /\]\((?!https?:\/\/)([^)\s]+\.md)(#[^)]+)?\)/g,
         (_full, target, hash = '') => {
-          const segments = target.split('/').filter((s) => s && s !== '..');
-          const noMd = segments.join('/').replace(/\.md$/, '').replace(/\/README$/, '');
-          return `](${HUB_BASE}/${noMd}/${hash})`;
+          const resolved = path.resolve(path.dirname(sourcePath), target);
+          const relative = path.relative(repoRoot, resolved);
+          const repoPath = relative.split(path.sep).join('/');
+
+          if (relative.startsWith('..') || path.isAbsolute(relative) || !existsSync(resolved)) {
+            throw new Error(`Card ${file} links to missing repository target: ${target}`);
+          }
+
+          const slug = pathToSlug.get(repoPath);
+          const url = slug ? hubUrl(slug) : `${GITHUB_BLOB_BASE}/${repoPath}`;
+          return `](${url}${hash})`;
         }
       );
     sections.push(body.trim());
@@ -569,7 +585,8 @@ Re-run \`npm run build-project-knowledge\` after any merge that touches:
 - \`skills/*/SKILL.md\`
 - The drafted-belt set in \`manifest.yml\` (so the Concierge stops claiming planned belts are drafted)
 
-Then re-upload the six files to the Project (replace the existing knowledge).
+Then replace the Custom Instructions with \`project-instructions.md\` and re-upload
+the five Project Knowledge files.
 A future GitHub Action can automate the build; the upload step needs
 Anthropic-side support that isn't here yet.
 
@@ -600,7 +617,7 @@ async function main() {
   const spine = await buildSpine(manifest);
   await copyIndex();
   await copyGlossary();
-  await bundleCards();
+  await bundleCards(manifest);
   await summariseSkills();
   await writeConciergeInstructions(manifest);
   await writeBundleReadme(manifest, spine);

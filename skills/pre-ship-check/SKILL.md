@@ -7,7 +7,7 @@ description: Run a six-layer structured review on a branch's diff before opening
 
 ## Overview
 
-This skill is the canonical Razorpay-shipped review skill that runs before every PR. It applies six layers of structured review against a branch's diff: redlines, design system, tests, PR craft, prompt craft, and behaviour preservation. The output is a structured Markdown report with one section per layer, a colour grade, and a summary line.
+This reference definition applies six layers of structured review against a branch's diff: redlines, design system, tests, PR craft, prompt craft, and behaviour preservation. A supported distribution may load it as a runnable skill; the source file alone does not prove installation. The output is a structured Markdown report with one section per layer, a colour grade, and a summary line.
 
 The skill never auto-fixes, never weakens a layer's standard to make a PR pass, never silently rewrites a PR description. It surfaces; the builder decides; the reviewer reads the report alongside the diff.
 

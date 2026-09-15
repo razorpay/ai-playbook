@@ -14,7 +14,7 @@ next: "appendices/skills-library"
 pillar: "harness"
 belt: "white"
 tags: ["appendix", "setup", "environment", "mcp"]
-updated: "2026-07-14"
+updated: "2026-08-23"
 ---
 
 # Appendix B — Environment Setup
@@ -40,11 +40,11 @@ Setup is not "install a tool and hope." It proves that six things are true:
 | Files | You can clone or open the repo you intend to work in. | `pwd`, `ls`, and `git status` show the expected workspace. |
 | Git | Your identity, branch, remote, and auth are ready. | `git config`, `git remote -v`, `git status`. |
 | Runtime | Node, pnpm/npm, and repo-specific dependencies resolve. | `node --version`, package install, local build/test command. |
-| Model auth | The approved model path is authenticated. | The org-approved auth command completes; the verification skill prints GREEN. |
-| Compass / plugin layer | Skills, hooks, MCPs, and slash commands are installed and version-matched. | Plugin verification output is GREEN, version string matches the program-pinned build. |
+| Model auth | Claude Code uses the approved LiteLLM gateway path. | The gateway URL is present in `~/.claude/settings.json`, retired Vertex variables are absent, and a small prompt returns a reply. |
+| Compass / plugin layer | Any plugin required for the task came through its supported distribution and is discoverable in this session. | The exact command appears in `/help` and one representative invocation succeeds. A repository definition alone is not runtime proof. |
 | Network path | The corporate proxy, cert trust, and approved egress path do not block the work. | Auth and package commands succeed from the target network. |
 
-White Belt turns this into a guided GREEN/YELLOW/RED verification flow. This appendix is the orientation map.
+White Belt turns this into a guided GREEN/YELLOW/RED flow with a [seven-check manual gate](../../belts/01-white/W08-green-yellow-red.md#the-supported-manual-gate). This appendix is the orientation map.
 
 ---
 
@@ -52,11 +52,11 @@ White Belt turns this into a guided GREEN/YELLOW/RED verification flow. This app
 
 Borrowed from the second builder cohort and now the standard in every White Belt setup window.
 
-**GREEN.** All six rows above pass on this machine, on this network, in this repo. You are clear to start belt work.
+**GREEN.** Every check required for the work passes on this machine, on this network, in this repo. For Quest W-0, that means all seven checks in the supported manual gate. You are clear to start belt work.
 
-**YELLOW.** One or two checks failed in a way you can name, and the fix is known or scheduled. Examples: package install failed once on a flaky network and is retrying; plugin version mismatch with a documented upgrade path; auth refresh required.
+**YELLOW.** One or two checks failed in a way you can name, and the fix is known or scheduled. Examples: package install failed once on a flaky network and is retrying; an expected plugin command is absent after a documented install and restart; auth refresh required.
 
-**RED.** Hardware-blocked, policy-blocked, or unknown failure. Examples: laptop cannot install the toolchain at all; network refuses an approved egress path; the verification skill cannot find a connector that exists for everyone else. RED routes to a triage forum with a loaner machine, a cloud workspace, or a paired teammate so you are not blocked passively.
+**RED.** Hardware-blocked, policy-blocked, or unknown failure. Examples: laptop cannot install the toolchain at all; network refuses an approved egress path; a required connector fails after its documented setup and one focused repair. RED routes to a triage forum with a loaner machine, a cloud workspace, or a paired teammate so you are not blocked passively.
 
 The colour is not a judgement. It is a routing decision. A YELLOW with a clear fix is a green-in-fifteen-minutes. A RED with a known route is a green-tomorrow. Only an unattended RED is a problem.
 
@@ -67,14 +67,14 @@ The colour is not a judgement. It is a routing decision. A YELLOW with a clear f
 Run these in order. Stop at the first failure and triage that layer before moving on.
 
 1. **Files and shell.** Open a terminal, `cd` to the repo you intend to work in, run `pwd` and `ls`. Confirm the working directory is what you think it is.
-2. **Git.** Run `git status`, `git remote -v`, and `git config user.email`. Confirm identity, remote, and branch.
-3. **Runtime.** Run `node --version` and the repo's package install command. The first install in a clean clone is the slowest; subsequent ones should be quick.
-4. **Local build or test.** Run the smallest health-check command the repo offers: a lint, a `tsc --noEmit`, or a single test file. If this fails before any AI is involved, AI will not save you; fix the basics first.
-5. **Model auth.** Run the auth command for the approved model path. The verification skill should print GREEN.
-6. **Plugin layer.** Open Claude Code in the repo. Type `/` and confirm the org's slash commands appear. Run the program's verification skill and confirm version, skills, hooks, and MCPs report clean.
-7. **Connectors.** From inside Claude Code, ask the assistant to list available connectors. The list should match the program-published catalogue.
+2. **Git.** Run `git --version`, `git status`, `git remote -v`, and `git config user.email`. Confirm identity, remote, and branch.
+3. **Runtime.** Run `node --version`, `pnpm --version`, and the repo's documented package-install command. The first install in a clean clone is the slowest; subsequent ones should be quick.
+4. **Claude Code.** Run `claude --version`. If the shell cannot find it, return to W.5 instead of debugging plugins.
+5. **Gateway configuration.** Run the LiteLLM URL and retired-Vertex checks from [W.5](../../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove). Inspect names and expected state only; never paste keys or token values into support.
+6. **Prompt round-trip.** Start a fresh `claude` session and send `hello`. A reply proves the terminal path can reach the model gateway.
+7. **Task-specific add-ons.** Only when the task needs a plugin or connector, follow that surface's current install instructions, restart the session, confirm the exact command in `/help`, and run one representative read-only invocation before granting broader access.
 
-If the list at step 7 matches and steps 1–6 are GREEN, you are GREEN. Move into White Belt with a working harness.
+Steps 2–6 supply the seven direct checks for Quest W-0 (Git, Node, pnpm, Claude Code, LiteLLM configuration, no retired Vertex configuration, and a prompt round-trip). Step 1 keeps you in the intended workspace. Step 7 is an add-on gate, not a hidden White Belt prerequisite.
 
 ---
 
@@ -105,9 +105,9 @@ A failure mode is much cheaper when you know which layer it lives in. Use the sy
 | `command not found: claude` or similar | Files / install | Re-run the program install script; confirm shell PATH. |
 | `permission denied` on install | Network / OS policy | Confirm the install path is allowed; do not chase admin rights you do not have. |
 | `cannot find module` after install | Runtime | Confirm Node version and re-run the package install in a clean state. |
-| `unable to authenticate to model` | Model auth | Re-run the auth command; confirm correct project and account. |
-| Slash commands not appearing | Plugin layer | Re-install the program-pinned plugin; confirm version string. |
-| Skills loading but stale | Plugin layer | Pull the latest pinned plugin; restart the assistant session. |
+| `unable to authenticate to model` | Model auth | Re-run the supported setup script; inspect the LiteLLM URL and the full redacted error before changing anything else. |
+| Expected command absent from `/help` | Plugin layer | Re-check the plugin's current distribution and install instructions, restart Claude Code, then capture the redacted `/help` result. |
+| An installed plugin behaves stale | Plugin layer | Follow that plugin's documented update route, restart Claude Code, and repeat the representative invocation. |
 | Connector listed but not responding | MCP / connector | Confirm the connector's auth refresh; check the program's connector status. |
 | Tests fail but the change looks right | Repo / runtime | Re-run with a clean install; the issue is rarely AI-shaped at this layer. |
 | Edits land in a different folder than expected | Files / harness | Confirm working directory and which session is making the edit. |
@@ -122,7 +122,7 @@ Ask for help early when:
 
 - auth fails twice in the same place;
 - package install fails with proxy, cert, or registry errors;
-- the plugin says it is installed but skills are missing;
+- a supported plugin install completed but the expected command is absent from `/help` after restart;
 - the tool is editing a different directory from the one you expected;
 - a command asks for credentials you do not recognise.
 
