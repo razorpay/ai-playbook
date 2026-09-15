@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-08-25"
+updated: "2026-09-15"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -312,6 +312,21 @@ Do not use this fix to escape a LiteLLM quota. Team and Max are separately provi
 
 **References.** [Y.8 — choose your current route](../../belts/02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route), [`#ai-help` repeated fix 2026-07-09](https://razorpay.slack.com/archives/C08C35GKJKD/p1783585949420119), [`#ai-help` repeated fix and SOP 2026-08-19](https://razorpay.slack.com/archives/C08C35GKJKD/p1787157472458179), [`#ai-help` successful retry 2026-08-24](https://razorpay.slack.com/archives/C08C35GKJKD/p1787566520269499).
 
+### D.17 — Claude Team or Max session limit is exhausted (status: workaround)
+
+**Symptom.** Claude says `You've hit your session limit`, shows a reset time, or says `You're out of extra usage`. The message may also say that an admin can enable extra usage.
+
+**Diagnosis.** This is a limit on your Claude Team or Max subscription, not the LiteLLM budget described in D.6. The admin sentence is generic provider text, not confirmation that Razorpay can raise the limit. Current support cannot increase Team or Max session limits.
+
+**Fix.**
+
+1. Check that the message names a session or extra-usage limit and shows a reset time. If it instead contains `ExceededBudget` with a dollar amount, follow D.6 for the LiteLLM route.
+2. Save a short handoff note with the task, current state, and next step, then wait for the displayed reset before resuming on Team or Max.
+3. For suitable work that cannot wait, use an approved open-weight model already enabled on your existing LiteLLM key. Treat this as a separate route: do not change Team or Max settings, and do not expect chats or context to transfer.
+4. If no approved route is available, post the exact redacted error, reset time, working surface, and blocked task in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD). Do not request a specific Team or Max increase; support does not control those plan limits.
+
+**References.** [Y.8 — choose your current route](../../belts/02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route), [`#ai-help` same fix 2026-09-10](https://razorpay.slack.com/archives/C08C35GKJKD/p1789014662027119), [`#ai-help` reset guidance 2026-09-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1789453299265289), [`#ai-help` repeated Team/Max response 2026-09-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1789484783197599).
+
 ---
 
 ## Layer 4 — Infrastructure (devstack)
@@ -368,4 +383,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-08-25. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-09-15. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
