@@ -14,7 +14,7 @@ next: "belts/green/writing-your-first-skill"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "skills", "compounding"]
-updated: "2026-08-04"
+updated: "2026-08-24"
 ---
 
 # G.6 — Skills
@@ -26,7 +26,7 @@ CLAUDE.md is per-directory; skills are per-workflow. Where CLAUDE.md tells the a
 ## If you're short on time
 
 - A skill is a frozen workflow. A `SKILL.md` file with frontmatter that names the trigger and a body that names the job, the inputs, and the outputs.
-- Skills compound: write a `pre-ship-check` once, every PR uses it, every Razorpay builder benefits.
+- Skills compound: write a useful pre-ship workflow once, distribute it deliberately, and every adopting team benefits.
 - A clever prompt is not a skill. A repeatable workflow with named inputs, checks, and a useful output probably is.
 - Skills use staged context: every installed skill's name and description load at startup; the body and supporting files load only when needed. Keep the catalogue intentional.
 
@@ -70,8 +70,8 @@ An installed skill that never triggers avoids the body and supporting-file costs
 
 The same logic as CLAUDE.md but at a different layer:
 
-- **You write it once.** A `pre-ship-check` skill takes 30 minutes to draft and review.
-- **Every session that triggers it benefits.** Hundreds of PRs over months.
+- **You write it once.** A bounded pre-ship skill can capture a reviewed workflow.
+- **Every adopting session that triggers it benefits.** The value repeats across PRs instead of being re-derived.
 - **Other builders adopt it.** A skill written by one team that captures a real workflow gets installed by other teams; the value spreads without re-deriving.
 - **It encodes judgement.** The skill is the codified version of "what would a senior reviewer notice." That judgement now travels with every PR, including ones the senior reviewer is not on.
 
@@ -108,9 +108,9 @@ The Skills Library appendix is precise about anti-patterns. Common cases:
 
 ## Where skills live in this program
 
-The program ships skills through the program-pinned plugin (Compass). Three audiences worth distinguishing:
+Where a skill is defined and where it is distributed are separate facts. This repository includes reference definitions under `skills/`; your current runtime inventory comes from `/help` and the installed plugin sources. Three audiences are worth distinguishing:
 
-**The program library.** The named skills the program ships across the org: the verification skill, the pre-ship-check skill, the design-intel skill, the playbook-course skill, and so on. These have program-level maintenance and ship in a versioned bundle.
+**The program library.** Skills that an owning team has reviewed, versioned, and distributed through a supported org route. Confirm current names and commands in `/help`; a reference definition in this playbook does not prove that Compass installs it.
 
 **Team libraries.** Skills a team writes for its own workflows. These do not need to be program-quality; they need to be team-quality. They live in the team's repo or a team-shared skill directory.
 
@@ -141,18 +141,18 @@ This is a catalogue audit, not a token-saving competition. If the total is high 
 
 ---
 
-## Worked example: the pre-ship-check skill (sketch)
+## Worked example: a pre-ship-check reference workflow
 
-The Razorpay program ships a `pre-ship-check` skill (referenced as a concept in Yellow Belt and Green Belt). At a sketch level:
+The repository's `pre-ship-check` reference definition shows the shape of a reviewable skill. It is useful design material, not evidence that an equivalent command is installed in your session. At a sketch level:
 
 - **Trigger.** The builder says "run pre-ship" or "check before review" or the agent recognises a `git diff --stat` plus an open branch state that looks PR-ready.
 - **Bounded job.** Inspect the diff for design-system fit, prop and naming conventions, missing tests, console statements, large unrelated changes, and obvious safety-brief violations. Surface issues; do not auto-fix without permission.
 - **Context.** The repo, the diff against the base branch, the design-system rules, the redline cards from Appendix H.
 - **Output.** A categorised list (must-fix, should-fix, nice-to-have) with line references and a one-line rationale per item.
 - **Guardrails.** Never opens a PR by itself. Never strips a comment without showing it. Never marks something must-fix without naming the rule it violates.
-- **Maintenance.** The pre-ship workflow lead and the program-pinned plugin's reviewer rotation.
+- **Maintenance.** A named workflow owner and reviewer rotation for whichever distribution adopts it.
 
-Reading this sketch gives you the shape of every program-library skill. G.7 walks the actual `SKILL.md` body for a smaller worked example you can draft yourself.
+Reading this sketch gives you the shape of a program-quality skill. G.7 walks the actual `SKILL.md` body for a smaller worked example you can draft yourself.
 
 ---
 

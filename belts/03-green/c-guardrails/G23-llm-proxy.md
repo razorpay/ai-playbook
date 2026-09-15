@@ -1,5 +1,5 @@
 ---
-title: "The LLM proxy — what LiteLLM does and why every call routes through it"
+title: "The LLM proxy — what LiteLLM does on the gateway route"
 slug: "belts/green/llm-proxy"
 section: "belts"
 status: "drafted"
@@ -8,18 +8,20 @@ track: "green"
 order: 23
 time_minutes: 25
 audience: "experienced-builder"
-outcome: "Understand why every model call routes through a proxy, what LiteLLM gives you that direct calls do not, and how to debug when the proxy is the friction."
+outcome: "Understand what LiteLLM gives the provisioned gateway route, why custom agents must not bypass it, and how to debug when the proxy is the friction."
 prev: "belts/green/redlines"
 next: "belts/green/pii-pci-rbi"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "llm-proxy", "litellm", "harness"]
-updated: "2026-07-07"
+updated: "2026-08-26"
 ---
 
 # G.23 — The LLM proxy
 
-Every approved model call from a Razorpay program-pinned environment routes through an LLM proxy. The proxy is not a performance overhead; it is a safety, observability, and policy layer that makes the program defensible to security, compliance, and finance teams. This chapter is what every Green Belt builder should know about that layer: what LiteLLM does, what the proxy lets the program do that direct API calls cannot, and how to debug when the proxy itself is the friction.
+Razorpay's LiteLLM-provisioned clients and custom agents route model calls through an LLM proxy. Separately provisioned Claude Team and Claude Max subscriptions do not use LiteLLM; they remain managed, approved routes. Use [Y.8's route chooser](../../02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route) rather than mixing credentials or usage surfaces.
+
+On the gateway route, the proxy is a safety, observability, and policy layer that makes the program defensible to security, compliance, and finance teams. This chapter explains what LiteLLM does, what the proxy gives that route that direct API calls do not, and how to debug when the proxy itself is the friction.
 
 > **Migration note.** Until March 2026, the proxy's upstream was Google Vertex AI. Today LiteLLM routes to the enabled provider for the selected model — Claude, GPT, or an approved open-weight route depending on the current rollout. The chapter's frame — scan, log, gate, attribute — is unchanged; only the provider hop changed.
 
@@ -27,13 +29,16 @@ Every approved model call from a Razorpay program-pinned environment routes thro
 
 ## If you're short on time
 
-- The proxy is the layer between Claude Code (or any client) and the model provider. Calls go: client → proxy → model.
+- On the LiteLLM route, the proxy sits between Claude Code (or another client) and the model provider. Calls go: client → proxy → model.
 - The proxy gives you four things you cannot get from a direct call: scanning (redlines), logging (audit), gating (policy), and cost attribution (G.20).
+- Team and Max are separate provisioned routes, not permission to insert a personal provider key or bypass the route assigned to you.
 - Most of the time the proxy is invisible. When it is *not* invisible, the symptoms have a small set of named causes; this chapter walks them.
 
 ---
 
 ## The mental model
+
+This diagram shows the LiteLLM gateway route:
 
 ```
    ┌────────────────────────────────────────────────┐
@@ -68,7 +73,7 @@ Every link in the chain has a job:
 - **Proxy → model host:** the egress to the actual provider. The model itself does not see the calling team's identity; the proxy holds that mapping.
 - **Response back through the chain:** the response can be classified (G.25's output classifiers) before it reaches the client.
 
-LiteLLM is the open-source proxy that Razorpay's program-pinned setup uses. The upstream is the enabled provider route for the selected model (post the March-2026 migration off Google Vertex AI); LiteLLM holds the provider credentials so individual builders never see them.
+LiteLLM is the open-source proxy that Razorpay's gateway route uses. The upstream is the enabled provider route for the selected model (post the March-2026 migration off Google Vertex AI); LiteLLM holds the provider credentials so individual builders never see them.
 
 ---
 
@@ -76,13 +81,13 @@ LiteLLM is the open-source proxy that Razorpay's program-pinned setup uses. The 
 
 ### Job 1 — Scanning
 
-Every prompt is scanned for redline shapes (the four categories from G.22) before it is forwarded. A clean prompt passes through invisibly; a flagged prompt either gets blocked (with a clear error to the client) or gets routed to a human review queue depending on the policy and the severity.
+Every LiteLLM-routed prompt is scanned for redline shapes (the four categories from G.22) before it is forwarded. A clean prompt passes through invisibly; a flagged prompt either gets blocked (with a clear error to the client) or gets routed to a human review queue depending on the policy and the severity.
 
 The scan is not perfect. It catches the obvious shapes (a token-shaped string, a regulator-protected field name) and misses the cleverly-worded ones. The reflex from G.22 remains the front line; the scan is the safety net.
 
 ### Job 2 — Logging
 
-Every call gets an entry: timestamp, calling team or builder (via the tag from G.20), prompt token count, response token count, model, latency, success or failure. This audit log is what lets the program answer "did anyone send PII to a model" and "which team is using the most tokens" and "is the model behaving consistently across teams."
+Every LiteLLM-routed call gets an entry: timestamp, calling team or builder (via the tag from G.20), prompt token count, response token count, model, latency, success or failure. This audit log is what lets the program answer "did anyone send PII to a model" and "which team is using the most tokens" and "is the model behaving consistently across teams."
 
 The log does not store full prompt content by default — that would be its own redline risk. It stores enough metadata to investigate, with the option to escalate to full-prompt review if a redline scan flags a call.
 
@@ -98,7 +103,7 @@ Per-team and per-builder rollups. The cost dashboard from G.20 reads from the pr
 
 ## Why direct model calls are not approved
 
-A builder might wonder: "I have a provider API key; why do I need to route through a proxy?" The answer is that a direct call:
+A builder on the gateway path might wonder: "I have a provider API key; why do I need to route through a proxy?" The answer is that a direct call:
 
 - bypasses the redline scan;
 - does not generate the audit log;
@@ -108,13 +113,13 @@ A builder might wonder: "I have a provider API key; why do I need to route throu
 
 A program that allows direct calls cannot honestly tell its security or compliance counterparts "we know what model traffic looks like." The proxy is the artefact that lets the program make that claim.
 
-For Green Belt builders specifically: direct API keys are a redline of their own. If you have one for a personal project, that is fine; you do not use it for Razorpay work.
+For Green Belt builders specifically: direct API keys are a redline of their own. If you have one for a personal project, that is fine; you do not use it for Razorpay work. A support-provisioned Team or Max subscription is an approved route, not a personal-key workaround.
 
 ---
 
 ## How the proxy looks from Claude Code
 
-Most of the time, invisible. You install Claude Code, the program-pinned plugin configures the client to route through the proxy automatically, and you never think about it again. Three signs the proxy is doing its job:
+Most of the time, invisible. When LiteLLM is your provisioned route, the setup script configures Claude Code to use the proxy and you rarely need to think about it. Three signs the proxy is doing its job:
 
 - a prompt with a redline shape gets refused with a clear error;
 - the cost dashboard from G.20 has data when you check it;
@@ -171,7 +176,7 @@ The response includes "[redacted]" or has fields missing or refuses to discuss s
 
 ## Common failure modes
 
-**Trying to bypass the proxy.** Direct API keys, side-channel calls. Fix: the program does not approve these; direct calls are a redline of their own.
+**Trying to bypass your assigned route.** Direct API keys and side-channel calls are not approved. Fix: keep using LiteLLM when it is your provisioned route; follow the current migration SOP only when support explicitly moves you to Team or Max.
 
 **Treating proxy errors as bugs.** A "redline flag" error is the proxy doing its job. Fix: read the error; usually the rule is correct.
 
@@ -195,7 +200,7 @@ The response includes "[redacted]" or has fields missing or refuses to discuss s
 
 ## What you can say after this module
 
-> "Every program model call routes through the LLM proxy. I know the four jobs the proxy does (scan, log, gate, attribute) and I trust it as the safety net behind the redline reflex."
+> "On the LiteLLM route, I know the four jobs the proxy does (scan, log, gate, attribute). I use the route provisioned for me and never improvise a personal-key bypass."
 
 ---
 

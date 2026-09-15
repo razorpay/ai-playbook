@@ -12,7 +12,7 @@ The playbook ships content in three consumption modes:
 2. **HTML hub** at `hub/` (Astro Starlight). Generated from the Markdown for browseable navigation.
 3. **This skill.** A conversational, paced, progress-tracking walk through the same Markdown.
 
-The architectural promise made in v0.4 was that every Markdown chapter is consumable by all three modes without duplication. v0.5 closed Markdown + HTML. v0.8 closes Markdown + skill. The same chapter, three doors.
+The architectural promise is that every Markdown chapter remains consumable through all three modes without duplicating the lesson. The hub generator and `curriculum.json` generator keep those surfaces aligned. This directory defines the skill contract; whether a learner can invoke it depends on their supported distribution.
 
 ---
 
@@ -86,7 +86,7 @@ The generator is intentionally a small file (a few hundred lines, no dependencie
 
 ## Running the skill locally
 
-From any working directory, with Claude Code installed and the program-pinned plugin loaded:
+After a supported distribution has installed this reference—or a maintainer has deliberately loaded it from this repository—open Claude Code from a working directory:
 
 ```
 claude
@@ -101,21 +101,21 @@ The skill should:
 
 If the skill does not activate, check:
 
-- the plugin version (run the program's verification skill);
+- the installed plugin source and current `/help` inventory;
 - the SKILL.md frontmatter (the `description` field is what Claude Code matches trigger phrases against);
 - the trigger phrase exactly (case-insensitive, but spelling matters).
 
 ---
 
-## Vendoring into the program plugin
+## Packaging through a supported distributor
 
-This skill currently lives in-repo at `skills/playbook-course/`. The intended path forward is for the program-pinned Compass plugin to vendor it as a first-party skill. That is a separate decision and a separate version (post-v0.8). When vendoring:
+This skill currently lives in-repo at `skills/playbook-course/`. A supported distributor may vendor it as a first-party skill, but the repository does not prove that distribution exists. When vendoring:
 
 - the skill directory copies wholesale into the plugin's skills directory;
 - `curriculum.json` is regenerated against the plugin's pinned manifest version;
 - the skill name stays `playbook-course` to avoid trigger-phrase collisions.
 
-Until vendoring lands, the skill is loadable directly from the repo if the learner clones the playbook and points Claude Code at it.
+Without a supported distribution, a maintainer can deliberately load the reference from a cloned playbook. That local choice is not evidence of an org-wide installed command.
 
 ---
 
@@ -123,7 +123,7 @@ Until vendoring lands, the skill is loadable directly from the repo if the learn
 
 The acceptance criteria for any release of this skill live in `test-cases.md`. They run against the current drafted belt content and exercise: cold-start, mid-belt resume, quest gating, boss-fight handoff, drafted-belt progression, hand-edit respect, lint compliance, and the curriculum-generator path-integrity check.
 
-A passing run does not mean the skill is great. It means it does not regress against known good behaviour. A first real-learner walk-through is the real test, and that is captured separately in v0.8's retro.
+A passing run does not mean the skill is great. It means it does not regress against known good behaviour. Capture the first real-learner walk-through for each supported distribution in its calibration retro.
 
 ---
 
@@ -137,7 +137,7 @@ This skill follows the playbook's content rules:
 - public references (Anthropic Claude Code skill docs, MCP docs) are fine when they earn a footnote;
 - Razorpay specifics stay at the conceptual level: "the program-pinned plugin," "the cohort tracker," "the program's primary Slack channel."
 
-The lint sweep on a v0.8 release greps the standard violation list across this directory.
+The lint sweep for any release greps the standard violation list across this directory.
 
 ---
 

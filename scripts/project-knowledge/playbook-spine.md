@@ -1,6 +1,6 @@
 # Playbook spine
 
-Compact chapter index for the Razorpay AI Playbook (0.59-alpha, updated 2026-08-07).
+Compact chapter index for the Razorpay AI Playbook (0.71-alpha, updated 2026-09-02).
 
 Every chapter has a stable slug. The live URL is always `https://razorpay.github.io/ai-playbook/<slug>/`.
 Use this file to (a) find the right chapter for a question, (b) get the hub URL, 
@@ -10,8 +10,8 @@ Do not paraphrase a chapter from this file. The `outcome` line is a routing hint
 not a substitute for reading the chapter. For chapter bodies, web_fetch the `hub_url`.
 
 ```yaml
-version: 0.59-alpha
-updated: 2026-08-07
+version: 0.71-alpha
+updated: 2026-09-02
 hub: https://razorpay.github.io/ai-playbook
 source_of_truth: manifest.yml + slugs.yml in razorpay/ai-playbook
 chapters:
@@ -673,8 +673,8 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 40
-    outcome: Install and verify the White Belt tool stack without drifting away from
-      the program-pinned setup path.
+    outcome: Install and verify the White Belt tool stack through the supported
+      setup path and a direct, copyable evidence gate.
     tags:
       - white-belt
       - setup
@@ -691,8 +691,8 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 15
-    outcome: Understand what the LiteLLM gateway does, what Claude Code does, and
-      which failures are yours to debug vs. the gateway's.
+    outcome: Understand what the LiteLLM gateway does when it is your provisioned
+      route, and which failures are yours to debug vs. the gateway's.
     tags:
       - white-belt
       - llm-gateway
@@ -707,8 +707,8 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 20
-    outcome: Understand what the program-pinned plugin is for, how to verify it, and
-      how to avoid stale-plugin drift.
+    outcome: Distinguish plugin source from installed runtime state, verify the
+      commands you actually have, and route missing commands without guessing.
     tags:
       - white-belt
       - plugin
@@ -723,12 +723,12 @@ chapters:
     type: chapter
     audience: new-builder
     time_minutes: 20
-    outcome: Run the 10-point health check, interpret colour honestly, and route
-      setup failures without wasting a cohort day.
+    outcome: Run the supported manual setup gate, interpret colour honestly, and
+      route failures without depending on an undistributed command.
     tags:
       - white-belt
       - health-check
-      - setup-verify
+      - setup
   - slug: belts/white/first-conversation
     title: Your first conversation with Claude Code
     hub_url: https://razorpay.github.io/ai-playbook/belts/white/first-conversation/
@@ -803,12 +803,12 @@ chapters:
     type: quest
     audience: new-builder
     time_minutes: 60
-    outcome: Run setup verification, reach all-GREEN status, and capture evidence
-      that the local environment is ready.
+    outcome: Run the supported manual setup gate, reach all-GREEN status, and
+      capture evidence that the local environment is ready.
     tags:
       - white-belt
       - quest
-      - setup-verify
+      - setup
       - evidence
   - slug: belts/white/quest-hello-razorpay
     title: "Quest W-1: The HelloRazorpay commit"
@@ -1660,7 +1660,7 @@ chapters:
       - guardrails
       - safety
   - slug: belts/green/llm-proxy
-    title: The LLM proxy — what LiteLLM does and why every call routes through it
+    title: The LLM proxy — what LiteLLM does on the gateway route
     hub_url: https://razorpay.github.io/ai-playbook/belts/green/llm-proxy/
     section: belts
     track: green
@@ -1669,8 +1669,8 @@ chapters:
     type: chapter
     audience: experienced-builder
     time_minutes: 25
-    outcome: Understand why every model call routes through a proxy, what LiteLLM
-      gives you that direct calls do not, and how to debug when the proxy is the
+    outcome: Understand what LiteLLM gives the provisioned gateway route, why custom
+      agents must not bypass it, and how to debug when the proxy is the
       friction.
     tags:
       - green-belt
@@ -1725,8 +1725,8 @@ chapters:
     type: chapter
     audience: experienced-builder
     time_minutes: 20
-    outcome: Run the pre-ship-check skill before every PR, read the six-layer
-      report, and fix what it surfaces — without working around the gate.
+    outcome: Apply the six-layer pre-ship contract before every PR, using a
+      supported loaded skill or the manual checklist, and fix what it surfaces.
     tags:
       - green-belt
       - pre-ship-check
@@ -1811,8 +1811,8 @@ chapters:
     type: readme
     audience: platform-builder
     time_minutes: 15
-    outcome: Understand the Black Belt arc, what is drafted in Part A, and what
-      comes next in Parts B and C.
+    outcome: Understand the Black Belt arc, walk Parts A, B, and C, claim Quests B-1
+      and B-2, ship Boss Fight B-B, and earn the badge.
     tags:
       - black-belt
       - readme
@@ -2737,17 +2737,16 @@ chapters:
     section: appendices
     track: known-issues
     belt: null
-    status: drafted skeleton
+    status: drafted
     type: readme
     audience: everyone
-    time_minutes: 8
-    outcome: Find the known fix for a problem you have hit, or contribute a fix you
-      have just developed.
+    time_minutes: 10
+    outcome: Find the known fix for a problem you have hit, or the contribution path
+      for a problem you have just solved.
     tags:
       - appendix
       - known-issues
       - faq
-      - skeleton
   - slug: appendices/roles-and-forums
     title: "Appendix E: Roles & Forums"
     hub_url: https://razorpay.github.io/ai-playbook/appendices/roles-and-forums/
@@ -2775,8 +2774,9 @@ chapters:
     type: readme
     audience: everyone
     time_minutes: 6
-    outcome: Find the right channel for a question; follow the etiquette so the
-      program's primary channels stay useful.
+    outcome: Find the right channel for the question you have, follow the etiquette
+      so the program's primary channels stay useful, and know where to celebrate
+      wins or escalate concerns.
     tags:
       - appendix
       - slack

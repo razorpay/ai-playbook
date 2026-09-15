@@ -14,7 +14,7 @@ next: "prologue/operating-principles"
 pillar: null
 belt: null
 tags: ["orientation", "support", "directory"]
-updated: "2026-07-15"
+updated: "2026-09-02"
 ---
 
 # 0.6 — Meet the people (roles, forums, the support surface)
@@ -141,7 +141,7 @@ This is where:
 
 The single most-important rule is **post publicly, not in DM**. Your question is almost certainly someone else's question. The thread you start helps the next reader who searches the channel for the same problem. *DM saves you face; public posting compounds the playbook.*
 
-The second-most-important rule: **post the full diagnostic output**. *"It doesn't work"* gets you nowhere. The output of `setup-verify`, the exact error message, the command you ran, the version of the tool you're on — that's what lets the channel diagnose in three minutes instead of an hour.
+The second-most-important rule: **post the full diagnostic output**. *"It doesn't work"* gets you nowhere. Post the exact failing command and its full output, the relevant [W.5 readiness check](../belts/01-white/W05-installing-the-stack.md#what-setup-verification-should-prove), and the version of the tool you're on. That is what lets the channel diagnose in three minutes instead of an hour.
 
 ### The celebrations channel
 
@@ -155,7 +155,7 @@ When to post: the moment you have a merged PR, an earned belt, a completed boss 
 
 Where infrastructure-level problems get triaged. Devstack is downstream of this program (chapter [§0.4](04-enablement-stack.md), Layer 8) (owned by a separate team) but builders depend on it constantly. When devstack is slow or down, this channel is where you check first.
 
-When to post: only after confirming the issue isn't your local setup. If `setup-verify` is green and your environment was healthy yesterday, devstack is a reasonable suspect. Otherwise, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) first.
+When to post: only after confirming the issue isn't your local setup. If the W.5 readiness checks pass and your environment was healthy yesterday, devstack is a reasonable suspect. Otherwise, post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) first.
 
 ### The design-system internal channel
 
@@ -183,7 +183,7 @@ A short list that, if followed, makes the public channels work. If ignored, they
 
 **Post publicly.** Repeated for emphasis. The channel is a knowledge base; DMs are not. *Future-you* benefits from your question being public when you re-search it three months later.
 
-**Post the full output.** *"setup-verify says one thing is RED"* is not a question; it's a riddle. *"Here's the full output, the offending line is X, here's what I tried"* is a question.
+**Post the full output.** *"One setup check is red"* is not a question; it is a riddle. *"Here is the command, its full output, the offending line, and what I tried"* is a question.
 
 **Search before you ask.** Your problem has almost certainly been hit by someone else. Two minutes of searching the channel often turns up the answer. If you searched and didn't find, *say so in your post* — it tells the channel that the answer isn't already there and you've done your share of the work.
 

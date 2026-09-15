@@ -1,12 +1,12 @@
 # Test cases
 
-> **What this is.** The acceptance scenarios the playbook-course skill must pass before any release. Eight tests, each grounded in the current drafted belt content. Pass means "no regression"; it does not mean "great." A first real-learner walk-through is the real test and is captured in the v0.8 retro.
+> **What this is.** The acceptance scenarios the playbook-course skill must pass before any release. Eight tests, each grounded in the current drafted belt content. Pass means "no regression"; it does not mean "great." A first real-learner walk-through is the real test and belongs in the distribution's calibration retro.
 
 ---
 
 ## How to run these
 
-Manual, for v0.8. Each test is a sequence of phrases the learner types and the expected skill behaviour. Run them in order; some tests depend on the state left by earlier tests.
+Run these manually before any release. Each test is a sequence of phrases the learner types and the expected skill behaviour. Run them in order; some tests depend on the state left by earlier tests.
 
 Two artefacts are produced per run:
 
@@ -168,8 +168,8 @@ The script fails non-zero if any module, quest, boss-fight, or badge path in `ma
 
 ## What is intentionally not tested
 
-- **Real-learner UX.** A first real-learner walk-through belongs in the v0.8.1 retro after a cohort uses the skill end-to-end.
-- **Performance.** The skill is read-heavy; latency on a single chapter read is dominated by chapter length, not skill logic. Not a v0.8 concern.
+- **Real-learner UX.** A first real-learner walk-through belongs in the supported distribution's calibration retro after a cohort uses the skill end-to-end.
+- **Performance.** The skill is read-heavy; latency on a single chapter read is dominated by chapter length, not skill logic. It is not an acceptance criterion in this suite.
 - **Multi-directory state synchronisation.** Out of scope by design.
 - **Quiz quality.** The skill does not have a quiz engine; comprehension prompts are open-ended and logged verbatim.
 - **Rendering correctness for SVG diagrams.** The skill prints diagram paths and recommends opening the hub; it does not try to render SVG inline.

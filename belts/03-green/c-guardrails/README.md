@@ -14,7 +14,7 @@ next: "belts/green/redlines"
 pillar: null
 belt: "green"
 tags: ["green-belt", "part-c", "fintech-guardrails", "readme"]
-updated: "2026-06-25"
+updated: "2026-08-26"
 ---
 
 # Part C — Fintech Guardrails
@@ -39,7 +39,7 @@ Seven modules, one Boss Fight, one badge. The Boss Fight closes the belt; the ba
 | §    | Chapter | Pillar | Time |
 |------|---------|--------|------|
 | G.22 | [What never goes into a prompt — the Razorpay redlines](G22-redlines.md) | Harness | 20 min |
-| G.23 | [The LLM proxy — what LiteLLM does and why every call routes through it](G23-llm-proxy.md) | Harness | 25 min |
+| G.23 | [The LLM proxy — what LiteLLM does on the gateway route](G23-llm-proxy.md) | Harness | 25 min |
 | G.24 | [PII, PCI, RBI — the regulators, the reasons, the reflexes](G24-pii-pci-rbi.md) | Context | 30 min |
 | G.25 | [Prompt injection + output classifiers — threats and mitigations](G25-prompt-injection.md) | Harness | 30 min |
 | G.26 | [The pre-ship-check skill — 6-layer gate before every PR](G26-pre-ship-check-skill.md) | Harness | 20 min |
@@ -60,7 +60,7 @@ Walk them in order on a first read. The redlines and proxy chapters (G.22–G.23
 
 ## What you can say after Part C
 
-> "I ship into product repos with the full guardrail set running. I know what never goes into a prompt, why every prompt routes through a proxy, what the regulators actually require, what attackers try, and which named skills review my work before I ask a human to."
+> "I ship into product repos with the full guardrail set running. I know what never goes into a prompt, what the proxy does on governed model paths, what the regulators actually require, what attackers try, and which named skills review my work before I ask a human to."
 
 ---
 

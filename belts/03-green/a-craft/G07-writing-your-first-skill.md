@@ -14,7 +14,7 @@ next: "belts/green/subagents"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "skill-authorship", "skill-md", "anatomy"]
-updated: "2026-04-29"
+updated: "2026-08-24"
 ---
 
 # G.7 — Writing your first SKILL.md
@@ -81,7 +81,7 @@ is not the policy; it is the behaviour against the policy. Name the
 policy.
 ```
 
-That is the canonical shape. Every Razorpay-shipped skill follows it. The frontmatter is enforced; the body sections are convention but heavily recommended.
+That is the canonical shape for this playbook's reference definitions. A supported distributor can enforce the frontmatter contract; the body sections are convention but heavily recommended.
 
 ---
 
@@ -244,7 +244,7 @@ A team-local skill might evolve into a program-library skill. The signs:
 
 Vendoring means the skill moves into the program plugin's bundle and becomes a first-party artefact. The maintainer changes from a single team to the program-plugin reviewer rotation. The discipline goes up; the audience goes up. Not every team-local skill should vendor; some should stay team-local forever.
 
-The `playbook-course` skill that ships in v0.8 is the canonical Razorpay-shipped reference implementation — a long worked example you can read end-to-end at `skills/playbook-course/SKILL.md`. The shape there is the same shape this chapter teaches.
+The in-repo `playbook-course` definition is a long worked example you can read end-to-end at `skills/playbook-course/SKILL.md`. It shows the same shape this chapter teaches; inspect `/help` before assuming any equivalent skill is installed.
 
 ---
 
