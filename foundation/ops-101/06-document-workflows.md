@@ -14,51 +14,47 @@ next: "ops-101/lightweight-agents"
 pillar: null
 belt: null
 tags: ["ops-101", "documents", "agent-specs", "evidence"]
-updated: "2026-08-11"
+updated: "2026-09-06"
 ---
 
 # 0B.6 — Document workflows
 
-> **⏱ 30 minutes · 👥 PMs, designers, anyone whose week has writing in it · 🎯 Leaves with:** four concrete recipes spanning the document lifecycle (research, draft, review, export) and the discipline that makes a long-form document *yours* even when AI did most of the typing.
+> **⏱ 30 minutes · 👥 PMs, designers, anyone whose week has writing in it · 🎯 Leaves with:** a four-phase workflow for researching, drafting, reviewing, and exporting documents without losing ownership of the argument or its evidence.
 
 ---
 
 ## Why documents get their own chapter
 
-Triage (0B.3) sorts inputs. Generation (0B.4) produces short outputs from messy sources. Tickets (0B.5) draft commitments that other people read. **Documents** are different — they're *long-form artefacts that represent a position*. A spec, a brief, an RFC, a competitive analysis, a research synthesis, a strategic memo. They take longer to produce. They're read by more people. They survive longer. And (most importantly) your reputation rides on them in a way it doesn't on a triaged email or a status digest.
+Triage (0B.3) sorts inputs. Generation (0B.4) produces short outputs. Tickets (0B.5) record work. A long-form document does more: it carries a position, its evidence, and often a decision people will act on. That makes a spec, brief, RFC, research synthesis, or strategy memo worth treating as its own workflow.
 
-That higher stakes means a different relationship with AI. In document workflows you're not asking AI to *replace* your writing; you're asking it to absorb the parts of writing that aren't *thinking*. The research that needs to happen anyway. The first draft that just gets you off the blank page. The line-edit pass for clarity. The export-to-PDF dance.
-
-This chapter is the longest in Ops 101 because the recipes are bigger and the discipline is more important. Take it slow. The hour you invest in the discipline pays off across years of writing.
+AI can organise sources, scaffold prose, critique a draft, and prepare alternate formats. It cannot decide what evidence is trustworthy, what the organisation should commit to, or whether a compressed version still means the same thing. Those checkpoints stay with the author.
 
 ---
 
 ## The four-phase document lifecycle
 
-Almost every long-form document moves through the same four phases:
+Use four phases, each with a different author checkpoint:
 
-1. **Research** — gathering inputs. Reading what exists, talking to who knows things, taking notes. The phase where you figure out *what's true*.
-2. **Draft** — producing a structured first version. Outline, headings, prose under each heading. The phase where you figure out *what you're arguing*.
-3. **Review** — refining the draft. Sharpening prose, catching errors, integrating feedback, checking the structure still serves the argument. The phase where you figure out *whether it lands*.
-4. **Export** — publishing the artefact. PDF, deck, doc share, post. The phase where you figure out *how it travels*.
+| Phase | Let AI help with | Author checkpoint |
+|---|---|---|
+| **Research** | Grouping accessible sources, extracting claims, and surfacing contradictions | Approve the source set; verify that important claims match the cited passage and context |
+| **Draft** | Turning an explicit position or set of hypotheses into a structure | Own the argument, commitments, open questions, and decision rights |
+| **Review** | Locating unclear logic, unsupported claims, repetition, and likely objections | Adjudicate every suggestion; involve the people whose expertise or approval matters |
+| **Export** | Applying a supplied template and preparing audience-specific versions | Compare each output with the approved source; check access, links, layout, and meaning before sharing |
 
-Each phase has different leverage points for AI. Research is high-leverage, low-risk. Draft is high-leverage, medium-risk (the AI might invent things). Review is medium-leverage, low-risk. Export is the most automatable and the lowest-risk of the four — almost pure formatting.
-
-The key discipline: **you're the author at every phase.** AI never *finishes* a document for you in this track. AI accelerates the phase you're in, but the next phase always starts in your head.
+The key discipline is simple: **you are the author at every phase.** Assistance changes the speed and shape of the work, not who owns the claims or the decision.
 
 ---
 
-## Recipe 1 — Research synthesis (45-minute setup, hours saved per piece)
+## Recipe 1 — Research synthesis
 
-The research phase is where most document time disappears. You read four articles, three internal docs, two transcripts from interviews. You take notes, but they're scattered. You try to identify themes. You realise you don't remember which insight came from which source. You re-read.
+Research gets slow when articles, internal docs, and interview notes live in different places. AI can organise that source set and make the gaps visible. It cannot prove that it reached every source, read the right version, or interpreted a passage correctly.
 
-AI eats this whole loop, with one critical discipline: **every claim has a source link**.
-
-**Connectors.** Whatever holds your sources — Drive / Docs / web articles / meeting transcripts / a knowledge base.
+**Inputs.** The exact Drive files, docs, web articles, transcripts, or knowledge-base records you want considered. Confirm that the assistant can open them before asking for synthesis.
 
 **The shape.**
 
-> "I'm researching [TOPIC]. Here are the sources I want you to consider [list of links / files]. Also: feel free to retrieve any additional sources you think are relevant via web search.
+> "I'm researching [TOPIC]. Here are the sources I want you to consider [list of links / files]. If another source would help, propose it separately; do not use it until I approve it.
 >
 > Produce a research synthesis with the following structure:
 >
@@ -71,11 +67,7 @@ AI eats this whole loop, with one critical discipline: **every claim has a sourc
 >
 > Don't invent. If a claim isn't directly supported by a source, say 'no source for this' rather than asserting it."
 
-The output isn't your draft. It's the *raw material* you'll use to write your draft. Read it. Verify the source links. Disagree where your gut says something different from what the AI synthesised. Take it as a *starting position* for your own thinking, not a finished argument.
-
-**Reliability tip.** The "no source for this" instruction is doing a lot of work. AI is built to confidently fill gaps, and research syntheses are exactly the kind of artefact where confident gap-filling is dangerous (a wrong claim with a footnote sounds authoritative). Train yourself to scan for any bullet without a link and treat it as suspect.
-
-**The discipline that makes this recipe trustworthy.** Spot-check three to five of the source links every time. Click them. Read the bit the AI cited. Confirm it actually says what the AI claims. *Without spot-checks, the recipe degrades into elegant fiction.* The five-minute spot-check is what keeps the synthesis honest.
+The output is an evidence map, not a draft. Verify every decision-critical claim against the cited passage, including its source, date, scope, and qualifications. For lower-risk background claims, choose a sample appropriate to the document's stakes. If a link is inaccessible, a citation does not support the claim, or two sources conflict, keep the item unresolved instead of polishing it into certainty.
 
 ---
 
@@ -126,13 +118,13 @@ This is a current internal workflow, not a theoretical template. A Forward Deplo
 
 ---
 
-## Recipe 2 — First-draft scaffolding (30-minute setup, ~half a day saved per long doc)
+## Recipe 2 — First-draft scaffolding
 
 Once you have a research synthesis (Recipe 1) and a clear position you want to argue, the next phase is the dreaded blank-page first draft.
 
-AI is at its best here. The *structure* of a first draft is largely formulaic: outline, sections, paragraphs under each section. Your *argument* is what's unique. AI does the formula; you provide the argument; the draft assembles much faster than from a blank page.
+Use AI to turn an explicit argument and approved evidence into a proposed structure. The result depends on what you supply: vague goals produce generic sections, and missing evidence produces confident connective prose.
 
-**Connectors.** Your research synthesis from Recipe 1, plus any prior docs you want the draft to align with stylistically.
+**Inputs.** Your verified synthesis from Recipe 1, plus any prior documents you are allowed to use as style references.
 
 **The shape.**
 
@@ -151,17 +143,15 @@ AI is at its best here. The *structure* of a first draft is largely formulaic: o
 >
 > Voice: [DESCRIBE: direct, plain, no jargon, etc.]. Don't pad. If a section is two paragraphs because that's what's needed, leave it at two."
 
-Read the draft. Most of it will be 70–80% there. The headings and structure usually land first try; the prose under each heading needs your touch. Edit the parts that read off-key, replace any AI-shaped sentences with sentences that sound like *you*, and tighten anything that feels padded.
+Treat the draft as a proposal. Check its structure against your intended decision, trace factual claims back to the synthesis, and rewrite the executive summary, recommendation, commitments, and unresolved questions until they reflect your judgement.
 
-**The discipline that makes this recipe trustworthy.** *You write the executive summary yourself.* AI can produce a workable opening, but the executive summary is where the argument is most condensed; if any sentence in the doc is going to be quoted, it'll be from there. Edit that paragraph until it sounds entirely like you. The rest of the draft can be 80% AI without anyone noticing; the executive summary cannot be.
-
-**A specific failure mode.** AI will, given the chance, produce a draft that's too *hedged* — full of "it's important to consider" and "various stakeholders may feel." Your real voice is sharper. After the AI draft, do a pass where you *delete every hedge that doesn't earn its place.* The doc gets stronger every time you do.
+**A common failure mode.** Generated drafts often replace precise uncertainty with phrases such as "it is important to consider" or "stakeholders may feel." Do not delete uncertainty that matters. Replace vague hedging with the evidence, confidence level, open question, or owner that would resolve it.
 
 ---
 
-## Recipe 3 — Review and tightening (15-minute setup, ~30 minutes saved per review)
+## Recipe 3 — Review and tightening
 
-You have a draft. You're looking at it. You know it could be better but you're not sure exactly how. AI is great at *naming what's off*.
+A critique pass can turn a general feeling that something is off into a list of issues you can inspect.
 
 **The shape.**
 
@@ -176,36 +166,30 @@ You have a draft. You're looking at it. You know it could be better but you're n
 >
 > For each issue, give me the location (section, paragraph) and a one-line suggestion. Don't rewrite paragraphs; let me decide which suggestions to take."
 
-The output is a *review*, not a rewrite. You read it, you adjudicate each suggestion, you take the ones that match what you wanted to argue and drop the ones that don't.
-
-**Reliability tip.** Run this recipe at least *twice* — once after your first edit pass, again after your second. The second run catches things the first didn't because the doc has changed shape. After the third pass, returns diminish; ship it.
-
-**A specific tip.** When you ask for "AI-generated filler" detection, the AI will sometimes flag *its own* writing back at you. That's the desired outcome. You want it to be more honest than your earlier prompt allowed it to be. The "flag what sounds generic" instruction is the discipline.
+The output is a set of review hypotheses, not an approval. Accept a suggestion only after checking it against the purpose, evidence, and audience. Run another critique after a material revision if it is useful; do not use a prescribed number of AI passes as a substitute for the domain, legal, policy, design, or leadership review the document needs.
 
 ---
 
-## Recipe 4 — Export and packaging (10-minute setup, ~30 minutes saved per export)
+## Recipe 4 — Export and packaging
 
 You've got the draft you want to ship. Now you need it as a PDF for one stakeholder, a one-page exec summary for another, a Slack-friendly version for the team channel, and a slide deck for next week's review.
 
-This is the most automatable phase. *Export is mostly formatting.*
+This phase contains two different jobs. File conversion and template application are mostly structural. Summaries, Slack posts, and slide outlines are editorial: they select, compress, and reframe information, so they need claim-level review.
 
-**Connectors.** Your document tools (Workspace docs, PDF tools, presentation tools, the Slack connector for posting).
+**Inputs.** The approved source document, the actual audience, and any supplied document, PDF, or presentation template.
 
 **The shape, batched as one prompt.**
 
 > "From this final draft, produce four exports:
 >
-> - **PDF version** with cover page, ToC, page numbers, and the standard Razorpay-style header/footer.
+> - **PDF version** using [SUPPLIED TEMPLATE], with cover page, ToC, page numbers, and the provided header/footer. If no template is available, do not invent brand elements.
 > - **One-page executive summary** condensing the argument and the recommendation. Match my voice; don't add filler.
 > - **Slack post version**: a 5–8 line summary suitable for posting to a team channel, with one link back to the full doc.
 > - **5–7 slide outline** for a presentation: headline-per-slide format, one slide per major argument section, ending on the ask. Don't make me a deck yet — give me the outline first.
 >
 > Save each as a separate file in the project folder."
 
-Review each, ship each. The PDF and the slide outline you'll typically tweak; the Slack post and the exec summary usually go untouched.
-
-**Reliability tip.** Don't let AI auto-post anything outbound. The export recipe stops at *files in the project folder*; the human posts. The cost of an auto-posted summary with one wrong claim is too high relative to the seconds saved by skipping the review click.
+Compare every output with the approved source. For a format conversion, check completeness, links, layout, permissions, and accessibility. For a summary or slide outline, re-check every number, qualification, recommendation, and ask. This recipe stops at files in the project folder; a human approves and posts anything outbound.
 
 ---
 
@@ -243,58 +227,49 @@ This is a live internal pattern, not a hypothetical prompt: Slash has [published
 
 ---
 
-## What document automations are and aren't good at
+## Where assistance helps — and where judgement stays human
 
-The honest list.
+| Task | Useful assistance | Human responsibility |
+|---|---|---|
+| Research synthesis | Group claims, sources, counter-evidence, and open questions | Approve source access and quality; verify decision-critical claims |
+| First draft | Propose an outline and connect supplied evidence | Own the position, commitments, uncertainty, and decision rights |
+| Review | Surface gaps, repetition, unclear logic, and possible objections | Decide which feedback is correct; bring in required expert reviewers |
+| Repackaging | Apply a template or propose shorter audience versions | Preserve meaning, permissions, accessibility, and audience-appropriate tact |
 
-**Good at:**
-
-- Research synthesis with explicit source-linking.
-- Structured first drafts with logical scaffolding.
-- Critique passes that surface what a draft is missing or fudging.
-- Re-formatting and re-packaging the same content for different audiences.
-- Imitating your voice once you've shown it a few examples.
-
-**Not good at, yet:**
-
-- Original *position*. AI is great at writing the case *for* an argument you've decided on; it's not great at deciding what argument to make. *That's still your job.*
-- Audience-specific tact. The doc that needs to read carefully because of a sensitive political situation between two teams can't be entrusted to AI alone — you need to feel the room.
-- Unspoken context. Anything that depends on what was said in the hallway last week. AI will sound right and miss the actual subtext.
-- Ending the document well. Conclusions are where AI most often falls into stock phrases. Write your own last paragraph; everything else can be AI-assisted.
+Assume the assistant does **not** know unrecorded context, sensitive team dynamics, or who may approve a commitment. Put relevant context in the input when it is appropriate to share, and keep the final decision with the accountable human.
 
 ---
 
-## The single discipline that makes document AI work
+## Name the decision state before you draft
 
-If you skipped to this section, this is the takeaway:
+Before prompting, state whether the document is **exploratory** or **decisional**.
 
-**Decide the argument before opening any AI prompt.**
+- For an exploratory document, provide the question, candidate hypotheses, source boundary, and evidence that would change your mind. Do not let the draft present a hypothesis as a settled recommendation.
+- For a decisional document, provide the position, audience, evidence, counter-evidence, open questions, and the exact decision or ask.
 
-If you start with *"help me write a brief about X"* you'll get a generic-shaped brief that's organised around X but argues nothing. If you start with *"I want to argue that we should do Y because of Z, and I want to use these three pieces of evidence"* you'll get a draft that sharpens *your* argument.
-
-The AI is a writer. You are still the *author*. The author's contribution is the position; the writer's contribution is the prose. Confuse the two and you produce documents that read fluently and decide nothing. Keep them separate and AI gives you back hours of every long-doc-shaped week of your life.
+The assistant can propose prose in either mode. You remain accountable for the position, evidence, and commitment. Without that boundary, a fluent draft can make an unresolved question look decided.
 
 ---
 
 ## Connecting back to the boss fight
 
-A document automation that turns a recurring multi-hour writeup into a 30-minute one is a strong boss-fight candidate, especially for PMs and designers whose week has multiple recurring documents in it.
+A recurring document can be a strong boss-fight candidate when the workflow is stable enough to measure and the review burden does not erase the benefit.
 
 Three suggestions before committing a document automation as your boss fight:
 
-- **Pick the document type, not a single document.** If you write a competitive analysis once a quarter, the boss-fight is the *recipe* for any future competitive analysis — measurable across a quarter.
-- **Recipe 1 + Recipe 2 is the highest-leverage pairing.** Research synthesis with source-linking, plus first-draft scaffolding from that synthesis. Together they collapse the 0-to-rough-draft phase from a day to a couple of hours.
-- **Document the discipline alongside the recipe.** The recipe is *prompt + connector list*; the discipline is *what you, the human, must still do at each phase*. The discipline is what makes the recipe transferable to a teammate.
+- **Pick a repeatable document type, not one document.** Define the recurring input, output, audience, and approval path.
+- **Measure by phase.** Record the baseline and assisted time for research, draft, review, and export, plus corrections or rework. Automate the phase whose measured benefit survives review.
+- **Package the checkpoints with the prompt.** A transferable recipe names source boundaries, claim verification, owner decisions, required reviewers, and the evidence returned at the end.
 
 ---
 
 ## What you should carry into the next chapter
 
-- Documents are *positions*, and the AI's job is to absorb the parts of producing them that aren't *thinking*.
-- The four-phase lifecycle (**research → draft → review → export**) has different AI leverage at each phase.
-- *Every claim has a source link.* The five-minute spot-check on the research synthesis is what keeps it honest.
-- AI is the writer; you are the author. Decide the argument before any prompt.
-- Hedging is the most common AI tic in long docs. Delete every hedge that doesn't earn its place.
+- Long-form documents carry positions, evidence, and commitments; assistance does not transfer ownership.
+- The four-phase lifecycle (**research → draft → review → export**) needs an author checkpoint at every phase.
+- A source link is a lead, not proof. Verify decision-critical claims against the cited passage and its context.
+- Name the document as exploratory or decisional before drafting, and keep unresolved questions visible.
+- Review compressed exports as editorial work, not just formatting.
 - The next chapter ([0B.7 — Lightweight agents](07-lightweight-agents.md)) is the next leg up from on-demand recipes — when "automate this for me" earns its keep, and how to know if you're ready for it.
 
 ---
