@@ -14,20 +14,20 @@ next: "belts/green/subagents"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "skill-authorship", "skill-md", "anatomy"]
-updated: "2026-08-24"
+updated: "2026-09-16"
 ---
 
 # G.7 — Writing your first SKILL.md
 
-A SKILL.md is two parts: a frontmatter block that controls when the skill activates, and a body that controls what it does once active. This chapter walks both, with a real worked example you can copy as a starting point. The chapter is the longest in Part A by time budget on purpose: skill authorship is where Green Belt builders start producing leverage that other builders consume.
+A `SKILL.md` has two jobs: its frontmatter helps an agent decide when to load it, and its body tells the agent how to do the work. This chapter walks both, shows where supporting material belongs, and ends with the test-and-publish loop for a skill another person can actually use.
 
 ---
 
 ## If you're short on time
 
-- The frontmatter has two fields: `name` (the slug-shaped ID) and `description` (the natural-language trigger that matches phrases the user types).
-- The body has Overview, Hard Rules, Inputs, Outputs, and Workflow sections at minimum. Skill bodies usually run 100–300 lines.
-- The discipline that separates a working skill from a noisy one: every behaviour the skill takes is named explicitly, every behaviour it refuses is named explicitly.
+- Every skill needs `name` and `description`. Write the description as a precise “Use when…” condition; the agent cannot use trigger guidance that appears only after the body loads.
+- Keep `SKILL.md` focused on the workflow. Put detailed reference material in `references/`, repeatable deterministic code in `scripts/`, and output templates or media in `assets/`.
+- Test activation, refusal, and output behaviour. For shared use, validate in `razorpay/agent-skills`, open an owning-team PR, and prove a clean install after merge.
 
 ---
 
@@ -37,10 +37,10 @@ A SKILL.md is two parts: a frontmatter block that controls when the skill activa
 ---
 name: <slug-shaped-id>
 description: >
-  When to reach for this skill. Phrases the user might type that
-  should match. What it will do at a high level. What it will not
-  do. The description is what the agent matches against to decide
-  whether to load this skill.
+  What this skill does. Use when the request, artefact, or situation
+  matches these concrete conditions. Include likely user language
+  where it improves discovery. The agent reads this before deciding
+  whether to load the body.
 ---
 
 # <Human-readable name>
@@ -81,7 +81,7 @@ is not the policy; it is the behaviour against the policy. Name the
 policy.
 ```
 
-That is the canonical shape for this playbook's reference definitions. A supported distributor can enforce the frontmatter contract; the body sections are convention but heavily recommended.
+This is a strong starting shape, not an enforced table of contents. `name` and `description` are the portable frontmatter contract. The body must make the workflow, boundaries, required context, and expected result unambiguous; use the headings that make those facts easiest to find. Check the destination repository before adding client-specific frontmatter fields.
 
 ---
 
@@ -186,21 +186,44 @@ That is roughly 100 lines including the frontmatter. It is small enough to read 
 
 ---
 
+## Keep the main file small enough to load
+
+A skill directory can carry four useful kinds of material:
+
+```text
+<skill-name>/
+├── SKILL.md       # required: trigger, core workflow, boundaries, output
+├── references/    # optional: policy, schemas, detailed examples
+├── scripts/       # optional: tested deterministic helpers
+└── assets/        # optional: templates or files used in output
+```
+
+Start with `SKILL.md` alone. Add a directory only when it reduces context or makes repeated work more reliable:
+
+- Move long lookup material to `references/` and link it from the exact step that needs it.
+- Put code in `scripts/` when the same fragile operation would otherwise be regenerated on every run. Test every script directly.
+- Put templates, images, or boilerplate in `assets/` when the skill copies or transforms them rather than reading them as instructions.
+- Do not add a neighbouring README, install guide, or changelog by habit. The shared repository owns discovery, installation, and history; the skill directory should contain what the agent needs to do the job.
+
+This is progressive disclosure: load the core workflow first, then fetch detail only when the task reaches it. A 300-line `SKILL.md` is not automatically bad, and a 30-line one is not automatically good. The test is whether the main file contains the control flow without hauling every policy and example into context.
+
+---
+
 ## Naming discipline
 
 The `name` field is the skill's slug-shaped ID. Three rules:
 
 1. **Lowercase, hyphenated.** `weekly-status-summary`, not `WeeklyStatusSummary` or `weekly_status_summary`.
 2. **Verb-noun or noun-noun.** `summarise-tests`, `pre-ship-check`, `design-intel`. Avoid generic names; "helper" and "utility" attract clutter.
-3. **Unique within the loaded plugin.** A name collision means whichever was loaded last wins; the older skill becomes invisible. The program-pinned plugin has a name registry to prevent collisions; team-local skills should still pick names that obviously do not collide.
+3. **Unique in the destination scope.** Search the target repository and the skills your intended client already loads. A collision makes discovery ambiguous even when installation succeeds.
 
 The `description` field is the natural-language trigger. Three rules:
 
-1. **Name the trigger phrases explicitly.** "Trigger phrases: …" in the description so the agent matches reliably.
+1. **State the condition.** Use “Use when…” and name representative requests, artefacts, or situations. Put all activation context here; a “When to use” section in the body arrives too late to help discovery.
 2. **Name the bounded job.** A one-line summary of what the skill does and what it does not do.
 3. **Cite the policy.** If the skill defers to an appendix, a CLAUDE.md, or a team convention, name it. Skills that defer are easier to keep current than skills that re-derive.
 
-A poor description (`"helps with PRs"`) gives the agent no guidance and matches everything; a good description (`"draft a PR description for an open branch using the team's tone conventions; trigger phrases: 'draft my PR description', 'write the PR body'; defers to team CLAUDE.md for tone"`) matches the right phrases and refuses the rest.
+A poor description (`"helps with PRs"`) gives the agent no guidance and matches everything. A useful one (`"Drafts a PR description for the current branch using the team's tone conventions. Use when the user asks to draft, rewrite, or complete a PR body; do not review code or open the PR."`) names both the activation boundary and the job.
 
 ---
 
@@ -222,27 +245,41 @@ Each step says what the skill reads, what it produces, what it asks. Steps that 
 
 ---
 
-## How to test a skill before shipping
+## Test and publish without skipping the handoff
 
-Three quick checks before declaring a skill ready:
+Run these checks before declaring a skill ready:
 
 1. **Trigger test.** Type three or four phrasings the skill should match. The agent should load it. Type two phrasings the skill should *not* match. The agent should not load it.
 2. **Refusal test.** Drive the skill toward each of its Hard Rules. The agent should refuse and explain. If it does not, the rule is too soft or the prompt missed it; tighten.
 3. **Output-shape test.** Run the skill on a real task. The output should match the named output shape literally. If it drifts, name the drift in the body and re-test.
+4. **Repository validation.** If the skill is going to [`razorpay/agent-skills`](https://github.com/razorpay/agent-skills), put it in the shared technical, team, or business path that owns the workflow, run `make test`, and include any script fixtures in the PR evidence.
+5. **Clean-install test.** After merge, install the named skill in a clean environment and run one representative request:
 
-Failing any of the three is a sign the skill is not ready. Failing all three means the skill should not have been written yet.
+   ```bash
+   npx skills add razorpay/agent-skills --skill <skill-name>
+   ```
+
+   A merged directory is not useful distribution until another user can discover and execute it.
+
+For a focused local review in `razorpay/agent-skills`, the repository also documents:
+
+```bash
+python generic-helpers/skills/skill-reviewer/scripts/validate.py path/to/SKILL.md
+```
+
+The five checks are the exercise for this chapter. Keep the prompts, outputs, and clean-install result with the PR so the reviewer can distinguish a prose review from behavioural proof.
 
 ---
 
-## Vendoring and ownership
+## Choose local or shared ownership
 
-A team-local skill might evolve into a program-library skill. The signs:
+A skill should start where the workflow can be owned:
 
-- multiple teams ask for it;
-- it has run cleanly for three months without rule churn;
-- it solves a workflow the program-pinned plugin owners recognise as program-shaped.
+- Keep it project-local while the workflow depends on one repository or is still changing.
+- Publish a team-owned workflow under the team's path in `razorpay/agent-skills` when teammates need the same behaviour across repositories.
+- Publish a shared technical or cross-functional workflow only when its owning team or function can review future changes and support consumers outside the original project.
 
-Vendoring means the skill moves into the program plugin's bundle and becomes a first-party artefact. The maintainer changes from a single team to the program-plugin reviewer rotation. The discipline goes up; the audience goes up. Not every team-local skill should vendor; some should stay team-local forever.
+Shared publication is a repository PR, not an automatic move into the program-pinned plugin. The PR names the use case, path, owner, invocation, validation, and non-goals. Structural changes require the repository's DevEx review; normal workflow review follows the owning team or business function. [B.2](../../04-black/a-platform/B02-skill-pack-publishing.md) covers that publishing workflow end to end.
 
 The in-repo `playbook-course` definition is a long worked example you can read end-to-end at `skills/playbook-course/SKILL.md`. It shows the same shape this chapter teaches; inspect `/help` before assuming any equivalent skill is installed.
 
@@ -260,21 +297,21 @@ The in-repo `playbook-course` definition is a long worked example you can read e
 
 **A skill that contradicts its own Hard Rules.** "Do not post" in the rules but "post the summary" in step 5. Fix: review for self-consistency before shipping.
 
-**A skill nobody owns.** Goes stale fastest. Fix: name a maintainer in the README that ships next to the SKILL.md.
+**A skill nobody owns.** It goes stale fastest. Fix: publish under the team or function that owns the workflow, and use the destination repository's frontmatter, CODEOWNERS, and PR review path. Do not invent a per-skill README to substitute for ownership.
 
 ---
 
 ## GREEN / YELLOW / RED self-check
 
-- 🟢 GREEN — I can write a SKILL.md from scratch, run the trigger / refusal / output-shape tests, and confidently ship it to my team.
-- 🟡 YELLOW — I understand the anatomy but my first draft has soft Hard Rules or vague Outputs.
-- 🔴 RED — I have not authored a SKILL.md beyond a copy of someone else's.
+- 🟢 GREEN — I can write a focused `SKILL.md`, place supporting files deliberately, pass the behavioural and repository checks, and prove another user can install and run it.
+- 🟡 YELLOW — I understand the anatomy, but the activation boundary, ownership, output shape, or clean-install evidence is incomplete.
+- 🔴 RED — I have only copied a skill, or I am calling a merged file “published” without a working consumer path.
 
 ---
 
 ## What you can say after this module
 
-> "I can write a SKILL.md that triggers cleanly, refuses what it should refuse, produces a precise artefact, and earns a place in my team's library."
+> "I can write a focused SKILL.md that triggers cleanly, refuses what it should refuse, uses progressive disclosure, produces a precise artefact, and survives a clean install by another user."
 
 ---
 
@@ -288,4 +325,7 @@ G.8 (*Subagents*) opens the Harness cluster of Part A. The skills you write are 
 
 - [Appendix C — Skills Library](../../../appendices/C-skills-library/README.md)
 - The reference implementation: [`skills/playbook-course/SKILL.md`](../../../skills/playbook-course/SKILL.md)
+- [`razorpay/agent-skills` contribution guide](https://github.com/razorpay/agent-skills/blob/master/docs/contributing.md) — current placement, validation, review, and installation route
+- [`razorpay/agent-skills` best practices](https://github.com/razorpay/agent-skills/blob/master/docs/BEST_PRACTICES.md) — frontmatter, progressive disclosure, optional resources, and validation
+- [B.2 — Publishing a shared skill](../../04-black/a-platform/B02-skill-pack-publishing.md)
 - [Anthropic on skill authoring](https://code.claude.com/docs/en/best-practices)
