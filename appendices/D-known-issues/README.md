@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "known-issues", "faq"]
-updated: "2026-09-15"
+updated: "2026-09-17"
 ---
 
 # Appendix D: Known Issues + FAQ
@@ -327,6 +327,21 @@ Do not use this fix to escape a LiteLLM quota. Team and Max are separately provi
 
 **References.** [Y.8 — choose your current route](../../belts/02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route), [`#ai-help` same fix 2026-09-10](https://razorpay.slack.com/archives/C08C35GKJKD/p1789014662027119), [`#ai-help` reset guidance 2026-09-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1789453299265289), [`#ai-help` repeated Team/Max response 2026-09-15](https://razorpay.slack.com/archives/C08C35GKJKD/p1789484783197599).
 
+### D.18 — Claude Team seat is not provisioned (status: workaround)
+
+**Symptom.** You need Claude Team access, no Team workspace or premium-seat invite appears in your email, or Claude reports no budget for the available Sonnet models before support has provisioned your Team route.
+
+**Diagnosis.** A Claude Team seat is provisioned separately by support. MyAccess approval and the W.5 LiteLLM setup do not create a Team seat, and changing provider settings cannot make an invitation appear. Keep your current approved route intact until support confirms the seat and sends the invite.
+
+**Fix.**
+
+1. Post in [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) that you need a Claude Team seat. Say whether you have received an email invite, which approved route you currently use, and what work is blocked. Do not paste keys or your full settings file.
+2. Wait for support to confirm eligibility and send the premium-seat invitation. Seat availability and provisioning are support decisions; there is no setup command that bypasses them.
+3. Accept the email invite, then follow the current [Team migration SOP](https://aidocs.razorpay.com/app/d/doc_4xaelfvzhp2aih33). Do not remove LiteLLM settings before the invite arrives and support tells you to migrate.
+4. Start a fresh Claude Code session after the SOP. If it still uses LiteLLM, follow D.16. If the invite never arrives or the Team workspace disappears, return to the same `#ai-help` thread with that exact state.
+
+**References.** [Y.8 — choose your current route](../../belts/02-yellow/Y08-litellm-and-enterprise.md#choose-your-current-route), [`#ai-help` invite and SOP 2026-09-17](https://razorpay.slack.com/archives/C08C35GKJKD/p1789627252668719), [`#ai-help` repeated invite and SOP](https://razorpay.slack.com/archives/C08C35GKJKD/p1789632870913449), [`#ai-help` third repeated invite and SOP](https://razorpay.slack.com/archives/C08C35GKJKD/p1789633542123799), [`#ai-help` no-model-budget request resolved with Team invite](https://razorpay.slack.com/archives/C08C35GKJKD/p1789639438615859).
+
 ---
 
 ## Layer 4 — Infrastructure (devstack)
@@ -383,4 +398,4 @@ A fix that lives only in a Slack thread evaporates within months. A fix that lan
 
 ---
 
-*Last reviewed: 2026-09-15. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
+*Last reviewed: 2026-09-17. Cadence: monthly cohort-lead review for the first six months; quarterly thereafter.*
