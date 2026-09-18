@@ -14,7 +14,7 @@ next: "belts/green/blade-deep-dive"
 pillar: "context"
 belt: "green"
 tags: ["green-belt", "design-to-code", "figma", "blade", "code-connect", "copy-review", "localisation"]
-updated: "2026-09-12"
+updated: "2026-09-18"
 ---
 
 # G.15 — Design-to-code
@@ -288,6 +288,30 @@ Return: top 3 fixes, UI/UX score, screens covered, capture scope,
 full-page or fallback status, confidence limits, and any persona-specific risk.
 ```
 
+#### Turn the review into a quality claim, not a score chase
+
+For each roadmap item, agree the target quality level with your manager before the work starts. From Q3, include the relevant cross-functional leads in that agreement. At project close, claim the level you reached, explain why, and name the dimension where the work raised the bar.
+
+DQA findings, product evidence, and human review support that claim; they do not calculate it. Do not collect signals as a side quest or treat the DQA score as a mechanical level. Build the work well, keep the evidence it naturally produces, and make the judgement explicit.
+
+Use this card from planning through close:
+
+```text
+Design quality target + claim
+Roadmap item:
+Target level:
+Agreed before build with: <manager; relevant cross-functional leads from Q3>
+
+Claimed level at close:
+Why this level:
+Dimension where the work raised the bar:
+Supporting signals: <DQA report; product/user evidence; human review>
+What the evidence does not cover:
+Reviewers:
+```
+
+The card is a conversation receipt, not a scoring grid. If the evidence and the claim disagree, resolve that with the accountable humans; do not keep prompting until the bot gives you a prettier number.
+
 #### Verify the capture before trusting the score
 
 “Full page requested” and “full page captured” are different claims. Starting in v1.22.2, DQA records `capture.full_page` and `capture.full_page_skipped` on each `screens[]` entry; its capture helper also returns page height and bitmap dimensions. When a page is too tall for a safe single image, DQA falls back to a viewport capture rather than returning a silently wrapped image. The run completed, but the evidence covers only the visible region.
@@ -468,6 +492,7 @@ G.16 (*Blade deep dive*) is the reference chapter for Blade itself. After this c
 - [Localization Brain release evidence](https://github.com/razorpay/claude-plugins/pull/1223) — approved-copy-first workflow, rulebooks, deterministic checks, and native-review boundary
 - [Unicode Common Locale Data Repository](https://cldr.unicode.org/) — public locale-data standard; complementary to product-specific vocabulary and approval rules
 - [DQA v1.22.2 capture-integrity evidence](https://github.com/razorpay/claude-plugins/pull/1325) — live reproduction, full-page fallback fields, artefact validation, and confidence-limit requirements
+- [Design quality framework operating update](https://razorpay.slack.com/archives/CMQ3RBHEU/p1789734039624889) — target-level alignment, evidence-supported self-claims, and the raised-bar dimension
 - [WCAG 2.2: Labels or Instructions](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html) — the public accessibility rationale behind reviewing labels and instructions as part of the shipped interface
 - [WCAG 2.2: Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html) — expose dynamic result or completion status without forcing focus onto the message
 - [WCAG 2.2: Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) — the public rationale for checking that content remains usable without hidden two-dimensional overflow
