@@ -14,12 +14,12 @@ next: "belts/black"
 pillar: null
 belt: "green"
 tags: ["green-belt", "badge", "certification", "template"]
-updated: "2026-04-29"
+updated: "2026-09-18"
 ---
 
 # Green Belt badge template
 
-> **Use this after Boss Fight G-B's product PR is merged or under named review.** The badge is not a reading chapter. It is the builder-facing evidence packet for certification.
+> **Use this after both Boss Fight G-B PRs are merged.** The badge is not a reading chapter. It is the builder-facing evidence packet for certification.
 
 Copy the template into the program tracker or the approved evidence location.
 
@@ -54,7 +54,7 @@ Review date:
 Quest G-2 - The Greenfield cross-over
 Greenfield repo:
 PR URL:
-Merge link or active-review link:
+Merge link:
 Reviewer (out-of-team per Appendix L):
 Part A techniques used:
 Part B practices used:
@@ -142,7 +142,7 @@ Black Belt is drafted end-to-end. Most Green Belt graduates should start with [B
 - [ ] Yellow Belt tracker row exists and is awarded.
 - [ ] Quest G-1 evidence is complete (skill exists, teammate invoked).
 - [ ] Quest G-2 evidence is complete (merged greenfield PR, cross-Parts technique list, reflection).
-- [ ] Boss Fight G-B product-repo PR is merged or under named review.
+- [ ] Boss Fight G-B product-repo PR is merged.
 - [ ] All five Boss Fight sub-requirements have evidence:
   - [ ] (a) Scoped CLAUDE.md.
   - [ ] (b) Playwright test asserts a behaviour, not just a snapshot.
