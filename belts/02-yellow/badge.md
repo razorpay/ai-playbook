@@ -14,12 +14,12 @@ next: "belts/green"
 pillar: null
 belt: "yellow"
 tags: ["yellow-belt", "badge", "certification", "template"]
-updated: "2026-04-27"
+updated: "2026-09-18"
 ---
 
 # Yellow Belt badge template
 
-> **Use this after Boss Fight Y-B is merged or under active named review, according to the cohort rule.** The badge is the builder-facing evidence packet for certification.
+> **Use this after the Boss Fight Y-B PR is merged.** The badge is the builder-facing evidence packet for certification.
 
 Copy the template into the program tracker or approved evidence location.
 
@@ -55,7 +55,7 @@ Completed rows:
 
 Boss Fight Y-B - Find a bug in your area and fix it
 PR URL:
-Merge link or active-review link:
+Merge link:
 Reviewer:
 Triage paragraph present: yes / no
 Before-after evidence present: yes / no
@@ -90,7 +90,7 @@ I confirm that the evidence above satisfies Yellow Belt:
 - White Belt evidence exists;
 - Quest Y-1 produced a working utility and Three Pillars retro;
 - Quest Y-2 produced a real practice log;
-- Boss Fight Y-B has a merged PR or active named review per cohort rule;
+- Boss Fight Y-B has a merged PR and merge record;
 - reflection names prompt, context, and harness decisions;
 - no evidence includes sensitive material.
 ```

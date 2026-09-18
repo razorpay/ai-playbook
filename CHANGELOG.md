@@ -6,6 +6,18 @@ The Master Index used to carry this changelog inline. As of v0.23 it lives here 
 
 ---
 
+## v0.74 — canonical belt merge evidence (2026-09-18)
+
+Appendix L and the Master Index require merged PRs as Yellow and Green Belt shipping evidence, but six learner-facing belt surfaces still allowed an open PR under active review to earn either belt. A learner could therefore complete a badge packet with evidence the canonical certification contract rejects.
+
+**What changed.**
+
+- **Merge and review are separate gates.** The learner path now treats active review as progress and the merge record as shipping evidence; reviewer sign-off remains required.
+- **The evidence packets agree end to end.** The Yellow overview, boss fight, and badge plus Green Quest G-2, boss fight, and badge all require merge receipts; the Prologue and Master Index use the same definition.
+- **Version markers bumped.** README, INDEX, manifest, and generated Concierge material now report v0.74 / 2026-09-18.
+
+---
+
 ## v0.73 — provisioned routes in White Belt setup (2026-09-10)
 
 W.5 still told every new builder to run the LiteLLM setup and prove a gateway-specific check, although support now provisions some builders on separate Claude Team or Claude Max routes. Applying the LiteLLM settings to those routes can undo the migration support assigned.

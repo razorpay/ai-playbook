@@ -14,7 +14,7 @@ next: "belts/green/c-guardrails"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "quest", "greenfield", "crossover"]
-updated: "2026-04-29"
+updated: "2026-09-18"
 ---
 
 # 🎮 Quest G-2 — The Greenfield cross-over
@@ -136,7 +136,7 @@ Most reviewers will read this in two minutes and click the preview URL in anothe
 
 Reviewers comment. You iterate. The hard-kind debugging skill from G.21 applies: if a reviewer's read of the change is confidently wrong, push back productively with evidence; if a reviewer's read is right and yours was wrong, revise.
 
-The PR merges, or it lands under named review per the cohort rule.
+Take the PR through merge. Named review is progress, but the merge record is the shipping evidence used by the Green Belt boss fight and badge.
 
 ### Step 7 — Reflect (~30 minutes)
 
@@ -162,7 +162,7 @@ Copy into your tracker or `LEARNER.md`:
 - Date claimed: <YYYY-MM-DD>
 - Greenfield surface: <repo / project name>
 - PR URL: <link>
-- Merge link or active-review link: <link>
+- Merge link: <link>
 - Reviewer: <handle> (outside immediate team: yes/no)
 - Part A techniques used: <list>
 - Part B practices used: <list>
@@ -179,7 +179,7 @@ When the quest is claimed, route per [Appendix L](../../../appendices/L-certific
 
 The reviewer attests that:
 
-- the PR exists at the named link and is merged or under named review;
+- the PR exists at the named link and is merged;
 - the Part A techniques claimed in the description are actually visible in the change;
 - the Part B practices claimed are actually visible (the Playwright test is real, the preview URL renders, the design-to-code chapter's flow shows up in the diff);
 - the reflection shows comprehension of the cross-over, not just compliance with the format.
