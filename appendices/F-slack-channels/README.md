@@ -14,7 +14,7 @@ next: null
 pillar: null
 belt: null
 tags: ["appendix", "slack", "channels", "etiquette", "directory"]
-updated: "2026-09-12"
+updated: "2026-09-19"
 ---
 
 # Appendix F: Slack Channels & Rules of Engagement
@@ -49,7 +49,7 @@ Where builders gather to swap patterns, share wins, and showcase what they've bu
 | [`#ai-code-champions`](https://razorpay.slack.com/archives/C08BU395ZEJ) | Hacks, ideas, and best practices for getting the most out of AI coding tools. The peer-to-peer craft room for builders shipping with AI daily. | Yash Doshi | Async |
 | [`#ai-coding-infra`](https://razorpay.slack.com/archives/C0AK3F680GL) | AI coding infrastructure — model access and routing, usage and cost, and shared AI coding tooling. | Kaushik Bhat | Async |
 | [`#ai-pmm`](https://razorpay.slack.com/archives/C09L2VBR2UD) | AI for PMM and marketing — campaign workflows, content generation, audience analysis. The PM-Marketing-adjacent home. | Vaidehee Prayaag Joshi | Async |
-| [`#product-ai-labs`](https://razorpay.slack.com/archives/C0A7B848RS7) | Product AI Labs pilot — Claude Code + Compass first cohort. Show-and-tell and knowledge sharing for the product team. | Product Spec Reviewer; Aravinth P K for PM-side coordination | Async |
+| [`#product-ai-labs`](https://razorpay.slack.com/archives/C0A7B848RS7) | Product-team show-and-tell and knowledge sharing for PM workflows, reusable skills, analytics automations, and agent experiments. | Product Spec Reviewer; PM-side coordination | Async |
 | [`#pod-velocity-and-ai-working-group`](https://razorpay.slack.com/archives/C084MV74HFS) | The cross-pod working group on velocity + AI. Coordination, decisions, working-group artefacts (tracker in pinned). | Nirvisha Mankad | Per-cadence |
 | [`#rzp-claude-skills`](https://razorpay.slack.com/archives/C0ABFFW6XNW) | Razorpay Claude Skills — share skills you've built, find skills you can reuse. The discovery surface for the Skills Library. | Shobhit Jain | Async |
 | [`#devex-skills`](https://razorpay.slack.com/archives/C0A8QFH9KEF) | Experiments toward Software AGI with Agent Skills. Showcase ideas and experiments — scan `/agent-skills` and `/claude-plugins` repos before building, in case it already exists. | Vikas Naidu | Async |
@@ -190,4 +190,4 @@ The durable pieces of this page — the etiquette, the escalation pattern, the r
 
 ---
 
-*Last reviewed: 2026-09-12. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
+*Last reviewed: 2026-09-19. Revision cadence: quarterly, plus on-demand. If a row is stale, ping [`#ai-help`](https://razorpay.slack.com/archives/C08C35GKJKD) and this page gets patched.*
