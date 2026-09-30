@@ -14,7 +14,7 @@ next: "belts/green/badge"
 pillar: "harness"
 belt: "green"
 tags: ["green-belt", "boss-fight", "double-ship", "capstone"]
-updated: "2026-04-29"
+updated: "2026-09-18"
 ---
 
 # 🏁 Boss Fight G-B — The double-ship
@@ -193,7 +193,7 @@ This sign-off is sub-requirement (e). It is the Green-Belt-distinct review crite
 
 Reviewers comment. You iterate. The hard-kind debugging skill from G.21 applies if a reviewer is confidently wrong; the productive-pushback move applies if you are.
 
-The PR merges (or lands under named review per the cohort rule).
+Take the PR through merge. Named review is progress; the merge record is the shipping evidence.
 
 ### Step 8 — Cross-belt retro (~30 minutes)
 

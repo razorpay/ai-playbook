@@ -14,7 +14,7 @@ next: "prologue/origin-story"
 pillar: null
 belt: null
 tags: ["orientation"]
-updated: "2026-06-16"
+updated: "2026-09-18"
 ---
 
 # 0.1 — Welcome, and why this playbook exists
@@ -62,9 +62,9 @@ There is no audience this playbook locks out. A staff engineer and a first-year 
 
 ## What "shipped code" means here
 
-When this playbook says "you've shipped code," it means something precise: you have opened a pull request (using the tools and conventions described in White and Yellow Belt) that has either been merged or is under review by a named teammate. Not a sandbox commit. Not a personal project. A real PR in a real Razorpay org repo.
+When this playbook says "you've shipped code," it means something precise: you have landed a pull request using the tools and conventions described in White and Yellow Belt. Not a sandbox commit. Not a personal project. A merged PR in a real Razorpay org repo. An open PR under named review is real progress, but it is not completed shipping or belt evidence yet.
 
-That definition matters because it is also the definition of **Yellow Belt**: one pull request raised in a Razorpay org repo, merged or under review, using the harness and skills this playbook teaches. You earn the belt by shipping. You don't earn it by reading.
+That definition matters because it is also part of the **Yellow Belt** evidence: one merged pull request in a Razorpay org repo, plus the reflection and reviewer sign-off named in the belt. You earn the belt by shipping. You don't earn it by reading.
 
 ---
 

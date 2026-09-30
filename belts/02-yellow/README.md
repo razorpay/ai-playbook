@@ -14,7 +14,7 @@ next: "belts/yellow/tool-atlas"
 pillar: null
 belt: "yellow"
 tags: ["yellow-belt", "orientation", "certification"]
-updated: "2026-07-23"
+updated: "2026-09-18"
 ---
 
 # Yellow Belt - The First Builds
@@ -50,7 +50,7 @@ Yellow Belt proves four things:
 1. **Tool judgement.** You know when to use Claude Code, Codex, a provisioned Claude workspace, Cursor, Copilot, Slash, or a connector surface.
 2. **Prompt judgement.** You can state intent, constraints, context, and success criteria without turning every prompt into an essay.
 3. **Context judgement.** You can give Claude the right repo files, threads, docs, and design context without leaking sensitive material or flooding the window.
-4. **Shipping judgement.** You can notice a real bug, triage it with AI, propose a small fix, and get the PR reviewed.
+4. **Shipping judgement.** You can notice a real bug, triage it with AI, propose a small fix, respond to review, and get the PR merged.
 
 White Belt asks: can you ship one tiny change?
 
@@ -121,7 +121,7 @@ Yellow Belt is awarded when the evidence chain closes:
 | White Belt awarded | White badge row | You have the baseline setup and first PR loop. |
 | Y-1 working utility | [Quest Y-1](quest-Y1-standup-bot.md) | You can build a small useful tool with Claude Code. |
 | Y-2 daily practice log | [Quest Y-2](quest-Y2-30-day-challenge.md) | You can sustain the habit in normal work. |
-| Y-B merged or review-active PR | [Boss Fight Y-B](boss-fight-YB.md) | You can find, triage, fix, and ship one real bug. |
+| Y-B merged PR | [Boss Fight Y-B](boss-fight-YB.md) | You can find, triage, fix, and ship one real bug. |
 | Claim template | [Badge](badge.md) | Your evidence can be tracked and certified. |
 
 Yellow evidence includes one thing White did not: a reflection on prompt, context, and harness decisions. The point is not just that you shipped. The point is that you can explain the judgement that made shipping possible.

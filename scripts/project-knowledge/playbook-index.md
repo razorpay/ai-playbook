@@ -9,7 +9,7 @@ Use this for "where do I start" and "show me the shape" questions.
 >
 > **How to read this.** Pick the door below that matches where you are. Each belt has required modules, hands-on quests, and a boss-fight capstone. You earn the next belt by *shipping*, not by reading.
 >
-> **Status.** v0.73 · last reviewed 2026-09-10 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
+> **Status.** v0.74 · last reviewed 2026-09-18 · drafted end-to-end. Pairs with `manifest.yml`, `slugs.yml`, the Starlight hub, [`CONTRIBUTING.md`](https://razorpay.github.io/ai-playbook/CONTRIBUTING/), and [`ROADMAP.md`](https://razorpay.github.io/ai-playbook/ROADMAP/). Version history → [`CHANGELOG.md`](https://razorpay.github.io/ai-playbook/CHANGELOG/).
 
 ---
 
@@ -113,7 +113,7 @@ Three doors, one source of truth.
 
 ### Why belts instead of levels?
 
-Belts tell a story of *earned competence*, not self-reported progress. Ramp's L0–L3 proficiency framework (the gold standard in industry) maps cleanly underneath, but we gate progression on *quests shipped* — you don't declare Yellow Belt; you earn it by opening a real PR.
+Belts tell a story of *earned competence*, not self-reported progress. Ramp's L0–L3 proficiency framework (the gold standard in industry) maps cleanly underneath, but we gate progression on *quests shipped* — you don't declare Yellow Belt; you earn it by merging a real PR.
 
 | Our Belt | Ramp L-level | What it looks like in practice                                              |
 |----------|--------------|------------------------------------------------------------------------------|
@@ -312,7 +312,7 @@ Pick one nagging bug or papercut in a product surface you use weekly — your da
 
 The point of this boss fight is *not* the size of the change — it's the *full loop*: identifying a real-world problem, gathering context across tools, proposing a fix, and landing it. You demonstrate the git + Slack + AI loop, not just the AI part.
 
-*Success criteria:* PR URL + a one-paragraph retro covering (a) how you found the bug, (b) what context the AI had to read to triage it, (c) what surprised you about the fix.
+*Success criteria:* merged PR URL + a one-paragraph retro covering (a) how you found the bug, (b) what context the AI had to read to triage it, (c) what surprised you about the fix, plus reviewer sign-off.
 
 ### What you can say after Yellow Belt
 

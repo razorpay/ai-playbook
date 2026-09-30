@@ -1,6 +1,6 @@
 
-version: "0.73-alpha"
-updated: "2026-09-10"
+version: "0.74-alpha"
+updated: "2026-09-18"
 source_of_truth: "frontmatter"
 status_values: ["drafted", "in-progress", "planned", "deprecated"]
 
@@ -480,7 +480,7 @@ chapters:
     pillar: null
     belt: null
     tags: ["orientation"]
-    updated: "2026-04-26"
+    updated: "2026-09-18"
   - slug: "prologue/origin-story"
     path: "prologue/02-bd1-bd2-origin.md"
     title: "The origin story"
@@ -973,7 +973,7 @@ chapters:
     pillar: null
     belt: "yellow"
     tags: ["yellow-belt", "orientation", "certification"]
-    updated: "2026-07-23"
+    updated: "2026-09-18"
   - slug: "belts/yellow/tool-atlas"
     path: "belts/02-yellow/Y01-tool-atlas.md"
     title: "Tool Atlas in practice"
@@ -1256,13 +1256,13 @@ chapters:
     order: 99
     time_minutes: 45
     audience: "everyone"
-    outcome: "Find an open bug in your area, fix it with AI assistance, and open the PR that earns Yellow Belt."
+    outcome: "Find an open bug in your area, fix it with AI assistance, and land the merged PR required for Yellow Belt."
     prev: "belts/yellow/quest-30-day-challenge"
     next: "belts/yellow/badge"
     pillar: "harness"
     belt: "yellow"
     tags: ["yellow-belt", "boss-fight"]
-    updated: "2026-04-27"
+    updated: "2026-09-18"
   - slug: "belts/yellow/badge"
     path: "belts/02-yellow/badge.md"
     title: "Yellow Belt badge template"
@@ -1279,7 +1279,7 @@ chapters:
     pillar: null
     belt: "yellow"
     tags: ["yellow-belt", "badge", "certification", "template"]
-    updated: "2026-04-27"
+    updated: "2026-09-18"
   - slug: "belts/green"
     path: "belts/03-green/README.md"
     title: "Green Belt"
@@ -1721,7 +1721,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "quest", "greenfield", "crossover"]
-    updated: "2026-04-29"
+    updated: "2026-09-18"
   - slug: "belts/green/c-guardrails"
     path: "belts/03-green/c-guardrails/README.md"
     title: "Green Belt Part C — Fintech Guardrails"
@@ -1874,7 +1874,7 @@ chapters:
     pillar: "harness"
     belt: "green"
     tags: ["green-belt", "boss-fight", "double-ship", "capstone"]
-    updated: "2026-04-29"
+    updated: "2026-09-18"
   - slug: "belts/green/badge"
     path: "belts/03-green/c-guardrails/badge.md"
     title: "Green Belt badge template"
@@ -1891,7 +1891,7 @@ chapters:
     pillar: null
     belt: "green"
     tags: ["green-belt", "badge", "certification", "template"]
-    updated: "2026-04-29"
+    updated: "2026-09-18"
   - slug: "belts/black"
     path: "belts/04-black/README.md"
     title: "Black Belt"

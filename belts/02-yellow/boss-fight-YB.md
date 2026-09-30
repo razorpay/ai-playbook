@@ -8,13 +8,13 @@ track: "yellow"
 order: 99
 time_minutes: 45
 audience: "everyone"
-outcome: "Find an open bug in your area, fix it with AI assistance, and open the PR that earns Yellow Belt."
+outcome: "Find an open bug in your area, fix it with AI assistance, and land the merged PR required for Yellow Belt."
 prev: "belts/yellow/quest-30-day-challenge"
 next: "belts/yellow/badge"
 pillar: "harness"
 belt: "yellow"
 tags: ["yellow-belt", "boss-fight"]
-updated: "2026-06-16"
+updated: "2026-09-18"
 ---
 
 # 🏁 Yellow Belt Boss Fight — Find a bug in your area and fix it
@@ -116,7 +116,7 @@ Run the dev server. Reproduce the original symptom — confirm it was real. Appl
 
 If your fix accidentally broke anything else, you'll usually feel it in the first minute. Roll back the bit that broke things. The fix that fixes one thing without breaking anything is the only fix that ships.
 
-### Step 6 — Ship the PR (20 minutes)
+### Step 6 — Open and land the PR (20 minutes plus review time)
 
 Use the PR-guardrail skill to create the PR. The skill will scaffold a description from your commits and your triage summary, and it'll flag anything that fails the pre-ship check (compliance, design, dependencies, conflicts, accessibility, screenshot).
 
@@ -127,9 +127,11 @@ Two non-negotiables in the PR description:
 
 Tag the surface owner for review. If you don't know who that is, the repo's CODEOWNERS file or a quick ask in the team's Slack channel will get you there in a few minutes.
 
+Respond to review and take the PR through merge. An active review is meaningful progress, but the merge record is the belt evidence. If review stalls, use the escalation route in the common failure modes below; do not mark the boss fight complete early.
+
 ### Step 7 — The retrospective (15 minutes)
 
-This is the artefact that earns the belt, not the PR itself.
+The merge proves you shipped. The retrospective explains the judgement behind it. You need both for certification.
 
 Write a short retro covering three things:
 
@@ -145,7 +147,8 @@ Save the retro alongside your PR description. If your team uses a public retro c
 
 To earn Yellow Belt, you need:
 
-- [ ] **A merged PR (or a PR under active review by a named teammate)** in a Razorpay org repo. Both count.
+- [ ] **A merged PR** in a Razorpay org repo, with the merge record captured.
+- [ ] **A named reviewer sign-off** confirming the minimum evidence is present.
 - [ ] **A triage paragraph in the PR description.** It must reference at least one piece of information from outside the code itself: a `git` history note, a Slack thread, a ticket, or a code-review comment from a prior PR.
 - [ ] **A before/after demonstration.** Screenshot, GIF, or a clear one-line description.
 - [ ] **A short written retro** covering the three points above. Saved alongside the PR or in a team channel.
