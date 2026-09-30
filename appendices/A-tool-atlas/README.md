@@ -14,7 +14,7 @@ next: "appendices/environment-setup"
 pillar: "harness"
 belt: null
 tags: ["appendix", "tools", "harness"]
-updated: "2026-09-11"
+updated: "2026-09-18"
 ---
 
 # Appendix A — Tool Atlas
@@ -129,11 +129,11 @@ For every surface in this atlas, you should be able to answer five questions bef
 
 **What it can see.** Whatever Claude Code can see. Compass does not see beyond its host.
 
-**What it can do.** Trigger named workflows (`/setup-verify`, `/pre-ship-check`, design and review skills), enforce hooks, and route specialised tasks to subagents.
+**What it can do.** Supply the skills, hooks, MCPs, and slash commands registered by the installed plugin. In Claude Code, run `/help` to discover the command surface you actually have. A workflow folder or example in this repository does not prove that it is installed as a callable command.
 
 **What it cannot do.** Run by itself. If Claude Code is broken or unauthed, Compass is not running.
 
-**Common failure modes.** Installed but stale — skills loaded from an older version that does not match current conventions. Always confirm version through the verification skill before high-stakes work.
+**Common failure modes.** Installed but stale, or treating a documented workflow as an installed command. Follow the plugin's current install or update instructions, restart Claude Code, and check `/help` again. If the capability is still absent, stop and follow the current support path rather than guessing a command name.
 
 **Belt relevance.** Required from White Belt setup. Becomes the centre of gravity at Green and Black, where builders begin authoring their own skills.
 
